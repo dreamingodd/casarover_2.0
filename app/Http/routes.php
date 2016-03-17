@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'SiteController@index');
     Route::get('/back', 'CasaController@casaList');
-    Route::get('/back/casaList', 'CasaController@casaList');
+    Route::get('/back/casaList/{deleted?}', 'CasaController@casaList');
     Route::get('/back/casaEdit', 'CasaController@casaEdit');
     Route::get('/casa', 'CasaController@casaInfo');
     Route::get('/wechat', 'WechatController@index');

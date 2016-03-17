@@ -16,7 +16,7 @@
                 <a class="not_complete" href="<?php echo getBaseUrl()?>website/backstage/area_list.php">区域管理</a>
             </li>
             <li role="presentation" class="casa">
-                <a href="<?php echo getBaseUrl()?>website/backstage/casa_list.php">民宿管理</a>
+                <a href="/back/casaList">民宿管理</a>
             </li>
             <li role="presentation" class="dropdown wechat">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
