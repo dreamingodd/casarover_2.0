@@ -1,4 +1,4 @@
-<?php include_once app_path().'/common/common_tools.php';?>
+<?php include_once app_path().'/Common/common_tools.php';?>
 <input type="hidden" id="backstage_url" value="<?php echo getUrl(); ?>"/>
 <div class="navbar">
     <div class="navbar-inner">

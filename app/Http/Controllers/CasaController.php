@@ -10,7 +10,8 @@ use App\Http\Controllers\Controller;
 
 class CasaController extends Controller
 {
-    public function casaList($deleted=0) {
+    public function casaList($deleted=0)
+    {
         $casas = Casa::all();
         return view('backstage.casaList', ['casas' => $casas, 'deleted' => $deleted]);
     }
