@@ -15,48 +15,10 @@ use App\Task;
 use Illuminate\Http\Request;
 
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/', 'SitesController@index');
-    Route::get('/test', 'SitesController@test');
-    Route::get('/test1', 'SitesController@test1');
-    Route::get('/test2', 'SitesController@test2');
-
-
-    /**
-     * Show Task Dashboard
-     */
-    Route::get('/task_list', function () {
-        return view('tasks', [
-            'tasks' => Task::orderBy('created_at', 'asc')->get()
-        ]);
-    });
-
-    /**
-     * Add New Task
-     */
-    Route::post('/task', function (Request $request) {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/')
-                ->withInput()
-                ->withErrors($validator);
-        }
-
-        $task = new Task;
-        $task->name = $request->name;
-        $task->save();
-
-        return redirect('/');
-    });
-
-    /**
-     * Delete Task
-     */
-    Route::delete('/task/{id}', function ($id) {
-        Task::findOrFail($id)->delete();
-
-        return redirect('/');
-    });
+    Route::get('/', 'SiteController@index');
+    Route::get('/back', 'CasaController@casaList');
+    Route::get('/back/casaList', 'CasaController@casaList');
+    Route::get('/back/casaEdit', 'CasaController@casaEdit');
+    Route::get('/casa', 'CasaController@casaInfo');
+    Route::get('/wechat', 'WechatController@index');
 });
