@@ -13,7 +13,7 @@ class AreaService {
      * @param int $id
      */
     public function getLeafFullName($id) {
-        return $this->nameRecursion ( $id, '' );
+        return $this->nameRecursion($id, '');
     }
     protected function nameRecursion($id, $areaText) {
         $area = Area::find($id);
