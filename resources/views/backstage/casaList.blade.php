@@ -5,13 +5,13 @@
 @section('body')
     <input type="hidden" id="page" value="casa"/>
     <div class="options vertical5">
-        <a href="/back/casaEdit.php">
+        <a href="/back/casaEdit">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
         </a>
-        <a href="/back/casaList.php">
+        <a href="/back/casaList">
             <span class="glyphicon glyphicon-list" aria-hidden="true"></span>列表
         </a>
-        <a href="/back/casaList?deleted=1">
+        <a href="/back/casaList/1">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>回收站
         </a>
     </div>
@@ -23,7 +23,6 @@
             <th>地区</th>
             <th>操作</th>
         </tr>
-        @inject('areaService', 'App\Services\AreaService')
         <?php $number=1; ?>
         @foreach ($casas as $casa)
             @if ($casa->deleted == $deleted)
@@ -31,7 +30,7 @@
                     <td>{{$number++}}</td>
                     <td>{{$casa->code}}</td>
                     <td>{{$casa->name}}</td>
-                    <td>{{$areaService->getLeafFullName($casa->dictionary_id)}}</td>
+                    <td>{{$casa->area_name}}</td>
                     <td>
                         @if ($casa->deleted)
                             <a id="casa_recover" href='../../application/controllers/casa_recycle_action.php?id=<?php echo $casa->id?>&option=recover&deleted=1'>
