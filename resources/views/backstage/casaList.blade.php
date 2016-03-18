@@ -3,6 +3,7 @@
 @section('title', '探庐者后台-民宿列表')
 
 @section('body')
+    <input type="hidden" id="page" value="casa"/>
     <div class="options vertical5">
         <a href="/back/casaEdit.php">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加

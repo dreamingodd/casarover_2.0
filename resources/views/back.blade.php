@@ -16,7 +16,6 @@
 <div id="container">
     <!-- nav bar start -->
     <?php include_once resource_path().'/views/backNavigator.php'; ?>
-    <input type="hidden" id="page" value="casa"/>
     <!-- nav bar end -->
 
     @yield('body')
