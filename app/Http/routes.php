@@ -22,4 +22,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/casa', 'CasaController@casaInfo');
     Route::get('/wechat', 'WechatController@index');
     Route::get('/back/wechatList/{type}/{deleted?}', 'WechatController@wechatList');
+
+    Route::group(['prefix' => 'back'], function () {
+        Route::resource('areas','backend\AreaController');
+    });
 });
