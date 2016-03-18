@@ -5,13 +5,13 @@
 @section('body')
     <input type="hidden" id="page" value="casa"/>
     <div class="options vertical5">
-        <a href="/back/casaEdit.php">
+        <a href="/back/casaEdit">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
         </a>
-        <a href="/back/casaList.php">
+        <a href="/back/casaList">
             <span class="glyphicon glyphicon-list" aria-hidden="true"></span>列表
         </a>
-        <a href="/back/casaList?deleted=1">
+        <a href="/back/casaList/1">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>回收站
         </a>
     </div>

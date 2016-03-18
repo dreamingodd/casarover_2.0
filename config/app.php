@@ -156,6 +156,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\AreaServiceProvider::class,
+        App\Providers\CasaServiceProvider::class,
 
     ],
 
