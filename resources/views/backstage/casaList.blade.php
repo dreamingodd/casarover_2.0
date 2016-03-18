@@ -23,7 +23,6 @@
             <th>地区</th>
             <th>操作</th>
         </tr>
-        @inject('areaService', 'App\Services\AreaService')
         <?php $number=1; ?>
         @foreach ($casas as $casa)
             @if ($casa->deleted == $deleted)
@@ -31,7 +30,7 @@
                     <td>{{$number++}}</td>
                     <td>{{$casa->code}}</td>
                     <td>{{$casa->name}}</td>
-                    <td>{{$areaService->getLeafFullName($casa->dictionary_id)}}</td>
+                    <td>{{$casa->area_name}}</td>
                     <td>
                         @if ($casa->deleted)
                             <a id="casa_recover" href='../../application/controllers/casa_recycle_action.php?id=<?php echo $casa->id?>&option=recover&deleted=1'>
