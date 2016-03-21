@@ -22,7 +22,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/casa', 'CasaController@casaInfo');
     Route::get('/wechat', 'WechatController@index');
     Route::get('/back/wechatList/{type}/{deleted?}', 'WechatController@wechatList');
-
+    //所有的后台管理
     Route::group(['prefix' => 'back'], function () {
         Route::resource('areas','backend\AreaController');
     });
