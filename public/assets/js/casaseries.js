@@ -1,18 +1,1 @@
-window.onload=function()
-{
-	var a=document.getElementsByTagName('nav')[0];
-	console.log(a);
-	var oli=$(".nav-middle li:eq(3)");
-	var asd=$("#asd");
-	var odl=$(".nav-middle dl");
-			console.log(odl);
-	oli.mouseover(function()
-		{
-			odl.show();
-		});
-
-	oli.mouseout(function()
-		{	
-			odl.hide();
-		});
-}
+window.onload=function(){var o=document.getElementsByTagName("nav")[0];console.log(o);var n=$(".nav-middle li:eq(3)"),e=($("#asd"),$(".nav-middle dl"));console.log(e),n.mouseover(function(){e.show()}),n.mouseout(function(){e.hide()})};

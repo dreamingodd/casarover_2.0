@@ -14,16 +14,25 @@
 use App\Task;
 use Illuminate\Http\Request;
 
-Route::group(['middleware' => ['web']], function () {
-    Route::get('/', 'SiteController@index');
-    Route::get('/back', 'CasaController@casaList');
-    Route::get('/back/casaList/{deleted?}', 'CasaController@casaList');
-    Route::get('/back/casaEdit', 'CasaController@casaEdit');
-    Route::get('/casa', 'CasaController@casaInfo');
-    Route::get('/wechat', 'WechatController@index');
-    Route::get('/back/wechatList/{type}/{deleted?}', 'WechatController@wechatList');
-    //所有的后台管理
-    Route::group(['prefix' => 'back'], function () {
-        Route::resource('areas','backend\AreaController');
-    });
+Route::get('/', 'SiteController@index');
+Route::resource('areas','AreaController');
+Route::get('/casa', 'CasaController@casaInfo');
+Route::get('/wechat', 'WechatController@index');
+
+Route::group(['prefix' => 'back','middleware' => ['web']], function () {
+    /**
+     * admin
+    **/
+    Route::get('/', 'CasaController@casaList');
+    Route::get('casaList/{deleted?}', 'CasaController@casaList');
+    Route::get('casaEdit', 'CasaController@casaEdit');
+    Route::resource('areas','backend\AreaController');
+    Route::get('wechatList/{type}/{deleted?}', 'WechatController@wechatList');
+});
+
+/**
+ * api route ，use for Vue，
+**/
+Route::group(['prefix' => 'api'],function () {
+    Route::get('home/recom{cityid?}','api\HomeController@getCasasByCityId');
 });

@@ -1,4 +1,9 @@
 @extends('site')
+@section('head')
+    <script src="assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
+    <script src="assets/js/vue.js" type="text/javascript"></script>
+    <script src="assets/js/home.js" type="text/javascript"></script>
+@endsection
 
 @section('body')
 <!-- slider -->
@@ -27,7 +32,7 @@
         </form>
         <div class="search-place" id="city">
             <ul v-for="item in citys">
-                <li><a href="">@{{ item }}</a></li>
+                <li><a href=""></a></li>
             </ul>
         </div>
     </div>
@@ -40,29 +45,26 @@
         <h2>民宿推荐</h2>
         <div class="line"></div>
         <div class="city-list">
-            <a href="">杭州</a>
-            <a href="">临安</a>
-            <a href="">莫干山</a>
+            <a v-on:click="turn(1)">杭州</a>
+            <a v-on:click="turn(2)">临安</a>
+            <a v-on:click="turn(3)">@{{ item.name }}</a>
         </div>
-        @for($i=0;$i<6;$i++)
-            <div class="item">
+            <div class="item" v-for="casa in casas">
                 <div class="item-b">
-                    <a href="">
-                        <img src="assets/images/fang.jpg" height="100%">
+                    <a :href="casa.id">
+                        <img :src="casa.pic" height="100%">
                         <div class="card">
-                            <h3>花千谷</h3>
+                            <h3>@{{ casa.name }}</h3>
                         </div>
                         <div class="info">
                             <div class="middle">
-                                <h3>花千谷</h3>
-                                <p>位于云南省西部，这里冬天依旧温暖<br>
-                                    这是多民族聚集区，可以吃到众多的云南小吃；丰富的热带水果；欣赏美丽的孔雀舞</p>
+                                <h3>@{{ casa.name }}</h3>
+                                <p>@{{ casa.brief }}</p>
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
-        @endfor
     </section>
     <!-- 精选主题 -->
     {{--<section id="theme" >--}}
