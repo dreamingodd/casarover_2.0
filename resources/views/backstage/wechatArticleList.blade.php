@@ -17,7 +17,7 @@
         <a href="/back/wechatList/3">
             <span class="glyphicon glyphicon-list" aria-hidden="true"></span>主题民宿
         </a>
-        <a href="/back/wechatList">
+        <a href="/back/wechatList/1/1">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>回收站
         </a>
     </div>
