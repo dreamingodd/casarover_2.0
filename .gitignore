@@ -4,4 +4,9 @@
 Homestead.yaml
 Homestead.json
 .env
+<<<<<<< HEAD
 /nbproject/private/
+=======
+/nbproject/private/
+.idea
+>>>>>>> a08e0f5a84add27dd0131e8b5724a07e46b9269e

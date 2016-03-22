@@ -66,44 +66,4 @@ function arrayRemoveElements($arr, $attr, $val) {
     }
     return $new_array;
 }
-/**
- * TODO
- * Sort object array by an attribute of object.
- * @param Array $arr original array
- * @param String $attr_name
- * @return sorted array 排序完成的数组:
- */
-function arraySortByAttr(Array $arr, $attr_name) {
-    $sorted_array = array();
-
-    return $sorted_array;
-}
-function compareCasaByCode($casa1, $casa2) {
-    return compareCasaCode($casa1->code, $casa2->code);
-}
-function compareCasaCode($c1, $c2) {
-    if (!strstr($c1, "-")) {
-        return -1;
-    }
-    if (!strstr($c2, "-")) {
-        return 1;
-    }
-    $c1_nums = split("-", $c1);
-    $c2_nums = split("-", $c2);
-    $c1_city = $c1_nums[0];
-    $c1_casa = $c1_nums[1];
-    $c2_city = $c2_nums[0];
-    $c2_casa = $c2_nums[1];
-    if ($c1_city < $c2_city) {
-        return -1;
-    } else if ($c1_city > $c2_city) {
-        return 1;
-    } else {
-        if ($c1_casa < $c2_casa) {
-            return -1;
-        } else if ($c1_casa > $c2_casa) {
-            return 1;
-        } else return 0;
-    }
-}
 ?>

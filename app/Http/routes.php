@@ -14,17 +14,34 @@
 use App\Task;
 use Illuminate\Http\Request;
 
-Route::group(['middleware' => ['web']], function () {
-    Route::get('/', 'SiteController@index');
-    Route::get('/back', 'CasaController@casaList');
-    Route::get('/back/casaList/{deleted?}', 'CasaController@casaList');
-    Route::get('/back/casaEdit', 'CasaController@casaEdit');
+Route::get('/', 'SiteController@index');
+Route::resource('areas','AreaController');
+Route::get('/casa', 'CasaController@casaInfo');
+Route::get('/wechat', 'WechatController@index');
+
+Route::group(['prefix' => 'back','middleware' => ['web']], function () {
+    /**
+     * admin
+    **/
+    Route::get('/', 'CasaController@casaList');
+    Route::get('casaList/{deleted?}', 'CasaController@casaList');
+    Route::get('casaEdit', 'CasaController@casaEdit');
+    Route::resource('areas','backend\AreaController');
+    Route::get('wechatList/{type}/{deleted?}', 'WechatController@wechatList');
+    Route::get('casaList/{deleted?}', 'CasaController@casaList');
+    Route::get('casaEdit', 'CasaController@casaEdit');
     Route::get('/casa', 'CasaController@casaInfo');
-    Route::get('/wechat', 'WechatController@index');
-    Route::get('/back/participateList', 'WechatController@participateList');
-    Route::get('/back/wechatSeriesList','WechatController@wechatSeriesList');
-    Route::get('/back/wechatSeriesEdit','WechatController@wechatSeriesEdit');
-    Route::get('/back/wechatList/{type?}/{deleted?}', 'WechatController@wechatList');
-    Route::get('/back/wechatEdit', 'WechatController@wechatEdit');
-    Route::post('/213', 'asd@asd');
+    Route::get('participateList', 'WechatController@participateList');
+    Route::get('wechatSeriesList','WechatController@wechatSeriesList');
+    Route::get('wechatSeriesEdit','WechatController@wechatSeriesEdit');
+    Route::post('wechatSeriesEdits','WechatController@wechatSeriesEdits');
+    Route::get('wechatList/{type?}/{deleted?}', 'WechatController@wechatList');
+    Route::get('wechatEdit', 'WechatController@wechatEdit');
+});
+
+/**
+ * api route ，use for Vue，
+**/
+Route::group(['prefix' => 'api'],function () {
+    Route::get('home/recom{cityid?}','api\HomeController@getCasasByCityId');
 });

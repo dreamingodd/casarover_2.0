@@ -3,7 +3,7 @@
 @section('title', '探庐者后台-民宿列表')
 
 @section('body')
- <form id="wechat_series_form" method="post" action="wechat_series_add_action.php">
+ <form id="wechat_series_form" method="post" action="wechatSeriesEdits">
         <div class="col-lg-12">
             <h4>类别</h4>
             <div class="text vertical5 col-lg-2">

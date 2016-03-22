@@ -9,7 +9,8 @@ use App\Http\Requests;
 
 class SiteController extends Controller
 {
-	public function index(){
-        return  view('site');
-	}
+    public function index()
+    {
+        return view('site.home');
+    }
 }
