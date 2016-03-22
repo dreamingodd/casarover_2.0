@@ -18,7 +18,7 @@ class HomeController extends Controller
         $name = time();
         $brief = '这个是简介内容';
         $the = compact('id','pic','name','name','brief');
-        $casas = ['casas'=>[$the,$the]];
+        $casas = [$the,$the,$the,$the,$the,$the];
         return response()->json($casas);
     }
 }

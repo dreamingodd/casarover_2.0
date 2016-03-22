@@ -1,7 +1,7 @@
 @extends('site')
 @section('head')
     <script src="assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
-    <script src="assets/js/vue.js" type="text/javascript"></script>
+    <script src="assets/js/integration/vue.js" type="text/javascript"></script>
     <script src="assets/js/home.js" type="text/javascript"></script>
 @endsection
 
@@ -9,16 +9,16 @@
 <!-- slider -->
 <div class="flexslider">
     <ul class="slides">
-        <li style="background:url(assets/images/head.png) ; background-size:100% 100%;">
-            <div class="slide-mess">
-                第一个
-            </div>
-        </li>
-        <li style="background:url(assets/images/head2.png) ; background-size:100% 100%;">
-            <div class="slide-mess">
-                什么山
-            </div>
-        </li>
+        @foreach($casas as $casa)
+            <li style="background:url({{ $casa->pic }}) ; background-size:100% 100%;">
+                <a href="casa/{{ $casa->id }}" target="_blank" class="slide-a">
+                    <div class="slide-mess">
+                        {{ $casa->name }}
+                    </div>
+                </a>
+            </li>
+
+        @endforeach
     </ul>
 </div>
 <!-- endslider -->
@@ -31,8 +31,10 @@
             </div>
         </form>
         <div class="search-place" id="city">
-            <ul v-for="item in citys">
-                <li><a href=""></a></li>
+            <ul>
+                @foreach($citys as $city)
+                    <li><a href="">{{ $city }}</a></li>
+                @endforeach
             </ul>
         </div>
     </div>
@@ -47,7 +49,7 @@
         <div class="city-list">
             <a v-on:click="turn(1)">杭州</a>
             <a v-on:click="turn(2)">临安</a>
-            <a v-on:click="turn(3)">@{{ item.name }}</a>
+            <a v-on:click="turn(3)">上海</a>
         </div>
             <div class="item" v-for="casa in casas">
                 <div class="item-b">

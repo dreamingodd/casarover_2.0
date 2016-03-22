@@ -13,13 +13,14 @@ $(document).ready(function(){
     var recom = new Vue({
         el: '#recom',
         data: function () {
-            return {
-                items:[{message:'1',short:'qwe',pic:"assets/images/fang.jpg"}]
-            };
+            return null
         },
 
         created: function () {
-            vm = this;
+            this.data=  {
+                casas:[{'id':'1','name':'qwe',pic:"assets/images/fang.jpg"}]
+            };
+            console.log(this.data);
         },
 
         methods: {
