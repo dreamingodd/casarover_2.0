@@ -328,9 +328,14 @@ th {
   cursor: default;
 }
 .slide-mess {
+  position: absolute;
   font-size: 32px;
   color: #fff;
   margin: 50px;
+}
+.slide-a {
+  display: block;
+  height: 100%;
 }
 /*小屏幕重写 **/
 @media screen and (max-width: 500px) {

@@ -33,5 +33,5 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
  * api route ，use for Vue，
 **/
 Route::group(['prefix' => 'api'],function () {
-    Route::get('home/recom{cityid?}','api\HomeController@getCasasByCityId');
+    Route::get('home/recom/{cityid?}','api\HomeController@getCasasByCityId');
 });
