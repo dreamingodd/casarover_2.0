@@ -11,4 +11,15 @@ class Casa extends Model
     {
         return $this->belongTo('App\Area');
     }
+    public function attachment()
+    {
+        return $this->belongsTo('App\Attachment');
+    }
+    public function tags() {
+        return $this->belongsToMany('App\Tag', 'casa_tag');
+    }
+    public function contents() {
+        return $this->hasMany('App\Content');
+    }
+
 }

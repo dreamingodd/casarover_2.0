@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 use App\Casa;
 use App\Services\AreaService;
@@ -11,48 +12,41 @@ use App\Http\Controllers\Controller;
 
 class CasaController extends Controller
 {
-    public function casaList($deleted=0)
-    {
-        $casas = Casa::all()->sort(function ($c1, $c2){
-            return $this->compareCasaCode($c1->code, $c2->code);
-        });
-        $areaService = app("AreaService");
-        foreach($casas as $casa) {
-            $casa->area_name = $areaService->getLeafFullName($casa->dictionary_id);
-        }
-        return view('backstage.casaList', ['casas' => $casas, 'deleted' => $deleted]);
+    public $casa;
+    public $casas;
+
+    public function show($id) {
+        $this->casa = Casa::find($id);
+        return view('casa', ['casa' => $this->casa]);
+    }
+    public function edit($id) {
+        dd(Config::get('casarover.oss_external'));
+        $this->casa = Casa::find($id);
+        return view('backstage.casaEdit', ['casa' => $this->casa]);
     }
 
-    /**
-     * Sort casa collection by this code.
-     * For instance, solve the problem which 2-101 precede 2-20.
-     * @param $c1 Casa
-     * @param $c2 Casa
-     * @return -1, 0, 1
-     */
-    private function compareCasaCode($c1, $c2) {
-        if (!strstr($c1, "-")) {
-            return -1;
+    public function showList($deleted=0)
+    {
+        // dd(get_class_methods('App\http\Controllers\CasaController'));
+        $this->casas = Casa::all()->sort('App\Common\CommonTools::sortCasaCode');
+        $areaService = app("AreaService");
+        foreach ($this->casas as $casa) {
+            $casa->area_name = $areaService->getLeafFullName($casa->dictionary_id);
         }
-        if (!strstr($c2, "-")) {
-            return 1;
-        }
-        $c1_nums = explode("-", $c1);
-        $c2_nums = explode("-", $c2);
-        $c1_city = $c1_nums[0];
-        $c1_casa = $c1_nums[1];
-        $c2_city = $c2_nums[0];
-        $c2_casa = $c2_nums[1];
-        if ($c1_city < $c2_city) {
-            return -1;
-        } else if ($c1_city > $c2_city) {
-            return 1;
+        return view('backstage.casaList', ['casas' => $this->casas, 'deleted' => $deleted]);
+    }
+
+    public function del($id, $deleted) {
+        $casa = Casa::find($id);
+        $casa->deleted = $deleted;
+        $casa->save();
+        if ($deleted == 1) {
+            $this->showList(0);
+            return view('backstage.casaList', ['casas' => $this->casas, 'deleted' => 0]);
         } else {
-            if ($c1_casa < $c2_casa) {
-                return -1;
-            } else if ($c1_casa > $c2_casa) {
-                return 1;
-            } else return 0;
+            $this->showList(1);
+            return view('backstage.casaList', ['casas' => $this->casas, 'deleted' => 1]);
         }
     }
+
 }

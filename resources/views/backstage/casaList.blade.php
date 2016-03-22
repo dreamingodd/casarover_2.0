@@ -33,17 +33,17 @@
                     <td>{{$casa->area_name}}</td>
                     <td>
                         @if ($casa->deleted)
-                            <a id="casa_recover" href='../../application/controllers/casa_recycle_action.php?id=<?php echo $casa->id?>&option=recover&deleted=1'>
+                            <a id="casa_recover" href='/back/casaDel/{{$casa->id}}/0'>
                                 <button type="button" class="btn btn-xs btn-warning">还原</button>
                             </a>
                         @else
-                            <a id="casa_continue" href='casa_edit.php?casa_id=<?php echo $casa->id?>'>
+                            <a id="casa_continue" href='/back/casaEdit/{{$casa->id}}'>
                                 <button type="button" class="btn btn-xs btn-info">编辑</button>
                             </a>
-                            <a id="casa_effect" target="_blank" href='../casa.php?casa_id=<?php echo $casa->id?>'>
+                            <a id="casa_effect" target="_blank" href='/casa/{{$casa->id}}'>
                                 <button type="button" class="btn btn-xs btn-info">查看效果</button>
                             </a>
-                            <a id="casa_recycle" href='../../application/controllers/casa_recycle_action.php?id=<?php echo $casa->id?>&option=recycle&deleted=0'>
+                            <a id="casa_recycle" href='/back/casaDel/{{$casa->id}}/1'>
                                 <button type="button" class="btn btn-xs btn-danger">删除</button>
                             </a>
                         @endif
