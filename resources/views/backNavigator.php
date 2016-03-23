@@ -1,5 +1,5 @@
-<?php include_once app_path().'/Common/common_tools.php';?>
-<input type="hidden" id="backstage_url" value="<?php echo getUrl(); ?>"/>
+<?php include_once app_path().'/Common/CommonTools.php';?>
+<input type="hidden" id="backstage_url" value="{{CommonTools::getUrl()}}"/>
 <div class="navbar">
     <div class="navbar-inner">
         <ul class="nav nav-pills nav-justified">
@@ -8,8 +8,8 @@
                         aria-haspopup="true" aria-expanded="false">首页管理<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="not_complete" href="<?php echo getBaseUrl()?>website/backstage/huge_pics_edit.php">轮播图</a></li>
-                    <li><a class="not_complete" href="<?php echo getBaseUrl()?>website/backstage/theme_list.php" >主题推荐</a></li>
+                    <li><a class="not_complete" href="website/backstage/huge_pics_edit.php">轮播图</a></li>
+                    <li><a class="not_complete" href="website/backstage/theme_list.php" >主题推荐</a></li>
                 </ul>
             </li>
             <li role="presentation" class="area">
@@ -36,10 +36,10 @@
             </li>
              -->
             <li role="presentation" class="system">
-                <a href="<?php echo getBaseUrl()?>website/backstage/system.php">系统功能</a>
+                <a href="website/backstage/system.php">系统功能</a>
             </li>
             <li role="presentation" class="logout">
-                <a href="<?php echo getBaseUrl()?>application/controllers/logout_action.php?location=backstage">退出</a>
+                <a href="application/controllers/logout_action.php?location=backstage">退出</a>
             </li>
         </ul>
     </div>

@@ -24,11 +24,12 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
      * admin
     **/
     Route::get('/', 'CasaController@casaList');
-    Route::get('casaList/{deleted?}', 'CasaController@casaList');
-    Route::get('casaEdit', 'CasaController@casaEdit');
+    Route::get('casaList/{deleted?}', 'CasaController@showList');
+    Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
+    Route::get('casaEdit/{id}', 'CasaController@edit');
     Route::resource('areas','backend\AreaController');
     Route::get('wechatList/{type}/{deleted?}', 'WechatController@wechatList');
-    Route::get('casaList/{deleted?}', 'CasaController@casaList');
+    Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaEdit', 'CasaController@casaEdit');
     Route::get('/casa', 'CasaController@casaInfo');
     Route::get('participateList', 'WechatController@participateList');

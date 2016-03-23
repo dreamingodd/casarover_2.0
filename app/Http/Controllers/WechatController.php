@@ -28,9 +28,9 @@ class WechatController extends Controller
 	public function wechatSeriesEdit() {
          return view('backstage.wechatSeriesEdit');
      }
-    public function wechatSeriesEdits(Requst $request) {
-        dd($request->all());
-         return view('backstage.wechatSeriesEdits');
+    public function wechatSeriesEdits(Request $request) {
+        dd(1);
+        // return view('backstage.wechatSeriesEdits');
      }
 
 }
