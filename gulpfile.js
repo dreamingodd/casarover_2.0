@@ -19,7 +19,7 @@ var gulp = require('gulp'),
     jshint=require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     browserSync = require('browser-sync').create(),
-    livereload = require('gulp-livereload');
+    reload = browserSync.reload;
     const del = require('del');
 
 
@@ -48,13 +48,13 @@ gulp.task('dev-less', function() {
         .pipe(gulp.dest('public/assets/css/'))
 });
 
-gulp.task('browser-sync', function() {
-    browserSync.init({
-        proxy: "http://localhost",
-        port:"8000"
-    });
-    gulp.watch('resources/**/**/*.*').on('change',browserSync.reload);
-});
+// gulp.task('browser-sync',['dev-less'],function() {
+//     browserSync.init({
+//         proxy: "http://localhost",
+//         port:"8000"
+//     });
+
+// });
 
 
 // 部署执行
@@ -90,10 +90,23 @@ gulp.task('replace',['less'], function() {     //说明replace 是依赖于less�
 
 gulp.task('default',['less','clean']);
 
-// gulp.task('watch',function(){
+// gulp.task('watch',['dev-less'],function(){
+//     browserSync.init({
+//         proxy: "http://localhost",
+//         port:"80"
+//     });
 //     // gulp.watch('resources/assets/less/*.less',['dev-less']);
 //     // gulp.watch('resources/assets/js/*.js',['uglify']);
-//     gulp.watch('resources/**/**/*.*',['browser-sync']);
+//     gulp.watch('resources/**/**/*.*',['all-watch']);
 
 // });
-gulp.task('watch',['browser-sync']);
+
+gulp.task('watch', ['dev-less'],function() {
+
+    browserSync.init({
+        proxy: "http://localhost"
+    });
+
+    gulp.watch('resources/assets/less/*.less',['dev-less']);
+    gulp.watch('resources/**/**/*.*').on('change',reload);
+});
