@@ -71,22 +71,23 @@ class CommonTools {
         }
         return $base_url;
     }
-    public static function encodeIdComma(Array $ids) {
-        $ids_str = "";
-        for ($i = 0; $i < count($ids); $i++) {
+    public static function arrayToComma(Array $items) {
+        $str = "";
+        for ($i = 0; $i < count($items); $i++) {
             if ($i == 0) {
-                $ids_str = $ids[i];
+                $str = $items[$i];
+            } else {
+                $str .= "," . $items[$i];
             }
-            $ids_str += "," + $ids[i];
         }
-        return $ids_str;
+        return $str;
     }
-    public static function decodeIdComma($ids_str) {
-        $idArray = array();
-        if (!empty($ids_str)) {
-            $idArray = split(",", $ids_str);
+    public static function commaToArray($str) {
+        $a = array();
+        if (!empty($str)) {
+            $a = split(",", $str);
         }
-        return $idArray;
+        return $a;
     }
     /**
      * Remove elements whose attr==val from an array.

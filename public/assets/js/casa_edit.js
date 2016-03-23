@@ -33,7 +33,7 @@ $(function() {
         }
     });
 
-    /* Below are area select related */
+    /* Below are area select related
     $('#cities').hide();
     $('#districts').hide();
     var areas_json = $('#areas_json').val();
@@ -82,7 +82,7 @@ $(function() {
                     $('#districts').show();
                 }
             });
-
+*/
     /* Below are the casa form submitting related. */
     /*
      * 民宿对象 Casa: name, code, area(int) tags[](int), user_tags[] contents[]
@@ -97,9 +97,9 @@ $(function() {
         // 2.解析页面必选标签
         casa.tags = collectTags();
         // 3.解析自定义标签
-        casa.user_tags = collectUserTags();
+        //casa.user_tags = collectUserTags();
         // 4.解析内容模块
-        casa.contents = collectContents();
+        //casa.contents = collectContents();
         // 5.提交
         $('#casa_JSON_str').val(JSON.stringify(casa));
         $('#casa_form').submit();
@@ -108,7 +108,7 @@ $(function() {
 
 /**
  * 将一个区域对象转换成一个li DOM节点.
- * 
+ *
  * @param area
  *            省/市/区
  * @returns
@@ -131,13 +131,13 @@ function createCasa() {
     casa.id = $('#casa_id').val();
     casa.name = $.trim($('#name').val());
     casa.code = $.trim($('#code').val());
-    casa.area = Number($.trim($('#area').val()));
-    casa.link = $('#link').val();
-    casa.main_photo = $('.main-photo .hidden_photo').val();
-    if (!casa.name || !casa.code || !casa.area || !casa.main_photo) {
-        alert('民宿名称、编码、地区、默认图片均不能为空！');
-        return;
-    }
+    // casa.area = Number($.trim($('#area').val()));
+    // casa.link = $('#link').val();
+    // casa.main_photo = $('.main-photo .hidden_photo').val();
+    // if (!casa.name || !casa.code || !casa.area || !casa.main_photo) {
+    //     alert('民宿名称、编码、地区、默认图片均不能为空！');
+    //     return;
+    // }
     return casa;
 }
 /**

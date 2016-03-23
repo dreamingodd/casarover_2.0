@@ -5,7 +5,7 @@
 @section('body')
     <input type="hidden" id="page" value="casa"/>
     <div class="options vertical5">
-        <a href="/back/casaEdit">
+        <a href="/back/casa">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
         </a>
         <a href="/back/casaList">
@@ -37,7 +37,7 @@
                                 <button type="button" class="btn btn-xs btn-warning">还原</button>
                             </a>
                         @else
-                            <a id="casa_continue" href='/back/casaEdit/{{$casa->id}}'>
+                            <a id="casa_continue" href='/back/casa/{{$casa->id}}'>
                                 <button type="button" class="btn btn-xs btn-info">编辑</button>
                             </a>
                             <a id="casa_effect" target="_blank" href='/casa/{{$casa->id}}'>

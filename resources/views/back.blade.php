@@ -7,7 +7,7 @@
 <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <link href="{{ asset('assets/css/back.css') }} " rel="stylesheet"/>
-<script src="assets/js/back.js"></script>
+<script src="/assets/js/back.js"></script>
 
     @yield('head')
 
