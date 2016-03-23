@@ -2,6 +2,7 @@
 
 @section('title', '探庐者后台-新建民宿')
 @section('head')
+<script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js"></script>
 <script src="/assets/js/casa_edit.js"></script>
 <script src="/assets/js/integration/json2.js"></script>
 <style>
