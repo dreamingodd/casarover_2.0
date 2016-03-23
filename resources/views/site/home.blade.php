@@ -1,7 +1,8 @@
 @extends('site')
+@section('title','民宿')
 @section('head')
-    <script src="assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
-    <script src="assets/js/integration/vue.js" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/integration/jquery.flexslider-min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/integration/vue.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/home.js') }}" type="text/javascript"></script>
 @endsection
 
@@ -53,7 +54,7 @@
         </div>
             <div class="item" v-for="casa in casas">
                 <div class="item-b">
-                    <a :href="casa.id">
+                    <a href="casa/@{{ casa.id }}">
                         <img :src="casa.pic" height="100%">
                         <div class="card">
                             <h3>@{{ casa.name }}</h3>

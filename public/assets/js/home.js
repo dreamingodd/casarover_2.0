@@ -19,13 +19,13 @@ $(document).ready(function(){
         },
 
         created: function () {
-            this.turn();
+            this.turn(1);
         },
 
         methods: {
             turn: function (event){
                 vm = this;
-                $.getJSON('api/home/recom',function (data) {
+                $.getJSON('api/home/recom/'+event,function (data) {
                     vm.casas = data;
                 }.bind(vm));
             }

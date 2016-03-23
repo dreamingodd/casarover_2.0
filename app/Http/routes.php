@@ -15,7 +15,7 @@ use App\Task;
 use Illuminate\Http\Request;
 
 Route::get('/', 'SiteController@index');
-Route::resource('areas','AreaController');
+Route::get('areas/{id}','AreaController@show');
 Route::get('/casa', 'CasaController@casaInfo');
 Route::get('/wechat', 'WechatController@index');
 
@@ -33,5 +33,5 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
  * api route ，use for Vue，
 **/
 Route::group(['prefix' => 'api'],function () {
-    Route::get('home/recom/{cityid?}','api\HomeController@getCasasByCityId');
+    Route::get('home/recom/{id?}','api\HomeController@getCasasByCityId');
 });

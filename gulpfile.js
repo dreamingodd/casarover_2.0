@@ -104,7 +104,8 @@ gulp.task('default',['less','clean']);
 gulp.task('watch', ['dev-less'],function() {
 
     browserSync.init({
-        proxy: "http://localhost"
+        proxy: "http://localhost",
+        port:"80"
     });
 
     gulp.watch('resources/assets/less/*.less',['dev-less']);

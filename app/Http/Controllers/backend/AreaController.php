@@ -17,7 +17,6 @@ class AreaController extends Controller
      */
     public function index()
     {
-        //
         $areas = Area::where('level',4)->get();
         return view('backstage.area',compact('areas'));
     }
@@ -44,18 +43,6 @@ class AreaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-        return view('backstage.areaShow');
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -64,7 +51,8 @@ class AreaController extends Controller
     public function edit($id)
     {
         //
-        return 'edit';
+        $area_id = $id;
+        return view('backstage.areaEdit',compact('area_id'));
     }
 
     /**
@@ -88,6 +76,6 @@ class AreaController extends Controller
     public function destroy($id)
     {
         //
-        return '删除';
+        return $id;
     }
 }
