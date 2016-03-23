@@ -53,7 +53,7 @@
                 <button class="show_uploader btn btn-primary btn-sm">插入图片</button>
             </div>
             <div class="oss_hidden_input">
-                @if (isset($casa->attachment))
+                @if (isset($casa))
                     <input type="hidden" class="hidden_photo" value="{{$casa->attachment->filepath}}"/>
                 @endif
             </div>
@@ -137,7 +137,9 @@
                         <button class="show_uploader btn btn-primary btn-sm">插入图片</button>
                     </div>
                     <div class="oss_hidden_input">
-                            <input type="hidden" class="hidden_photo" value=""/>
+                        @foreach ($content->attachments as $photo)
+                            <input type="hidden" class="hidden_photo" value="{{$photo->filepath}}"/>
+                        @endforeach
                     </div>
                     <div class="oss_photo"></div>
                 </div>
