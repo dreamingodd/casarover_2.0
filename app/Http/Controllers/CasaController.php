@@ -9,6 +9,7 @@ use App\Common\CommonTools;
 use App\Casa;
 use App\Area;
 use App\Tag;
+use App\Attachment;
 use App\Services\AreaService;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -19,12 +20,49 @@ class CasaController extends Controller
     private $casas;
 
     public function edit(Request $request) {
-        $casa_info = json_decode($request->all()['casa_JSON_str']);
-        $casa = Casa::find($casa_info->id);
-        $casa->name = $casa_info->name;
-        $casa->code = $casa_info->code;
-        $casa->save();
-        return "success";
+        $casaData = json_decode($request->all()['casa_JSON_str']);
+        // dd($casaData);
+
+        \DB::beginTransaction();
+        try {
+            if (empty($casaData->id)) {
+                $casa = new Casa;
+                // basic information
+                $casa->code = "0-2";
+                $casa->name = $casaData->name;
+                $casa->dictionary_id = $casaData->area;
+                // main photo
+                $casa->attachment()->associate($this->createAttachment($casaData->main_photo));
+                // tags
+                $officialTags = $this->getOfficalTags($casaData->tags);
+                $customTags = $this->getCustomTags($casaData->user_tags);
+                $tags = array_merge($officialTags, $customTags);
+                // contents
+                $contents = $this->createContents($casaData->contents);
+                $casa->save();
+                $casa->tags()->saveMany($tags);
+                $casa->contents()->saveMany($contents);
+                // dd($casa->attachment);
+            } else {
+
+                $casa = Casa::find($casaData->id);
+                $casa->name = $casaData->name;
+                $casa->code = $casaData->code;
+                $casa->save();
+            }
+            \DB::commit();
+            return $casa->id;
+        } catch(\PDOException $e) {
+            \DB::rollback();
+            // SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry
+            if (strpos($e->getMessage(), 'Duplicate entry') > 0) {
+                return "民宿编码（".$casaData->code."）已存在，请换一个!";
+            }
+            dd($e);
+        } catch(\Exception $e) {
+            \DB::rollback();
+            dd($e);
+        }
     }
     public function show($id=0) {
         $areaService = app("AreaService");
@@ -80,4 +118,55 @@ class CasaController extends Controller
             return view('backstage.casaList', ['casas' => $this->casas, 'deleted' => 1]);
         }
     }
+
+    /**
+     * Create an Attachment in database.
+     * @param $filepath filename
+     * @return Attachment
+     */
+    private function createAttachment($filepath) {
+        $attachment = new Attachment;
+        $attachment->filepath = $filepath;
+        $attachment->save();
+        return $attachment;
+    }
+    /**
+     * Convert the various tag data that are received from edit page
+     * to Tags which are from the database.
+     */
+    private function getOfficalTags(Array $tagIds) {
+        $tags = array();
+        foreach ($tagIds as $id) {
+            $tag = Tag::find($id);
+            array_push($tags, $tag);
+        }
+        return $tags;
+    }
+    /**
+     * Convert the various tag data that are received from edit page
+     * to Tags which are from the database.
+     */
+    private function getCustomTags(Array $tagNames) {
+        $tags = array();
+        foreach ($tagNames as $name) {
+            $tag = Tag::where('name', $name)->get()->first();
+            if (empty($tag)) {
+                $tag = new Tag;
+                $tag->name = $name;
+                $tag->type = 'custom';
+                $tag->save();
+            }
+            array_push($tags, $tag);
+        }
+        return $tags;
+    }
+    /**
+     * Convert the content data that are received from edit page
+     * to Contents which are from the database.
+     * @param contents Array of content[name, text, photo]
+     * @return Array of entity Contents(which are already inserted in the databases)
+     */
+     private function createContents(Array $rawContents) {
+         return array();
+     }
 }
