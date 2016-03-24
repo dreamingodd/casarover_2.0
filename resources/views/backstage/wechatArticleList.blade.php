@@ -36,14 +36,14 @@
                 <td class="brief">{{$article->brief}}</td>
                 <td>
                     @if ($article->deleted)
-                        <a href='wechat_article_recycle_action.php?option=recover&type=&id={{$article->id}}&deleted='>
+                        <a href='/back/wechatList/1'>
                             <button type="button" class="btn btn-xs btn-warning">还原</button>
                         </a>
                     @else
-                        <a href='wechat_article_edit.php?type=&id={{$article->id}}'>
+                        <a href='/back/wechatEdit'>
                             <button type="button" class="btn btn-xs btn-info">编辑</button>
                         </a>
-                        <a href='wechat_article_recycle_action.php?option=recycle&type=&id={{$article->id}}'>
+                        <a href='/back/wechatList/{{$article->type}}/1'>
                             <button type="button" class="btn btn-xs btn-danger">删除</button>
                         </a>
                     @endif

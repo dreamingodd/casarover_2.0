@@ -46,16 +46,11 @@
     </div>
     <!-- Here's the list of WechatSeries items. -->
     <div id="series_list" style="display: none;">
-                    <span db_id="1" name="探庐·临安"
-                    type="1"></span>
-                    <span db_id="2" name="探庐·莫干山"
-                    type="1"></span>
-                    <span db_id="3" name="探庐·桐庐"
-                    type="1"></span>
-                    <span db_id="6" name="探庐·丽水"
-                    type="1"></span>
-                    <span db_id="8" name="探庐·苏州"
-                    type="1"></span>
+                    <span db_id="1" name="探庐·临安" type="1"></span>
+                    <span db_id="2" name="探庐·莫干山" type="1"></span>
+                    <span db_id="3" name="探庐·桐庐" type="1"></span>
+                    <span db_id="6" name="探庐·丽水" type="1"></span>
+                    <span db_id="8" name="探庐·苏州" type="1"></span>
             </div>
     <!-- Here's the list of WechatSeries items. -->
     <div class="small-photo col-lg-12">

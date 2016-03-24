@@ -12,13 +12,15 @@
 // 对resources/assets 下的文件进行打包
 // 上传到cdn服务器
 // 对view下的页面文件进行静态文件的替换
-var gulp = require('gulp');
-var less = require('gulp-less');
-var rev = require('gulp-rev');
-var revCollector = require('gulp-rev-collector');
-var jshint=require('gulp-jshint');
-var uglify = require('gulp-uglify');
-const del = require('del');
+var gulp = require('gulp'),
+    less = require('gulp-less'),
+    rev = require('gulp-rev'),
+    revCollector = require('gulp-rev-collector'),
+    jshint=require('gulp-jshint'),
+    uglify = require('gulp-uglify'),
+    browserSync = require('browser-sync').create(),
+    livereload = require('gulp-livereload');
+    const del = require('del');
 
 
 // 通用
@@ -44,6 +46,14 @@ gulp.task('dev-less', function() {
     gulp.src(['resources/assets/less/main.less','resources/assets/less/back.less'])
         .pipe(less())
         .pipe(gulp.dest('public/assets/css/'))
+});
+
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        proxy: "http://localhost",
+        port:"8000"
+    });
+    gulp.watch('resources/**/**/*.*').on('change',browserSync.reload);
 });
 
 
@@ -80,8 +90,10 @@ gulp.task('replace',['less'], function() {     //说明replace 是依赖于less�
 
 gulp.task('default',['less','clean']);
 
-gulp.task('watch',function(){
-    gulp.watch('resources/assets/less/*.less',['dev-less']);
-    gulp.watch('resources/assets/js/*.js',['uglify']);
-})
+// gulp.task('watch',function(){
+//     // gulp.watch('resources/assets/less/*.less',['dev-less']);
+//     // gulp.watch('resources/assets/js/*.js',['uglify']);
+//     gulp.watch('resources/**/**/*.*',['browser-sync']);
 
+// });
+gulp.task('watch',['browser-sync']);

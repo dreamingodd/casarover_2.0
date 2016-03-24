@@ -20,15 +20,12 @@ Route::get('/casa', 'CasaController@casaInfo');
 Route::get('/wechat', 'WechatController@index');
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
-    /**
-     * admin
-    **/
     Route::get('/', 'CasaController@casaList');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
-    Route::get('casaEdit/{id}', 'CasaController@edit');
+    Route::get('casa/{id}', 'CasaController@show');
+    Route::post('casaEdit', 'CasaController@edit');
     Route::resource('areas','backend\AreaController');
-    Route::get('wechatList/{type}/{deleted?}', 'WechatController@wechatList');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaEdit', 'CasaController@casaEdit');
     Route::get('/casa', 'CasaController@casaInfo');
@@ -37,6 +34,7 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('wechatSeriesEdit','WechatController@wechatSeriesEdit');
     Route::post('wechatSeriesEdits','WechatController@wechatSeriesEdits');
     Route::get('wechatList/{type?}/{deleted?}', 'WechatController@wechatList');
+    // Route::get('wechatListdel/{type}/{deleted}', 'WechatController@del');
     Route::get('wechatEdit', 'WechatController@wechatEdit');
 });
 
@@ -44,5 +42,5 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
  * api route ，use for Vue，
 **/
 Route::group(['prefix' => 'api'],function () {
-    Route::get('home/recom{cityid?}','api\HomeController@getCasasByCityId');
+    Route::get('home/recom/{cityid?}','api\HomeController@getCasasByCityId');
 });

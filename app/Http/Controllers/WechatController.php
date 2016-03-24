@@ -32,5 +32,17 @@ class WechatController extends Controller
         dd(1);
         // return view('backstage.wechatSeriesEdits');
      }
+    // public function del($id, $deleted) {
+    //     $articles = WechatArticle::find($type);
+    //     $articles->deleted = $deleted;
+    //     $articles->save();
+    //     if ($deleted == 1) {
+    //         $this->showList(0);
+    //         return view('backstage.wechatArticleList', ['articles' => $this->articles, 'deleted' => 0]);
+    //     } else {
+    //         $this->showList(1);
+    //         return view('backstage.wechatArticleList', ['articles' => $this->articles, 'deleted' => 1]);
+    //     }
+    // }
 
 }
