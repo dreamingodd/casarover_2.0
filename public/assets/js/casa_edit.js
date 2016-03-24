@@ -4,8 +4,6 @@ $(function() {
     var casa_id = $('#casa_id').val();
     if (casa_id) {
         $('title').html('探庐者后台-编辑民宿');
-        $('h3').html('后台管理-编辑民宿');
-        $('#casa_content_template').remove();
     }
 
     // content 显示设置 替换"<br/>"为"\n", 当然上传的时候也做了相反的替换
@@ -15,7 +13,7 @@ $(function() {
 
     /* 添加和删除内容功能 */
     $('body').on('click', '.add_content', function(){
-        $(this).parent().parent().after($(html_content));
+        $(this).parent().parent().after(newContentTemplate());
     });
     $('body').on('click', '.del_content', function(){
         $(this).parent().parent().remove();
@@ -33,7 +31,7 @@ $(function() {
         }
     });
 
-    /* Below are area select related
+    /* Below are area select related */
     $('#cities').hide();
     $('#districts').hide();
     var areas_json = $('#areas_json').val();
@@ -82,7 +80,7 @@ $(function() {
                     $('#districts').show();
                 }
             });
-*/
+
     /* Below are the casa form submitting related. */
     /*
      * 民宿对象 Casa: name, code, area(int) tags[](int), user_tags[] contents[]
@@ -131,13 +129,13 @@ function createCasa() {
     casa.id = $('#casa_id').val();
     casa.name = $.trim($('#name').val());
     casa.code = $.trim($('#code').val());
-    // casa.area = Number($.trim($('#area').val()));
-    // casa.link = $('#link').val();
-    // casa.main_photo = $('.main-photo .hidden_photo').val();
-    // if (!casa.name || !casa.code || !casa.area || !casa.main_photo) {
-    //     alert('民宿名称、编码、地区、默认图片均不能为空！');
-    //     return;
-    // }
+    casa.area = Number($.trim($('#area').val()));
+    casa.link = $('#link').val();
+    casa.main_photo = $('.main-photo .hidden_photo').val();
+    if (!casa.name || !casa.code || !casa.area || !casa.main_photo) {
+        alert('民宿名称、编码、地区、默认图片均不能为空！');
+        return;
+    }
     return casa;
 }
 /**
@@ -184,4 +182,30 @@ function collectContents() {
         contents.push(content);
     });
     return contents;
+}
+function newContentTemplate() {
+    return $(
+        '<div class="content">'
+    +   '    <div class="name col-lg-2 vertical5">'
+    +   '        <input type="text" class="form-control" value="" aria-describedby="sizing-addon3" />'
+    +   '    </div>'
+    +   '    <div class="col-lg-10 vertical5">'
+    +   '        <button type="button" class="btn btn-info add_content">插入内容</button>'
+    +   '        <button type="button" class="btn btn-info del_content">删除内容</button>'
+    +   '    </div>'
+    +   '    <!-- OSS start -->'
+    +   '    <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"'
+    +   '            oss_address="{{Config::get("casarover.oss_external")}}">'
+    +   '        <div class="oss_button">'
+    +   '            <button class="show_uploader btn btn-primary btn-sm">插入图片</button>'
+    +   '        </div>'
+    +   '        <div class="oss_hidden_input"></div>'
+    +   '        <div class="oss_photo"></div>'
+    +   '    </div>'
+    +   '    <!-- OSS end -->'
+    +   '    <div class="text col-lg-12 vertical5">'
+    +   '        <textarea rows="3" cols="150"></textarea>'
+    +   '    </div>'
+    +   '</div>'
+    );
 }

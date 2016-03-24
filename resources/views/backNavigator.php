@@ -1,4 +1,4 @@
-<?php include_once app_path().'/Common/CommonTools.php';?>
+<?php use \App\Common\CommonTools;?>
 <input type="hidden" id="backstage_url" value="{{CommonTools::getUrl()}}"/>
 <div class="navbar">
     <div class="navbar-inner">

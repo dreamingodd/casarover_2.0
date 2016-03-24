@@ -15,7 +15,7 @@ use App\Task;
 use Illuminate\Http\Request;
 
 Route::get('/', 'SiteController@index');
-Route::resource('areas','AreaController');
+Route::get('areas/{id}','AreaController@show');
 Route::get('/casa', 'CasaController@casaInfo');
 Route::get('/wechat', 'WechatController@index');
 
@@ -23,7 +23,7 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'CasaController@casaList');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
-    Route::get('casa/{id}', 'CasaController@show');
+    Route::get('casa/{id?}', 'CasaController@show');
     Route::post('casaEdit', 'CasaController@edit');
     Route::resource('areas','backend\AreaController');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
@@ -42,5 +42,5 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
  * api route ，use for Vue，
 **/
 Route::group(['prefix' => 'api'],function () {
-    Route::get('home/recom/{cityid?}','api\HomeController@getCasasByCityId');
+    Route::get('home/recom/{id?}','api\HomeController@getCasasByCityId');
 });

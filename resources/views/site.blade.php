@@ -42,7 +42,7 @@
         <!-- logo -->
         <div class="nav-left">
             <a href="/">
-                <img src="assets/images/logo.png" alt="logo">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
             </a>
         </div>
         <div class="nav-middle">
@@ -63,7 +63,7 @@
     <footer>
         <div class="message">
             <div class="pic">
-                <img src="assets/images/qcode.jpg" height="100%" alt="二维码">
+                <img src="{{ asset('assets/images/qcode.jpg') }} " height="100%" alt="二维码">
             </div>
         </div>
         <div class="message">
