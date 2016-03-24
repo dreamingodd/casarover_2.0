@@ -38,6 +38,7 @@ function getBaseUrl() {
         alert("Backstage url is missing!");
     }
 }
+
 /**
  * e.g. www.casarover.com/
  */

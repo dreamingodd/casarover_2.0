@@ -9,7 +9,7 @@ class Casa extends Model
     protected $table = "casa";
     public function area()
     {
-        return $this->belongTo('App\Area');
+        return $this->belongTo('App\Area','dictionary_id');
     }
     public function attachment()
     {
