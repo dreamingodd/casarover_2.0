@@ -18,7 +18,6 @@ class AreaController extends Controller
     public function index()
     {
         $areas = Area::where('level',4)->get();
-//        $areas = Area::find(14)->casas;
         return view('backstage.area',compact('areas'));
     }
 
@@ -51,8 +50,8 @@ class AreaController extends Controller
      */
     public function edit($id)
     {
+//        找到area拥有的文章
         $message = Area::find($id);
-//        dd($areas);
         return view('backstage.areaEdit',compact('message'));
     }
 

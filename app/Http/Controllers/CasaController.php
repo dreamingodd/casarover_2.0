@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Config;
 
 use App\Common\CommonTools;
 use App\Casa;
+use App\Area;
 use App\Tag;
 use App\Services\AreaService;
 use App\Http\Requests;
@@ -25,26 +26,35 @@ class CasaController extends Controller
         $casa->save();
         return "success";
     }
-    public function show($id) {
-        $this->casa = Casa::find($id);
-        // get add the tags which are not inserted by user.
+    public function show($id=0) {
+        $areaService = app("AreaService");
         $officialTags = Tag::where('type', '<>', 'custom')->get();
-        foreach ($officialTags as $oTag) {
-            foreach ($this->casa->tags as $tag) {
-                if ($tag->type != 'custom' && $oTag->name == $tag->name) {
-                    $oTag->selected = 1;
+        $areaHierarchyJson = json_encode($areaService->getAreaHierarchy());
+        if ($id == 0) {
+            // new casa
+            return view('backstage.casaEdit', compact('officialTags', 'areaHierarchyJson'));
+        } else {
+            $this->casa = Casa::find($id);
+            $this->casa->area_name = $areaService->getLeafFullName($this->casa->dictionary_id);
+            // get add the tags which are not inserted by user.
+            foreach ($officialTags as $oTag) {
+                foreach ($this->casa->tags as $tag) {
+                    if ($tag->type != 'custom' && $oTag->name == $tag->name) {
+                        $oTag->selected = 1;
+                    }
                 }
             }
-        }
-        // convert the array to one string splitted by comma(,).
-        $customTagsStrArray = array();
-        foreach ($this->casa->tags as $tag) {
-            if ($tag->type == 'custom') {
-                array_push($customTagsStrArray, $tag->name);
+            // convert the array to one string splitted by comma(,).
+            $customTagsStrArray = array();
+            foreach ($this->casa->tags as $tag) {
+                if ($tag->type == 'custom') {
+                    array_push($customTagsStrArray, $tag->name);
+                }
             }
+            $this->casa->customTagsStr = CommonTools::arrayToComma($customTagsStrArray);
+            $casa = $this->casa;
+            return view('backstage.casaEdit', compact('casa', 'officialTags', 'areaHierarchyJson'));
         }
-        $this->casa->customTagsStr = CommonTools::arrayToComma($customTagsStrArray);
-        return view('backstage.casaEdit', ['casa' => $this->casa, 'officialTags' => $officialTags]);
     }
 
     public function showList($deleted=0)

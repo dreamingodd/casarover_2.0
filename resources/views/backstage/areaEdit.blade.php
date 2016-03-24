@@ -3,7 +3,7 @@
     <script src="{{ asset('assets/js/vue.js') }}" type="text/javascript"></script>
 @endsection
 @section('body')
-    {{--{{ $message }}--}}
+    {{ $message->contents }}
     <div class="head">
         <h3>基本信息</h3>
         <div class="photo">
