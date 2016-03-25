@@ -95,9 +95,9 @@ $(function() {
         // 2.解析页面必选标签
         casa.tags = collectTags();
         // 3.解析自定义标签
-        //casa.user_tags = collectUserTags();
+        casa.user_tags = collectUserTags();
         // 4.解析内容模块
-        //casa.contents = collectContents();
+        casa.contents = collectContents();
         // 5.提交
         $('#casa_JSON_str').val(JSON.stringify(casa));
         $('#casa_form').submit();
