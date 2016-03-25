@@ -32,10 +32,11 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('participateList', 'WechatController@participateList');
     Route::get('wechatSeriesList','WechatController@wechatSeriesList');
     Route::get('wechatSeriesEdit','WechatController@wechatSeriesEdit');
-    Route::post('wechatSeriesEdits','WechatController@wechatSeriesEdits');
     Route::get('wechatList/{type?}/{deleted?}', 'WechatController@wechatList');
+    Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
     // Route::get('wechatListdel/{type}/{deleted}', 'WechatController@del');
-    Route::get('wechatEdit', 'WechatController@wechatEdit');
+    Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');
+    // Route::get('wechatEdit/{id?}','WechatController@Edit');
 });
 
 /**

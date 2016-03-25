@@ -3,6 +3,7 @@
 @section('title', '探庐者后台-民宿列表')
 
 @section('body')
+    <input type="hidden" id="page" value="wechat"/>
     <div class="options vertical5">
         <a href="participate_list.php?status=0">
             <span class="glyphicon glyphicon-list" aria-hidden="true"></span>待付款列表

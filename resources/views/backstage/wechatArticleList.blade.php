@@ -36,14 +36,14 @@
                 <td class="brief">{{$article->brief}}</td>
                 <td>
                     @if ($article->deleted)
-                        <a href='/back/wechatList/1'>
+                        <a href='/back/wechatDel/{{$article->id}}/0'>
                             <button type="button" class="btn btn-xs btn-warning">还原</button>
                         </a>
                     @else
-                        <a href='/back/wechatEdit'>
+                        <a href='/back/wechatEdit/{{$article->id}}'>
                             <button type="button" class="btn btn-xs btn-info">编辑</button>
                         </a>
-                        <a href='/back/wechatList/{{$article->type}}/1'>
+                        <a href='/back/wechatDel/{{$article->id}}/1'>
                             <button type="button" class="btn btn-xs btn-danger">删除</button>
                         </a>
                     @endif

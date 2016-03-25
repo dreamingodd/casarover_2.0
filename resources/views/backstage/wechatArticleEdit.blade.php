@@ -1,6 +1,9 @@
 @extends('back')
 @section('title', '探庐者后台-微信文章列表')
-
+@section('head')
+<script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js"></script>
+<script src="/assets/js/wechat_article_edit.js"></script>
+@stop
 @section('body')
     <input type="hidden" id="page" value="wechat"/>
     <div class="options vertical5">
@@ -46,11 +49,10 @@
     </div>
     <!-- Here's the list of WechatSeries items. -->
     <div id="series_list" style="display: none;">
-                    <span db_id="1" name="探庐·临安" type="1"></span>
-                    <span db_id="2" name="探庐·莫干山" type="1"></span>
-                    <span db_id="3" name="探庐·桐庐" type="1"></span>
-                    <span db_id="6" name="探庐·丽水" type="1"></span>
-                    <span db_id="8" name="探庐·苏州" type="1"></span>
+                {{$number=1}};
+                @foreach ($wechatSeries as $series)
+                    <span db_id="{{$number=1}}" name="{{$series->name}}" type="1"></span>
+                @endforeach
             </div>
     <!-- Here's the list of WechatSeries items. -->
     <div class="small-photo col-lg-12">

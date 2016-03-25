@@ -1,4 +1,5 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+ul,ol{margin: 0; padding: 0;}
 body {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "微软雅黑", Arial, simsun, sans-serif;
   background: #F8F8F8;
