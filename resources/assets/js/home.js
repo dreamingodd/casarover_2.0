@@ -19,7 +19,7 @@ $(document).ready(function(){
         },
 
         created: function () {
-            this.turn(1);
+            this.turn(8);
         },
 
         methods: {

@@ -1,6 +1,6 @@
 @extends('back')
 @section('head')
-    <script src="{{ asset('assets/js/vue.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/integration/vue.js') }}" type="text/javascript"></script>
     <script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js"></script>
 @endsection
 @section('body')
@@ -57,11 +57,13 @@
         <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
              oss_address="{{Config::get("casarover.oss_external")}}">
             <div class="oss_button">
-                <button class="show_uploader btn btn-primary btn-sm">插入图片</button>
+                <button class="show_uploader btn btn-primary btn-sm" type="button">插入图片</button>
             </div>
             <div class="oss_hidden_input">
-                @if (isset($content->attachments[$con]->photo))
-                    <input type="hidden" class="hidden_photo" value="{{ $content->attachments[$con]->photo->filepath }}"/>
+                @if (empty($message->contents[$con]->attachments))
+                    @foreach($message->contents[$con]->attachments as $photo)
+                    <input type="hidden" class="hidden_photo" value="{{ $photo->filepath }}"/>
+                    @endforeach
                 @endif
             </div>
             <div class="oss_photo"></div>

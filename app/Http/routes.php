@@ -26,7 +26,7 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
     Route::get('casa/{id?}', 'CasaController@show');
     Route::post('casaEdit', 'CasaController@edit');
-    Route::resource('areas','backend\AreaController');
+    Route::resource('areas','AreaController');
     Route::get('wechatList/{type}/{deleted?}', 'WechatController@wechatList');
 });
 
