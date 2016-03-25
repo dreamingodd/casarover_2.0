@@ -50,7 +50,6 @@ class AreaController extends Controller
      */
     public function edit($id)
     {
-//        找到area拥有的文章
         $message = Area::find($id);
         return view('backstage.areaEdit',compact('message'));
     }
@@ -62,9 +61,13 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+        $area = Area::findOrFail($id);
+        $area->value = $request->name;
+        $area->save();
+        return redirect()
+            ->route('back.areas.index');
     }
 
     /**

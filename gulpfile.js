@@ -1,7 +1,7 @@
 /**
 *总计两个命令
 *开发的时候gulp watch 
-*部署的时候gulp
+*部署的时候gulp produc
 **/
 
 // 适配laravel的工作流

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Area extends Model
 {
+    const DELETED_AT = 'updated_at';
+    const UPDATED_AT = 'update_time';
+    const CREATED_AT = 'updated_at';
     protected $table = "area_dictionary";
     public function casas() {
         return $this->hasMany('App\Casa', 'dictionary_id');
@@ -18,5 +21,9 @@ class Area extends Model
     }
     public function contents(){
         return $this->belongsToMany('App\Content');
+    }
+    public function attachment()
+    {
+        return $this->belongsTo('App\Attachment');
     }
 }

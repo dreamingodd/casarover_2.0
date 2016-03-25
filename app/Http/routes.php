@@ -15,11 +15,10 @@ use App\Task;
 use Illuminate\Http\Request;
 
 Route::get('/', 'SiteController@index');
-Route::get('areas/{id}','AreaController@show');
+Route::get('/area/{id}','AreaController@show');
 Route::get('/casa', 'CasaController@casaInfo');
 Route::get('/wechat', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
-Route::get('/test', 'backend\AreaController@test');
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'CasaController@casaList');
