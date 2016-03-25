@@ -159,13 +159,10 @@ require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domre
             }
             var params = 'target_folder=' + target_folder;
             var phpUrl = "";
-            if ($('.oss_photo_tool').attr('php_path')) {
-                phpUrl = $('.oss_photo_tool').attr('php_path');
-            } else {
-                phpUrl = './oss/php/get.php?'+params;
-            }
+            phpUrl = '/oss/signature?'+params;
             xmlhttp.open( "GET", phpUrl, false );
             xmlhttp.send( null );
+            console.log('signature: ' + xmlhttp.responseText);
             return xmlhttp.responseText;
         }
         else {
