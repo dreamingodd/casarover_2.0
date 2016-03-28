@@ -5,16 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
-use App\Common\CommonTools;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+use DB;
 use App\Casa;
 use App\Area;
 use App\Tag;
 use App\Content;
 use App\Attachment;
-use DB;
+use App\Common\CommonTools;
 use App\Services\AreaService;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 class CasaController extends Controller
 {
