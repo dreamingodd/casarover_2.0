@@ -75,26 +75,22 @@ class AreaController extends Controller
      */
     public function update(Request $request,$id)
     {
-//        $img = ['filepath' => 'casa_123.png'];
-//        $area = Area::findOrFail($id)->contents[2]->attachments[0]->update($img);
-//        return response()->json($area);
-        $text = new \App\Content(['text' => $request->brief]);
-//        $text = ['text' => $request->brief];
-////        $img = new \App\Attachment(['filepath' => 'casa_123123.png']);
-//        $img = ['filepath' => 'casa_123.png'];
+        $content = new \App\Content;
+        $content->text = $request->brief;
         $area = Area::findOrFail($id);
         $area->value = $request->name;
         $area->position = $request->position;
         $area->tier = $request->tier;
-////        dd($img);
-        $area->contents()->save($text);
-//        $area->attachment()->update($img);
-//
-//        $area->contents()->update($text);
-        return redirect()
-            ->route('back.areas.index');
-    }
+        $area->contents()->delete();
+        $area->contents()->save($content);
+        $area->save();
+//        foreach($area->contents as $content)
+//        {
+//            $content->attachments()->delete();
+//        }
+        return redirect()->route('back.areas.index');
 
+    }
     /**
      * Remove the specified resource from storage.
      *

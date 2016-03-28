@@ -5,7 +5,6 @@
     <script src="{{ asset('assets/js/integration/vue.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/home.js') }}" type="text/javascript"></script>
 @endsection
-
 @section('body')
 <!-- slider -->
 <div class="flexslider">

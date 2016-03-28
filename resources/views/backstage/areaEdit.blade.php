@@ -2,11 +2,14 @@
 @section('head')
     <script src="{{ asset('assets/js/integration/vue.js') }}" type="text/javascript"></script>
     <script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js"></script>
+    <script src="{{ asset('assets/js/areaedit.js') }}" type="text/javascript"></script>
 @endsection
 @section('body')
-    <form action="{{ route('back.areas.update',$message->id) }}" method="post">
+    <form action="{{ route('back.areas.update',$message->id) }}" id="area-form" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden" name="_method" value="PUT">
+        {{--所有图片的字段--}}
+        <input type="hidden" name="photos" id="photos" value=>
         <div class="head">
             <h3>基本信息</h3>
             <div class="photo">
@@ -19,7 +22,7 @@
                         <button class="show_uploader btn btn-primary btn-sm" type="button">插入图片</button>
                     </div>
                     <div class="oss_hidden_input">
-                        @if(isset($message->contents[0]->attachments))
+                        @if(isset($message->contents))
                             <input type="hidden" class="hidden_photo" value="{{ $message->contents[3]->attachments[0]->filepath }}"/>
                         @endif
                     </div>
@@ -29,15 +32,15 @@
                 <h3>区域名</h3>
                 <input type="text" class="form-control" name="name" value="{{ $message->value }}" />
                 <h3>简介</h3>
+                {{ $message->cotnents }}
             <textarea class="form-control" name="brief" rows="3" >
-                {{ $message->contents[0]->text }}
-            </textarea>
+                @if(isset($message->contents))
+                    {{ $message->contents[0]->text }}
+                @endif</textarea>
             </div>
         </div>
         <h3>攻略内容</h3>
-        <textarea class="form-control" rows="3" name="radiers">
-                {{ $message->contents[1]->text }}
-        </textarea>
+        <textarea class="form-control" rows="3" name="radiers">@if(isset($message->ccontents)){{ $message->contents[1]->text }}@endif</textarea>
         <hr>
         <div class="raiders">
             <p>到下面的这个网站选取坐标和层级然后复制过来</p>
@@ -51,7 +54,7 @@
         </div>
 
         <h3>附近景点</h3>
-        <p>建议不要太多，三到四个最佳</p>
+        <p>一个景点一张图片，请把多余的删掉</p>
         @for($con=2; $con<count($message->contents); $con++)
                 <!-- OSS start -->
         <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
@@ -59,23 +62,23 @@
             <div class="oss_button">
                 <button class="show_uploader btn btn-primary btn-sm" type="button">插入图片</button>
             </div>
-            <div class="oss_hidden_input">
+            <div class="oss_hidden_input place-photos">
                 @if (empty($message->contents[$con]->attachments))
                     @foreach($message->contents[$con]->attachments as $photo)
-                    <input type="hidden" class="hidden_photo" value="{{ $photo->filepath }}"/>
+                    <input type="hidden" class="hidden_photo " value="{{ $photo->filepath }}"/>
                     @endforeach
                 @endif
             </div>
             <div class="oss_photo"></div>
         </div>
         <!-- OSS end -->
-        <textarea class="form-control" rows="4" placeholder="对景点的描述">
+        <textarea class="form-control" rows="4" name="content{{ $con }}" placeholder="对景点的描述">
                     {{ $message->contents[$con]->text }}
         </textarea>
         @endfor
 
         <div class="sub">
-            <button id="submit_btn" type="submit" class="btn btn-primary">保存</button>
+            <button v-on:click="sed()" type="submit" class="btn btn-primary">保存</button>
     </form>
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
         <i class="fa fa-times-circle"></i>

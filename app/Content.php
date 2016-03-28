@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Content extends Model
 {
     protected $table = "content";
-    const DELETED_AT = 'updated_at';
     const UPDATED_AT = 'update_time';
     const CREATED_AT = 'update_time';
     protected $fillable = array('text');
