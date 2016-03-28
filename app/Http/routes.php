@@ -26,8 +26,20 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
     Route::get('casa/{id?}', 'CasaController@show');
     Route::post('casaEdit', 'CasaController@edit');
+
     Route::resource('areas','AreaController');
-    Route::get('wechatList/{type}/{deleted?}', 'WechatController@wechatList');
+    Route::get('casaList/{deleted?}', 'CasaController@showList');
+    Route::get('casaEdit', 'CasaController@casaEdit');
+    Route::get('/casa', 'CasaController@casaInfo');
+    Route::get('participateList', 'WechatController@participateList');
+    Route::get('wechatSeriesList','WechatController@wechatSeriesList');
+    Route::post('wechatSeriesList','WechatController@wechatSeriesEdits');
+    Route::get('wechatSeriesEdit','WechatController@wechatSeriesEdit');
+    Route::get('wechatList/{type?}/{deleted?}', 'WechatController@wechatList');
+    Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
+    Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');
+    Route::post('wechatEdit/{id?}', 'WechatController@wechatEdits');
+
 });
 
 /**

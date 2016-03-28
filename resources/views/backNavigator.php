@@ -23,11 +23,11 @@
                         aria-haspopup="true" aria-expanded="false">微信管理<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="activity/participate_list.php?status=0">游园会活动管理</a></li>
-                    <li><a href="website/wechat/wechat_series_list.php">探庐系列-子标题</a></li>
-                    <li><a href="website/wechat/wechat_article_list.php?type=1">探庐系列</a></li>
-                    <li><a href="website/wechat/wechat_article_list.php?type=2">民宿风采</a></li>
-                    <li><a href="website/wechat/wechat_article_list.php?type=3">主题民宿</a></li>
+                    <li><a href="/back/participateList">游园会活动管理</a></li>
+                    <li><a href="/back/wechatSeriesList">探庐系列-子标题</a></li>
+                    <li><a href="/back/wechatList/1">探庐系列</a></li>
+                    <li><a href="/back/wechatList/2">民宿风采</a></li>
+                    <li><a href="/back/wechatList/3">主题民宿</a></li>
                 </ul>
             </li>
             <!--

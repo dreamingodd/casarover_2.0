@@ -17,7 +17,7 @@
         <a href="/back/wechatList/3">
             <span class="glyphicon glyphicon-list" aria-hidden="true"></span>主题民宿
         </a>
-        <a href="/back/wechatList">
+        <a href="/back/wechatList/1/1">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>回收站
         </a>
     </div>
@@ -36,14 +36,14 @@
                 <td class="brief">{{$article->brief}}</td>
                 <td>
                     @if ($article->deleted)
-                        <a href='wechat_article_recycle_action.php?option=recover&type=&id={{$article->id}}&deleted='>
+                        <a href='/back/wechatDel/{{$article->id}}/0'>
                             <button type="button" class="btn btn-xs btn-warning">还原</button>
                         </a>
                     @else
-                        <a href='wechat_article_edit.php?type=&id={{$article->id}}'>
+                        <a href='/back/wechatEdit/{{$article->id}}'>
                             <button type="button" class="btn btn-xs btn-info">编辑</button>
                         </a>
-                        <a href='wechat_article_recycle_action.php?option=recycle&type=&id={{$article->id}}'>
+                        <a href='/back/wechatDel/{{$article->id}}/1'>
                             <button type="button" class="btn btn-xs btn-danger">删除</button>
                         </a>
                     @endif
