@@ -3,7 +3,8 @@
 @section('title', '探庐者后台-民宿列表')
 
 @section('body')
- <form id="wechat_series_form" method="post" action="wechatSeriesEdits">
+ <form id="wechat_series_form" method="post" action="http://localhost:8000/back/wechatSeriesEdits">
+    <input name="_token" type="hidden" value="<?php echo csrf_token(); ?>">
         <div class="col-lg-12">
             <h4>类别</h4>
             <div class="text vertical5 col-lg-2">
@@ -20,4 +21,5 @@
             <input type="submit" style="margin-left: 15px; margin-top: 30px;" class="btn btn-info" value="提交"/>
         </div>
     </form>
+
 @stop

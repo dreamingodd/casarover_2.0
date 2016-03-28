@@ -16,7 +16,7 @@
             <th>父标题</th>
             <th>操作</th>
         </tr>
-        {{$number=1}};
+        <?php $number=1;?>
         @foreach ($wechatSeries as $series)
             <tr>
             <td>{{$number++}}</td>

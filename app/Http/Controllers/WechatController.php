@@ -13,6 +13,7 @@ class WechatController extends Controller
 {
     private $articles;
     private $series; 
+    protected $fillable = array('id', 'type', 'name');
     public function wechatList($type, $deleted=0) {
         $this->articles = WechatArticle::where('type', $type)->where('deleted', $deleted)->get();
         if($deleted == '1')
@@ -30,10 +31,27 @@ class WechatController extends Controller
     public function wechatEdit($id=0) {
         $this->series = wechatSeries::all();
         $article = WechatArticle::find($id);
+        if ($id!=0){    
+            if($article->type==1){
+                $fname='探庐系列';
+                $sname=wechatSeries::find($article->series)->name; 
+            }
+            else if($article->type==2){
+                $fname='民宿推荐';
+                $sname='';
+            }
+            else if($article->type==3){
+                $fname='主题民宿';
+                $sname='';
+            }
+            $wechatadd=$article->address;
+            $title=$article->title;
+            $brief=$article->brief;
+        }
         if($id==0)
-        return view('backstage.wechatArticleEdit',['wechatSeries' => $this->series]);
+        return view('backstage.wechatArticleEdit',['wechatSeries' => $this->series,'fname'=>'一级标签','sname'=>'二级标签','wechatadd'=>'','title'=>'','brief'=>'']);
         else 
-        return view('backstage.wechatArticleEdit',['wechatArticles' => $this->articles,'wechatSeries' => $this->series]);
+        return view('backstage.wechatArticleEdit',['article' => $article,'wechatSeries' => $this->series,'fname'=>$fname,'sname'=>$sname,'wechatadd'=>$wechatadd,'title'=>$title,'brief'=>$brief]);
     }
     public function participateList() {
          return view('backstage.participateList');
@@ -45,10 +63,11 @@ class WechatController extends Controller
 	public function wechatSeriesEdit() {
          return view('backstage.wechatSeriesEdit');
      }
-     public function asd()
-     {
-         $results =   WechatArticle::where('deleted',1)->get();
-         dd($results);
+     public function wechatSeriesEdits(request $request) {
+        // $input=$request->all();
+        // wechatSeries::create( $input);
+        dd($request->all());
+         $series = WechatArticle::find($id);
      }
 
 }

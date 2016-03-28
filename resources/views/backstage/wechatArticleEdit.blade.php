@@ -28,7 +28,8 @@
             <div id="" style="float:left;">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="type_text">一级标题</span> <span class="caret"></span>
+                    <span class="type_text">{{$fname}}</span> 
+                    <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li class="type_li" db_id="1">探庐系列</li>
@@ -39,7 +40,7 @@
            <div id="" style="float:left; margin-left:5px">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="series_text">二级标题</span> <span class="caret"></span>
+                    <span class="series_text">{{$sname}}</span> <span class="caret"></span>
                 </button>
                 <ul id="series_ul" class="dropdown-menu" aria-labelledby="dropdownMenu2"
                         style="margin-left:115px;">
@@ -49,7 +50,7 @@
     </div>
     <!-- Here's the list of WechatSeries items. -->
     <div id="series_list" style="display: none;">
-                {{$number=1}};
+                <?php $number=1;?>
                 @foreach ($wechatSeries as $series)
                     <span db_id="{{$number=1}}" name="{{$series->name}}" type="1"></span>
                 @endforeach
@@ -82,19 +83,19 @@
             <div class="input-group input-group-sm col-lg-10">
                 <span class="input-group-addon" id="sizing-addon3">微信链接（必须微信端复制链接）</span>
                 <input id="address" type="text" class="form-control" aria-describedby="sizing-addon3"
-                        name="address" value=""/>
+                        name="address" value="{{$wechatadd}}"/>
             </div>
         </div>
         <div class="col-lg-12">
             <h4>标题</h4>
             <div class="name vertical5 col-lg-3">
-                <input id="title" name="title" type="text" class="form-control" value="" aria-describedby="sizing-addon3" />
+                <input id="title" name="title" type="text" class="form-control" value="{{$title}}" aria-describedby="sizing-addon3" />
             </div>
         </div>
         <div class="col-lg-12">
             <h4>简介</h4>
             <div class="text col-lg-12 vertical5">
-                <textarea id="brief" name="brief" rows="3" cols="150"></textarea>
+                <textarea id="brief" name="brief" rows="3" cols="150">{{$brief}}</textarea>
             </div>
         </div>
     </form>

@@ -33,12 +33,11 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/casa', 'CasaController@casaInfo');
     Route::get('participateList', 'WechatController@participateList');
     Route::get('wechatSeriesList','WechatController@wechatSeriesList');
+    Route::post('wechatSeriesEdits','WechatController@wechatSeriesEdits');
     Route::get('wechatSeriesEdit','WechatController@wechatSeriesEdit');
     Route::get('wechatList/{type?}/{deleted?}', 'WechatController@wechatList');
     Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
-    // Route::get('wechatListdel/{type}/{deleted}', 'WechatController@del');
-    Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');
-    // Route::get('wechatEdit/{id?}','WechatController@Edit');
+    Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');  
 });
 
 /**
