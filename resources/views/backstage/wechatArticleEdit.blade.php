@@ -73,7 +73,7 @@
         </div>
         <!-- OSS end -->
     </div>
-    <form id="wechat_article_form" method="post" action="wechat_article_update_action.php">
+    <form id="wechat_article_form" method="post" action="wechatEdit/{id?}">
         <input type="hidden" id="id" name="id" value=""/>
         <input type="hidden" id="attachment_id" name="attachment_id" value=""/>
         <input type="hidden" id="type" name="type" value="1"/>

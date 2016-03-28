@@ -38,6 +38,7 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('wechatList/{type?}/{deleted?}', 'WechatController@wechatList');
     Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
     Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');
+    Route::post('wechatEdit/{id?}', 'WechatController@wechatEdits');
 
 });
 

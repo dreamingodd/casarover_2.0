@@ -53,6 +53,9 @@ class WechatController extends Controller
         else 
         return view('backstage.wechatArticleEdit',['article' => $article,'wechatSeries' => $this->series,'fname'=>$fname,'sname'=>$sname,'wechatadd'=>$wechatadd,'title'=>$title,'brief'=>$brief]);
     }
+    public function wechatEdits($id=0) {
+        return 0;
+    }
     public function participateList() {
          return view('backstage.participateList');
      }

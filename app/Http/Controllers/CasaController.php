@@ -9,7 +9,9 @@ use App\Common\CommonTools;
 use App\Casa;
 use App\Area;
 use App\Tag;
+use App\Content;
 use App\Attachment;
+use DB;
 use App\Services\AreaService;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -23,44 +25,44 @@ class CasaController extends Controller
         $casaData = json_decode($request->all()['casa_JSON_str']);
         // dd($casaData);
 
-        \DB::beginTransaction();
+        DB::beginTransaction();
         try {
             if (empty($casaData->id)) {
                 $casa = new Casa;
-                // basic information
-                $casa->code = "0-2";
-                $casa->name = $casaData->name;
-                $casa->dictionary_id = $casaData->area;
-                // main photo
-                $casa->attachment()->associate($this->createAttachment($casaData->main_photo));
-                // tags
-                $officialTags = $this->getOfficalTags($casaData->tags);
-                $customTags = $this->getCustomTags($casaData->user_tags);
-                $tags = array_merge($officialTags, $customTags);
-                // contents
-                $contents = $this->createContents($casaData->contents);
-                $casa->save();
-                $casa->tags()->saveMany($tags);
-                $casa->contents()->saveMany($contents);
-                // dd($casa->attachment);
             } else {
-
                 $casa = Casa::find($casaData->id);
-                $casa->name = $casaData->name;
-                $casa->code = $casaData->code;
-                $casa->save();
+                $casa->attachment()->delete();
+                DB::delete('delete from casa_tag where casa_id='.$casa->id);
+                foreach ($casa->contents as $content) {
+                    $content->attachments()->delete();
+                    DB::delete('delete from content_attachment where content_id='.$content->id);
+                }
+                $casa->contents()->delete();
             }
-            \DB::commit();
+            // basic information
+            $this->updateSimpleCasa($casa, $casaData);
+            // main photo
+            $casa->attachment()->associate($this->createAttachment($casaData->main_photo));
+            // tags
+            $officialTags = $this->getOfficalTags($casaData->tags);
+            $customTags = $this->getCustomTags($casaData->user_tags);
+            $tags = array_merge($officialTags, $customTags);
+            // contents
+            $contents = $this->createContents($casaData->contents);
+            $casa->save();
+            $casa->tags()->saveMany($tags);
+            $casa->contents()->saveMany($contents);
+            DB::commit();
             return $casa->id;
         } catch(\PDOException $e) {
-            \DB::rollback();
+            DB::rollback();
             // SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry
             if (strpos($e->getMessage(), 'Duplicate entry') > 0) {
                 return "民宿编码（".$casaData->code."）已存在，请换一个!";
             }
             dd($e);
         } catch(\Exception $e) {
-            \DB::rollback();
+            DB::rollback();
             dd($e);
         }
     }
@@ -130,6 +132,13 @@ class CasaController extends Controller
         $attachment->save();
         return $attachment;
     }
+    private function updateSimpleCasa($casa, $casaData) {
+        // basic information
+        $casa->code = $casaData->code;
+        $casa->name = $casaData->name;
+        $casa->link = $casaData->link;
+        $casa->dictionary_id = $casaData->area;
+    }
     /**
      * Convert the various tag data that are received from edit page
      * to Tags which are from the database.
@@ -167,6 +176,20 @@ class CasaController extends Controller
      * @return Array of entity Contents(which are already inserted in the databases)
      */
      private function createContents(Array $rawContents) {
-         return array();
+         $contents = array();
+         foreach ($rawContents as $rawContent) {
+             $content = new Content;
+             $content->name = $rawContent->name;
+             $content->text = $rawContent->text;
+             $attachments = array();
+             foreach ($rawContent->photos as $filepath) {
+                 $attachemnt = $this->createAttachment($filepath);
+                 array_push($attachments, $attachemnt);
+             }
+             $content->save();
+             $content->attachments()->saveMany($attachments);
+             array_push($contents, $content);
+         }
+         return $contents;
      }
 }
