@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Casa;
 use App\Area;
+use App;
 
 class HomeController extends Controller
 {
@@ -15,7 +16,11 @@ class HomeController extends Controller
     public function getCasasByCityId($cityid)
     {
         $area = Area::find($cityid);
-        $casas = $area->casas;
+        $casas = $area->casas()->take(6)->get();
+        foreach($casas as $casa)
+        {
+            $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
+        }
         return response()->json($casas);
     }
 }
