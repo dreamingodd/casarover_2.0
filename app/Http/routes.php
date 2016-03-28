@@ -15,11 +15,10 @@ use App\Task;
 use Illuminate\Http\Request;
 
 Route::get('/', 'SiteController@index');
-Route::get('areas/{id}','AreaController@show');
+Route::get('/area/{id}','AreaController@show');
 Route::get('/casa', 'CasaController@casaInfo');
 Route::get('/wechat', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
-Route::get('/test', 'backend\AreaController@test');
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'CasaController@casaList');
@@ -27,17 +26,19 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
     Route::get('casa/{id?}', 'CasaController@show');
     Route::post('casaEdit', 'CasaController@edit');
-    Route::resource('areas','backend\AreaController');
+
+    Route::resource('areas','AreaController');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaEdit', 'CasaController@casaEdit');
     Route::get('/casa', 'CasaController@casaInfo');
     Route::get('participateList', 'WechatController@participateList');
     Route::get('wechatSeriesList','WechatController@wechatSeriesList');
-    Route::post('wechatSeriesEdits','WechatController@wechatSeriesEdits');
+    Route::post('wechatSeriesList','WechatController@wechatSeriesEdits');
     Route::get('wechatSeriesEdit','WechatController@wechatSeriesEdit');
     Route::get('wechatList/{type?}/{deleted?}', 'WechatController@wechatList');
     Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
-    Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');  
+    Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');
+
 });
 
 /**

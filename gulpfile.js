@@ -1,7 +1,7 @@
 /**
 *总计两个命令
 *开发的时候gulp watch 
-*部署的时候gulp
+*部署的时候gulp produc
 **/
 
 // 适配laravel的工作流
@@ -32,8 +32,8 @@ gulp.task('jshint',function () {
         .pipe(jshint.reporter('default'));
 });
 // 压缩
-gulp.task('uglify',['jshint'], function () {
-    return gulp.src('resources/assets/js/*.js')
+gulp.task('uglify',function () {
+    gulp.src('resources/assets/js/*.js')
         .pipe(uglify())
         .pipe(gulp.dest('public/assets/js/'));
 });
@@ -47,14 +47,6 @@ gulp.task('dev-less', function() {
         .pipe(less())
         .pipe(gulp.dest('public/assets/css/'))
 });
-
-// gulp.task('browser-sync',['dev-less'],function() {
-//     browserSync.init({
-//         proxy: "http://localhost",
-//         port:"8000"
-//     });
-
-// });
 
 
 // 部署执行
@@ -88,18 +80,8 @@ gulp.task('replace',['less'], function() {     //说明replace 是依赖于less�
 });
 
 
-gulp.task('default',['less','clean']);
+gulp.task('pro',['less','clean']);
 
-// gulp.task('watch',['dev-less'],function(){
-//     browserSync.init({
-//         proxy: "http://localhost",
-//         port:"80"
-//     });
-//     // gulp.watch('resources/assets/less/*.less',['dev-less']);
-//     // gulp.watch('resources/assets/js/*.js',['uglify']);
-//     gulp.watch('resources/**/**/*.*',['all-watch']);
-
-// });
 
 gulp.task('watch', ['dev-less'],function() {
 
@@ -109,5 +91,6 @@ gulp.task('watch', ['dev-less'],function() {
     });
 
     gulp.watch('resources/assets/less/*.less',['dev-less']);
+    gulp.watch('resources/assets/js/*js',['uglify']);
     gulp.watch('resources/**/**/*.*').on('change',reload);
 });

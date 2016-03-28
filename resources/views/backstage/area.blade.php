@@ -23,6 +23,11 @@
                         <button type="button" class="btn btn-xs btn-info">编辑</button>
                     </a>
                 </td>
+                <td>
+                    <a href='/area/{{ $area->id }}' target="_blank">
+                        <button type="button" class="btn btn-xs btn-info">查看效果</button>
+                    </a>
+                </td>
             </tr>
         @endforeach
     </table>

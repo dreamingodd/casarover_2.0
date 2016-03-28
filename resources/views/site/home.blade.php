@@ -48,9 +48,9 @@
         <h2>民宿推荐</h2>
         <div class="line"></div>
         <div class="city-list">
-            <a v-on:click="turn(1)">杭州</a>
-            <a v-on:click="turn(2)">临安</a>
-            <a v-on:click="turn(3)">上海</a>
+            <a v-on:click="turn(8)">杭州</a>
+            <a v-on:click="turn(9)">临安</a>
+            <a v-on:click="turn(10)">上海</a>
         </div>
             <div class="item" v-for="casa in casas">
                 <div class="item-b">

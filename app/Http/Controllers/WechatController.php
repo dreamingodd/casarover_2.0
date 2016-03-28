@@ -63,11 +63,12 @@ class WechatController extends Controller
 	public function wechatSeriesEdit() {
          return view('backstage.wechatSeriesEdit');
      }
-     public function wechatSeriesEdits(request $request) {
-        // $input=$request->all();
-        // wechatSeries::create( $input);
-        dd($request->all());
-         $series = WechatArticle::find($id);
+     public function wechatSeriesEdits(Requests\FormRequest $request) {
+         $repeat=wechatSeries::where('name', $request->name)->first();
+         if($repeat==null) {
+             wechatSeries::insert(['type' => '1', 'name' => $request->name]);
+             return redirect('back/wechatSeriesList');
+         }
      }
 
 }

@@ -6,19 +6,21 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Casa;
+use App\Area;
+use App;
 
 class HomeController extends Controller
 {
     //首页民宿推荐内容
     public function getCasasByCityId($cityid)
     {
-//        测试数据
-        $id = $cityid;
-        $pic = 'assets/images/fang.png';
-        $name = $cityid;
-        $brief = '这个是简介内容';
-        $the = compact('id','pic','name','name','brief');
-        $casas = [$the,$the,$the,$the,$the,$the];
+        $area = Area::find($cityid);
+        $casas = $area->casas()->take(6)->get();
+        foreach($casas as $casa)
+        {
+            $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
+        }
         return response()->json($casas);
     }
 }
