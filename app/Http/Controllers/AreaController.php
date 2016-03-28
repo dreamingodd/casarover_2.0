@@ -75,21 +75,19 @@ class AreaController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $content = new \App\Content;
-        $content->text = $request->brief;
         $area = Area::findOrFail($id);
+        $brief = new \App\Content(['text' => $request->brief]);
+
+        $area->contents()->delete();
+        $photoArr = explode(';',$request->photos);
+
+        $area->contents()->save($content);
         $area->value = $request->name;
         $area->position = $request->position;
         $area->tier = $request->tier;
-        $area->contents()->delete();
-        $area->contents()->save($content);
+//        $area->contents()->delete();
         $area->save();
-//        foreach($area->contents as $content)
-//        {
-//            $content->attachments()->delete();
-//        }
         return redirect()->route('back.areas.index');
-
     }
     /**
      * Remove the specified resource from storage.

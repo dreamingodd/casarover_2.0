@@ -9,6 +9,7 @@
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden" name="_method" value="PUT">
         {{--所有图片的字段--}}
+        {{ $message->contents }}
         <input type="hidden" name="photos" id="photos" value=>
         <div class="head">
             <h3>基本信息</h3>
@@ -23,7 +24,7 @@
                     </div>
                     <div class="oss_hidden_input">
                         @if(isset($message->contents))
-                            <input type="hidden" class="hidden_photo" value="{{ $message->contents[3]->attachments[0]->filepath }}"/>
+{{--                            <input type="hidden" class="hidden_photo" value="{{ $message->contents[3]->attachments[0]->filepath }}"/>--}}
                         @endif
                     </div>
                     <div class="oss_photo"></div>
@@ -33,14 +34,11 @@
                 <input type="text" class="form-control" name="name" value="{{ $message->value }}" />
                 <h3>简介</h3>
                 {{ $message->cotnents }}
-            <textarea class="form-control" name="brief" rows="3" >
-                @if(isset($message->contents))
-                    {{ $message->contents[0]->text }}
-                @endif</textarea>
+            <textarea class="form-control" name="brief" rows="3" >@if(isset($message->contents)){{ $message->contents[0]->text }}@endif</textarea>
             </div>
         </div>
         <h3>攻略内容</h3>
-        <textarea class="form-control" rows="3" name="radiers">@if(isset($message->ccontents)){{ $message->contents[1]->text }}@endif</textarea>
+{{--        <textarea class="form-control" rows="3" name="radiers">@if(isset($message->contents)){{ $message->contents[1]->text }}@endif</textarea>--}}
         <hr>
         <div class="raiders">
             <p>到下面的这个网站选取坐标和层级然后复制过来</p>
