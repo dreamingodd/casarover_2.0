@@ -23,6 +23,7 @@ class WechatController extends Controller
     public function del($id, $deleted) {
         $article = WechatArticle::find($id);
         $article->deleted = $deleted;
+//        dd($article);
         $article->save();
         $deleted = $deleted==0?1:0;
         $this->wechatList(1, $deleted);

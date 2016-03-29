@@ -15,10 +15,11 @@ use App\Task;
 use Illuminate\Http\Request;
 
 Route::get('/', 'SiteController@index');
-Route::get('/area/{id}','AreaController@show');
-Route::get('/casa', 'CasaController@casaInfo');
+Route::get('/area/{id}' , 'AreaController@show');
+Route::get('/casa/{id}' , 'CasaController@casaInfo');
 Route::get('/wechat', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
+
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'CasaController@casaList');
@@ -28,6 +29,7 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::post('casaEdit', 'CasaController@edit');
 
     Route::resource('areas','AreaController');
+    Route::resource('site','SiteController');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaEdit', 'CasaController@casaEdit');
     Route::get('/casa', 'CasaController@casaInfo');
