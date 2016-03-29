@@ -6,22 +6,18 @@ use Illuminate\Http\Request;
 
 use App\WechatArticle;
 use App\Http\Requests;
+use App\Casa;
 
 class SiteController extends Controller
 {
     public function index()
     {
-
-        $casas = new \stdClass();
-        $first = new \stdClass();
-        $first->id = 1;
-        $first->name='白乐桥';
-        $first->pic='assets/images/head.png';
-        $second = new \stdClass();
-        $second->id = 2;
-        $second->name='花千骨';
-        $second->pic='assets/images/head2.png';
-        $casas = array('casas'=>array($first,$second),'citys'=>array('杭州','上海','嘉兴'));
-        return view('site.home',$casas);
+        $casas = Casa::take(3)->get();
+        foreach($casas as $casa)
+        {
+            $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
+        }
+        $citys = ['杭州','上海','嘉兴'];
+        return view('site.home',compact('casas','citys'));
     }
 }

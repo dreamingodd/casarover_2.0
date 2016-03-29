@@ -72,29 +72,38 @@ class AreaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 区域的简介是没有图片的所以先进行存储
+     * 之后的攻略和head-img进行绑定
+     * 下面的景点介绍是一张图片一个content相应的进行绑定
      */
     public function update(Request $request,$id)
     {
-//        $img = ['filepath' => 'casa_123.png'];
-//        $area = Area::findOrFail($id)->contents[2]->attachments[0]->update($img);
-//        return response()->json($area);
-        $text = new \App\Content(['text' => $request->brief]);
-//        $text = ['text' => $request->brief];
-////        $img = new \App\Attachment(['filepath' => 'casa_123123.png']);
-//        $img = ['filepath' => 'casa_123.png'];
         $area = Area::findOrFail($id);
+        $photoArr = explode(';',$request->photos);
+        if(count($photoArr) < 5)
+        {
+            abort(404,'图片数量不足');
+        }
+        array_unshift($photoArr,'123');
+        $area->contents()->delete();
+        for($i=0;$i<5;$i++)
+        {
+            $key = 'content'.$i;
+            $content = new \App\Content(['text' => $request->$key]);
+            $area->contents()->save($content);
+        }
+        for($i=1;$i< 5;$i++)
+        {
+            $pic = new \App\Attachment(['filepath' => $photoArr[$i]]);
+            $area->contents[$i]->attachments()->delete();
+            $area->contents[$i]->attachments()->save($pic);
+        }
         $area->value = $request->name;
         $area->position = $request->position;
         $area->tier = $request->tier;
-////        dd($img);
-        $area->contents()->save($text);
-//        $area->attachment()->update($img);
-//
-//        $area->contents()->update($text);
-        return redirect()
-            ->route('back.areas.index');
+        $area->save();
+        return redirect()->route('back.areas.index');
     }
-
     /**
      * Remove the specified resource from storage.
      *

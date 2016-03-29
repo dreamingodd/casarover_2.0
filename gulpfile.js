@@ -25,12 +25,7 @@ var gulp = require('gulp'),
 
 // 通用
 
-//语法检查
-// gulp.task('jshint',function () {
-//     return gulp.src('resources/assets/js/*.js')
-//         .pipe(jshint())
-//         .pipe(jshint.reporter('default'));
-// });
+
 // 压缩
 gulp.task('uglify',function () {
     gulp.src('resources/assets/js/*.js')

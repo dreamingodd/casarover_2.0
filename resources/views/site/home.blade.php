@@ -5,7 +5,6 @@
     <script src="{{ asset('assets/js/integration/vue.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/home.js') }}" type="text/javascript"></script>
 @endsection
-
 @section('body')
 <!-- slider -->
 <div class="flexslider">
@@ -18,7 +17,6 @@
                     </div>
                 </a>
             </li>
-
         @endforeach
     </ul>
 </div>
@@ -48,13 +46,13 @@
         <h2>民宿推荐</h2>
         <div class="line"></div>
         <div class="city-list">
-            <a v-on:click="turn(8)">杭州</a>
-            <a v-on:click="turn(9)">临安</a>
-            <a v-on:click="turn(10)">上海</a>
+            <a v-on:click="turn(8)">白乐桥</a>
+            <a v-on:click="turn(9)">四眼井</a>
+            <a v-on:click="turn(10)">满觉陇</a>
         </div>
             <div class="item" v-for="casa in casas">
                 <div class="item-b">
-                    <a href="casa/@{{ casa.id }}">
+                    <a href="casa/@{{ casa.id }}" target="_blank">
                         <img :src="casa.pic" height="100%">
                         <div class="card">
                             <h3>@{{ casa.name }}</h3>

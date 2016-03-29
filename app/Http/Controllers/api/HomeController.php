@@ -20,6 +20,7 @@ class HomeController extends Controller
         foreach($casas as $casa)
         {
             $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
+            $casa->brief = $casa->contents[0]->text;
         }
         return response()->json($casas);
     }

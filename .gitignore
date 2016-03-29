@@ -6,5 +6,7 @@ Homestead.json
 .env
 npm-debug.log
 /nbproject/private/
+=======
+/nbproject/private/
 .idea
 /config/casarover.php

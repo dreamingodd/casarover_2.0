@@ -193,4 +193,10 @@ class CasaController extends Controller
          }
          return $contents;
      }
+    public function casaInfo($id)
+    {
+        $casa = Casa::find($id);
+        $casa->headImg = config('casarover.photo_folder').$casa->attachment->filepath;
+        return view('site.casa',compact('casa'));
+    }
 }
