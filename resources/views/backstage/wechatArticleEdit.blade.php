@@ -68,17 +68,16 @@
                 <button class="show_uploader btn btn-primary btn-sm">插入图片</button>
             </div>
             <div class="oss_hidden_input">
-                            </div>
+                    <input type="hidden" class="hidden_photo" value="{{$filepath}}"/>
+            </div>
             <div class="oss_photo"></div>
         </div>
         <!-- OSS end -->
     </div>
-    <form id="wechat_article_form" method="post" action="wechatEdit/{id?}">
-        <input type="hidden" id="id" name="id" value=""/>
-        <input type="hidden" id="attachment_id" name="attachment_id" value=""/>
-        <input type="hidden" id="type" name="type" value="1"/>
-        <input type="hidden" id="series" name="series" value=""/>
-        <input type="hidden" id="deleted" name="deleted" value=""/>
+    <form id="wechat_article_form" method="post" action="http://localhost:8000/back/wechatEdit/{{$id}}">
+        <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+        <input type="hidden"  name="type" value="{{$fname}}"/>
+        <input type="hidden"  name="series" value="{{$seriesID}}"/>
         <div class="col-lg-12" style="margin-top: 30px;">
             <div class="input-group input-group-sm col-lg-10">
                 <span class="input-group-addon" id="sizing-addon3">微信链接（必须微信端复制链接）</span>
