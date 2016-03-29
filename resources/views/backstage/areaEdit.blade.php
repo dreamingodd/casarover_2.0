@@ -9,7 +9,6 @@
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden" name="_method" value="PUT">
         {{--所有图片的字段--}}
-        {{ $message->contents }}
         <input type="hidden" name="photos" id="photos" value=>
         <div class="head">
             <h3>基本信息</h3>
@@ -23,8 +22,10 @@
                         <button class="show_uploader btn btn-primary btn-sm" type="button">插入图片</button>
                     </div>
                     <div class="oss_hidden_input">
-                        @if(isset($message->contents))
-{{--                            <input type="hidden" class="hidden_photo" value="{{ $message->contents[3]->attachments[0]->filepath }}"/>--}}
+                        @if(isset($message->contents[1]))
+                            @if(isset($message->contents[1]->attachmets))
+                                <input type="hidden" class="hidden_photo" value="{{ $message->contents[1]->attachments[0]->filepath }}"/>
+                            @endif
                         @endif
                     </div>
                     <div class="oss_photo"></div>
@@ -33,12 +34,11 @@
                 <h3>区域名</h3>
                 <input type="text" class="form-control" name="name" value="{{ $message->value }}" />
                 <h3>简介</h3>
-                {{ $message->cotnents }}
-            <textarea class="form-control" name="brief" rows="3" >@if(isset($message->contents)){{ $message->contents[0]->text }}@endif</textarea>
+                <textarea class="form-control" name="content0" rows="3" >@if(isset($message->contents[0])){{ $message->contents[0]->text }}@endif</textarea>
             </div>
         </div>
         <h3>攻略内容</h3>
-{{--        <textarea class="form-control" rows="3" name="radiers">@if(isset($message->contents)){{ $message->contents[1]->text }}@endif</textarea>--}}
+        <textarea class="form-control" rows="3" name="content1">@if(isset($message->contents[1])){{ $message->contents[1]->text }}@endif</textarea>
         <hr>
         <div class="raiders">
             <p>到下面的这个网站选取坐标和层级然后复制过来</p>
@@ -53,25 +53,30 @@
 
         <h3>附近景点</h3>
         <p>一个景点一张图片，请把多余的删掉</p>
-        @for($con=2; $con<count($message->contents); $con++)
+        @for($con=2; $con<5; $con++)
                 <!-- OSS start -->
-        <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
+        <div class="oss_photo_tool col-lg-12 clearfix" target_folder="area" file_prefix="area" limit_size="1024"
              oss_address="{{Config::get("casarover.oss_external")}}">
             <div class="oss_button">
                 <button class="show_uploader btn btn-primary btn-sm" type="button">插入图片</button>
             </div>
             <div class="oss_hidden_input place-photos">
-                @if (empty($message->contents[$con]->attachments))
-                    @foreach($message->contents[$con]->attachments as $photo)
-                    <input type="hidden" class="hidden_photo " value="{{ $photo->filepath }}"/>
-                    @endforeach
+                @if(isset($message->contents[$con]))
+                    @if (empty($message->contents[$con]->attachments))
+                        @foreach($message->contents[$con]->attachments as $photo)
+                            <input type="hidden" class="hidden_photo " value="{{ $photo->filepath }}"/>
+                        @endforeach
+                    @endif
                 @endif
             </div>
             <div class="oss_photo"></div>
         </div>
+
         <!-- OSS end -->
         <textarea class="form-control" rows="4" name="content{{ $con }}" placeholder="对景点的描述">
-                    {{ $message->contents[$con]->text }}
+            @if(isset($message->contents[$con]))
+                {{ $message->contents[$con]->text }}
+            @endif
         </textarea>
         @endfor
 
