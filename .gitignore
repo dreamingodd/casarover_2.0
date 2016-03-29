@@ -4,13 +4,9 @@
 Homestead.yaml
 Homestead.json
 .env
-<<<<<<< HEAD
+npm-debug.log
 /nbproject/private/
 =======
 /nbproject/private/
 .idea
-<<<<<<< HEAD
->>>>>>> a08e0f5a84add27dd0131e8b5724a07e46b9269e
-=======
 /config/casarover.php
->>>>>>> d7e1c3c8396a89d063c432b3b99f33102c690cef
