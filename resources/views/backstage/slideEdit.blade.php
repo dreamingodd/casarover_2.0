@@ -33,10 +33,12 @@
             @endforeach
         </select>
         <button class="btn btn-primary" type="submit" id="submit">保存</button>
+        @if(isset($slide))
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
             <i class="fa fa-times-circle"></i>
             删除
         </button>
+            @endif
     </form>
     <div class="modal fade" id="modal-delete" tabIndex="-1">
         <div class="modal-dialog">
@@ -54,7 +56,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <form method="post" action="/back/slide/del/{{ $slide->id }}">
+                    <form method="post" action="/back/slide/del/{{ $slide->id or '' }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                         </button>

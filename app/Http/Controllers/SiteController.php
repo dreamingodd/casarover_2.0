@@ -36,7 +36,7 @@ class SiteController extends Controller
 
     public function store(Request $request)
     {
-        if(isset($request->id))
+        if(($request->id != '' ))
         {
             $this->update($request);
         }

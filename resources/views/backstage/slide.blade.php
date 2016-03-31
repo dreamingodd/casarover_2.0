@@ -17,9 +17,10 @@
         </tr>
         </thead>
         <tbody id="app">
+        <?php $num=1 ?>
         @foreach($slides as $slide)
         <tr>
-            <th scope="row">{{$slide->id}}</th>
+            <th scope="row">{{ $num++ }}</th>
             <td>{{ $slide->title }}</td>
             <td>
                <button class="btn btn-default"><a href="/back/slide/edit/{{ $slide->id }}">编辑</a></button>
