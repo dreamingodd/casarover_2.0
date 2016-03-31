@@ -11,9 +11,9 @@
     <ul class="slides">
         @foreach($casas as $casa)
             <li style="background:url({{ $casa->pic }}) ; background-size:100% 100%;">
-                <a href="casa/{{ $casa->id }}" target="_blank" class="slide-a">
+                <a href="casa/{{ $casa->casa_id }}" target="_blank" class="slide-a">
                     <div class="slide-mess">
-                        {{ $casa->name }}
+                        {{ $casa->title }}
                     </div>
                 </a>
             </li>
@@ -21,24 +21,24 @@
     </ul>
 </div>
 <!-- endslider -->
-<!-- 搜索框 -->
-<div class="search">
-    <div class="search-form">
-        <form action="">
-            <div class="search-input">
-                <input type="text" placeholder="找到好民宿">
-            </div>
-        </form>
-        <div class="search-place" id="city">
-            <ul>
-                @foreach($citys as $city)
-                    <li><a href="">{{ $city }}</a></li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-</div>
-<!-- end 搜索框 -->
+{{--<!-- 搜索框 -->--}}
+{{--<div class="search">--}}
+    {{--<div class="search-form">--}}
+        {{--<form action="">--}}
+            {{--<div class="search-input">--}}
+                {{--<input type="text" placeholder="找到好民宿">--}}
+            {{--</div>--}}
+        {{--</form>--}}
+        {{--<div class="search-place" id="city">--}}
+            {{--<ul>--}}
+                {{--@foreach($citys as $city)--}}
+                    {{--<li><a href="">{{ $city }}</a></li>--}}
+                {{--@endforeach--}}
+            {{--</ul>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+{{--</div>--}}
+{{--<!-- end 搜索框 -->--}}
 
 <div class="container">
     <!-- 民宿推荐 -->

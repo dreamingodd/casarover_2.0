@@ -7,17 +7,73 @@ use Illuminate\Http\Request;
 use App\WechatArticle;
 use App\Http\Requests;
 use App\Casa;
+use App\Option;
 
 class SiteController extends Controller
 {
     public function index()
     {
-        $casas = Casa::take(3)->get();
+        $casas = Option::all();
         foreach($casas as $casa)
         {
             $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
         }
         $citys = ['杭州','上海','嘉兴'];
         return view('site.home',compact('casas','citys'));
+    }
+
+    public function slide()
+    {
+        $slides = Option::all();
+        return view('backstage.slide',compact('slides'));
+    }
+
+    public function create()
+    {
+        $casas = Casa::all();
+        return view('backstage.slideEdit',compact('casas'));
+    }
+
+    public function store(Request $request)
+    {
+        if(isset($request->id))
+        {
+            $this->update($request);
+        }
+        $slide = new Option;
+        $slide->title = $request->title;
+        $slide->brief = $request->brief;
+        $slide->casa_id = $request->casa;
+        $pic = new \App\Attachment(['filepath' => $request->photo]);
+        $pic = $slide->attachment()->save($pic);
+        $slide->attachment_id = $pic->id;
+        $slide->save();
+        return redirect('back/slide');
+    }
+
+    public function edit($id)
+    {
+        $slide = Option::find($id);
+        $casas = Casa::all();
+        return view('backstage.slideEdit',compact('slide','casas'));
+    }
+
+    public function update($request)
+    {
+        $slide = Option::find($request->id);
+        $slide->title = $request->title;
+        $slide->brief = $request->brief;
+        $slide->casa_id = $request->casa;
+        $pic = new \App\Attachment(['filepath' => $request->photo]);
+        $slide->attachment()->delete();
+        $pic = $slide->attachment()->save($pic);
+        $slide->attachment_id = $pic->id;
+        $slide->save();
+    }
+
+    public function del(Request $request)
+    {
+        Option::destroy($request->id);
+        return redirect('back/slide');
     }
 }

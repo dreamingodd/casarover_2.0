@@ -10,16 +10,24 @@ class Area extends Model
     const UPDATED_AT = 'update_time';
     const CREATED_AT = 'updated_at';
     protected $table = "area_dictionary";
-    public function casas() {
+    public function casas()
+    {
         return $this->hasMany('App\Casa', 'dictionary_id');
     }
-    public function supArea() {
+    public function casaRecoms()
+    {
+        return $this->belongsToMany('App\Casa');
+    }
+    public function supArea()
+    {
         return $this->belongsTo('App\Area', 'parentid');
     }
-    public function subAreas() {
+    public function subAreas()
+    {
         return $this->hasMany('App\Area', 'parentid');
     }
-    public function contents(){
+    public function contents()
+    {
         return $this->belongsToMany('App\Content');
     }
     public function attachment()
