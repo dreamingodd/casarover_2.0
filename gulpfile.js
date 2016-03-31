@@ -78,7 +78,7 @@ gulp.task('replace',['less'], function() {     //说明replace 是依赖于less�
 gulp.task('pro',['less','clean']);
 
 
-gulp.task('watch', ['dev-less'],function() {
+gulp.task('default', ['dev-less'],function() {
 
     browserSync.init({
         proxy: "http://localhost",

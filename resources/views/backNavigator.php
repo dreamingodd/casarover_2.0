@@ -8,8 +8,8 @@
                         aria-haspopup="true" aria-expanded="false">首页管理<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="not_complete" href="website/backstage/huge_pics_edit.php">轮播图</a></li>
-                    <li><a class="not_complete" href="website/backstage/theme_list.php" >主题推荐</a></li>
+                    <li><a  href="/back/slide">轮播图</a></li>
+                    <li><a  href="/back/recom" >主题推荐</a></li>
                 </ul>
             </li>
             <li role="presentation" class="area">

@@ -12,6 +12,9 @@ class AddUpdateAtToWechatArticle extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('wechat_article')) {
+            return;
+        }
         Schema::table('wechat_article', function (Blueprint $table) {
             $table->timestamp('update_at');
         });

@@ -112,7 +112,7 @@ class AreaController extends Controller
      */
     public function destroy($id)
     {
-        //
-        return $id;
+        Area::destroy($id);
+        return redirect()->route('back.areas.index');
     }
 }
