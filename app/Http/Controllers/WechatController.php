@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Http\RedirectResponse;
 use App\WechatArticle;
 use App\WechatSeries;
 use App\Attachment;
@@ -24,7 +24,6 @@ class WechatController extends Controller
     public function del($id, $deleted) {
         $article = WechatArticle::find($id);
         $article->deleted = $deleted;
-//        dd($article);
         $article->save();
         $deleted = $deleted==0?1:0;
         $this->wechatList(1, $deleted);
@@ -86,10 +85,11 @@ class WechatController extends Controller
             $attachment= Attachment::all()->last()->id;
             WechatArticle::insert(['address' =>$save['address'],'title'=>$save['title'],'brief'=>$save['brief'],'attachment_id'=>$attachment]);
         }
-        return redirect('back/wechatEdit/'.$id);
+        return view('backstage.sucess',['type'=>1,'id'=>$id]);
+//        return redirect('back/wechatEdit/'.$id);
     }
     public function participateList() {
-         return view('backstage.participateList');
+        return view('backstage.participateList');
      }
  	public function wechatSeriesList() {
         $this->series = wechatSeries::all();
@@ -100,7 +100,7 @@ class WechatController extends Controller
      }
      public function wechatSeriesEdits(Requests\wechatSeriesEditRequset $request) {
              wechatSeries::insert(['type' => '1', 'name' => $request->name]);
-             return redirect('back/wechatSeriesList');
+             return view('backstage.sucess',['type'=>1,'id'=>0]);
      }
 
 }
