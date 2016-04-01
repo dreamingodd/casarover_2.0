@@ -22,7 +22,10 @@ class WechatController extends Controller
      * @param series 探庐系列
      */
     public function index($type=2, $series=0) {
-        $this->articles = WechatArticle::where('type', $type)->where('series', $series)->get();
+        $this->articles = WechatArticle::where('type', $type)
+                                       ->where('series', $series)
+                                       ->where('deleted', 0)
+                                       ->orderBy('id', 'desc')->get();
         $this->series = WechatSeries::all();
         return view('site.wechat', ['wechatArticles' => $this->articles, 'wechatSeries' => $this->series]);
     }
