@@ -1,6 +1,6 @@
 /**
 *总计两个命令
-*开发的时候gulp watch 
+*开发的时候gulp watch
 *部署的时候gulp produc
 **/
 
@@ -26,16 +26,20 @@ var gulp = require('gulp'),
 // 通用
 
 
-// 压缩
+// 压缩js
 gulp.task('uglify',function () {
     gulp.src('resources/assets/js/*.js')
         .pipe(uglify())
         .pipe(gulp.dest('public/assets/js/'));
 });
+// 压缩js源码包
+gulp.task('uglify_integration',function () {
+    gulp.src('resources/assets/js/integration/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('public/assets/js/integration/'));
+});
 
-// 开发中使用
-
-
+// 编译less
 gulp.task('dev-less', function() {
     del.sync('public/assets/css/*.css');
     gulp.src(['resources/assets/less/main.less','resources/assets/less/back.less'])
@@ -87,5 +91,6 @@ gulp.task('default', ['dev-less'],function() {
 
     gulp.watch('resources/assets/less/*.less',['dev-less']);
     gulp.watch('resources/assets/js/*js',['uglify']);
+    gulp.watch('resources/assets/js/integration/*js',['uglify_integration']);
     gulp.watch('resources/**/**/*.*').on('change',reload);
 });

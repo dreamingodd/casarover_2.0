@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
-Route::get('/wechat', 'WechatController@index');
+Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
 
 
