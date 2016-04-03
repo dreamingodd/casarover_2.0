@@ -12,7 +12,7 @@ class OssController extends Controller
 {
     public function execute(Request $request) {
 
-        require_once app_path().'\oss\oss_php_sdk_20140625\sdk.class.php';
+        require_once app_path().'/oss/oss_php_sdk_20140625/sdk.class.php';
         $target_folder = $request->all()['target_folder'];
         $id= Config::get("casarover.oss_id");
         $key= Config::get("casarover.oss_secret");

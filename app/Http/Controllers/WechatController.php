@@ -13,8 +13,23 @@ use App\Http\Controllers\Controller;
 class WechatController extends Controller
 {
     private $articles;
-    private $series; 
+    private $series;
     protected $fillable = array('id', 'type', 'name');
+
+    /**
+     * 微信公众号-探
+     * @param type 文章类型
+     * @param series 探庐系列
+     */
+    public function index($type=2, $series=0) {
+        $this->articles = WechatArticle::where('type', $type)
+                                       ->where('series', $series)
+                                       ->where('deleted', 0)
+                                       ->orderBy('id', 'desc')->get();
+        $this->series = WechatSeries::all();
+        return view('site.wechat', ['wechatArticles' => $this->articles, 'wechatSeries' => $this->series]);
+    }
+
     public function wechatList($type, $deleted=0) {
         $this->articles = WechatArticle::where('type', $type)->where('deleted', $deleted)->get();
         if($deleted == '1')
@@ -28,12 +43,12 @@ class WechatController extends Controller
         $deleted = $deleted==0?1:0;
         $this->wechatList(1, $deleted);
         return view('backstage.wechatArticleList', ['wechatArticles' => $this->articles]);
-    } 
+    }
     public function wechatEdit($id=0) {
         $this->series = wechatSeries::all();
         $article = WechatArticle::find($id);
         $seriesID=0;
-        if ($id!=0){    
+        if ($id!=0){
             if($article->type==1){
                 $fname='探庐系列';
                 $sname=wechatSeries::find($article->series)->name;
@@ -54,7 +69,7 @@ class WechatController extends Controller
         }
         if($id==0)
         return view('backstage.wechatArticleEdit',['id'=>0,'wechatSeries' => $this->series,'fname'=>'一级标签','sname'=>'二级标签','wechatadd'=>'','title'=>'','brief'=>'','filepath'=>'','seriesID'=>0]);
-        else 
+        else
         return view('backstage.wechatArticleEdit',['id'=>$id,'wechatSeries' => $this->series,'fname'=>$fname,'sname'=>$sname,'wechatadd'=>$wechatadd,'title'=>$title,'brief'=>$brief,'filepath'=>$filepath,'seriesID'=>$seriesID]);
     }
     public function wechatEdits($id=0,Requests\wechatArticleEditRequset$request) {

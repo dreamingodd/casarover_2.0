@@ -2,27 +2,29 @@ $(function(){
     // 一级标题选择 Choose Type.
     //// Collect series from html doms.
     var series_list = collectSeriesList();
-    $('.type_li').click(function() {
+    $('.type_li').click(function() 
+    {
         $('.type_text').html($(this).html());
         $('#type').val($(this).attr('db_id'));
         fillSeriesUl(series_list, $(this).attr('db_id'));
-        if ($('.type_text').html()=='探庐系列'){
-        $('#dropdownMenu2').attr("disabled", false);
-        $('.series_li').click(function(){
-        $('.series_text').html($(this).html());
-    });
+        if ($('.type_text').html()=='探庐系列')
+        {
+            $('#dropdownMenu2').attr("disabled", false);
+            $('.series_li').click(
+            function(){$('.series_text').html($(this).html());});
         }
-        else{
-        $('.series_text').html('');    
-        $('#dropdownMenu2').attr("disabled", true);
-        }
-    });
-    $('.type_li').each(function(){
-        var type_id = $('#type').val();
-        if (type_id == $(this).attr('db_id')) {
-            $('.type_text').html($(this).html());
+        else
+        {
+            $('.series_text').html('');    
+            $('#dropdownMenu2').attr("disabled", true);
         }
     });
+    // $('.type_li').each(function(){
+    //     var type_id = $('#type').val();
+    //     if (type_id == $(this).attr('db_id')) {
+    //         $('.type_text').html($(this).html());
+    //     }
+    // });
     // 二级标题选择 Choose series
     //// 根据type确定series, show series list which belongs to the pre-selected type.
     if ($('#type').val()) {

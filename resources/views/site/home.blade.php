@@ -47,9 +47,12 @@
         <h2>民宿推荐</h2>
         <div class="line"></div>
         <div class="city-list">
-            @foreach($citys as $city)
-                <a v-on:click="turn({{ $city->id }})">{{ $city->value }}</a>
-            @endforeach
+            {{--@foreach($citys as $city)--}}
+                {{--<a v-on:click="turn({{ $city->id }})">{{ $city->value }}</a>--}}
+            {{--@endforeach--}}
+            <a v-on:click="turn(10)">杭州</a>
+            <a v-on:click="turn(4)">上海</a>
+            <!--<a v-on:click="turn(8)"></a>-->
         </div>
             <div class="casa-card" v-for="casa in casas">
                 <div class="card-b">
