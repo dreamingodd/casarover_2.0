@@ -19,7 +19,8 @@ var gulp = require('gulp'),
     // jshint=require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     browserSync = require('browser-sync').create(),
-    reload = browserSync.reload;
+    reload = browserSync.reload,
+    minifycss = require('gulp-minify-css');
     const del = require('del');
 
 
@@ -38,8 +39,9 @@ gulp.task('uglify',function () {
 
 gulp.task('dev-less', function() {
     del.sync('public/assets/css/*.css');
-    gulp.src(['resources/assets/less/main.less','resources/assets/less/back.less'])
+    gulp.src('resources/assets/less/*.less')
         .pipe(less())
+        .pipe(minifycss())
         .pipe(gulp.dest('public/assets/css/'))
 });
 

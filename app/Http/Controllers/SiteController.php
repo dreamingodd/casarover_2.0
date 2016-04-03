@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\WechatArticle;
 use App\Http\Requests;
 use App\Casa;
+use App\Area;
 use App\Option;
 
 class SiteController extends Controller
@@ -18,7 +19,7 @@ class SiteController extends Controller
         {
             $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
         }
-        $citys = ['杭州','上海','嘉兴'];
+        $citys = Area::where('status',1)->get();
         return view('site.home',compact('casas','citys'));
     }
 
@@ -38,7 +39,7 @@ class SiteController extends Controller
     {
         if(($request->id != '' ))
         {
-            $this->update($request);
+            return $this->update($request);
         }
         $slide = new Option;
         $slide->title = $request->title;
@@ -69,6 +70,7 @@ class SiteController extends Controller
         $pic = $slide->attachment()->save($pic);
         $slide->attachment_id = $pic->id;
         $slide->save();
+        return redirect('back/slide');
     }
 
     public function del(Request $request)

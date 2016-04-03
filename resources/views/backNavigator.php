@@ -9,7 +9,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a  href="/back/slide">轮播图</a></li>
-                    <li><a  href="/back/recom" >主题推荐</a></li>
+                    <li><a  href="/back/recom" >民宿推荐</a></li>
                 </ul>
             </li>
             <li role="presentation" class="area">

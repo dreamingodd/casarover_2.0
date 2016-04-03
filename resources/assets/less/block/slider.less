@@ -1,4 +1,4 @@
-ul,ol{margin:0;padding:0;}
+// 首页轮播图
 .slides{
     li{
         cursor: pointer;
@@ -11,7 +11,19 @@ ul,ol{margin:0;padding:0;}
     position:relative;
     height:100%;
     overflow:hidden;
+    // 不好看
     background:url(../images/lbt/loading.gif) 50% no-repeat;
+}
+.flexslider:hover .flex-prev {
+    opacity: 0.7;
+    left: 10px;
+}
+.flexslider:hover .flex-next {
+    opacity: 0.7;
+    right: 10px;
+}
+.flexslider:hover .flex-next:hover, .flexslider:hover .flex-prev:hover {
+    opacity: 1;
 }
 .flex-control-nav{
     position:absolute;
@@ -40,50 +52,43 @@ ul,ol{margin:0;padding:0;}
         background-position:0 0;
     }
 }
-.flex-direction-nav a  {
-    text-decoration:none;
-    width: 40px;
-    height: 48px;
-    margin: -20px 0 0;
-    position: absolute;
-    top: 50%; z-index: 10;
-    overflow: hidden;
-    opacity: 0;
-    cursor: pointer;
-    color: rgba(0,0,0,0.8);
-    background:url(../images/arr.png) no-repeat;
-    text-indent:-999em;
+.flex-direction-nav {
+    a  {
+        text-decoration:none;
+        width: 40px;
+        height: 48px;
+        margin: -20px 0 0;
+        position: absolute;
+        top: 50%; z-index: 10;
+        overflow: hidden;
+        opacity: 0;
+        cursor: pointer;
+        color: rgba(0,0,0,0.8);
+        background:url(../images/arr.png) no-repeat;
+        text-indent:-999em;
+    }
+    .flex-prev {
+        left: -50px;
+        background-position:0 0;
+    }
+    .flex-next {
+        right: -50px;
+        background-position:-132px 0;
+    }
+    .flex-disabled {
+        opacity: 0!important;
+        filter:alpha(opacity=0);
+        cursor: default;
+    }
 }
-.flex-direction-nav .flex-prev {
-    left: -50px;
-    background-position:0 0;
-}
-.flex-direction-nav .flex-next {
-    right: -50px;
-    background-position:-132px 0;
-}
-.flexslider:hover .flex-prev {
-    opacity: 0.7;
-    left: 10px;
-}
-.flexslider:hover .flex-next {
-    opacity: 0.7;
-    right: 10px;
-}
-.flexslider:hover .flex-next:hover, .flexslider:hover .flex-prev:hover {
-    opacity: 1;
-}
-.flex-direction-nav .flex-disabled {
-    opacity: 0!important;
-    filter:alpha(opacity=0);
-    cursor: default;
-}
+// 轮播图介绍信息
 .slide-mess{
     position: absolute;
     font-size: 32px;
     color: #fff;
     margin:50px;
 }
+// for 整个li可点击
 .slide-a{
     display: block;
     height:100%;
@@ -95,7 +100,7 @@ ul,ol{margin:0;padding:0;}
         height: 233px !important ;
     }
     .slides li{
-       height: 182px;
+        height: 182px;
     }
     .flex-prev{
         display: none;

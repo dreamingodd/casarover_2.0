@@ -1,6 +1,7 @@
 @extends('site')
 @section('title','民宿')
 @section('head')
+    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
     <script src="{{ asset('assets/js/integration/jquery.flexslider-min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/integration/vue.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/home.js') }}" type="text/javascript"></script>
@@ -46,12 +47,12 @@
         <h2>民宿推荐</h2>
         <div class="line"></div>
         <div class="city-list">
-            <a v-on:click="turn(8)">白乐桥</a>
-            <a v-on:click="turn(9)">四眼井</a>
-            <a v-on:click="turn(10)">满觉陇</a>
+            @foreach($citys as $city)
+                <a v-on:click="turn({{ $city->id }})">{{ $city->value }}</a>
+            @endforeach
         </div>
-            <div class="item" v-for="casa in casas">
-                <div class="item-b">
+            <div class="casa-card" v-for="casa in casas">
+                <div class="card-b">
                     <a href="casa/@{{ casa.id }}" target="_blank">
                         <img :src="casa.pic" height="100%">
                         <div class="card">

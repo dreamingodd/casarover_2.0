@@ -34,6 +34,7 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::post('slide/del/{id}','SiteController@del');
     Route::post('slide/store','SiteController@store');
     Route::get('recom','RecomController@index');
+    Route::post('recom/update','RecomController@update');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaEdit', 'CasaController@casaEdit');
     Route::get('/casa', 'CasaController@casaInfo');
