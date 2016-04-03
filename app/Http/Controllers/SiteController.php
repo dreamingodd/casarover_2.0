@@ -38,7 +38,7 @@ class SiteController extends Controller
     {
         if(($request->id != '' ))
         {
-            $this->update($request);
+            return $this->update($request);
         }
         $slide = new Option;
         $slide->title = $request->title;
@@ -69,6 +69,7 @@ class SiteController extends Controller
         $pic = $slide->attachment()->save($pic);
         $slide->attachment_id = $pic->id;
         $slide->save();
+        return redirect('back/slide');
     }
 
     public function del(Request $request)
