@@ -1,7 +1,7 @@
 @extends('site')
 @section('title',$casa->name)
 @section('head')
-    <link rel="stylesheet" href="{{ asset('assets/css/casa.css') }}">
+    <link rel="stylesheet" href="/assets/css/casa.css">
 @endsection
 
 @section('body')

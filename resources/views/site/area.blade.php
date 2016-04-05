@@ -1,6 +1,6 @@
 @extends('site')
 @section('head')
-    <link rel="stylesheet" href="{{ asset('assets/css/area.css') }}">
+    <link rel="stylesheet" href="/assets/css/area.css">
 @endsection
 
 @section('body')
