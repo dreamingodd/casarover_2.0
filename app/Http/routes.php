@@ -35,6 +35,7 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::post('slide/store','SiteController@store');
     Route::get('recom','RecomController@index');
     Route::post('recom/update','RecomController@update');
+    Route::get('casarecom','RecomController@casa');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaEdit', 'CasaController@casaEdit');
     Route::get('/casa', 'CasaController@casaInfo');
@@ -56,4 +57,5 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
 **/
 Route::group(['prefix' => 'api'],function () {
     Route::get('home/recom/{id?}','api\HomeController@getCasasByCityId');
+    Route::get('casa/recom/{id?}','api\CasaController@getCasasById');
 });

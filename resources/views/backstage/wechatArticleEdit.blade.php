@@ -74,7 +74,7 @@
         </div>
         <!-- OSS end -->
     </div>
-    <form id="wechat_article_form" method="post" action="http://localhost:8000/back/wechatEdit/{{$id}}">
+    <form id="wechat_article_form" method="post" action="/back/wechatEdit/{{$id}}">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden"  name="type" value="{{$fname}}"/>
         <input type="hidden"  name="series" value="{{$seriesID}}"/>

@@ -28,4 +28,11 @@ class RecomController extends Controller
         }
         return redirect('back/recom');
     }
+
+    public function casa()
+    {
+        $areas = Area::where('level',3)->orwhere('value','上海') ->get();
+        return view('backstage.recomCasa',compact('areas'));
+    }
+
 }
