@@ -23,8 +23,7 @@
                     </div>
                     <div class="oss_hidden_input">
                         @if(isset($message->contents[1]))
-                            @if(isset($message->contents[1]->a
-                            ttachments[0]))
+                            @if(isset($message->contents[1]->attachments[0]))
                                 <input type="hidden" class="hidden_photo" value="{{ $message->contents[1]->attachments[0]->filepath }}"/>
                             @endif
                         @endif

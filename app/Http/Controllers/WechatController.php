@@ -51,15 +51,18 @@ class WechatController extends Controller
         if ($id!=0){
             if($article->type==1){
                 $fname='探庐系列';
+                $fid = 1;
                 $sname=wechatSeries::find($article->series)->name;
                 $seriesID=wechatSeries::find($article->series)->id;
             }
             else if($article->type==2){
                 $fname='民宿推荐';
+                $fid = 2;
                 $sname='';
             }
             else if($article->type==3){
                 $fname='主题民宿';
+                $fid = 3;
                 $sname='';
             }
             $filepath=attachment::find($article->attachment_id)->filepath;
@@ -67,21 +70,17 @@ class WechatController extends Controller
             $title=$article->title;
             $brief=$article->brief;
         }
-        if($id==0)
-        return view('backstage.wechatArticleEdit',['id'=>0,'wechatSeries' => $this->series,'fname'=>'一级标签','sname'=>'二级标签','wechatadd'=>'','title'=>'','brief'=>'','filepath'=>'','seriesID'=>0]);
+        if($id == 0){
+            return view('backstage.wechatArticleEdit',['id'=>0,'wechatSeries' => $this->series,'fname'=>'一级标签','sname'=>'二级标签','wechatadd'=>'','title'=>'','brief'=>'','seriesID'=>0]);
+        }
         else
-        return view('backstage.wechatArticleEdit',['id'=>$id,'wechatSeries' => $this->series,'fname'=>$fname,'sname'=>$sname,'wechatadd'=>$wechatadd,'title'=>$title,'brief'=>$brief,'filepath'=>$filepath,'seriesID'=>$seriesID]);
+        {
+            return view('backstage.wechatArticleEdit',['id'=>$id,'wechatSeries' => $this->series,'fid'=>$fid,'fname'=>$fname,'sname'=>$sname,'wechatadd'=>$wechatadd,'title'=>$title,'brief'=>$brief,'filepath'=>$filepath,'seriesID'=>$seriesID]);
+        }
     }
     public function wechatEdits($id=0,Requests\wechatArticleEditRequset$request) {
         $save=$request->all();
-        $type=0;
-        if($save['type']=='探庐系列')
-        $type=1;
-        else if($save['type']=='民宿风采')
-        $type=2;
-        else if($save['type']=='主题名宿')
-        $type=3;
-
+        $type = $save['type'];
        if($id!=0){
            $article = WechatArticle::find($id);
            $attachment= Attachment::where('id',$article->attachment_id)->first();
@@ -98,7 +97,15 @@ class WechatController extends Controller
         else {
             Attachment::create(['filepath' => $save['filepath']]);
             $attachment= Attachment::all()->last()->id;
-            WechatArticle::insert(['address' =>$save['address'],'title'=>$save['title'],'brief'=>$save['brief'],'attachment_id'=>$attachment]);
+            $article = new WechatArticle;
+            $article->type=$type;
+            $article->series=$save['series'];
+            $article->address = $save['address'];
+            $article->title = $save['title'];
+            $article->brief = $save['brief'];
+            $article->attachment_id = $attachment;
+            $article->save();
+//            WechatArticle::insert(['address' =>$save['address'],'title'=>$save['title'],'brief'=>$save['brief'],'attachment_id'=>$attachment]);
         }
         return view('backstage.sucess',['type'=>1,'id'=>$id]);
 //        return redirect('back/wechatEdit/'.$id);

@@ -34,19 +34,23 @@ $(function(){
         $('.series_text').html($(this).html());
     });
     //// Pre-selected series.
-    // if ($('#series').val()) {
-    //     var series = null;
-    //     for (var i = 0; i < series_list.length; i++) {
-    //         if ($('#series').val() == series_list[i].id) {
-    //             series = series_list[i];
-    //         }
-    //     }
-    //     if (series) {
-    //         $('.series_text').html(series.name);
-    //         $('#series').val(series.id);
-    //     }
-    // }
+     if ($('#series').val()) {
+         var series = null;
+         for (var i = 0; i < series_list.length; i++) {
+             if ($('#series').val() == series_list[i].id) {
+                 series = series_list[i];
+             }
+         }
+         if (series) {
+             $('.series_text').html(series.name);
+             $('#series').val(series.id);
+         }
+     }
     //// Select series.
+    $('body').on('click', '.series_li', function(){
+        $('.series_text').html($(this).html());
+        $('#series').val($(this).attr('db_id'));
+    });
     // Pocess after clicking form submit. 表单提交
     $('#submit').click(function(){
         var submit = true;
