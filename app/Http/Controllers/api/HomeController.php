@@ -16,10 +16,23 @@ class HomeController extends Controller
     public function getCasasByCityId($cityid)
     {
         $area = Area::find($cityid);
-        $casas = $area->casas()->take(6)->get();
-//        $districts = $area->subAreas;
-//        dd($districts);
-
+        $casas = $area->casaRecoms;
+        if(!count($casas))
+        {
+            $arealast = Area::where('parentid',$cityid)->where('islast',1)->get();
+            if(count($arealast))
+            {
+                $reconId = array();
+                foreach($arealast as $area)
+                {
+                    foreach(Area::find($area->id)->casaRecoms as $area)
+                    {
+                        array_push($reconId,$area->pivot->casa_id);
+                    }
+                }
+                $casas = Casa::whereIn('id',$reconId)->get();
+            }
+        }
         foreach($casas as $casa)
         {
             $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;

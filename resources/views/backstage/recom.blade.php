@@ -23,5 +23,4 @@
             <button type="submit" class="btn btn-default">保存</button>
         </form>
     </div>
-    <a href="">去设置城市下面的民宿</a>
 @endsection

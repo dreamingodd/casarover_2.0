@@ -19,13 +19,14 @@ $(document).ready(function(){
         },
 
         created: function () {
-            this.turn(8);
+            //默认显示，感觉这个是有点问题的
+            this.turn(7);
         },
 
         methods: {
             turn: function (event){
                 vm = this;
-                $.getJSON('api/home/recom/'+event,function (data) {
+                $.getJSON('/api/home/recom/'+event,function (data) {
                     vm.casas = data;
                 }.bind(vm));
             }

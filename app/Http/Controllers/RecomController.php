@@ -17,7 +17,13 @@ class RecomController extends Controller
 
     public function update(Request $request)
     {
+        if($request->city == '')
+        {
+            return '至少要选择一个呀';
+        }
+
         $citys = explode(',',$request->city);
+//        验证应该转到表单验证里面
 //        重置
         Area::where('status',1)->update(['status'=>0]);
         foreach($citys as $city)

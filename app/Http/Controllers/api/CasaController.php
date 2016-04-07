@@ -8,11 +8,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Area;
 use App\Casa;
+use DB;
 
 class CasaController extends Controller
 {
     public function getCasasById($cityid=8)
     {
+//        $k = DB::table('area_casa')->get();
+//        dd($k);
         $area = Area::find($cityid);
         $casas = $area->casas;
         if(!count($casas))
@@ -29,5 +32,35 @@ class CasaController extends Controller
             }
         }
         return response()->json($casas);
+    }
+
+    public function save(Request $request)
+    {
+        $areaIds = Area::find($request->city)->casaRecoms;
+        $this->reset($areaIds);
+        if(!count($areaIds))
+        {
+            $arealast = Area::where('parentid', $request->city)->where('islast', 1)->get();
+            $this->reset($arealast);
+        }
+        foreach($request->casa as $casa)
+        {
+            $data = Casa::find($casa);
+            $area = $data->area;
+            $data->areaRecoms()->save($area);
+        }
+        return response()->json(['msg'=>'ok']);
+    }
+
+//    对area_casa中的进行重置
+    public function reset($areaIds)
+    {
+      foreach($areaIds as $areaId)
+      {
+          foreach($areaId->casaRecoms as $delId)
+          {
+              $delId->pivot->delete();
+          }
+      }
     }
 }
