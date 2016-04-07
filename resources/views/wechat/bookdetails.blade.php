@@ -18,13 +18,13 @@
         <h1>山水相依 景景相融</h1>
         <p>brief</p>
         <span>￥878起</span>
-        <div class="brief">
-            <p>【住】高级客房1晚
-                </br>
-                【含】自助早餐1份
-                </br>
-                【享】免费WIFI</p>
-        </div>
+    </div>
+    <div class="brief">
+        <p>【住】高级客房1晚
+            </br>
+            【含】自助早餐1份
+            </br>
+            【享】免费WIFI</p>
     </div>
     <div class="tabtable">
         <ul class="nav nav-tabs">
@@ -44,5 +44,6 @@
             </div>
         </div>
     </div>
+    <a href="/bookpay" class="btn">立即购买</a>
 </body>
 </html>

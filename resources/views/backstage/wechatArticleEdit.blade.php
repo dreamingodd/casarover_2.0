@@ -1,8 +1,8 @@
 @extends('back')
 @section('title', '探庐者后台-微信文章列表')
 @section('head')
-<script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js"></script>
-<script src="/assets/js/wechat_article_edit.js"></script>
+    <script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js"></script>
+    <script src="/assets/js/wechat_article_edit.js"></script>
 @stop
 @section('body')
     <input type="hidden" id="page" value="wechat"/>
@@ -22,17 +22,13 @@
         <a href="/back/wechatList/1/1">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>回收站
         </a>
-    </div> 
+    </div>
     <div class="col-lg-12">
         <div class="dropdown col-lg-12 vertical5">
             <div id="" style="float:left;">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-<<<<<<< HEAD
-                    <span class="type_text"></span>
-=======
                     <span class="type_text">{{$fname}}</span>
->>>>>>> 0d785acc73ce6868c6657130141f12917fde89f6
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -41,27 +37,23 @@
                     <li class="type_li" db_id="3">主题民宿</li>
                 </ul>
             </div>
-           <div id="" style="float:left; margin-left:5px">
+            <div id="" style="float:left; margin-left:5px">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="series_text">{{$article->wechatSeries->name or null}}</span> <span class="caret"></span>
+                    <span class="series_text">{{$sname}}</span> <span class="caret"></span>
                 </button>
                 <ul id="series_ul" class="dropdown-menu" aria-labelledby="dropdownMenu2"
-                        style="margin-left:115px;">
+                    style="margin-left:115px;">
                 </ul>
             </div>
         </div>
     </div>
     <!-- Here's the list of WechatSeries items. -->
     <div id="series_list" style="display: none;">
-                @foreach ($wechatSeries as $series)
-<<<<<<< HEAD
-                    <span db_id="{{$series->id or 1}}" name="{{$series->name}}" type="1"></span>
-=======
-                    <span db_id="{{$series->id}}" name="{{$series->name}}" type="1"></span>
->>>>>>> 0d785acc73ce6868c6657130141f12917fde89f6
-                @endforeach
-            </div>
+        @foreach ($wechatSeries as $series)
+            <span db_id="{{$series->id}}" name="{{$series->name}}" type="1"></span>
+        @endforeach
+    </div>
     <!-- Here's the list of WechatSeries items. -->
     <div class="small-photo col-lg-12">
         <h4>上传文章缩略图</h4>
@@ -69,51 +61,40 @@
                 reminder">最佳分辨率比例1.6：1，比如96:60。考虑微信页加载速度，图片大小不超过36K！</div>
         <!-- OSS start -->
         <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="wechat" limit_size="36"
-                oss_address="{{Config::get("casarover.oss_external")}}">
+             oss_address="http://casarover.oss-cn-hangzhou.aliyuncs.com">
             <div class="oss_button">
                 <button class="show_uploader btn btn-primary btn-sm">插入图片</button>
             </div>
             <div class="oss_hidden_input">
-<<<<<<< HEAD
-                    <input type="hidden" class="hidden_photo" value="{{$article->attachment->filepath or ""}}"/>
-=======
                 @if(isset($filepath))
                     <input type="hidden" class="hidden_photo" value="{{$filepath}}"/>
                 @endif
->>>>>>> 0d785acc73ce6868c6657130141f12917fde89f6
             </div>
             <div class="oss_photo"></div>
         </div>
         <!-- OSS end -->
     </div>
-<<<<<<< HEAD
-    <form id="wechat_article_form" method="post" action="/back/wechatEdit/{{$article->id or ""}}">
-        <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-        <input type="hidden" id="type"  name="type" value="{{$article->type or null}}"/>
-        <input type="hidden"  name="series" value="{{$article->series or null}}"/>
-=======
     <form id="wechat_article_form" method="post" action="/back/wechatEdit/{{$id}}">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden"  name="type" id="type" value="{{$fid or null}}"/>
         <input type="hidden"  name="series" id="series" value="{{$seriesID}}"/>
->>>>>>> 0d785acc73ce6868c6657130141f12917fde89f6
         <div class="col-lg-12" style="margin-top: 30px;">
             <div class="input-group input-group-sm col-lg-10">
                 <span class="input-group-addon" id="sizing-addon3">微信链接（必须微信端复制链接）</span>
                 <input id="address" type="text" class="form-control" aria-describedby="sizing-addon3"
-                        name="address" value="{{$article->address or null}}"/>
+                       name="address" value="{{$wechatadd}}"/>
             </div>
         </div>
         <div class="col-lg-12">
             <h4>标题</h4>
             <div class="name vertical5 col-lg-3">
-                <input id="title" name="title" type="text" class="form-control" value="{{$article->title or null}}" aria-describedby="sizing-addon3" />
+                <input id="title" name="title" type="text" class="form-control" value="{{$title}}" aria-describedby="sizing-addon3" />
             </div>
         </div>
         <div class="col-lg-12">
             <h4>简介</h4>
             <div class="text col-lg-12 vertical5">
-                <textarea id="brief" name="brief" rows="3" cols="150">{{$article->brief or null}}</textarea>
+                <textarea id="brief" name="brief" rows="3" cols="150">{{$brief}}</textarea>
             </div>
         </div>
     </form>
