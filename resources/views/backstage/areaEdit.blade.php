@@ -23,8 +23,7 @@
                     </div>
                     <div class="oss_hidden_input">
                         @if(isset($message->contents[1]))
-                            @if(isset($message->contents[1]->a
-                            ttachments[0]))
+                            @if(isset($message->contents[1]->attachments[0]))
                                 <input type="hidden" class="hidden_photo" value="{{ $message->contents[1]->attachments[0]->filepath }}"/>
                             @endif
                         @endif
@@ -84,10 +83,10 @@
         <div class="sub">
             <button v-on:click="sed()" type="submit" class="btn btn-primary">保存</button>
     </form>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
-        <i class="fa fa-times-circle"></i>
-        删除
-    </button>
+    {{--<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">--}}
+        {{--<i class="fa fa-times-circle"></i>--}}
+        {{--删除--}}
+    {{--</button>--}}
     <div class="modal fade" id="modal-delete" tabIndex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -12,8 +12,7 @@ class AddUpdateAtToWechatArticle extends Migration
      */
     public function up()
     {
-//        改错了
-        if (Schema::hasTable('wechat_article')) {
+        if (Schema::hasColumn('wechat_article', 'update_at')) {
             return;
         }
         Schema::table('wechat_article', function (Blueprint $table) {

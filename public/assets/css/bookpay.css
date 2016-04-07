@@ -1,0 +1,22 @@
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+}
+u {
+  text-decoration: none;
+}
+i {
+  font-style: none;
+}
+.count a {
+  color: black;
+  font-size: 3rem;
+}
+#reduce,
+#add {
+  float: right;
+  margin-right: 1rem;
+}

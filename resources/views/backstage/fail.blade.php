@@ -13,12 +13,13 @@
 <body>
 <div class="content">
     <h1>跳转失败</h1>
-    @if($errors->any())
-            @foreach($errors->all() as $error)
-                <label class="list-group-item list-group-item-warning">错误信息</label>
-            @endforeach
+    {{--@if($errors->any())--}}
+            {{--@foreach($errors->all() as $error)--}}
+    @if(isset($exception))
+                <label class="list-group-item list-group-item-warning">错误信息：{{substr(get_class($exception), strrpos(get_class($exception), '\\') + 1, -9)}}</label>
     @endif
-    <label class="list-group-item list-group-item-warning">错误信息</label>
+        {{--@endforeach--}}
+    {{--@endif--}}
     <a href="#" onClick='javascript :history.back(-1)'>返回上页</a>
     <a href="/">返回首页</a>
 </div>

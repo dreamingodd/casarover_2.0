@@ -17,9 +17,12 @@ use Illuminate\Http\Request;
 Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
+Route::get('/casaserise/{type?}/{deleted?}', 'CasaSeriesController@casas');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
-
+Route::get('wechatbook', 'WechatController@book');
+Route::get('bookdetails', 'WechatController@bookdetails');
+Route::get('bookpay', 'WechatController@bookpay');
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'CasaController@casaList');
@@ -49,7 +52,6 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
-
 });
 
 /**
@@ -58,4 +60,5 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
 Route::group(['prefix' => 'api'],function () {
     Route::get('home/recom/{id?}','api\HomeController@getCasasByCityId');
     Route::get('casa/recom/{id?}','api\CasaController@getCasasById');
+    Route::post('/recom/save/','api\CasaController@save');
 });

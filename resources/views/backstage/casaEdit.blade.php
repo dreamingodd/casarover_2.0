@@ -11,7 +11,6 @@
 }
 </style>
 @stop
-<?php use Illuminate\Support\Facades\Config; ?>
 @section('body')
     <input type="hidden" id="page" value="casa"/>
 

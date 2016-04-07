@@ -1,5 +1,6 @@
 @extends('back')
 @section('head')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ asset('assets/js/integration/vue.js') }}" type="text/javascript"></script>
     <script src="/assets/js/recomCasa.js"></script>
 @endsection
@@ -13,10 +14,10 @@
     </select>
         <div class="checkbox" v-for="casa in casas">
             <label>
-                <input type="checkbox" value="@{{ casa.id }}" v-model="checkedNames">@{{ casa.name }}
+                <input type="checkbox" value="@{{ casa.id }}"  v-model="checkedNames">@{{ casa.name }}
             </label>
         </div>
-    <input type="hidden" value="@{{ checkedNames }}" name="casa">
-    <button type="submit" class="btn btn-default">保存</button>
+    {{--<input type="hidden" value="@{{ checkedNames }}" name="casa">--}}
+    <button type="submit" v-on:click="save" class="btn btn-default">保存</button>
     </div>
 @endsection
