@@ -20,7 +20,7 @@ Route::get('/casa/{id}' , 'CasaController@casaInfo');
 Route::get('/casaserise/{type?}/{deleted?}', 'CasaSeriesController@casas');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
-
+Route::get('wechatbook', 'WechatController@book');
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'CasaController@casaList');
@@ -48,7 +48,6 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
-
 });
 
 /**
