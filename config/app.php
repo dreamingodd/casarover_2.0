@@ -159,6 +159,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\AreaServiceProvider::class,
         App\Providers\CasaServiceProvider::class,
+        /**wechat*/
+        Overtrue\LaravelWechat\ServiceProvider::class,
+
 
     ],
 
