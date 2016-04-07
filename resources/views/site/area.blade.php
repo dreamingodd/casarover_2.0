@@ -1,12 +1,11 @@
 @extends('site')
 @section('head')
-
-
+    <link rel="stylesheet" href="/assets/css/area.css">
 @endsection
 
 @section('body')
         <!-- 民宿大图  -->
-<div class="head-photo">
+<div class="banner">
     <div class="cover-photo">
         <img src="{{ asset('assets/images/head.png') }}" width="100%" alt="">
     </div>
@@ -28,7 +27,7 @@
     <section>
         <div class="article-nav">附近景点</div>
         <div class="place-list">
-            <?php for($i=0;$i<4;$i++): ?>
+            <?php for ($i = 0; $i < 4; $i++): ?>
             <div class="place-item">
                 <div class="place-img">
                     <img src="{{ asset('assets/images/fang.png') }}" wdith="100%;" alt="">
@@ -38,15 +37,15 @@
                     <p>这个是介绍的内容这个是介绍的内容这个是介绍的内容这个是介绍的内容</p>
                 </div>
             </div>
-            <?php endfor; ?>
+            <?php endfor;?>
         </div>
     </section>
     <div class="line"></div>
     <!-- 附近民宿 -->
     <section>
         <div class="article-nav">附近民宿</div>
-        <div class="item">
-            <div class="item-c">
+        <div class="casa-card">
+            <div class="card-c">
                 <a href="">
                     <img src="{{ asset('assets/images/fang.jpg') }}" height="100%">
                     <div class="card">
@@ -62,8 +61,8 @@
                 </a>
             </div>
         </div>
-        <div class="item">
-            <div class="item-d">
+        <div class="casa-card">
+            <div class="card-d">
                 <a href="">
                     <img src="{{ asset('assets/images/fang.jpg') }}" height="100%">
                     <div class="card">
@@ -79,8 +78,8 @@
                 </a>
             </div>
         </div>
-        <div class="item">
-            <div class="item-d">
+        <div class="casa-card">
+            <div class="card-d">
                 <a href="">
                     <img src="{{ asset('assets/images/fang.jpg') }}" height="100%">
                     <div class="card">
@@ -96,8 +95,8 @@
                 </a>
             </div>
         </div>
-        <div class="item">
-            <div class="item-c">
+        <div class="casa-card">
+            <div class="card-c">
                 <a href="">
                     <img src="{{ asset('assets/images/fang.png') }}" height="100%">
                     <div class="card">

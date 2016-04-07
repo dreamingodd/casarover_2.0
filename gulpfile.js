@@ -1,6 +1,6 @@
 /**
 *总计两个命令
-*开发的时候gulp watch
+*开发的时候gulp
 *部署的时候gulp produc
 **/
 
@@ -19,7 +19,8 @@ var gulp = require('gulp'),
     // jshint=require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     browserSync = require('browser-sync').create(),
-    reload = browserSync.reload;
+    reload = browserSync.reload,
+    minifycss = require('gulp-minify-css');
     const del = require('del');
 
 
@@ -42,7 +43,7 @@ gulp.task('uglify_integration',function () {
 // 编译less
 gulp.task('dev-less', function() {
     del.sync('public/assets/css/*.css');
-    gulp.src(['resources/assets/less/main.less','resources/assets/less/back.less','resources/assets/less/casaseries.less'])
+    gulp.src('resources/assets/less/*.less')
         .pipe(less())
         .pipe(gulp.dest('public/assets/css/'))
 });
@@ -55,23 +56,24 @@ gulp.task('clean',function(){
 });
 // 编译less
 gulp.task('less',['clean'],function() {
-    gulp.src('resources/assets/less/main.less')
+    gulp.src('resources/assets/less/*.less')
         .pipe(less())
+        .pipe(minifycss())
         .pipe(rev())
         .pipe(gulp.dest('public/assets/css/'))
         .pipe(rev.manifest()) //生成rev-manifest.json文件
         .pipe(gulp.dest('resources/assets/rev'));
 });
 gulp.task('replace',['less'], function() {     //说明replace 是依赖于less任务 当less结束之后才会执行replace
-    gulp.src(['resources/assets/rev/*.json', 'resources/views/*'])   //- 读取 rev-manifest.json 文件以及需要进行css名替换的文件
+    gulp.src(['resources/assets/rev/*.json', 'resources/views/**/*.php'])   //- 读取 rev-manifest.json 文件以及需要进行css名替换的文件
         .pipe(revCollector({
             replaceReved: true,
             dirReplacements: {
                 // 'assets/js': function (manifest_value) {
                 //     return '//7xp9p2.com1.z0.glb.clouddn.com/' + 'js/' + manifest_value;
                 // }
-                'assets/css': function (manifest_value) {
-                    return 'assets/css/' + manifest_value;
+                '/assets/css': function (manifest_value) {
+                    return '/assets/css/' + manifest_value;
                 }
             }
         }))                                   //- 执行文件内css名的替换
@@ -79,7 +81,7 @@ gulp.task('replace',['less'], function() {     //说明replace 是依赖于less�
 });
 
 
-gulp.task('pro',['less','clean']);
+gulp.task('deploy',['replace','less','clean']);
 
 
 gulp.task('default', ['dev-less'],function() {

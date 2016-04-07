@@ -17,6 +17,9 @@ class HomeController extends Controller
     {
         $area = Area::find($cityid);
         $casas = $area->casas()->take(6)->get();
+//        $districts = $area->subAreas;
+//        dd($districts);
+
         foreach($casas as $casa)
         {
             $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;

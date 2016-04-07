@@ -55,6 +55,7 @@ class WechatController extends Controller
     }
     public function wechatEdits($id=0,Requests\wechatArticleEditRequset$request) {
         $save=$request->all();
+        $type = $save['type'];
        if($id!=0){
            $article = WechatArticle::find($id);
            $attachment= $article->attachment;
@@ -71,8 +72,15 @@ class WechatController extends Controller
         else {
             Attachment::create(['filepath' => $save['filepath']]);
             $attachment= Attachment::all()->last()->id;
-            WechatArticle::insert(['address' =>$save['address'],'title'=>$save['title'],'brief'=>$save['brief'],
-                'attachment_id'=>$attachment]);
+            $article = new WechatArticle;
+            $article->type=$type;
+            $article->series=$save['series'];
+            $article->address = $save['address'];
+            $article->title = $save['title'];
+            $article->brief = $save['brief'];
+            $article->attachment_id = $attachment;
+            $article->save();
+           WechatArticle::insert(['address' =>$save['address'],'title'=>$save['title'],'brief'=>$save['brief'],'attachment_id'=>$attachment]);
         }
         return view('backstage.sucess',['type'=>1,'id'=>$id]);
 //        return redirect('back/wechatEdit/'.$id);
@@ -94,5 +102,10 @@ class WechatController extends Controller
     public function book(){
         return view('wechat.book');
     }
-
+    public function bookdetails(){
+        return view('wechat.bookdetails');
+    }
+    public function bookpay(){
+        return view('wechat.bookpay');
+    }
 }

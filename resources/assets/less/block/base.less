@@ -1,32 +1,37 @@
-/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-// 根据以上修改
+// normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css 
+// 根据以上修改主要用于样式的重置，
+// 目的是杜绝
+// * { margin 0 padding 0}
 body{
-    font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei","微软雅黑",Arial,simsun,sans-serif;
-    background: #F8F8F8;
-    margin: 0;
+  font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei","微软雅黑",Arial,simsun,sans-serif;
+  background: #F8F8F8;
+  margin: 0;
 }
-h3,ul{
-    margin: 0;
-    padding: 0;
+
+// 自定义部分
+h3,ul,ol{
+  margin: 0;
+  padding: 0;
 }
 .line{
-    background: #E4E4E4;
-    width: 100%;
-    margin: 0 auto;
-    height: 1px;
+  background: #E4E4E4;
+  width: 100%;
+  margin: 0 auto;
+  height: 1px;
 }
 .container{
-    margin-top: 40px;
-    height: 100%;
-    width: @container-width;
-    margin:0 auto;
-    overflow: hidden;
-    h2{
-        margin-top: 20px;
-        margin-bottom: 20px;
-        text-align: center;
-    }
+  margin-top: 40px;
+  height: 100%;
+  width: @container-width;
+  margin:0 auto;
+  overflow: hidden;
+  h2{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
 }
+// end自定义部分
 
 article,
 aside,
@@ -41,65 +46,65 @@ menu,
 nav,
 section,
 summary {
-    display: block;
+  display: block;
 }
 
 audio,
 canvas,
 progress,
 video {
-    display: inline-block; 
-    vertical-align: baseline; 
+  display: inline-block;
+  vertical-align: baseline;
 }
 
 audio:not([controls]) {
-    display: none;
-    height: 0;
+  display: none;
+  height: 0;
 }
 
 [hidden],
 template {
-    display: none;
+  display: none;
 }
 
 a {
-    background-color: transparent;
-    color: #333;
-    text-decoration: none;
-    &:hover{
+  background-color: transparent;
+  color: #333;
+  text-decoration: none;
+  &:hover{
     outline: 0;
     color: @a-hover;
-    }
-    &:active{
+  }
+  &:active{
     outline: 0;
-    }
+  }
 }
 
 abbr[title] {
-    border-bottom: 1px dotted;
+  border-bottom: 1px dotted;
 }
 
 b,
 strong {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 dfn {
-    font-style: italic;
+  font-style: italic;
 }
 
 h1 {
-    font-size: 2em;
-    margin: 0.67em 0;
+  font-size: 2em;
+  margin: 0.67em 0;
 }
 
 mark {
-    background: #ff0;
-    color: #000;
+  background: #ff0;
+  color: #000;
 }
 
 small {
-    font-size: 80%;
+  font-size: 80%;
 }
 
 sub,

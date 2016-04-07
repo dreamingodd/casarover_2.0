@@ -1,0 +1,66 @@
+html {
+  font-size: 62.5%;
+}
+body {
+  margin: 0 auto;
+  font-family: "微软雅黑";
+  background: #f8f8f8;
+}
+nav {
+  height: 6rem;
+  width: 100%;
+  margin: 0 auto;
+  background: green;
+  position: fixed;
+  z-index: 1;
+  text-align: center;
+}
+nav h1 {
+  color: #FFF;
+  font-size: 2rem;
+}
+.tabtable {
+  padding-top: 8rem;
+}
+.nav-tabs li {
+  width: 50%;
+  text-align: center;
+}
+.nav-tabs li a {
+  font-size: 2rem;
+}
+.case {
+  padding: 3rem 1rem 0;
+  width: 100%;
+  z-index: 0;
+}
+.case p {
+  display: block;
+  font-size: 2rem;
+  font-weight: 900;
+}
+.case em {
+  display: block;
+  font-size: 2rem;
+  color: #999999;
+}
+.image {
+  position: relative;
+}
+.image img {
+  width: 100%;
+}
+.image span {
+  text-align: center;
+  font-size: 2rem;
+  width: 10rem;
+  height: 4rem;
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #3cbda2;
+  color: #fff;
+  font-weight: 900;
+  background-color: rgba(20, 143, 117, 0.7);
+}
