@@ -28,7 +28,7 @@
             <div id="" style="float:left;">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="type_text">{{$fname}}</span> 
+                    <span class="type_text"></span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -40,7 +40,7 @@
            <div id="" style="float:left; margin-left:5px">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="series_text">{{$sname}}</span> <span class="caret"></span>
+                    <span class="series_text">{{$article->wechatSeries->name or null}}</span> <span class="caret"></span>
                 </button>
                 <ul id="series_ul" class="dropdown-menu" aria-labelledby="dropdownMenu2"
                         style="margin-left:115px;">
@@ -50,9 +50,8 @@
     </div>
     <!-- Here's the list of WechatSeries items. -->
     <div id="series_list" style="display: none;">
-                <?php $number=1;?>
                 @foreach ($wechatSeries as $series)
-                    <span db_id="{{$number=1}}" name="{{$series->name}}" type="1"></span>
+                    <span db_id="{{$series->id or 1}}" name="{{$series->name}}" type="1"></span>
                 @endforeach
             </div>
     <!-- Here's the list of WechatSeries items. -->
@@ -63,38 +62,38 @@
 
         <!-- OSS start -->
         <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="wechat" limit_size="36"
-                oss_address="http://casarover.oss-cn-hangzhou.aliyuncs.com">
+                oss_address="{{Config::get("casarover.oss_external")}}">
             <div class="oss_button">
                 <button class="show_uploader btn btn-primary btn-sm">插入图片</button>
             </div>
             <div class="oss_hidden_input">
-                    <input type="hidden" class="hidden_photo" value="{{$filepath}}"/>
+                    <input type="hidden" class="hidden_photo" value="{{$article->attachment->filepath or ""}}"/>
             </div>
             <div class="oss_photo"></div>
         </div>
         <!-- OSS end -->
     </div>
-    <form id="wechat_article_form" method="post" action="http://localhost:8000/back/wechatEdit/{{$id}}">
+    <form id="wechat_article_form" method="post" action="/back/wechatEdit/{{$article->id or ""}}">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-        <input type="hidden"  name="type" value="{{$fname}}"/>
-        <input type="hidden"  name="series" value="{{$seriesID}}"/>
+        <input type="hidden" id="type"  name="type" value="{{$article->type or null}}"/>
+        <input type="hidden"  name="series" value="{{$article->series or null}}"/>
         <div class="col-lg-12" style="margin-top: 30px;">
             <div class="input-group input-group-sm col-lg-10">
                 <span class="input-group-addon" id="sizing-addon3">微信链接（必须微信端复制链接）</span>
                 <input id="address" type="text" class="form-control" aria-describedby="sizing-addon3"
-                        name="address" value="{{$wechatadd}}"/>
+                        name="address" value="{{$article->address or null}}"/>
             </div>
         </div>
         <div class="col-lg-12">
             <h4>标题</h4>
             <div class="name vertical5 col-lg-3">
-                <input id="title" name="title" type="text" class="form-control" value="{{$title}}" aria-describedby="sizing-addon3" />
+                <input id="title" name="title" type="text" class="form-control" value="{{$article->title or null}}" aria-describedby="sizing-addon3" />
             </div>
         </div>
         <div class="col-lg-12">
             <h4>简介</h4>
             <div class="text col-lg-12 vertical5">
-                <textarea id="brief" name="brief" rows="3" cols="150">{{$brief}}</textarea>
+                <textarea id="brief" name="brief" rows="3" cols="150">{{$article->brief or null}}</textarea>
             </div>
         </div>
     </form>

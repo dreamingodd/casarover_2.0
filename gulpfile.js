@@ -42,7 +42,7 @@ gulp.task('uglify_integration',function () {
 // 编译less
 gulp.task('dev-less', function() {
     del.sync('public/assets/css/*.css');
-    gulp.src(['resources/assets/less/main.less','resources/assets/less/back.less'])
+    gulp.src(['resources/assets/less/main.less','resources/assets/less/back.less','resources/assets/less/casaseries.less'])
         .pipe(less())
         .pipe(gulp.dest('public/assets/css/'))
 });

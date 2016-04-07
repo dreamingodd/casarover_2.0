@@ -51,7 +51,7 @@
     @foreach($articles as $article)
     <div id="list" class="article_list">
         <a href="#">
-            <div class="article">
+            <div class="articles">
                 <div class="left">
                     @foreach($attachments as $attachment)
                         @if($attachment->id==$article->attachment_id)

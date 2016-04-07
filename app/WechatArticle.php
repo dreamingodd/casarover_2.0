@@ -21,7 +21,7 @@ class WechatArticle extends Model
     {
         return $this->belongsTo('App\Attachment');
     }
-    public function series()
+    public function wechatSeries()
     {
         return $this->belongsTo('App\WechatSeries', 'series');
     }

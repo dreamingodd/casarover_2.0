@@ -3,7 +3,7 @@
 @section('title', '探庐者后台-民宿列表')
 
 @section('body')
- <form id="wechat_series_form" method="post" action="http://localhost:8000/back/wechatSeriesList">
+ <form id="wechat_series_form" method="post" action="/back/wechatSeriesList">
     <input name="_token" type="hidden" value="<?php echo csrf_token(); ?>">
         <div class="col-lg-12">
             <h4>类别</h4>
