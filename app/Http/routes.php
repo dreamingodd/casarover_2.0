@@ -62,3 +62,8 @@ Route::group(['prefix' => 'api'],function () {
     Route::get('casa/recom/{id?}','api\CasaController@getCasasById');
     Route::post('/recom/save/','api\CasaController@save');
 });
+
+/**
+ * wechat public routes
+ */
+Route::any('weixin', 'WeixinController@serve');

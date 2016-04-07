@@ -209,6 +209,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Form'      => Illuminate\Html\FormFacade::class,
+        /**wechat*/
+        'Wechat' => Overtrue\LaravelWechat\Facade::class,
 
     ],
 

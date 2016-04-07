@@ -8,3 +8,5 @@ npm-debug.log
 /nbproject/private/
 .idea
 /config/casarover.php
+.DS_Store
+/config/.DS_Store
