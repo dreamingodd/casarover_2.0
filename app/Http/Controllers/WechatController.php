@@ -124,5 +124,13 @@ class WechatController extends Controller
         wechatSeries::insert(['type' => '1', 'name' => $request->name]);
         return view('backstage.sucess',['type'=>1,'id'=>0]);
     }
-
+    public function book(){
+        return view('wechat.book');
+    }
+    public function bookdetails(){
+        return view('wechat.bookdetails');
+    }
+    public function bookpay(){
+        return view('wechat.bookpay');
+    }
 }
