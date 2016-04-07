@@ -83,10 +83,10 @@
         <div class="sub">
             <button v-on:click="sed()" type="submit" class="btn btn-primary">保存</button>
     </form>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
-        <i class="fa fa-times-circle"></i>
-        删除
-    </button>
+    {{--<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">--}}
+        {{--<i class="fa fa-times-circle"></i>--}}
+        {{--删除--}}
+    {{--</button>--}}
     <div class="modal fade" id="modal-delete" tabIndex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

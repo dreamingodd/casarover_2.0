@@ -36,7 +36,7 @@
         </div>
     </nav>
 
-    @yield('body');
+    @yield('body')
 
     <footer>
         <div class="message">

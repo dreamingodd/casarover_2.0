@@ -14,6 +14,11 @@ class Casa extends Model
     {
         return $this->belongsTo('App\Area', 'dictionary_id');
     }
+
+    public function areaRecoms()
+    {
+        return $this->belongsToMany('App\Area');
+    }
     public function attachment()
     {
         return $this->belongsTo('App\Attachment');
