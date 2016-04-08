@@ -125,4 +125,14 @@ class WechatController extends Controller
         return view('backstage.sucess',['type'=>1,'id'=>0]);
     }
 
+    public function book(){
+        return view('wechat.book');
+    }
+    public function bookdetails(){
+        return view('wechat.bookdetails');
+    }
+    public function bookpay(){
+        return view('wechat.bookpay');
+    }
+
 }
