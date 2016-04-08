@@ -18,7 +18,7 @@ body {
   float: left;
 }
 .tabtable {
-  padding-top: 8rem;
+  padding: 8rem 0 4.5rem 0;
 }
 .nav-tabs li {
   width: 50%;
@@ -32,10 +32,12 @@ img {
 }
 .btn {
   width: 100%;
-  height: 3rem;
+  height: 4rem;
   position: fixed;
   bottom: 0;
+  left: 0;
+  border: 1rem solid white;
+  border-top: none;
   background: grey;
-  border: grey;
   color: #fff;
 }

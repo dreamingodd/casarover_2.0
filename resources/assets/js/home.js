@@ -5,17 +5,17 @@ $(document).ready(function(){
     });
     $('.search-input input').click(function(){
         $('.search-place').css('display','block');
-    })
+    });
     $('.search-input input').blur(function(){
         $('.search-place').css('display','none');
-    })
+    });
 
     var recom = new Vue({
         el: '#recom',
         data: function () {
             return {
                 casas:null
-            }
+            };
         },
 
         created: function () {
@@ -31,5 +31,5 @@ $(document).ready(function(){
                 }.bind(vm));
             }
         }
-    })
-})
+    });
+});
