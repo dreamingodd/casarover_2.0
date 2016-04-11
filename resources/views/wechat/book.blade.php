@@ -1,9 +1,14 @@
 @extends('wechattemp')
+@section('title','民宿预订')
 @section('head')
-    <link href="{{ asset('assets/css/book.css') }} " rel="stylesheet"/>
+    <link href="/assets/css/book.css " rel="stylesheet"/>
 @stop
 @section('body')
-    <nav><h1>探庐者</h1></nav>
+    <nav>
+        <a href="#" class="glyphicon glyphicon-search"></a>
+        <a href="/wechatperson" class="glyphicon glyphicon-user"></a>
+        <h1>探庐者</h1>
+    </nav>
     <div class="tabtable">
         <ul class="nav nav-tabs">
             <li><a href="#hot" data-target="#hot" data-toggle="tab" aria-expanded="false">热门精选</a></li>

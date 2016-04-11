@@ -1,29 +1,4 @@
-html {
-  background: #f8f8f8;
-}
-a,
-a:link,
-a:visited,
-a:hover,
-a:active {
-  text-decoration: none;
-}
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none !important;
-  margin: 0;
-}
-a:hover {
-  color: black;
-}
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-u {
-  text-decoration: none;
-}
 i {
-  font-style: none ;
   font-size: 3rem;
   color: #880000;
   margin: 0 1rem;
@@ -70,7 +45,7 @@ i {
 .count {
   height: 5rem;
   border-top: 1px solid #bfb4bb;
-  border-bottom: 1px solid #bfb4bb ;
+  border-bottom: 1px solid #bfb4bb;
   padding-top: 1.2rem;
 }
 .count a {

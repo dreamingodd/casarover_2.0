@@ -1,4 +1,5 @@
 @extends('wechattemp')
+@section('title','民宿预订')
 @section('head')
     <link href="/assets/css/bookpay.css" rel="stylesheet"/>
 @stop

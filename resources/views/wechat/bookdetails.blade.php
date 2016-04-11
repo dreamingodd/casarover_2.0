@@ -1,9 +1,14 @@
 @extends('wechattemp')
+@section('title','民宿预订')
 @section('head')
-    <link href="{{ asset('assets/css/bookdetails.css') }} " rel="stylesheet"/>
-    <script src="{{ asset('assets/js/integration/jquery.flexslider-min.js') }}" type="text/javascript"></script>
+    <link href="/assets/css/bookdetails.css" rel="stylesheet"/>
+    <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
 @stop
 @section('body')
+    <nav><a href="/wechatbook" class="glyphicon glyphicon-chevron-left"></a>
+        <a href="tel:12345678901" class="glyphicon glyphicon-earphone"></a>
+        <h1>探庐者</h1>
+    </nav>
     <div class="flexslider">
         <ul class="slides">
             <li onclick="goto_link1()"

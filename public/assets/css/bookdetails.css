@@ -102,26 +102,40 @@
     display: none;
   }
 }
-html {
-  font-size: 62.5%;
-}
-ul,
-li,
-ol {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-body {
+nav {
+  height: 6rem;
+  width: 100%;
   margin: 0 auto;
-  font-family: "微软雅黑";
   background: #fff;
+  position: fixed;
+  z-index: 1;
+  text-align: center;
+}
+nav a {
+  color: black;
+  font-size: 3rem;
+  margin: 1rem;
+  margin-top: 1.5rem;
+}
+nav .glyphicon-chevron-left {
+  float: left;
+}
+nav .glyphicon-earphone {
+  float: right;
+}
+nav h1 {
+  color: black;
+  font-size: 2rem;
 }
 .main {
   padding: 0 1rem;
 }
+.flexslider {
+  z-index: 0;
+}
 .slides li {
-  height: 182px;
+  margin-top: 8rem;
+  height: 16rem;
 }
 .header {
   text-align: center;
