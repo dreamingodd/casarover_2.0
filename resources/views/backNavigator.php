@@ -11,6 +11,7 @@
                     <li><a  href="/back/slide">轮播图</a></li>
                     <li><a  href="/back/recom">城市推荐</a></li>
                     <li><a  href="/back/casarecom">民宿推荐</a></li>
+                    <li><a  href="/back/edittheme">主题编辑</a></li>
                 </ul>
             </li>
             <li role="presentation" class="area">

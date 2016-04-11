@@ -51,6 +51,9 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
     Route::post('wechatEdit/{id?}', 'WechatController@wechatEdits');
     Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');
+    Route::get('theme/edit','ThemeController@edit');
+    Route::post('theme/store','ThemeController@store');
+
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
 });
