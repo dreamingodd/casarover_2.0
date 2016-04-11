@@ -1,17 +1,82 @@
-html {
-    font-size: 62.5%;
-}
-body{
-    padding:0 1rem;
+@import "block/slider";
+nav{
+    height: 6rem;
+    width: 100%;
     margin: 0 auto;
-    font-family: "微软雅黑";
     background: #fff;
+    position: fixed;
+    z-index: 1;
+    text-align: center;
+    a{
+        color: black;
+        font-size: 3rem;
+        margin: 1rem;
+        margin-top: 1.5rem;
+    }
+    .glyphicon-chevron-left{
+        float: left
+    }
+    .glyphicon-earphone{
+        float: right
+    }
+    h1{
+        color: black;
+        font-size: 2rem
+    }
 }
-.header{text-align: center;}
-.header h1{font-size: 2rem;font-weight: bold}
-.brief{float: left}
-.tabtable{ padding:8rem 0 4.5rem 0;}
-.nav-tabs li{width: 50%;text-align: center;}
-.nav-tabs li a{ font-size: 2rem;}
-img{width: 100%;}
-.btn{width: 100%;height: 4rem;position: fixed;bottom: 0;left: 0;border:1rem solid white;border-top:none;background:grey;color: #fff;}
+.main{
+    padding: 0 1rem;
+}
+.flexslider{z-index: 0;}
+.slides li {
+    margin-top: 8rem;
+    height:16rem;
+}
+.header{
+    text-align: center;
+    h1{font-size: 2rem;
+        font-weight: bold;}
+    span{font-size: 2rem;
+        font-weight: bold;
+        letter-spacing:.1rem;
+        display: block;
+        width: 90%;
+        margin:0 auto;
+        border-top:1px solid #dddddd;
+  }
+}
+.brief{
+    float: left
+}
+.tabtable{
+    padding:8rem 0 4.5rem 0;
+}
+.nav-tabs li{
+    width: 50%;
+    text-align: center;
+}
+.nav-tabs li a{
+    font-size: 2rem;
+}
+#notice {
+    h2 {
+        text-align: center
+    }
+    p{
+        text-indent: 1rem;
+        line-height: 1.8rem;
+    }
+}
+img{
+    width: 100%;
+}
+.btn{
+    width: 100%;
+    height: 4rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background:black;
+    color: #fff;
+    border-radius:0;
+}

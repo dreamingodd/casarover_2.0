@@ -20,9 +20,10 @@ Route::get('/casa/{id}' , 'CasaController@casaInfo');
 Route::get('/casaserise/{type?}/{deleted?}', 'CasaSeriesController@casas');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
-Route::get('wechatbook', 'WechatController@book');
-Route::get('bookdetails', 'WechatController@bookdetails');
-Route::get('bookpay', 'WechatController@bookpay');
+Route::get('/wechatbook', 'WechatController@book');
+Route::get('/bookdetails', 'WechatController@bookdetails');
+Route::get('/bookpay', 'WechatController@bookpay');
+Route::get('/wechatperson', 'WechatController@wechatperson');
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'CasaController@casaList');
