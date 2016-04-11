@@ -59,6 +59,8 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
 **/
 Route::group(['prefix' => 'api'],function () {
     Route::get('home/recom/{id?}','api\HomeController@getCasasByCityId');
+    Route::get('home/series/','api\HomeController@getSeries');
+    Route::get('home/themes/','api\HomeController@getThemes');
     Route::get('casa/recom/{id?}','api\CasaController@getCasasById');
     Route::post('/recom/save/','api\CasaController@save');
 });

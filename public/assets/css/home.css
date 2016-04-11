@@ -170,6 +170,10 @@
 .casa-card a:hover .card {
   opacity: 0;
 }
+.casa-card a img {
+  height: 280px;
+  width: 300px;
+}
 .card-a {
   width: 615px;
   height: 280px;
@@ -247,4 +251,7 @@ section {
   padding-right: 15px;
   font-size: 16px;
   cursor: pointer;
+}
+.active {
+  color: #ff8c00;
 }

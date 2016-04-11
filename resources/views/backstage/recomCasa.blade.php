@@ -17,7 +17,6 @@
                 <input type="checkbox" value="@{{ casa.id }}"  v-model="checkedNames">@{{ casa.name }}
             </label>
         </div>
-    {{--<input type="hidden" value="@{{ checkedNames }}" name="casa">--}}
     <button type="submit" v-on:click="save" class="btn btn-default">保存</button>
     </div>
 @endsection

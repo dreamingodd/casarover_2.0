@@ -33,7 +33,7 @@
         {{--<div class="search-place" id="city">--}}
             {{--<ul>--}}
                 {{--@foreach($citys as $city)--}}
-                    {{--<li><a href="">{{ $city }}</a></li>--}}
+                    {{--<li><a href="">{{ $city->value }}</a></li>--}}
                 {{--@endforeach--}}
             {{--</ul>--}}
         {{--</div>--}}
@@ -48,7 +48,7 @@
         <div class="line"></div>
         <div class="city-list">
             @foreach($citys as $city)
-                <a v-on:click="turn({{ $city->id }})">{{ $city->value }}</a>
+                <a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>
             @endforeach
         </div>
             <div class="casa-card" v-for="casa in casas">
@@ -69,24 +69,51 @@
             </div>
     </section>
     <!-- 精选主题 -->
-    {{--<section id="theme" >--}}
-    {{--<h2 v-on:click="turn(1)" >精选主题</h2>--}}
-    {{--<div class="item" v-for="item in items">--}}
-    {{--<div class="item-b">--}}
-    {{--<a href="">--}}
-    {{--<img :src="item.pic" height="100%">--}}
-    {{--<div class="card">--}}
-    {{--<h3>@{{ item.title }}</h3>--}}
-    {{--</div>--}}
-    {{--<div class="info">--}}
-    {{--<div class="middle">--}}
-    {{--<h3>@{{ item.title }}</h3>--}}
-    {{--<p>@{{ item.shortMess }}</p>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</a>--}}
-    {{--</div>--}}
-    {{--</div>--}}
+    {{--<section id="theme">--}}
+        {{--<h2>精选主题</h2>--}}
+        {{--<div class="line"></div>--}}
+        {{--<div class="casa-card" v-for="theme in themes">--}}
+            {{--<div class="card-b">--}}
+                {{--<a href="@{{ theme.address }}" target="_blank">--}}
+                    {{--<img :src="theme.pic" height="100%">--}}
+                    {{--<div class="card">--}}
+                        {{--<h3>@{{ theme.title }}</h3>--}}
+                    {{--</div>--}}
+                    {{--<div class="info">--}}
+                        {{--<div class="middle">--}}
+                            {{--<h3>@{{ theme.title }}</h3>--}}
+                            {{--<p>@{{ theme.brief }}</p>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</a>--}}
+            {{--</div>--}}
+        {{--</div>--}}
     {{--</section>--}}
+    <!-- 探庐系列 -->
+    <section id="series">
+        <h2>探庐系列</h2>
+        <div class="line"></div>
+        {{--<div class="city-list">--}}
+            {{--@foreach($citys as $city)--}}
+                {{--<a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>--}}
+            {{--@endforeach--}}
+        {{--</div>--}}
+        <div class="casa-card" v-for="serie in series">
+            <div class="card-b">
+                <a href="casaserise/@{{ serie.id }}" target="_blank">
+                    <img :src="serie.pic" height="100%">
+                    <div class="card">
+                        <h3>@{{ serie.name }}</h3>
+                    </div>
+                    <div class="info">
+                        <div class="middle">
+                            <h3>@{{ serie.name }}</h3>
+{{--                            <p>@{{ serie.brief }}</p>--}}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
 </div>
 @endsection

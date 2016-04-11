@@ -124,10 +124,6 @@ class WechatController extends Controller
         wechatSeries::insert(['type' => '1', 'name' => $request->name]);
         return view('backstage.sucess',['type'=>1,'id'=>0]);
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 2772a6001967d0551bf84b8368d9460059fd689f
     public function book(){
         return view('wechat.book');
     }
@@ -137,8 +133,4 @@ class WechatController extends Controller
     public function bookpay(){
         return view('wechat.bookpay');
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 2772a6001967d0551bf84b8368d9460059fd689f
 }
