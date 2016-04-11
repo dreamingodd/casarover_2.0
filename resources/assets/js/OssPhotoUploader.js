@@ -12,7 +12,7 @@ require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domre
     var signature = '';
     var key = '';
     var expire = 0;
-    var now = timestamp = Date.parse(new Date()) / 1000;
+    var now = Date.parse(new Date()) / 1000;
     var limit_size = 1024000;
     var target_folder = "test";
     var uploader = null;
@@ -168,7 +168,7 @@ require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domre
         else {
             alert("Your browser does not support XMLHTTP.");
         }
-    };
+    }
 
     function get_signature() {
         //可以判断当前expire是否超过了当前时间,如果超过了当前时间,就重新取一下.3s 做为缓冲
@@ -190,7 +190,7 @@ require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domre
             return true;
         //}
 //        return false;
-    };
+    }
 
     /**
      * This method is invoked by upload's methods.
@@ -220,7 +220,7 @@ require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domre
 
             console.log('reset uploader');
         }
-    };
+    }
 
     function createUploader() {
         return new plupload.Uploader({
@@ -242,7 +242,7 @@ require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domre
                 },
 
                 FilesAdded: function(up, files) {
-                    var checkedFiles = new Array();
+                    var checkedFiles = [];
                     for (var i = 0; i < files.length; i++) {
                         // check the file type
                         var file = files[i];
@@ -258,7 +258,8 @@ require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domre
                         checkedFiles.push(file);
                     }
                     plupload.each(checkedFiles, function(file) {
-                        $('#postfiles').parent().append($('<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
+                        $('#postfiles').parent().append($('<div id="' + file.id + '">' + file.name
+                        + ' (' + plupload.formatSize(file.size) + ')<b></b>'
                         + '<div class="progress" style="width:300px;"><div class="progress-bar progress-bar-success progress-bar-striped active"'
                         + ' role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div></div>'
                         + '</div>'));
