@@ -1,26 +1,31 @@
-html {
-  font-size: 62.5%;
-}
-body {
-  margin: 0 auto;
-  font-family: "微软雅黑";
-  background: #f8f8f8;
-}
 nav {
   height: 6rem;
   width: 100%;
   margin: 0 auto;
-  background: green;
+  background: #fff;
   position: fixed;
   z-index: 1;
   text-align: center;
 }
+nav a {
+  color: black;
+  font-size: 3rem;
+  margin: 1rem;
+  margin-top: 1.5rem;
+}
+nav .glyphicon-search {
+  float: left;
+}
+nav .glyphicon-user {
+  float: right;
+}
 nav h1 {
-  color: #FFF;
+  color: black;
   font-size: 2rem;
 }
 .tabtable {
-  padding-top: 8rem;
+  background: #fff;
+  border-top: 8rem solid #f8f8f8;
 }
 .nav-tabs li {
   width: 50%;

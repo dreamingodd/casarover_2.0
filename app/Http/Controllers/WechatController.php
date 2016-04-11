@@ -78,7 +78,7 @@ class WechatController extends Controller
             return view('backstage.wechatArticleEdit',['id'=>$id,'wechatSeries' => $this->series,'fid'=>$fid,'fname'=>$fname,'sname'=>$sname,'wechatadd'=>$wechatadd,'title'=>$title,'brief'=>$brief,'filepath'=>$filepath,'seriesID'=>$seriesID]);
         }
     }
-    public function wechatEdits($id=0,Requests\wechatArticleEditRequset$request) {
+    public function wechatEdits($id=0,Requests\wechatArticleEditRequset $request) {
         $save=$request->all();
         $type = $save['type'];
         if($id!=0){
@@ -132,5 +132,8 @@ class WechatController extends Controller
     }
     public function bookpay(){
         return view('wechat.bookpay');
+    }
+    public function wechatperson(){
+        return view('wechat.wechatperson');
     }
 }

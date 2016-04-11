@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Casa;
 use App\Area;
+use App\WechatSeries;
+use App\WechatArticle;
 use App;
 
 class HomeController extends Controller
@@ -39,5 +41,25 @@ class HomeController extends Controller
             $casa->brief = $casa->contents[0]->text;
         }
         return response()->json($casas);
+    }
+
+    public function getSeries()
+    {
+        $series = WechatSeries::all()->take(6);
+        foreach($series as $serie)
+        {
+            $serie->pic = 'http://7xp9p2.com1.z0.glb.clouddn.com/4ee24efc7084e57bb090cabd099cdb76c7dd65b4376e-3UjFHM_fw658.jpg';
+        }
+        return response()->json($series);
+    }
+
+    public function getThemes()
+    {
+        $themes = WechatArticle::all()->take(6);
+        foreach($themes as $theme)
+        {
+            $theme->pic = config('casarover.photo_folder').$theme->attachment->filepath;
+        }
+        return response()->json($themes);
     }
 }
