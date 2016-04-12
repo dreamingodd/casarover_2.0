@@ -5,13 +5,13 @@
     @endsection
 @section('body')
 <section class='tanlu'>
-    <div class='tanlutop'>
-        <h2>探庐·临安</h2>
-        <p>临安介绍 xxxxxxxxxxxxxxxxxxxxxxxxx</p>
-    </div>
+    {{--<div class='tanlutop'>--}}
+        {{--<h2>探庐·临安</h2>--}}
+        {{--<p>临安介绍 xxxxxxxxxxxxxxxxxxxxxxxxx</p>--}}
+    {{--</div>--}}
     @foreach($articles as $article)
     <div id="list" class="article_list">
-        <a href="#">
+        <a href="{{$article->address}}">
             <div class="articles">
                 <div class="left">
                     @foreach($attachments as $attachment)
