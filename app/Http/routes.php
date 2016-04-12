@@ -17,13 +17,15 @@ use Illuminate\Http\Request;
 Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
-Route::get('/casaserise/{type?}/{deleted?}', 'CasaSeriesController@casas');
+Route::get('/casaserise/{type}/{series?}', 'CasaSeriesController@casas');
+Route::get('/themerecommend', function(){return view('site.themerecommend');});
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
 Route::get('/wechatbook', 'WechatController@book');
 Route::get('/bookdetails', 'WechatController@bookdetails');
 Route::get('/bookpay', 'WechatController@bookpay');
 Route::get('/wechatperson', 'WechatController@wechatperson');
+Route::get('/theme/{id}','ThemeController@show');
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'CasaController@casaList');
@@ -51,8 +53,14 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
     Route::post('wechatEdit/{id?}', 'WechatController@wechatEdits');
     Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');
-    Route::get('theme/edit','ThemeController@edit');
+    Route::get('theme','ThemeController@index');
+    Route::get('theme/add','ThemeController@create');
     Route::post('theme/store','ThemeController@store');
+    Route::get('theme/edit/{id}','ThemeController@edit');
+    Route::post('theme/del','ThemeController@del');
+    Route::get('theme/article/create','ThemeController@articleCreate');
+    Route::get('theme/article/edit/{id}','ThemeController@articleEdit');
+    Route::post('theme/article/del/{id}','ThemeController@articleDel');
 
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');

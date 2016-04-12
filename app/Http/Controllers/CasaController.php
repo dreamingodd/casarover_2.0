@@ -199,4 +199,8 @@ class CasaController extends Controller
         $casa->headImg = config('casarover.photo_folder').$casa->attachment->filepath;
         return view('site.casa',compact('casa'));
     }
+    public function allcasa()
+    {
+        return view('site.allcasa');
+    }
 }
