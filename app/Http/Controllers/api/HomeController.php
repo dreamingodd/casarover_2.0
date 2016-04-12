@@ -10,6 +10,7 @@ use App\Casa;
 use App\Area;
 use App\WechatSeries;
 use App\WechatArticle;
+use App\Theme;
 use App;
 
 class HomeController extends Controller
@@ -42,7 +43,17 @@ class HomeController extends Controller
         }
         return response()->json($casas);
     }
-
+    //主题推荐
+    public function getThemes()
+    {
+        $themes = Theme::where('status',1)->take(6)->get();
+        foreach($themes as $theme)
+        {
+            $theme->pic = config('casarover.image_folder').$theme->attachment->filepath;
+        }
+        return response()->json($themes);
+    }
+    //探庐系列
     public function getSeries()
     {
         $series = WechatSeries::all()->take(6);
@@ -51,15 +62,5 @@ class HomeController extends Controller
             $serie->pic = 'http://7xp9p2.com1.z0.glb.clouddn.com/4ee24efc7084e57bb090cabd099cdb76c7dd65b4376e-3UjFHM_fw658.jpg';
         }
         return response()->json($series);
-    }
-
-    public function getThemes()
-    {
-        $themes = WechatArticle::all()->take(6);
-        foreach($themes as $theme)
-        {
-            $theme->pic = config('casarover.photo_folder').$theme->attachment->filepath;
-        }
-        return response()->json($themes);
     }
 }

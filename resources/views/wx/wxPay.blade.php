@@ -1,7 +1,7 @@
 @extends('wechattemp')
 @section('title','民宿预订')
 @section('head')
-    <link href="/assets/css/bookpay.css" rel="stylesheet"/>
+    <link href="/assets/css/wxPay.css" rel="stylesheet"/>
 @stop
 @section('body')
     <p class="title"><span class="glyphicon glyphicon-th-list"></span>套餐选择 <a href="/bookdetails"  class="glyphicon glyphicon-remove"></a></p>

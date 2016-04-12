@@ -26,6 +26,7 @@ Route::get('/wechatbook', 'WechatController@book');
 Route::get('/bookdetails', 'WechatController@bookdetails');
 Route::get('/bookpay', 'WechatController@bookpay');
 Route::get('/wechatperson', 'WechatController@wechatperson');
+Route::get('/theme/{id}','ThemeController@show');
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'CasaController@casaList');
@@ -53,8 +54,14 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
     Route::post('wechatEdit/{id?}', 'WechatController@wechatEdits');
     Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');
-    Route::get('theme/edit','ThemeController@edit');
+    Route::get('theme','ThemeController@index');
+    Route::get('theme/add','ThemeController@create');
     Route::post('theme/store','ThemeController@store');
+    Route::get('theme/edit/{id}','ThemeController@edit');
+    Route::post('theme/del','ThemeController@del');
+    Route::get('theme/article/create','ThemeController@articleCreate');
+    Route::get('theme/article/edit/{id}','ThemeController@articleEdit');
+    Route::post('theme/article/del/{id}','ThemeController@articleDel');
 
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
@@ -74,4 +81,6 @@ Route::group(['prefix' => 'api'],function () {
 /**
  * wechat public routes
  */
-Route::any('weixin', 'WeixinController@serve');
+Route::group(['prefix' => 'wx'],function () {
+    Route::get('/', 'Wx\WxCasaController@showList');
+});

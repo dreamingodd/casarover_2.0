@@ -7,6 +7,11 @@ nav {
   z-index: 1;
   text-align: center;
 }
+nav img {
+  float: left;
+  height: 100%;
+  margin-left: 20px;
+}
 nav a {
   color: black;
   font-size: 3rem;
@@ -46,7 +51,7 @@ nav h1 {
 }
 .case em {
   display: block;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #999999;
 }
 .image {
