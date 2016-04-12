@@ -72,4 +72,6 @@ Route::group(['prefix' => 'api'],function () {
 /**
  * wechat public routes
  */
-Route::any('weixin', 'WeixinController@serve');
+Route::group(['prefix' => 'wx'],function () {
+    Route::get('/', 'Wx\WxCasaController@showList');
+});

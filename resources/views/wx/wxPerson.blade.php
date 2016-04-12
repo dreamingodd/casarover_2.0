@@ -1,7 +1,7 @@
 @extends('wechattemp')
 @section('title','个人中心')
 @section('head')
-    <link href="/assets/css/wechatperson.css" rel="stylesheet"/>
+    <link href="/assets/css/wxPerson.css" rel="stylesheet"/>
 @stop
 @section('body')
     <nav><a href="/wechatbook" class="glyphicon glyphicon-chevron-left"></a>
