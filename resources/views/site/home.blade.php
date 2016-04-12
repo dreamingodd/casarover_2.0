@@ -74,14 +74,14 @@
         {{--<div class="line"></div>--}}
         {{--<div class="casa-card" v-for="theme in themes">--}}
             {{--<div class="card-b">--}}
-                {{--<a href="@{{ theme.address }}" target="_blank">--}}
+                {{--<a href="theme/@{{ theme.id }}" target="_blank">--}}
                     {{--<img :src="theme.pic" height="100%">--}}
                     {{--<div class="card">--}}
-                        {{--<h3>@{{ theme.title }}</h3>--}}
+                        {{--<h3>@{{ theme.name }}</h3>--}}
                     {{--</div>--}}
                     {{--<div class="info">--}}
                         {{--<div class="middle">--}}
-                            {{--<h3>@{{ theme.title }}</h3>--}}
+                            {{--<h3>@{{ theme.name }}</h3>--}}
                             {{--<p>@{{ theme.brief }}</p>--}}
                         {{--</div>--}}
                     {{--</div>--}}
