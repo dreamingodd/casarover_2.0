@@ -29,7 +29,9 @@
                 <th scope="row">@{{ $index+1 }}</th>
                 <td>@{{ article.name }}</td>
                 <td>
-                    <button class="btn btn-default"><a href="/back/theme/article/edit/@{{ article.id }}">编辑</a></button>
+                    <a href="/back/theme/article/edit/@{{ article.id }}">
+                        <button class="btn btn-default">编辑</button>
+                    </a>
                 </td>
             </tr>
             </tbody>

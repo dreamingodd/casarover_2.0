@@ -18,7 +18,6 @@ Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
 Route::get('/casaserise/{type}/{series?}', 'CasaSeriesController@casas');
-Route::get('/themerecommend', function(){return view('site.themerecommend');});
 Route::get('/allcasa','CasaController@allcasa');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
@@ -63,7 +62,7 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('theme/article/add','ThemeController@articleCreate');
     Route::post('theme/article/store','ThemeController@articleStore');
     Route::get('theme/article/edit/{id}','ThemeController@articleEdit');
-    Route::post('theme/article/del/{id}','ThemeController@articleDel');
+    Route::post('theme/article/del/','ThemeController@articleDel');
 
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
