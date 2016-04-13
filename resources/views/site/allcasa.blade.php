@@ -51,16 +51,22 @@
             <div class="case">
                 <p>区域<a href="javascript:void(0)" class='show'>显示全部</a></p>
                 <ul class="casas">
-                    <li><a href="">临安</a></li>
-                    <li><a href="">临安</a></li>
-                    <li><a href="">临安</a></li>
-                    <li><a href="">临安</a></li>
-                    <li><a href="">临安</a></li>
-                    <li><a href="">临安</a></li>
-                    <li><a href="">临安</a></li>
-                    <li><a href="">临安</a></li>
-                    <li><a href="">临安</a></li>
-                    <li><a href="">临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
+                    <li><a>临安</a></li>
                 </ul>
             </div>
         </div>
@@ -102,6 +108,14 @@
                     $(this).parent().next().css('overflow','hidden');
                 }
             });
+            $('.casa a').click(function () {
+                $('.casa a').removeClass();
+                $(this).addClass('active');
+            })
+            $('.casas a').click(function () {
+                $('.casas a').removeClass();
+                $(this).addClass('active');
+            })
         });
         //        回到头部
         $('.returntop').click(function () {
