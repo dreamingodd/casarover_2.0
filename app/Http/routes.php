@@ -18,6 +18,7 @@ Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
 Route::get('/casaserise/{type}/{series?}', 'CasaSeriesController@casas');
+Route::get('/about', function(){return view('site.about');});
 Route::get('/allcasa','CasaController@allcasa');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
