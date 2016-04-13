@@ -11,7 +11,7 @@
     {{--</div>--}}
     @foreach($articles as $article)
     <div id="list" class="article_list">
-        <a href="{{$article->address}}">
+        <a href="{{$article->address}}" >
             <div class="articles">
                 <div class="left">
                     @foreach($attachments as $attachment)
