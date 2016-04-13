@@ -203,4 +203,5 @@ class CasaController extends Controller
     {
         return view('site.allcasa');
     }
+
 }

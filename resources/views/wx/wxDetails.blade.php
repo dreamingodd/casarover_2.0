@@ -1,7 +1,7 @@
 @extends('wechattemp')
 @section('title','民宿预订')
 @section('head')
-    <link href="/assets/css/bookdetails.css" rel="stylesheet"/>
+    <link href="/assets/css/wxDetails.css" rel="stylesheet"/>
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
 @stop
 @section('body')

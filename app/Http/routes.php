@@ -19,6 +19,7 @@ Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
 Route::get('/casaserise/{type}/{series?}', 'CasaSeriesController@casas');
 Route::get('/themerecommend', function(){return view('site.themerecommend');});
+Route::get('/allcasa','CasaController@allcasa');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
 Route::get('/wechatbook', 'WechatController@book');
@@ -83,4 +84,6 @@ Route::group(['prefix' => 'api'],function () {
 /**
  * wechat public routes
  */
-Route::any('weixin', 'WeixinController@serve');
+Route::group(['prefix' => 'wx'],function () {
+    Route::get('/', 'Wx\WxCasaController@showList');
+});

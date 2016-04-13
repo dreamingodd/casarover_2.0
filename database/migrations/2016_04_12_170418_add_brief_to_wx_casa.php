@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUpdateAtToWechatArticle extends Migration
+class AddBriefToWxCasa extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,8 @@ class AddUpdateAtToWechatArticle extends Migration
      */
     public function up()
     {
-//        改错了
-        if (Schema::hasTable('wechat_article')) {
-            return;
-        }
-        Schema::table('wechat_article', function (Blueprint $table) {
-            $table->timestamp('update_at');
+        Schema::table('wx_casa', function (Blueprint $table) {
+            $table->string('brief', 128)->after('name');
         });
     }
 
