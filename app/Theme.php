@@ -10,4 +10,9 @@ class Theme extends Model
     {
         return $this->hasOne('App\Attachment','id','attachment_id');
     }
+
+    public function contents()
+    {
+        return $this->belongsToMany('App\Content');
+    }
 }
