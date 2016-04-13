@@ -8,7 +8,7 @@
         <div class="left">
             <h1>{{ $theme->name }}</h1>
             @foreach($theme->contents as $article)
-                <a href="/">
+                <a href="/casa/{{ $article->house }}">
                     <div class="case">
                         @if(count($article->attachments))
                             <img src="{{ config('casarover.image_folder').$article->attachments[0]->filepath }}" alt="">
@@ -23,14 +23,14 @@
         </div>
         <div class="right">
             <h2>其他主题：</h2>
-            {{--@foreach($others as $theme)--}}
+            @foreach($others as $theme)
             <div class="other">
-                <a href="/">
+                <a href="/theme/{{ $theme->id }}">
                     <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201601291648068414.png" alt="">
                     <p>{{ $theme->name }}</p>
                 </a>
             </div>
-            {{--@endforeach--}}
+            @endforeach
         </div>
     </div>
 @endsection

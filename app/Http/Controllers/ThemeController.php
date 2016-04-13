@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Casa;
+use App\Content;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,7 +20,7 @@ class ThemeController extends Controller
     public function show($id)
     {
         $theme = Theme::find($id);
-        $others = Theme::whereNotIn('id',[$id])->get();
+        $others = Theme::whereNotIn('id',[$id])->where('status',1)->get();
         return view('site.theme',compact('theme','others'));
     }
     public function create()
@@ -28,10 +30,10 @@ class ThemeController extends Controller
 
     public function store(Request $request)
     {
-      if($request->id != "")
-      {
-       return $this->update($request);
-      }
+        if($request->id != "")
+        {
+            return $this->update($request);
+        }
         $theme = new Theme;
         $theme->name = $request->name;
         $theme->brief = $request->brief;
@@ -79,23 +81,48 @@ class ThemeController extends Controller
     public function articleCreate()
     {
         $themes = Theme::where('status',1)->get();
-        return view('backstage.themeArticleEdit',compact('themes'));
+        $casas = Casa::all();
+        return view('backstage.themeArticleEdit',compact('themes','casas'));
     }
 
     public function articleStore(Request $request)
     {
+        if($request->id != "")
+        {
+            return $this->articleUpdate($request);
+        }
         $theme = Theme::find($request->theme);
-        $content = new \App\Content(['name' => $request->name,'text' => $request->text]);
-        $theme->contents()->save($content);
+        $content = new \App\Content(['name' => $request->name,'text' => $request->text,'house' => $request->casa]);
+        $newContent = $theme->contents()->save($content);
         $pic = new \App\Attachment(['filepath' => $request->pic]);
-        $theme->contents[0]->attachments()->save($pic);
-        dd($request);
+        $newContent->attachments()->save($pic);
+        return redirect('back/theme/article');
+    }
+
+    public function articleUpdate($request)
+    {
+        $theme = Theme::find($request->theme);
+        $content = new \App\Content(['name' => $request->name,'text' => $request->text,'house' => $request->casa]);
+        $beforecontent = Content::find($request->id);
+        $beforecontent->delete();
+        $newContent = $theme->contents()->save($content);
+        $pic = new \App\Attachment(['filepath' => $request->pic]);
+        $newContent->attachments()->save($pic);
+        return redirect('back/theme/article');
     }
     public function articleEdit($id)
     {
-        $theme = Theme::find($id);
-//        $theme
-        return view('backstage.themeArticleEdit');
+        $themes = Theme::where('status',1)->get();
+        $article = Content::find($id);
+        $casas = Casa::all();
+        return view('backstage.themeArticleEdit',compact('themes','article','casas'));
+    }
+
+    public function articleDel(Request $request)
+    {
+        $content = Content::find($request->id);
+        $content->delete();
+        return redirect('back/theme/article');
     }
 
 }

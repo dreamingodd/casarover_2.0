@@ -11,9 +11,9 @@
         <input type="hidden" name="id" value="{{ $article->id or null }}">
         <input type="hidden" name="pic" value="{{ $article->contents[0]->attachment->filepath or null }}" id="pic">
         <p>所属主题</p>
-        <select name="theme" id="" class="form-control">
+        <select name="theme" id="sel" class="form-control">
             @foreach($themes as $theme)
-                <option value="{{ $theme->id }}">{{ $theme->name }}</option>
+                <option value="{{ $theme->id }}" >{{ $theme->name }}</option>
             @endforeach
         </select>
         <p>上传介绍图片</p>
@@ -24,9 +24,9 @@
                 <button class="show_uploader btn btn-primary btn-sm" type="button">插入图片</button>
             </div>
             <div class="oss_hidden_input">
-                @if(isset($article->contents))
-                    @if(isset($message->contents[1]->attachments[0]))
-                        <input type="hidden" class="hidden_photo" value="{{ $message->contents[1]->attachments[0]->filepath }}"/>
+                @if(isset($article))
+                    @if(count($article->attachments))
+                        <input type="hidden" class="hidden_photo" value="{{ $article->attachments[0]->filepath }}"/>
                     @endif
                 @endif
             </div>
@@ -37,14 +37,22 @@
         <input type="text" name="name" class="form-control" value="{{ $article->name or null }}">
         <label for="text">介绍内容</label>
         <textarea name="text" id="" cols="30" rows="10" class="form-control">{{ $article->text or null }}</textarea>
+        <p>所属民宿</p>
+        <select name="casa" id="sel-casa" class="form-control">
+            @foreach($casas as $casa)
+                <option value="{{ $casa->id }}" >{{ $casa->name }}</option>
+            @endforeach
+        </select>
         <div class="sub">
             <button type="submit" class="btn btn-primary" onclick="sed()">保存</button>
-    </form>
+
     @if(isset($article->id))
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
             <i class="fa fa-times-circle"></i>
             删除
         </button>
+        </div>
+    </form>
     @endif
     <div class="modal fade" id="modal-delete" tabIndex="-1">
         <div class="modal-dialog">
@@ -77,4 +85,10 @@
     </div>
     </div>
     </form>
+    <script>
+        @if(isset($article))
+        $("#sel").val('{{ $article->themes[0]->id }}');
+        $("#sel-casa").val('{{ $article->house }}');
+        @endif
+    </script>
 @endsection
