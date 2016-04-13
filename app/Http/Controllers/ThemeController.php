@@ -17,7 +17,9 @@ class ThemeController extends Controller
 
     public function show($id)
     {
-        abort(503,'this is');
+        $theme = Theme::find($id);
+        $others = Theme::whereNotIn('id',[$id])->get();
+        return view('site.theme',compact('theme','others'));
     }
     public function create()
     {
@@ -67,9 +69,32 @@ class ThemeController extends Controller
         $theme->save();
         return redirect('back/theme');
     }
-
-    public function articleEdit()
+    //主题文章
+    public function article()
     {
+        $themes = Theme::where('status',1)->get();
+        return view('backstage.themeArticle',compact('themes'));
+    }
+
+    public function articleCreate()
+    {
+        $themes = Theme::where('status',1)->get();
+        return view('backstage.themeArticleEdit',compact('themes'));
+    }
+
+    public function articleStore(Request $request)
+    {
+        $theme = Theme::find($request->theme);
+        $content = new \App\Content(['name' => $request->name,'text' => $request->text]);
+        $theme->contents()->save($content);
+        $pic = new \App\Attachment(['filepath' => $request->pic]);
+        $theme->contents[0]->attachments()->save($pic);
+        dd($request);
+    }
+    public function articleEdit($id)
+    {
+        $theme = Theme::find($id);
+//        $theme
         return view('backstage.themeArticleEdit');
     }
 

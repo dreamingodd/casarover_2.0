@@ -1,3 +1,6 @@
+a:hover {
+  color: black;
+}
 .main {
   margin: 20px auto;
   width: 1200px;
@@ -43,5 +46,5 @@
   margin: 0 auto;
 }
 .main .right p {
-  margin-top: 0px;
+  margin-top: 10px;
 }

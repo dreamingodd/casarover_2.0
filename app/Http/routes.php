@@ -18,7 +18,6 @@ Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
 Route::get('/casaserise/{type}/{series?}', 'CasaSeriesController@casas');
-Route::get('/themerecommend', function(){return view('site.themerecommend');});
 Route::get('/about', function(){return view('site.about');});
 Route::get('/allcasa','CasaController@allcasa');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
@@ -60,7 +59,9 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::post('theme/store','ThemeController@store');
     Route::get('theme/edit/{id}','ThemeController@edit');
     Route::post('theme/del','ThemeController@del');
-    Route::get('theme/article/create','ThemeController@articleCreate');
+    Route::get('theme/article','ThemeController@article');
+    Route::get('theme/article/add','ThemeController@articleCreate');
+    Route::post('theme/article/store','ThemeController@articleStore');
     Route::get('theme/article/edit/{id}','ThemeController@articleEdit');
     Route::post('theme/article/del/{id}','ThemeController@articleDel');
 
@@ -77,6 +78,7 @@ Route::group(['prefix' => 'api'],function () {
     Route::get('home/themes/','api\HomeController@getThemes');
     Route::get('casa/recom/{id?}','api\CasaController@getCasasById');
     Route::post('/recom/save/','api\CasaController@save');
+    Route::get('theme/article/{id}','api\ThemeController@getThemeArticle');
 });
 
 /**

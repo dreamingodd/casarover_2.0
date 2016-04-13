@@ -24,7 +24,7 @@ ol {
 }
 .main .screen {
   margin: 30px auto;
-  background: #33a0ce;
+  background: #363230;
   border-radius: 5px;
   padding: 20px;
 }
@@ -56,16 +56,16 @@ ol {
   height: 30px;
   margin: 0 20px 20px 0;
   text-align: center;
-  border-radius: 2px;
+  border-radius: 3px;
   line-height: 30px;
-  color: #000;
-  background: #CFCFCF;
+  color: #fff;
+  background: #363230;
   cursor: pointer;
 }
 .main ul li a:hover,
 .main ol li a:hover {
-  color: #000;
-  background: #ffc520;
+  color: #363230;
+  background: #fff;
 }
 .main .returntop {
   display: block;
