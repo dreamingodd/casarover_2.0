@@ -14,8 +14,6 @@ class CasaController extends Controller
 {
     public function getCasasById($cityid=8)
     {
-//        $k = DB::table('area_casa')->get();
-//        dd($k);
         $area = Area::find($cityid);
         $casas = $area->casas;
         if(!count($casas))

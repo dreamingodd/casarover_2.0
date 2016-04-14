@@ -5,7 +5,7 @@
 @section('body')
     <div class="options vertical5">
         <a href="/back/theme/add">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加主题
         </a>
     </div>
     <table class="table table-striped">
