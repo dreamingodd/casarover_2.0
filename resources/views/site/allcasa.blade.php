@@ -89,9 +89,12 @@
                 </div>
             </div>
         </section>
-        <a href="javascript:void(0)" class="returntop">
-            <span class="caret"></span>
-        </a>
+        {{--<a href="javascript:void(0)" class="returntop">--}}
+            {{--<span class="caret"></span>--}}
+        {{--</a>--}}
+            <a href="javascript:void(0)" class="right-float-top" id="toTop" >返回顶部</a>
+            <a href="javascript:void(0)" class="right-float-middle" id="advice">意见反馈</a>
+            <a href="javascript:void(0)" class="right-float-bottom" id="qrcode"></a>
     </div>
     <script>
        //        显示收起标签
@@ -117,25 +120,41 @@
                 $(this).addClass('active');
             })
         });
-        //        回到头部
-        $('.returntop').click(function () {
-            $(document.body).animate({scrollTop: 0}, 800);
-            $('.returntop').animate({opacity: 0}, 500);
-            return false;
-            });
-       //        滚轮事件
-        $(document).on("mousewheel DOMMouseScroll", function (e) {
-            var delta = (e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1)) ||  // chrome & ie
-                    (e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1));              // firefox
-            console.log(delta);
-            if (delta > 0) {
-                // 向上滚
-                console.log("wheelup");
-            } else if (delta < 0) {
-                // 向下滚
-                console.log("wheeldown");
-                $('.returntop').animate({opacity: 1}, 500);
-            }
-        });
+       //回到头部
+       window.onload=function() {
+               if($(this).scrollTop()==0){
+                   $("#toTop").hide();
+               }
+               $(window).scroll(function(event) {
+                   /* Act on the event */
+                   if($(this).scrollTop()<=100){
+                       $("#toTop").hide();
+                   }
+                   if($(this).scrollTop()!=0){
+                       $("#toTop").show();
+                   }
+               });
+               $("#toTop").click(function(event) {
+                   /* Act on the event */
+                   $("html,body").animate({
+                               scrollTop:"0px"},
+                           666
+                   )
+               });
+           $(window).scroll(function() {
+               var a = $("#toTop").offset().top;
+               var b = $("footer").offset().top;
+               if($(document).height() - $(window).height() -$(window).scrollTop()<170) {
+                   $("#toTop").css({"position":"#absolute","bottom":"330px"});
+                   $("#advice").css({"position":"#absolute","bottom":"286px"});
+                   $("#qrcode").css({"position":"#absolute","bottom":"242px"});
+               }
+               else {
+                   $("#toTop").css({"position":"#fixed","bottom":"138px"});
+                   $("#advice").css({"position":"#fixed","bottom":"94px"});
+                   $("#qrcode").css({"position":"#fixed","bottom":"50px"});
+               }
+           });
+       }
     </script>
 @endsection

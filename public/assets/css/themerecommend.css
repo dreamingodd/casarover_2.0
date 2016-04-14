@@ -32,9 +32,20 @@ a:hover {
   float: right;
 }
 .main .left .case .articles p {
+  position: relative;
   width: 380px;
+  height: 100px;
   word-break: break-word;
   margin: 0 auto;
+  text-align: left;
+  text-indent: 2em;
+  line-height: 20px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 .main .right {
   width: 300px;
