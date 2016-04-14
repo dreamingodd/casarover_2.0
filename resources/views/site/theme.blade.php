@@ -2,6 +2,7 @@
 @section('title','民宿')
 @section('head')
     <link rel="stylesheet" href="/assets/css/themerecommend.css">
+    <script src="/assets/js/theme.js"></script>
 @endsection
 @section('body')
     <div class="main">
