@@ -18,4 +18,9 @@ class Content extends Model
     {
         return $this->belongsToMany('App\Theme');
     }
+
+    public function themeCasa()
+    {
+        return $this->hasOne('App\Casa','id','house');
+    }
 }

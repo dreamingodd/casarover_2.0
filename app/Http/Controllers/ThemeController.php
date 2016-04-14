@@ -20,7 +20,11 @@ class ThemeController extends Controller
     public function show($id)
     {
         $theme = Theme::find($id);
-        $others = Theme::whereNotIn('id',[$id])->where('status',1)->get();
+        $others = Theme::whereNotIn('id',[$id])->orderBy('id','asc')->where('status',1)->get();
+        foreach($others as $otherTheme)
+        {
+            $otherTheme->pic = config('casarover.image_folder').$otherTheme->attachment->filepath;
+        }
         return view('site.theme',compact('theme','others'));
     }
     public function create()
@@ -87,6 +91,10 @@ class ThemeController extends Controller
 
     public function articleStore(Request $request)
     {
+        if(!isset($request->casa))
+        {
+            $request->casa = null;
+        }
         if($request->id != "")
         {
             return $this->articleUpdate($request);
