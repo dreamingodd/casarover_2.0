@@ -1,0 +1,1 @@
+$(function(){var l=$(".articles p").replaceAll("\n","<br/>");$(".articles p").html(l)});
