@@ -25,7 +25,7 @@
                         aria-haspopup="true" aria-expanded="false">微信管理<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/back/participateList">游园会活动管理</a></li>
+                    <li><a href="/back/wx/">微信预定</a></li>
                     <li><a href="/back/wechatSeriesList">探庐系列-子标题</a></li>
                     <li><a href="/back/wechatList/1">探庐系列</a></li>
                     <li><a href="/back/wechatList/2">民宿风采</a></li>

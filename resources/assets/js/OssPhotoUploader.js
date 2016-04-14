@@ -18,8 +18,8 @@ require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domre
     var uploader = null;
 
     var oss_uploader_html =
-        '<button id="selectfiles" class="oss_uploader btn btn-default btn-sm">选择文件</button>'
-        + '<button id="postfiles" class="oss_uploader btn btn-default btn-sm">开始上传</button>';
+        '<button id="selectfiles" type="button" class="oss_uploader btn btn-default btn-sm">选择文件</button>' +
+        '<button id="postfiles" type="button" class="oss_uploader btn btn-default btn-sm">开始上传</button>';
     // 调出图片选项
     $('body').on('click', '.oss_button .show_uploader', function(){
         $('.oss_uploader').remove();
@@ -32,12 +32,12 @@ require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domre
     });
     // 显示图片
     $('.oss_hidden_input .hidden_photo').each(function(){
-        var src = $(this).parent().parent().attr('oss_address') + "/"
-                + $(this).parent().parent().attr('target_folder') + "/"
-                + $(this).val();
+        var src = $(this).parent().parent().attr('oss_address') + "/" +
+                $(this).parent().parent().attr('target_folder') + "/" +
+                $(this).val();
         $(this).parent().next().append(
-                $('<img class="img-thumbnail col-lg-3" style="height:200px;"'
-                        + 'title="双击删除" src="'+src+'"/>')
+                $('<img class="img-thumbnail col-lg-3" style="height:200px;"' +
+                        'title="双击删除" src="'+src+'"/>')
         );
     });
     // 图片删除
@@ -56,11 +56,11 @@ require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domre
                 $('<input type="hidden" class="hidden_photo" value="' + photoName + '"/>')
         );
         // add photo displayment
-        var src = $('#postfiles').parent().parent().attr('oss_address') + '/'
-                + $('#postfiles').parent().parent().attr('target_folder') + '/' + photoName;
+        var src = $('#postfiles').parent().parent().attr('oss_address') + '/' +
+                $('#postfiles').parent().parent().attr('target_folder') + '/' + photoName;
         $('#postfiles').parent().next().next().append(
-                $('<img class="img-thumbnail col-lg-3" style="height:200px;"'
-                        + 'title="双击删除" src="'+src+'"/>')
+                $('<img class="img-thumbnail col-lg-3" style="height:200px;"' +
+                        'title="双击删除" src="'+src+'"/>')
         );
     }
 
@@ -258,11 +258,11 @@ require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domre
                         checkedFiles.push(file);
                     }
                     plupload.each(checkedFiles, function(file) {
-                        $('#postfiles').parent().append($('<div id="' + file.id + '">' + file.name
-                        + ' (' + plupload.formatSize(file.size) + ')<b></b>'
-                        + '<div class="progress" style="width:300px;"><div class="progress-bar progress-bar-success progress-bar-striped active"'
-                        + ' role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div></div>'
-                        + '</div>'));
+                        $('#postfiles').parent().append($('<div id="' + file.id + '">' + file.name +
+                        ' (' + plupload.formatSize(file.size) + ')<b></b>' +
+                        '<div class="progress" style="width:300px;"><div class="progress-bar progress-bar-success progress-bar-striped active"' +
+                        ' role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div></div>' +
+                        '</div>'));
                     });
                 },
 

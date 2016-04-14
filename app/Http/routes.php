@@ -44,7 +44,6 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('casarecom','RecomController@casa');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaEdit', 'CasaController@casaEdit');
-    Route::get('/casa', 'CasaController@casaInfo');
     Route::get('participateList', 'WechatController@participateList');
     Route::get('wechatSeriesList','WechatController@wechatSeriesList');
     Route::post('wechatSeriesList','WechatController@wechatSeriesEdits');
@@ -81,5 +80,10 @@ Route::group(['prefix' => 'api'],function () {
  * wechat public routes
  */
 Route::group(['prefix' => 'wx'],function () {
+    Route::get('/', 'Wx\WxCasaController@index');
+});
+Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
+    Route::get('casa/{id?}', 'Wx\WxCasaController@show');
+    Route::post('edit', 'Wx\WxCasaController@edit');
 });

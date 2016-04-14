@@ -10,3 +10,4 @@ npm-debug.log
 /config/casarover.php
 .DS_Store
 /config/.DS_Store
+/public/WxpayAPI/lib/WxPay.Config.php

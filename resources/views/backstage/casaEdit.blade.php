@@ -3,8 +3,8 @@
 @section('title', '探庐者后台-新建民宿')
 @section('head')
 <script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js"></script>
-<script src="/assets/js/casaEdit.js"></script>
 <script src="/assets/js/integration/json2.js"></script>
+<script src="/assets/js/casaEdit.js"></script>
 <style>
 .col-lg-12 {
     margin: 2px 0 3px 0;
@@ -49,7 +49,7 @@
         <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
                 oss_address="{{Config::get("casarover.oss_external")}}">
             <div class="oss_button">
-                <button class="show_uploader btn btn-primary btn-sm">插入图片</button>
+                <button class="show_uploader btn btn-info btn-sm">插入图片</button>
             </div>
             <div class="oss_hidden_input">
                 @if (isset($casa))
@@ -133,7 +133,7 @@
                 <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
                         oss_address="{{Config::get("casarover.oss_external")}}">
                     <div class="oss_button">
-                        <button class="show_uploader btn btn-primary btn-sm">插入图片</button>
+                        <button class="show_uploader btn btn-info btn-sm">插入图片</button>
                     </div>
                     <div class="oss_hidden_input">
                         @foreach ($content->attachments as $photo)
@@ -153,7 +153,7 @@
     @else
 
         <!-- Content's Template starts. -->
-        <?php include_once '\assets\html\contentsTemplate.html' ?>
+        <?php include_once public_path().'/assets/html/contentsTemplate.html' ?>
         <!-- Content's Template ends. -->
     @endif
 

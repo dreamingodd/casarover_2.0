@@ -16,7 +16,11 @@ $(function() {
         $(this).parent().parent().after(newContentTemplate());
     });
     $('body').on('click', '.del_content', function(){
-        $(this).parent().parent().remove();
+        if ($('.content').length > 1) {
+            $(this).parent().parent().remove();
+        } else {
+            alert('再删就没有了哦！');
+        }
     });
 
     /* Below are TAG editing related. */
@@ -51,14 +55,15 @@ $(function() {
                 $(this).parent().parent().children('.btn').children(
                         '.area_text').html($(this).html());
                 // 点击省, 数据库里1是中国
+                var city, li = null;
                 if (parentid == 1) {
                     $('#districts').hide();
                     $('#city_ul').html('');
                     $('#cities .area_text').html('市');
                     var province = areas[id];
                     for ( var city_id in province.sub_areas) {
-                        var city = province.sub_areas[city_id];
-                        var li = createAreaLi(city);
+                        city = province.sub_areas[city_id];
+                        li = createAreaLi(city);
                         $('#city_ul').append(li);
                     }
                     $('#cities').show();
@@ -71,10 +76,10 @@ $(function() {
                 // 点击市(上海这种地方的区进入上面那个判断)
                 else {
                     $('#district_ul').html('');
-                    var city = areas[parentid].sub_areas[id];
+                    city = areas[parentid].sub_areas[id];
                     for ( var district_id in city.sub_areas) {
                         var district = city.sub_areas[district_id];
-                        var li = createAreaLi(district);
+                        li = createAreaLi(district);
                         $('#district_ul').append(li);
                     }
                     $('#districts').show();
@@ -185,27 +190,27 @@ function collectContents() {
 }
 function newContentTemplate() {
     return $(
-        '<div class="content">'
-    +   '    <div class="name col-lg-2 vertical5">'
-    +   '        <input type="text" class="form-control" value="" aria-describedby="sizing-addon3" />'
-    +   '    </div>'
-    +   '    <div class="col-lg-10 vertical5">'
-    +   '        <button type="button" class="btn btn-info add_content">插入内容</button>'
-    +   '        <button type="button" class="btn btn-info del_content">删除内容</button>'
-    +   '    </div>'
-    +   '    <!-- OSS start -->'
-    +   '    <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"'
-    +   '            oss_address="{{Config::get("casarover.oss_external")}}">'
-    +   '        <div class="oss_button">'
-    +   '            <button class="show_uploader btn btn-primary btn-sm">插入图片</button>'
-    +   '        </div>'
-    +   '        <div class="oss_hidden_input"></div>'
-    +   '        <div class="oss_photo"></div>'
-    +   '    </div>'
-    +   '    <!-- OSS end -->'
-    +   '    <div class="text col-lg-12 vertical5">'
-    +   '        <textarea rows="3" cols="150"></textarea>'
-    +   '    </div>'
-    +   '</div>'
+        '<div class="content">' +
+        '    <div class="name col-lg-2 vertical5">' +
+        '        <input type="text" class="form-control" value="" aria-describedby="sizing-addon3" />' +
+        '    </div>' +
+        '    <div class="col-lg-10 vertical5">' +
+        '        <button type="button" class="btn btn-info add_content">插入内容</button>' +
+        '        <button type="button" class="btn btn-info del_content">删除内容</button>' +
+        '    </div>' +
+        '    <!-- OSS start -->' +
+        '    <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"' +
+        '            oss_address="{{Config::get("casarover.oss_external")}}">' +
+        '        <div class="oss_button">' +
+        '            <button class="show_uploader btn btn-info btn-sm">插入图片</button>' +
+        '        </div>' +
+        '        <div class="oss_hidden_input"></div>' +
+        '        <div class="oss_photo"></div>' +
+        '    </div>' +
+        '    <!-- OSS end -->' +
+        '    <div class="text col-lg-12 vertical5">' +
+        '        <textarea rows="3" cols="150"></textarea>' +
+        '    </div>' +
+        '</div>'
     );
 }

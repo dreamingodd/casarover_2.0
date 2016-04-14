@@ -15,13 +15,15 @@ use App\Tag;
 use App\Content;
 use App\Attachment;
 use App\Common\CommonTools;
-use App\Services\AreaService;
 
-class CasaController extends Controller
+class CasaController extends BaseController
 {
     private $casa;
     private $casas;
 
+    /**
+     * Add or update a casa.
+     */
     public function edit(Request $request) {
         $casaData = json_decode($request->all()['casa_JSON_str']);
         // dd($casaData);
@@ -54,7 +56,7 @@ class CasaController extends Controller
             $casa->tags()->saveMany($tags);
             $casa->contents()->saveMany($contents);
             DB::commit();
-            return $casa->id;
+            return redirect('/back/casaList');
         } catch(\PDOException $e) {
             DB::rollback();
             // SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry
@@ -67,6 +69,9 @@ class CasaController extends Controller
             dd($e);
         }
     }
+    /**
+     * Show details in backstage.
+     */
     public function show($id=0) {
         $areaService = app("AreaService");
         $officialTags = Tag::where('type', '<>', 'custom')->get();
@@ -114,25 +119,23 @@ class CasaController extends Controller
         $casa->deleted = $deleted;
         $casa->save();
         if ($deleted == 1) {
-            $this->showList(0);
-            return view('backstage.casaList', ['casas' => $this->casas, 'deleted' => 0]);
+            return redirect('/back/casaList');
         } else {
             $this->showList(1);
-            return view('backstage.casaList', ['casas' => $this->casas, 'deleted' => 1]);
+            return redirect('/back/casaList/1');
         }
     }
+   public function casaInfo($id)
+   {
+       $casa = Casa::find($id);
+       $casa->headImg = config('casarover.photo_folder').$casa->attachment->filepath;
+       return view('site.casa',compact('casa'));
+   }
+   public function allcasa()
+   {
+       return view('site.allcasa');
+   }
 
-    /**
-     * Create an Attachment in database.
-     * @param $filepath filename
-     * @return Attachment
-     */
-    private function createAttachment($filepath) {
-        $attachment = new Attachment;
-        $attachment->filepath = $filepath;
-        $attachment->save();
-        return $attachment;
-    }
     private function updateSimpleCasa($casa, $casaData) {
         // basic information
         $casa->code = $casaData->code;
@@ -169,38 +172,5 @@ class CasaController extends Controller
             array_push($tags, $tag);
         }
         return $tags;
-    }
-    /**
-     * Convert the content data that are received from edit page
-     * to Contents which are from the database.
-     * @param contents Array of content[name, text, photo]
-     * @return Array of entity Contents(which are already inserted in the databases)
-     */
-     private function createContents(Array $rawContents) {
-         $contents = array();
-         foreach ($rawContents as $rawContent) {
-             $content = new Content;
-             $content->name = $rawContent->name;
-             $content->text = $rawContent->text;
-             $attachments = array();
-             foreach ($rawContent->photos as $filepath) {
-                 $attachemnt = $this->createAttachment($filepath);
-                 array_push($attachments, $attachemnt);
-             }
-             $content->save();
-             $content->attachments()->saveMany($attachments);
-             array_push($contents, $content);
-         }
-         return $contents;
-     }
-    public function casaInfo($id)
-    {
-        $casa = Casa::find($id);
-        $casa->headImg = config('casarover.photo_folder').$casa->attachment->filepath;
-        return view('site.casa',compact('casa'));
-    }
-    public function allcasa()
-    {
-        return view('site.allcasa');
     }
 }

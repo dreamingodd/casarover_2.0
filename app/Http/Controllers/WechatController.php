@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+
 use App\WechatArticle;
 use App\WechatSeries;
 use App\Attachment;
@@ -120,7 +121,7 @@ class WechatController extends Controller
     public function wechatSeriesEdit() {
         return view('backstage.wechatSeriesEdit');
     }
-    public function wechatSeriesEdits(Requests\wechatSeriesEditRequset $request) {
+    public function wechatSeriesEdits(Requests\WechatSeriesEditRequset $request) {
         wechatSeries::insert(['type' => '1', 'name' => $request->name]);
         return view('backstage.sucess',['type'=>1,'id'=>0]);
     }
