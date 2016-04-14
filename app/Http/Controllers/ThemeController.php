@@ -21,9 +21,9 @@ class ThemeController extends Controller
     {
         $theme = Theme::find($id);
         $others = Theme::whereNotIn('id',[$id])->where('status',1)->get();
-        foreach($others as $theme)
+        foreach($others as $otherTheme)
         {
-            $theme->pic = config('casarover.image_folder').$theme->attachment->filepath;
+            $otherTheme->pic = config('casarover.image_folder').$otherTheme->attachment->filepath;
         }
         return view('site.theme',compact('theme','others'));
     }
