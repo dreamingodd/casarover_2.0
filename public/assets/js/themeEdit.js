@@ -1,1 +1,1 @@
-function sed(){var n=$(".oss_hidden_input input").val();$("#pic").val(n)}$(document).ready(function(){});
+function sed(){var t=$(".oss_hidden_input input").val();$("#pic").val(t)}$(document).ready(function(){$("textarea").each(function(){$(this).html(BRtoLF($(this).html()))}),$("#themeSubmitBtn").click(function(){$("textarea").each(function(){$(this).html(LFtoBR($(this).html()))}),$("#themeForm").submit()})});

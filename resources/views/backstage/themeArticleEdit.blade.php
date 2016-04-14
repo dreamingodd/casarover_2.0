@@ -6,7 +6,7 @@
 @endsection
 @section('body')
     <div class="container"></div>
-    <form action="/back/theme/article/store" id="area-form" method="post">
+    <form action="/back/theme/article/store" id="themeForm" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden" name="id" value="{{ $article->id or null }}">
         <input type="hidden" name="pic" value="{{ $article->contents[0]->attachment->filepath or null }}" id="pic">
@@ -46,7 +46,7 @@
         </select>
         <div class="col-md-12">
         <div class="sub">
-            <button type="submit" class="btn btn-primary" onclick="sed()">保存</button>
+            <button id="themeSubmitBtn" type="button" class="btn btn-primary" onclick="sed()">保存</button>
 
     @if(isset($article->id))
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">

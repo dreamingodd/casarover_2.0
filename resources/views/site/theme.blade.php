@@ -2,7 +2,6 @@
 @section('title','民宿')
 @section('head')
     <link rel="stylesheet" href="/assets/css/themerecommend.css">
-    <script src="/assets/js/theme.js"></script>
 @endsection
 @section('body')
     <div class="main">
@@ -20,7 +19,7 @@
                         @endif
                         <div class="articles">
                             <h2>{{ $article->name }}</h2>
-                            <p>{{ $article->text }}</p>
+                            <p>{!! $article->text !!}</p>
                         </div>
                     </div>
                 </a>
