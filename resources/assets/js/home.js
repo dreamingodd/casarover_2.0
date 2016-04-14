@@ -9,13 +9,16 @@ $(document).ready(function(){
     $('.search-input input').blur(function(){
         $('.search-place').css('display','none');
     });
-
-    var recom = new Vue({
-        el: '#recom',
+    //scroll 是记录是否已经进行了滚动操作，
+    //为了防止在重新进行turn的时候再次执行scrollTo
+    var vm = new Vue({
+        el: '#main',
         data: function () {
             return {
                 casas:null,
-                status:2
+                themes:null,
+                status:2,
+                scroll:null
             };
         },
 
@@ -23,14 +26,29 @@ $(document).ready(function(){
             //默认显示，感觉这个是有点问题的
             this.turn(7);
         },
-
         methods: {
             turn: function (event){
                 vm = this;
                 $.getJSON('/api/home/recom/'+event,function (data) {
                     vm.casas = data;
                     this.setActive(event);
+                    this.getthemes();
                 }.bind(vm));
+            },
+            getthemes: function (){
+                vmtheme = this;
+                $.getJSON('/api/home/themes/',function (data) {
+                    vmtheme.themes = data;
+                    this.scrollTo();
+                }.bind(vmtheme));
+            },
+            scrollTo:function(){
+                if(this.scroll){
+                    return;
+                }
+                var thisId = window.location.hash;
+                $("html,body").animate({scrollTop:$(thisId).offset().top});
+                this.scroll = 1;
             },
             setActive:function(event){
                 $('.city-list a').each(function(){
@@ -62,24 +80,4 @@ $(document).ready(function(){
     //        }
     //    }
     //});
-    var theme = new Vue({
-        el: '#theme',
-        data: function () {
-            return {
-                themes:null,
-            };
-        },
-        created: function () {
-            this.getthemes();
-        },
-        methods: {
-            getthemes: function (){
-                vmtheme = this;
-                $.getJSON('/api/home/themes/',function (data) {
-                    vmtheme.themes = data;
-                }.bind(vmtheme));
-            }
-        }
-    })
-
 });

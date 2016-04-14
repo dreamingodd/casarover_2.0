@@ -41,7 +41,7 @@
     {{--</div>--}}
     {{--<!-- end 搜索框 -->--}}
 
-    <div class="container">
+    <div class="container" id="main">
         <!-- 民宿推荐 -->
         <section id="recom">
             <h2>民宿推荐</h2>
@@ -51,7 +51,7 @@
                     <a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>
                 @endforeach
             </div>
-            <div class="casa-card" v-for="casa in casas">
+            <div class="casa-card" v-for="casa in casas" transition="expand">
                 <div class="card-b">
                     <a href="casa/@{{ casa.id }}" target="_blank">
                         <img :src="casa.pic" height="100%">

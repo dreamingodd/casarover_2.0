@@ -18,6 +18,7 @@
         </select>
         <label for="title">标题</label>
         <input type="text" name="name" class="form-control" value="{{ $article->name or null }}">
+        <h4 style="color: red">最佳像素400*260</h4>
         <p>上传介绍图片</p>
         <!-- OSS start -->
         <div class="oss_photo_tool col-lg-12 clearfix" target_folder="image" file_prefix="image" limit_size="1024"
@@ -88,9 +89,9 @@
     </div>
     </form>
     <script>
+        $("#sel-casa").val('{{ $article->house or null }}');
         @if(isset($article))
         $("#sel").val('{{ $article->themes[0]->id }}');
-        $("#sel-casa").val('{{ $article->house }}');
         @endif
     </script>
 @endsection
