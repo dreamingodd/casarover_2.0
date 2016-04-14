@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Casa;
 use App\Area;
 use App\Option;
+use App\Theme;
 
 class SiteController extends Controller
 {
@@ -20,7 +21,11 @@ class SiteController extends Controller
             $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
         }
         $citys = Area::where('status',1)->get();
-        return view('site.home',compact('casas','citys'));
+
+        $theme = Theme::where('status',1)->get();
+        $themeNum = count($theme);
+        $status = $themeNum >2 ? true:false;
+        return view('site.home',compact('casas','citys','status'));
     }
 
     public function slide()

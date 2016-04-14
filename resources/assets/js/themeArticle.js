@@ -3,7 +3,7 @@ $(document).ready(function(){
         el: '#main',
         data: {
             articles: null,
-            selected:2
+            selected:null
         },
         created: function () {
             this.getArticle(2);

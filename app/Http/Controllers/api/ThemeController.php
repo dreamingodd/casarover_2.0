@@ -15,6 +15,10 @@ class ThemeController extends Controller
     {
         $theme = Theme::find($id);
         $contents = $theme -> contents;
+        foreach($contents as $content)
+        {
+            $content->houseName = $content->themeCasa->name;
+        }
         return response()->json($contents);
     }
 }

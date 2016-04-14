@@ -2,55 +2,55 @@
 @section('title','民宿')
 @section('head')
     <link rel="stylesheet" href="/assets/css/home.css">
-    <script src="{{ asset('assets/js/integration/jquery.flexslider-min.js') }}" type="text/javascript"></script>
+    <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/home.js') }}" type="text/javascript"></script>
-@endsection
-@section('body')
-<!-- slider -->
-<div class="flexslider">
-    <ul class="slides">
-        @foreach($casas as $casa)
-            <li style="background:url({{ $casa->pic }}) ; background-size:100% 100%;">
-                <a href="casa/{{ $casa->casa_id }}" target="_blank" class="slide-a">
-                    <div class="slide-mess">
-                        {{ $casa->title }}
-                    </div>
-                </a>
-            </li>
-        @endforeach
-    </ul>
-</div>
-<!-- endslider -->
-{{--<!-- 搜索框 -->--}}
-{{--<div class="search">--}}
-    {{--<div class="search-form">--}}
-        {{--<form action="">--}}
-            {{--<div class="search-input">--}}
-                {{--<input type="text" placeholder="找到好民宿">--}}
-            {{--</div>--}}
-        {{--</form>--}}
-        {{--<div class="search-place" id="city">--}}
-            {{--<ul>--}}
-                {{--@foreach($citys as $city)--}}
-                    {{--<li><a href="">{{ $city->value }}</a></li>--}}
-                {{--@endforeach--}}
-            {{--</ul>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--</div>--}}
-{{--<!-- end 搜索框 -->--}}
-
-<div class="container">
-    <!-- 民宿推荐 -->
-    <section id="recom">
-        <h2>民宿推荐</h2>
-        <div class="line"></div>
-        <div class="city-list">
-            @foreach($citys as $city)
-                <a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>
+    <script src="/assets/js/home.js" type="text/javascript"></script>
+    @endsection
+    @section('body')
+            <!-- slider -->
+    <div class="flexslider">
+        <ul class="slides">
+            @foreach($casas as $casa)
+                <li style="background:url({{ $casa->pic }}) ; background-size:100% 100%;">
+                    <a href="casa/{{ $casa->casa_id }}" target="_blank" class="slide-a">
+                        <div class="slide-mess">
+                            {{ $casa->title }}
+                        </div>
+                    </a>
+                </li>
             @endforeach
-        </div>
+        </ul>
+    </div>
+    <!-- endslider -->
+    {{--<!-- 搜索框 -->--}}
+    {{--<div class="search">--}}
+    {{--<div class="search-form">--}}
+    {{--<form action="">--}}
+    {{--<div class="search-input">--}}
+    {{--<input type="text" placeholder="找到好民宿">--}}
+    {{--</div>--}}
+    {{--</form>--}}
+    {{--<div class="search-place" id="city">--}}
+    {{--<ul>--}}
+    {{--@foreach($citys as $city)--}}
+    {{--<li><a href="">{{ $city->value }}</a></li>--}}
+    {{--@endforeach--}}
+    {{--</ul>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<!-- end 搜索框 -->--}}
+
+    <div class="container">
+        <!-- 民宿推荐 -->
+        <section id="recom">
+            <h2>民宿推荐</h2>
+            <div class="line"></div>
+            <div class="city-list">
+                @foreach($citys as $city)
+                    <a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>
+                @endforeach
+            </div>
             <div class="casa-card" v-for="casa in casas">
                 <div class="card-b">
                     <a href="casa/@{{ casa.id }}" target="_blank">
@@ -67,53 +67,55 @@
                     </a>
                 </div>
             </div>
-    </section>
-    <!-- 精选主题 -->
-    <section id="theme">
-        <h2>精选主题</h2>
-        <div class="line"></div>
-        <div class="casa-card" v-for="theme in themes">
-            <div class="card-b">
-                <a href="theme/@{{ theme.id }}" target="_blank">
-                    <img :src="theme.pic" height="100%">
-                    <div class="card">
-                        <h3>@{{ theme.name }}</h3>
+        </section>
+        <!-- 精选主题 -->
+        <section id="theme" >
+            <div v-if="{{ $status }}">
+                <h2>精选主题</h2>
+                <div class="line"></div>
+                <div class="casa-card" v-for="theme in themes">
+                    <div class="card-b">
+                        <a href="theme/@{{ theme.id }}" target="_blank">
+                            <img :src="theme.pic" height="100%">
+                            <div class="card">
+                                <h3>@{{ theme.name }}</h3>
+                            </div>
+                            <div class="info">
+                                <div class="middle">
+                                    <h3>@{{ theme.name }}</h3>
+                                    <p>@{{ theme.brief }}</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <div class="info">
-                        <div class="middle">
-                            <h3>@{{ theme.name }}</h3>
-                            <p>@{{ theme.brief }}</p>
-                        </div>
-                    </div>
-                </a>
+                </div>
             </div>
-        </div>
-    </section>
-    <!-- 探庐系列 -->
-    <section id="series">
-        <h2>探庐系列</h2>
-        <div class="line"></div>
+        </section>
+        <!-- 探庐系列 -->
+        {{--<section id="series">--}}
+        {{--<h2>探庐系列</h2>--}}
+        {{--<div class="line"></div>--}}
         {{--<div class="city-list">--}}
-            {{--@foreach($citys as $city)--}}
-                {{--<a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>--}}
-            {{--@endforeach--}}
+        {{--@foreach($citys as $city)--}}
+        {{--<a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>--}}
+        {{--@endforeach--}}
         {{--</div>--}}
-        <div class="casa-card" v-for="serie in series">
-            <div class="card-b">
-                <a href="casaserise/@{{ serie.type }}/@{{ serie.id }}" target="_blank">
-                    <img :src="serie.pic" height="100%">
-                    <div class="card">
-                        <h3>@{{ serie.name }}</h3>
-                    </div>
-                    <div class="info">
-                        <div class="middle">
-                            <h3>@{{ serie.name }}</h3>
-{{--                            <p>@{{ serie.brief }}</p>--}}
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-</div>
+        {{--<div class="casa-card" v-for="serie in series">--}}
+        {{--<div class="card-b">--}}
+        {{--<a href="casaserise/@{{ serie.type }}/@{{ serie.id }}" target="_blank">--}}
+        {{--<img :src="serie.pic" height="100%">--}}
+        {{--<div class="card">--}}
+        {{--<h3>@{{ serie.name }}</h3>--}}
+        {{--</div>--}}
+        {{--<div class="info">--}}
+        {{--<div class="middle">--}}
+        {{--<h3>@{{ serie.name }}</h3>--}}
+        {{--                            <p>@{{ serie.brief }}</p>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--</a>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--</section>--}}
+    </div>
 @endsection

@@ -10,12 +10,14 @@
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden" name="id" value="{{ $article->id or null }}">
         <input type="hidden" name="pic" value="{{ $article->contents[0]->attachment->filepath or null }}" id="pic">
-        <p>所属主题</p>
+        <p>选择文章所属主题</p>
         <select name="theme" id="sel" class="form-control">
             @foreach($themes as $theme)
                 <option value="{{ $theme->id }}" >{{ $theme->name }}</option>
             @endforeach
         </select>
+        <label for="title">标题</label>
+        <input type="text" name="name" class="form-control" value="{{ $article->name or null }}">
         <p>上传介绍图片</p>
         <!-- OSS start -->
         <div class="oss_photo_tool col-lg-12 clearfix" target_folder="image" file_prefix="image" limit_size="1024"
@@ -33,16 +35,15 @@
             <div class="oss_photo"></div>
         </div>
         <!-- OSS end -->
-        <label for="title">标题</label>
-        <input type="text" name="name" class="form-control" value="{{ $article->name or null }}">
         <label for="text">介绍内容</label>
         <textarea name="text" id="" cols="30" rows="10" class="form-control">{{ $article->text or null }}</textarea>
-        <p>所属民宿</p>
+        <p>选择所属民宿</p>
         <select name="casa" id="sel-casa" class="form-control">
             @foreach($casas as $casa)
                 <option value="{{ $casa->id }}" >{{ $casa->name }}</option>
             @endforeach
         </select>
+        <div class="col-md-12">
         <div class="sub">
             <button type="submit" class="btn btn-primary" onclick="sed()">保存</button>
 
@@ -51,6 +52,7 @@
             <i class="fa fa-times-circle"></i>
             删除
         </button>
+        </div>
         </div>
     </form>
     @endif

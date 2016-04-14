@@ -15,6 +15,7 @@ $(document).ready(function(){
         data: function () {
             return {
                 casas:null,
+                status:2
             };
         },
 
@@ -42,25 +43,25 @@ $(document).ready(function(){
             }
         }
     });
-    var series = new Vue({
-        el: '#series',
-        data: function () {
-            return {
-                series:null,
-            };
-        },
-        created: function () {
-            this.getseries();
-        },
-        methods: {
-            getseries: function (){
-                vmseries = this;
-                $.getJSON('/api/home/series/',function (data) {
-                    vmseries.series = data;
-                }.bind(vmseries));
-            }
-        }
-    });
+    //var series = new Vue({
+    //    el: '#series',
+    //    data: function () {
+    //        return {
+    //            series:null,
+    //        };
+    //    },
+    //    created: function () {
+    //        this.getseries();
+    //    },
+    //    methods: {
+    //        getseries: function (){
+    //            vmseries = this;
+    //            $.getJSON('/api/home/series/',function (data) {
+    //                vmseries.series = data;
+    //            }.bind(vmseries));
+    //        }
+    //    }
+    //});
     var theme = new Vue({
         el: '#theme',
         data: function () {

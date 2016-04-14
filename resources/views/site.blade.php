@@ -24,7 +24,7 @@
             </a>
         </div>
         <div class="nav-middle">
-            {{--<a href="/#daquan">民宿大全</a>--}}
+            <a href="/allcasa">民宿大全</a>
             <a href="/#recom">民宿推荐</a>
             <a href="/#theme">精选主题</a>
             <a href="/#series">探庐系列</a>

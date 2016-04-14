@@ -26,7 +26,7 @@
             @foreach($others as $theme)
             <div class="other">
                 <a href="/theme/{{ $theme->id }}">
-                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201601291648068414.png" alt="">
+                    <img src="{{ $theme->pic }}" alt="">
                     <p>{{ $theme->name }}</p>
                 </a>
             </div>
