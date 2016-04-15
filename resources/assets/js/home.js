@@ -24,7 +24,10 @@ $(document).ready(function(){
 
         created: function () {
             //默认显示，感觉这个是有点问题的
-            this.turn(7);
+            //this.turn(7);
+        },
+        ready:function(){
+          this.turn(7);
         },
         methods: {
             turn: function (event){

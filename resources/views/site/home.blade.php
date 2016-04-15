@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="/assets/css/home.css">
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
-    <script src="/assets/js/home.js" type="text/javascript"></script>
     @endsection
     @section('body')
             <!-- slider -->
@@ -118,4 +117,6 @@
         {{--</div>--}}
         {{--</section>--}}
     </div>
+    {{--测试如果放在下面能不能解决被提前加载的问题--}}
+    <script src="/assets/js/home.js" type="text/javascript"></script>
 @endsection
