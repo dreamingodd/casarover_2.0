@@ -109,11 +109,6 @@
                 <section id="series">
                     <h2>探庐系列</h2>
                     <div class="line"></div>
-                    <div class="city-list">
-                        @foreach($citys as $city)
-                            <a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>
-                        @endforeach
-                    </div>
                     <div class="casa-card" v-for="serie in series">
                         <div class="card-b">
                             <a href="casaserise/@{{ serie.type }}/@{{ serie.id }}" target="_blank">
