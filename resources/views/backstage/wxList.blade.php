@@ -7,7 +7,7 @@
     <input type="hidden" id="page" value="wechat"/>
 
     <div class="options vertical5">
-        <a href="/back/wx/edit">
+        <a href="/back/wx/casa">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
         </a>
     </div>
