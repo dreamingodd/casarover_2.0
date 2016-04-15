@@ -23,8 +23,7 @@ $(document).ready(function(){
         },
 
         created: function () {
-            //默认显示，感觉这个是有点问题的
-            //this.turn(7);
+
         },
         ready:function(){
           this.turn(7);
@@ -32,8 +31,10 @@ $(document).ready(function(){
         methods: {
             turn: function (event){
                 vm = this;
+                $(".loader").css('display','block');
                 $.getJSON('/api/home/recom/'+event,function (data) {
                     vm.casas = data;
+                    $(".loader").css('display','none');
                     this.setActive(event);
                     this.getthemes();
                 }.bind(vm));
@@ -50,8 +51,10 @@ $(document).ready(function(){
                     return;
                 }
                 var thisId = window.location.hash;
-                $("html,body").animate({scrollTop:$(thisId).offset().top});
-                this.scroll = 1;
+                if(thisId){
+                    $("html,body").animate({scrollTop:$(thisId).offset().top});
+                    this.scroll = 1;
+                }
             },
             setActive:function(event){
                 $('.city-list a').each(function(){

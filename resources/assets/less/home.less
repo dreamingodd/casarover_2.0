@@ -3,6 +3,7 @@
 @import "block/slider";
 @import "block/search";
 @import "block/card";
+@import "block/load";
 section{
     margin: 35px 15px 25px 15px;
     clear: both;
@@ -26,13 +27,15 @@ section{
 .active{
     color: @a-hover;
 }
-
-//.expand-transition {
-//    transition: all .3s ease;
-//    overflow: hidden;
-//}
-//.expand-enter, .expand-leave {
-//    height: 0;
-//    padding: 0 5px;
-//    opacity: 0;
-//}
+.loader{
+  text-align: center;
+}
+.expand-transition {
+    transition: all .3s ease;
+    overflow: hidden;
+}
+.expand-enter, .expand-leave {
+    height: 0;
+    padding: 0 5px;
+    opacity: 0;
+}
