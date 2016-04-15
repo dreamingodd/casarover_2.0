@@ -6,6 +6,7 @@
 <script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js"></script>
 <script src="/assets/js/integration/json2.js"></script>
 <script src="/assets/js/wxEdit.js"></script>
+<script src="/assets/js/casaSelectModal.js"></script>
 <style>
 .col-lg-11 {
     margin: 2px 0 3px 20px;
@@ -17,6 +18,39 @@
 .content textarea {
     margin: 5px 0 0 15px;
     float: left;
+}
+.search{
+    width:257px;
+    height:26px;
+    float:left;
+    border-radius: 10px;
+    padding-left:17px;
+    margin:7px 0;
+    border: 1px solid #d5d5d5;
+}
+.search  #search{
+    float:left;
+    margin-top:2px;
+    border:0;
+    height:22px;
+    line-height:22px;
+    width:178px;
+}
+.search button{
+    margin-top:0;
+    border:0;
+    width:22px;
+    height:22px;
+    color: #6e6e6e;
+    background: #fff;
+}
+.search #reset{
+    margin-top:0;
+    border:0;
+    width:22px;
+    height:22px;
+    color: #6e6e6e;
+    background: #fff;
 }
 </style>
 @stop
@@ -181,6 +215,11 @@
             <h4 class="modal-title" id="myModalLabel">选择一家民宿</h4>
           </div>
           <div class="modal-body" style="height:500px; overflow:scroll;">
+              <div class="search">
+                  <input type="text" value="" id="search" />
+                  <button class="glyphicon glyphicon-search" id="enlarge"></button>
+                  <button class="glyphicon glyphicon-repeat" id="reset"></button>
+              </div>
               <table class="table table-hover">
                   <tr>
                       <td>1-1</td>
@@ -188,87 +227,82 @@
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
-                      <td>1-1</td>
+                      <td>1-2</td>
                       <td>微风山谷旅店</td>
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
-                      <td>1-1</td>
+                      <td>1-3</td>
                       <td>上海宏泉艾瑞酒店</td>
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
-                      <td>1-1</td>
+                      <td>1-4</td>
                       <td>旅行者漫步主题民宿</td>
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
-                      <td>1-1</td>
+                      <td>1-5</td>
                       <td>上海宏泉艾瑞酒店</td>
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
-                      <td>1-1</td>
+                      <td>1-6</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-7</td>
+                      <td>微风山谷旅店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-8</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-9</td>
+                      <td>旅行者漫步主题民宿</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-10</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-11</td>
                       <td>法云安缦</td>
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
-                      <td>1-1</td>
+                      <td>1-12</td>
                       <td>上海宏泉艾瑞酒店</td>
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
-                      <td>1-1</td>
+                      <td>1-13</td>
                       <td>微风山谷旅店</td>
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
-                      <td>1-1</td>
+                      <td>1-14</td>
                       <td>上海宏泉艾瑞酒店</td>
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
-                      <td>1-1</td>
+                      <td>1-15</td>
                       <td>旅行者漫步主题民宿</td>
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
-                      <td>1-1</td>
+                      <td>1-16</td>
                       <td>上海宏泉艾瑞酒店</td>
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
-                      <td>1-1</td>
-                      <td>法云安缦</td>
-                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
-                  </tr>
-                  <tr>
-                      <td>1-1</td>
-                      <td>上海宏泉艾瑞酒店</td>
-                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
-                  </tr>
-                  <tr>
-                      <td>1-1</td>
-                      <td>微风山谷旅店</td>
-                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
-                  </tr>
-                  <tr>
-                      <td>1-1</td>
-                      <td>上海宏泉艾瑞酒店</td>
-                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
-                  </tr>
-                  <tr>
-                      <td>1-1</td>
-                      <td>旅行者漫步主题民宿</td>
-                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
-                  </tr>
-                  <tr>
-                      <td>1-1</td>
-                      <td>上海宏泉艾瑞酒店</td>
-                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
-                  </tr>
-                  <tr>
-                      <td>1-1</td>
+                      <td>1-17</td>
                       <td>法云安缦</td>
                       <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
                   </tr>
