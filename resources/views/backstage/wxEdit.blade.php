@@ -84,7 +84,9 @@
             </ul>
             <div class="tab-content col-lg-11">
                 <div class="tab-pane active" id="select_casa">
-                    <button type="button" class="btn btn-info">选择民宿</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#casaSelectModal">
+                        选择民宿
+                    </button>
                     <br/>
                     <br/>
                     <br/>
@@ -140,5 +142,111 @@
     </form>
     <div class="btn_div col-lg-11">
         <button class="btn btn-primary submit_btn">提交</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="casaSelectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">选择一家民宿</h4>
+          </div>
+          <div class="modal-body" style="height:500px; overflow:scroll;">
+              <table class="table table-hover">
+                  <tr>
+                      <td>1-1</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>微风山谷旅店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>旅行者漫步主题民宿</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>法云安缦</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>微风山谷旅店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>旅行者漫步主题民宿</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>法云安缦</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>微风山谷旅店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>旅行者漫步主题民宿</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>上海宏泉艾瑞酒店</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+                  <tr>
+                      <td>1-1</td>
+                      <td>法云安缦</td>
+                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                  </tr>
+              </table>
+          </div>
+        </div>
+      </div>
     </div>
 @stop

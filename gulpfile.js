@@ -45,6 +45,7 @@ gulp.task('dev-less', function() {
     del.sync('public/assets/css/*.css');
     gulp.src('resources/assets/less/*.less')
         .pipe(less())
+        .pipe(minifycss())
         .pipe(gulp.dest('public/assets/css/'))
 });
 

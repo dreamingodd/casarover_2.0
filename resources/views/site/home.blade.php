@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="/assets/css/home.css">
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
-    <script src="/assets/js/home.js" type="text/javascript"></script>
     @endsection
     @section('body')
             <!-- slider -->
@@ -42,7 +41,8 @@
     {{--<!-- end 搜索框 -->--}}
 
     <div class="container" id="main">
-        <!-- 民宿推荐 -->
+        @if(config('casarover.toggle_recom'))
+                <!-- 民宿推荐 -->
         <section id="recom">
             <h2>民宿推荐</h2>
             <div class="line"></div>
@@ -50,6 +50,15 @@
                 @foreach($citys as $city)
                     <a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>
                 @endforeach
+            </div>
+            <div class="loader">
+                <div class="loader-inner line-scale">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
             <div class="casa-card" v-for="casa in casas" transition="expand">
                 <div class="card-b">
@@ -68,54 +77,62 @@
                 </div>
             </div>
         </section>
-        <!-- 精选主题 -->
-        <section id="theme" >
-            <div v-if="{{ $status }}">
-                <h2>精选主题</h2>
-                <div class="line"></div>
-                <div class="casa-card" v-for="theme in themes">
-                    <div class="card-b">
-                        <a href="theme/@{{ theme.id }}" target="_blank">
-                            <img :src="theme.pic" height="100%">
-                            <div class="card">
-                                <h3>@{{ theme.name }}</h3>
-                            </div>
-                            <div class="info">
-                                <div class="middle">
+        @endif
+
+                <!-- 精选主题 -->
+        @if(config('casarover.toggle_theme'))
+            <section id="theme" >
+                <div v-if="{{ $status }}">
+                    <h2>精选主题</h2>
+                    <div class="line"></div>
+                    <div class="casa-card" v-for="theme in themes">
+                        <div class="card-b">
+                            <a href="theme/@{{ theme.id }}" target="_blank">
+                                <img :src="theme.pic" height="100%">
+                                <div class="card">
                                     <h3>@{{ theme.name }}</h3>
-                                    <p>@{{ theme.brief }}</p>
                                 </div>
-                            </div>
-                        </a>
+                                <div class="info">
+                                    <div class="middle">
+                                        <h3>@{{ theme.name }}</h3>
+                                        <p>@{{{ theme.brief }}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- 探庐系列 -->
-        {{--<section id="series">--}}
-        {{--<h2>探庐系列</h2>--}}
-        {{--<div class="line"></div>--}}
-        {{--<div class="city-list">--}}
-        {{--@foreach($citys as $city)--}}
-        {{--<a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>--}}
-        {{--@endforeach--}}
-        {{--</div>--}}
-        {{--<div class="casa-card" v-for="serie in series">--}}
-        {{--<div class="card-b">--}}
-        {{--<a href="casaserise/@{{ serie.type }}/@{{ serie.id }}" target="_blank">--}}
-        {{--<img :src="serie.pic" height="100%">--}}
-        {{--<div class="card">--}}
-        {{--<h3>@{{ serie.name }}</h3>--}}
-        {{--</div>--}}
-        {{--<div class="info">--}}
-        {{--<div class="middle">--}}
-        {{--<h3>@{{ serie.name }}</h3>--}}
-        {{--                            <p>@{{ serie.brief }}</p>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</a>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</section>--}}
+            </section>
+            @endif
+                    <!-- 探庐系列 -->
+            @if(config('casarover.toggle_series'))
+                <section id="series">
+                    <h2>探庐系列</h2>
+                    <div class="line"></div>
+                    <div class="city-list">
+                        @foreach($citys as $city)
+                            <a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>
+                        @endforeach
+                    </div>
+                    <div class="casa-card" v-for="serie in series">
+                        <div class="card-b">
+                            <a href="casaserise/@{{ serie.type }}/@{{ serie.id }}" target="_blank">
+                                <img :src="serie.pic" height="100%">
+                                <div class="card">
+                                    <h3>@{{ serie.name }}</h3>
+                                </div>
+                                <div class="info">
+                                    <div class="middle">
+                                        <h3>@{{ serie.name }}</h3>
+                                        <p>@{{ serie.brief }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            @endif
     </div>
+    {{--测试如果放在下面能不能解决被提前加载的问题--}}
+    <script src="/assets/js/home.js" type="text/javascript"></script>
 @endsection
