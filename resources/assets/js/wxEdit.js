@@ -31,6 +31,7 @@ $(function() {
     $('.submit_btn').click(function(){
         var form = $('#wx_casa_form');
         $('#main_photo').val($('.main-photo .hidden_photo').val());
+        $('#contents').val(JSON.stringify(collectContents()));
         form.submit();
     });
 });
@@ -43,7 +44,7 @@ function collectContents() {
     $('.content').each(function() {
         var content = {};
         content.name = $(this).children('.name').children(0).val();
-        content.text = $(this).children('.text').children(0).val();
+        content.text = $(this).children('textarea').val();
         content.text = LFtoBR(content.text);
         content.photos = [];
         $(this).children('.oss_photo_tool').children('.oss_hidden_input').children().each(function() {
@@ -51,6 +52,7 @@ function collectContents() {
         });
         contents.push(content);
     });
+    // console.log(contents);
     return contents;
 }
 

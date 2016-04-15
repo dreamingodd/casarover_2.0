@@ -46,6 +46,7 @@
         <input type="hidden" name="id" value="{{ $wxCasa->id or 0 }}"/>
         <input type="hidden" name="casa_id" value="{{ $wxCasa->casa_id or 0 }}"/>
         <input type="hidden" name="main_photo" id="main_photo" value="{{ $wxCasa->attachment->filepath or '' }}"/>
+        <input type="hidden" name="contents" id="contents"/>
         <div class="name col-lg-11">
             <div class="input-group input-group-sm col-lg-3">
                 <span class="input-group-addon">名称</span>
@@ -89,8 +90,6 @@
                     </button>
                     <br/>
                     <br/>
-                    <br/>
-                    <br/>
                 </div>
                 <div class="tab-pane" id="select_self">
                     <!-- 主图 -->
@@ -114,28 +113,57 @@
                         <!-- OSS end -->
                     </div>
                     <!-- 民宿图文内容 -->
-                    <div class="content col-lg-12">
+                    <div class="col-lg-12">
                         <h4>图文内容</h4>
-                        <div class="name col-lg-2 vertical5">
-                            <input type="text" class="form-control" value="{{$content->name or ''}}" aria-describedby="sizing-addon3" />
-                        </div>
-                        <div class="col-lg-10 vertical5">
-                            <button type="button" class="btn btn-info add_content">插入内容</button>
-                            <button type="button" class="btn btn-info del_content">删除内容</button>
-                        </div>
-                        <!-- OSS start -->
-                        <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
-                                oss_address="{{Config::get("casarover.oss_external")}}">
-                            <div class="oss_button">
-                                <button type="button" class="show_uploader btn btn-info btn-sm">插入图片</button>
-                            </div>
-                            <div class="oss_hidden_input">
-                            </div>
-                            <div class="oss_photo"></div>
-                        </div>
-                        <!-- OSS end -->
-                        <textarea name="text" class="form-control" rows="3"></textarea>
                     </div>
+                    @if (count($wxCasa->contents) > 0)
+                        @foreach ($wxCasa->contents()->orderBy('id')->get() as $content)
+                            <div class="content col-lg-12">
+                                <div class="name col-lg-2 vertical5">
+                                    <input type="text" class="form-control" value="{{$content->name or ''}}" aria-describedby="sizing-addon3" />
+                                </div>
+                                <div class="col-lg-10 vertical5">
+                                    <button type="button" class="btn btn-info add_content">插入内容</button>
+                                    <button type="button" class="btn btn-info del_content">删除内容</button>
+                                </div>
+                                <!-- OSS start -->
+                                <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
+                                        oss_address="{{Config::get("casarover.oss_external")}}">
+                                    <div class="oss_button">
+                                        <button type="button" class="show_uploader btn btn-info btn-sm">插入图片</button>
+                                    </div>
+                                    <div class="oss_hidden_input">
+                                    </div>
+                                    <div class="oss_photo"></div>
+                                </div>
+                                <!-- OSS end -->
+                                <textarea name="text" class="form-control" rows="3">{{$content->text or ''}}</textarea>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="content col-lg-12">
+                            <div class="name col-lg-2 vertical5">
+                                <input type="text" class="form-control" value="{{$content->name or ''}}" aria-describedby="sizing-addon3" />
+                            </div>
+                            <div class="col-lg-10 vertical5">
+                                <button type="button" class="btn btn-info add_content">插入内容</button>
+                                <button type="button" class="btn btn-info del_content">删除内容</button>
+                            </div>
+                            <!-- OSS start -->
+                            <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
+                                    oss_address="{{Config::get("casarover.oss_external")}}">
+                                <div class="oss_button">
+                                    <button type="button" class="show_uploader btn btn-info btn-sm">插入图片</button>
+                                </div>
+                                <div class="oss_hidden_input">
+                                </div>
+                                <div class="oss_photo"></div>
+                            </div>
+                            <!-- OSS end -->
+                            <textarea name="text" class="form-control" rows="3"></textarea>
+                        </div>
+                    @endif
+                    <br />
                 </div>
             </div>
         </div>

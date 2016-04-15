@@ -42,6 +42,13 @@ class WxCasaController extends BaseController
                 $wxCasa = new WxCasa;
             } else {
                 $wxCasa = WxCasa::find($request->input('id'));
+                $wxCasa->attachment()->delete();
+                foreach ($wxCasa->contents as $content) {
+                    $content->attachments()->delete();
+                    DB::delete('delete from content_attachment where content_id='.$content->id);
+                }
+                $wxCasa->contents()->delete();
+                DB::delete('delete from wx_casa_content where wx_casa_id='.$wxCasa->id);
             }
             $wxCasa->name = $request->input('name');
             $wxCasa->brief = $request->input('brief');
@@ -50,13 +57,14 @@ class WxCasaController extends BaseController
             $wxCasa->rule = $request->input('rule');
             $wxCasa->casa_id = $request->input('casa_id');
             // 简介显示图片
-            $wxCasa->attachment()->delete();
             $mainPhotoPath = $request->input('main_photo');
-            $content = $request->input('text');
-            // contents 内容
+            // 图文内容
+            $rawContents = json_decode($request->input('contents'));
+            $contents = $this->createContents($rawContents);
+
             $wxCasa->attachment()->associate($this->createAttachment($mainPhotoPath));
-            dd($content);
             $wxCasa->save();
+            $wxCasa->contents()->saveMany($contents);
 
             DB::commit();
             return redirect('/back/wx');
