@@ -77,6 +77,7 @@ Route::group(['prefix' => 'api'],function () {
     Route::get('home/themes/','api\HomeController@getThemes');
     Route::get('casa/recom/{id?}','api\CasaController@getCasasById');
     Route::post('/recom/save/','api\CasaController@save');
+    Route::post('/theme/change/','api\ThemeController@setchange');
     Route::get('theme/article/{id}','api\ThemeController@getThemeArticle');
 });
 

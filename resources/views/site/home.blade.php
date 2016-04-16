@@ -82,24 +82,22 @@
                 <!-- 精选主题 -->
         @if(config('casarover.toggle_theme'))
             <section id="theme" >
-                <div v-if="{{ $status }}">
-                    <h2>精选主题</h2>
-                    <div class="line"></div>
-                    <div class="casa-card" v-for="theme in themes">
-                        <div class="card-b">
-                            <a href="theme/@{{ theme.id }}" target="_blank">
-                                <img :src="theme.pic" height="100%">
-                                <div class="card">
+                <h2>精选主题</h2>
+                <div class="line"></div>
+                <div class="casa-card" v-for="theme in themes">
+                    <div class="card-b">
+                        <a href="theme/@{{ theme.id }}" target="_blank">
+                            <img :src="theme.pic" height="100%">
+                            <div class="card">
+                                <h3>@{{ theme.name }}</h3>
+                            </div>
+                            <div class="info">
+                                <div class="middle">
                                     <h3>@{{ theme.name }}</h3>
+                                    <p>@{{{ theme.brief }}}</p>
                                 </div>
-                                <div class="info">
-                                    <div class="middle">
-                                        <h3>@{{ theme.name }}</h3>
-                                        <p>@{{{ theme.brief }}}</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </section>

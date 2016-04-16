@@ -13,7 +13,7 @@ class ThemeController extends Controller
 {
     public function index()
     {
-        $themes = Theme::where('status',1)->get();
+        $themes = Theme::all()->sortByDesc('id');
         return view('backstage.theme',compact('themes'));
     }
 
@@ -41,7 +41,7 @@ class ThemeController extends Controller
         $theme = new Theme;
         $theme->name = $request->name;
         $theme->brief = $request->brief;
-        $theme->status = 1;
+        $theme->status = 0;
         $pic = new \App\Attachment(['filepath' => $request->pic]);
         $theme->attachment()->save($pic);
         $theme->attachment_id = $pic->id;
@@ -71,8 +71,7 @@ class ThemeController extends Controller
     public function del(Request $request)
     {
         $theme = Theme::find($request->id);
-        $theme->status=0;
-        $theme->save();
+        $theme->delete();
         return redirect('back/theme');
     }
     //主题文章

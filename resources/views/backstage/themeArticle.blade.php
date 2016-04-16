@@ -4,19 +4,23 @@
     <script src="/assets/js/themeArticle.js"></script>
 @endsection
 @section('body')
-    <div class="options vertical5">
-        <a href="/back/theme/article/add">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加文章
-        </a>
-    </div>
     <div id="main">
         <div class="col-md-4">
-            <p>选择主题</p>
-            <select name="" id="" class="form-control" v-model="selected" v-on:change="getArticle">
+            <h4>按主题查看</h4>
+            <select name="" id="sel" class="form-control" v-model="selected" v-on:change="getArticle">
                 @foreach($themes as $theme)
                     <option  value={{ $theme->id }}>{{ $theme->name }}</option>
                 @endforeach
             </select>
+            <br>
+            <div class="options vertical5">
+                <a href="/back/theme/article/add">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加文章
+                </a>
+                <a href="/back/theme/">
+                    <span class="" aria-hidden="true"></span>管理主题
+                </a>
+            </div>
         </div>
         <div class="col-md-12">
             <h4>主题下属文章</h4>

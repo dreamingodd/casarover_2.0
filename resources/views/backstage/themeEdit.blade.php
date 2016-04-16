@@ -8,6 +8,7 @@
     <form action="/back/theme/store" id="area-form" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden" name="id" value="{{ $theme->id or null }}">
+        <p>PS:新建主题默认不会显示在首页中</p>
         <p>主题名字</p>
         <input type="text" name="name" value="{{ $theme->name or null }}" class="form-control">
         <input type="hidden" name="pic" value="{{ $theme->attachment->filepath or null }}" id="pic">
@@ -49,7 +50,7 @@
                 <div class="modal-body">
                     <p class="lead">
                         <i class="fa fa-question-circle fa-lg"></i>
-                        确定删除吗？
+                        如果删除主题，下属文章将会被一并删除，建议先将文章移动到其他主题中
                     </p>
                 </div>
                 <div class="modal-footer">

@@ -28,4 +28,12 @@ class ThemeController extends Controller
         }
         return response()->json($contents);
     }
+
+    public function setchange(Request $request)
+    {
+        $theme = Theme::find($request->id);
+        $theme->status = $theme->status == 1 ? 0 : 1;
+        $theme->save();
+        return response()->json(['msg'=>'ok']);
+    }
 }
