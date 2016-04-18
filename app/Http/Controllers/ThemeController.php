@@ -13,7 +13,7 @@ class ThemeController extends Controller
 {
     public function index()
     {
-        $themes = Theme::where('status',1)->get();
+        $themes = Theme::all()->sortByDesc('id');
         return view('backstage.theme',compact('themes'));
     }
 
@@ -21,11 +21,12 @@ class ThemeController extends Controller
     {
         $theme = Theme::find($id);
         $others = Theme::whereNotIn('id',[$id])->orderBy('id','asc')->where('status',1)->get();
+        $contents = $theme->contents()->orderBy('display_order','asc')->get();
         foreach($others as $otherTheme)
         {
             $otherTheme->pic = config('casarover.image_folder').$otherTheme->attachment->filepath;
         }
-        return view('site.theme',compact('theme','others'));
+        return view('site.theme',compact('theme','contents','others'));
     }
     public function create()
     {
@@ -41,7 +42,7 @@ class ThemeController extends Controller
         $theme = new Theme;
         $theme->name = $request->name;
         $theme->brief = $request->brief;
-        $theme->status = 1;
+        $theme->status = 0;
         $pic = new \App\Attachment(['filepath' => $request->pic]);
         $theme->attachment()->save($pic);
         $theme->attachment_id = $pic->id;
@@ -71,20 +72,19 @@ class ThemeController extends Controller
     public function del(Request $request)
     {
         $theme = Theme::find($request->id);
-        $theme->status=0;
-        $theme->save();
+        $theme->delete();
         return redirect('back/theme');
     }
     //主题文章
     public function article()
     {
-        $themes = Theme::where('status',1)->get();
+        $themes = Theme::all();
         return view('backstage.themeArticle',compact('themes'));
     }
 
     public function articleCreate()
     {
-        $themes = Theme::where('status',1)->get();
+        $themes = Theme::all();
         $casas = Casa::all();
         return view('backstage.themeArticleEdit',compact('themes','casas'));
     }
@@ -100,7 +100,8 @@ class ThemeController extends Controller
             return $this->articleUpdate($request);
         }
         $theme = Theme::find($request->theme);
-        $content = new \App\Content(['name' => $request->name,'text' => $request->text,'house' => $request->casa]);
+        $contentData = ['name' => $request->name,'text' => $request->text,'house' => $request->casa,'display_order'=>$request->order];
+        $content = new \App\Content($contentData);
         $newContent = $theme->contents()->save($content);
         $pic = new \App\Attachment(['filepath' => $request->pic]);
         $newContent->attachments()->save($pic);
@@ -110,7 +111,8 @@ class ThemeController extends Controller
     public function articleUpdate($request)
     {
         $theme = Theme::find($request->theme);
-        $content = new \App\Content(['name' => $request->name,'text' => $request->text,'house' => $request->casa]);
+        $contentData = ['name' => $request->name,'text' => $request->text,'house' => $request->casa,'display_order'=>$request->order];
+        $content = new \App\Content($contentData);
         $beforecontent = Content::find($request->id);
         $beforecontent->delete();
         $newContent = $theme->contents()->save($content);
@@ -122,8 +124,10 @@ class ThemeController extends Controller
     {
         $themes = Theme::where('status',1)->get();
         $article = Content::find($id);
+//        这个应该变成vue去处理
         $casas = Casa::all();
-        return view('backstage.themeArticleEdit',compact('themes','article','casas'));
+        $casa = Casa::find($article->house);
+        return view('backstage.themeArticleEdit',compact('themes','article','casas','casa'));
     }
 
     public function articleDel(Request $request)

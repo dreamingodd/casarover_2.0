@@ -4,8 +4,17 @@
     <script src="{{ asset('assets/js/recom.js') }}" type="text/javascript"></script>
 @endsection
 @section('body')
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <h4>设置显示在民宿推荐中的城市</h4>
+        </div>
+        <div class="col-md-9">
+            <a href="/back/casarecom/">
+                <h4>去管理城市下属民宿</h4>
+            </a>
+        </div>
+    </div>
     <div id="check">
-        <h3>设置显示在民宿推荐中的城市</h3>
         @foreach($areas as $area)
             <div class="col-md-6">
                 <div class="checkbox">

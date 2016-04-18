@@ -3,6 +3,7 @@
 @section('title', '探庐者后台-民宿列表')
 
 @section('body')
+    <h4>探庐系列微信端和网站端一致</h4>
     <div class="options vertical5">
         <a href="/back/wechatSeriesEdit">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加

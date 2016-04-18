@@ -9,10 +9,9 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a  href="/back/slide">轮播图</a></li>
-                    <li><a  href="/back/recom">城市推荐</a></li>
-                    <li><a  href="/back/casarecom">民宿推荐</a></li>
-                    <li><a  href="/back/theme">主题</a></li>
-                    <li><a  href="/back/theme/article">主题文章</a></li>
+                    <li><a  href="/back/recom">民宿推荐</a></li>
+                    <li><a  href="/back/theme/article">精选主题</a></li>
+                    <li><a  href="/back/wechatSeriesList">探庐系列</a></li>
                 </ul>
             </li>
             <li role="presentation" class="area">
