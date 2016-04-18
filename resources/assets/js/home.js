@@ -17,13 +17,10 @@ $(document).ready(function(){
             return {
                 casas:null,
                 themes:null,
+                series:null,
                 status:2,
                 scroll:null
             };
-        },
-
-        created: function () {
-
         },
         ready:function(){
           this.turn(7);
@@ -43,8 +40,15 @@ $(document).ready(function(){
                 vmtheme = this;
                 $.getJSON('/api/home/themes/',function (data) {
                     vmtheme.themes = data;
-                    this.scrollTo();
+                    this.getseries();
                 }.bind(vmtheme));
+            },
+            getseries: function (){
+                vmseries = this;
+                $.getJSON('/api/home/series/',function (data) {
+                    vmseries.series = data;
+                    this.scrollTo();
+                }.bind(vmseries));
             },
             scrollTo:function(){
                 if(this.scroll){
@@ -67,23 +71,6 @@ $(document).ready(function(){
             }
         }
     });
-    //var series = new Vue({
-    //    el: '#series',
-    //    data: function () {
-    //        return {
-    //            series:null,
-    //        };
-    //    },
-    //    created: function () {
-    //        this.getseries();
-    //    },
-    //    methods: {
-    //        getseries: function (){
-    //            vmseries = this;
-    //            $.getJSON('/api/home/series/',function (data) {
-    //                vmseries.series = data;
-    //            }.bind(vmseries));
-    //        }
-    //    }
-    //});
+
+
 });

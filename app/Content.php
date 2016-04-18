@@ -9,7 +9,7 @@ class Content extends Model
     protected $table = "content";
     const UPDATED_AT = 'update_time';
     const CREATED_AT = 'update_time';
-    protected $fillable = array('name','text','house');
+    protected $fillable = array('name','text','house','display_order');
     public function attachments() {
         return $this->belongsToMany('\App\Attachment', 'content_attachment');
     }

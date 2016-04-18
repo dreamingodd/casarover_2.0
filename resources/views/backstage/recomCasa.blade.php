@@ -6,17 +6,24 @@
 @endsection
 @section('body')
     <div id="main">
-        <h3>设置城市的推荐民宿</h3>
-        <select name="" id="" class="form-control" v-model="selected" v-on:change="getcasa">
-            @foreach($areas as $area)
-                <option value={{ $area->id }}>{{ $area->value }}</option>
-            @endforeach
-        </select>
-        <div class="checkbox" v-for="casa in casas">
-            <div class="col-md-6">
-                <label>
-                    <input type="checkbox" value="@{{ casa.id }}"  v-model="checkedNames">@{{ casa.name }}
-                </label>
+        <div class="col-md-3">
+            <a href="#" aria-label="Previous" onclick="history.back()">
+                <span aria-hidden="true">&laquo;返回</span>
+            </a>
+            <h4>设置每个城市的推荐民宿</h4>
+            <select name="" id="" class="form-control" v-model="selected" v-on:change="getcasa">
+                @foreach($areas as $area)
+                    <option value={{ $area->id }}>{{ $area->value }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-12">
+            <div class="checkbox" v-for="casa in casas">
+                <div class="col-md-6">
+                    <label>
+                        <input type="checkbox" value="@{{ casa.id }}"  v-model="checkedNames">@{{ casa.code }}--@{{ casa.name }}
+                    </label>
+                </div>
             </div>
         </div>
         <div class="col-md-12">

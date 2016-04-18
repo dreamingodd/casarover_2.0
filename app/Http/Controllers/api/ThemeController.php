@@ -14,7 +14,7 @@ class ThemeController extends Controller
     public function getThemeArticle($id)
     {
         $theme = Theme::find($id);
-        $contents = $theme -> contents;
+        $contents = $theme->contents()->orderBy('display_order','asc')->get();
         foreach($contents as $content)
         {
             if($content->themeCasa)
@@ -27,5 +27,13 @@ class ThemeController extends Controller
             }
         }
         return response()->json($contents);
+    }
+
+    public function setchange(Request $request)
+    {
+        $theme = Theme::find($request->id);
+        $theme->status = $theme->status == 1 ? 0 : 1;
+        $theme->save();
+        return response()->json(['msg'=>'ok']);
     }
 }
