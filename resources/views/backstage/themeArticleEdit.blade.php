@@ -40,9 +40,10 @@
         <label for="text">介绍内容</label>
         <textarea name="text" id="" cols="30" rows="10" class="form-control">{{ $article->text or null }}</textarea>
         <div class="col-md-4" style="margin: 10px">
+            <p>选择关联民宿</p>
             <input type="text" id="select-casa" class="form-control disabled" data-toggle="modal"
-                   data-target="#casaSelectModal" value="{{ $casa->name or '选择所属民宿' }}">
-            <input type="hidden" id="casa-id" name="casa" value="{{ $casa->id }}">
+                   data-target="#casaSelectModal" readonly value="{{ $casa->name or '选择所属民宿' }}">
+            <input type="hidden" id="casa-id" name="casa" value="{{ $casa->id or null }}">
         </div>
         <div class="col-md-12">
         <div class="sub">
