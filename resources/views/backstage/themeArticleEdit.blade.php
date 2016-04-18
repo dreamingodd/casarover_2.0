@@ -40,7 +40,9 @@
         <label for="text">介绍内容</label>
         <textarea name="text" id="" cols="30" rows="10" class="form-control">{{ $article->text or null }}</textarea>
         <div class="col-md-4" style="margin: 10px">
-            <input type="text" class="form-control disabled" data-toggle="modal" data-target="#casaSelectModal" value="选择所属民宿">
+            <input type="text" id="select-casa" class="form-control disabled" data-toggle="modal"
+                   data-target="#casaSelectModal" value="{{ $casa->name or '选择所属民宿' }}">
+            <input type="hidden" id="casa-id" name="casa" value="{{ $casa->id }}">
         </div>
         <div class="col-md-12">
         <div class="sub">
@@ -73,7 +75,7 @@
                             <tr>
                                 <td>{{ $casa->code }}</td>
                                 <td>{{ $casa->name }}</td>
-                                <td><button type="button" class="btn btn-info btn-sm">选择</button></td>
+                                <td><button type="button" class="btn btn-info btn-sm" data-dismiss="modal" onclick='selectCasa({{ $casa->id }},"{{ $casa->name }}")'>选择</button></td>
                             </tr>
                         @endforeach
                     </table>

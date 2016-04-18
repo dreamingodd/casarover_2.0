@@ -121,8 +121,10 @@ class ThemeController extends Controller
     {
         $themes = Theme::where('status',1)->get();
         $article = Content::find($id);
+//        这个应该变成vue去处理
         $casas = Casa::all();
-        return view('backstage.themeArticleEdit',compact('themes','article','casas'));
+        $casa = Casa::find($article->house);
+        return view('backstage.themeArticleEdit',compact('themes','article','casas','casa'));
     }
 
     public function articleDel(Request $request)
