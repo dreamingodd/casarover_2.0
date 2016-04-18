@@ -46,6 +46,14 @@
             <input type="hidden" id="casa-id" name="casa" value="{{ $casa->id or null }}">
         </div>
         <div class="col-md-12">
+            <p>排序(1-20之间的整数)</p>
+            {{--最好的方式应该是和上面的选择主题框进行联动--}}
+            <div class="col-md-4">
+                <input type="text" name="order" class="form-control" value="{{ $article->display_order or null }}">
+                <br>
+            </div>
+        </div>
+        <div class="col-md-12">
         <div class="sub">
             <button id="themeSubmitBtn" type="button" class="btn btn-primary" onclick="sed()">保存</button>
 

@@ -14,7 +14,7 @@ class ThemeController extends Controller
     public function getThemeArticle($id)
     {
         $theme = Theme::find($id);
-        $contents = $theme -> contents;
+        $contents = $theme->contents()->orderBy('display_order','asc')->get();
         foreach($contents as $content)
         {
             if($content->themeCasa)
