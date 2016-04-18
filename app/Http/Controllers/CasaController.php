@@ -20,7 +20,7 @@ class CasaController extends BaseController
 {
     private $casa;
     private $casas;
-
+    
     /**
      * Add or update a casa.
      */
@@ -45,7 +45,8 @@ class CasaController extends BaseController
             // basic information
             $this->updateSimpleCasa($casa, $casaData);
             // main photo
-            $casa->attachment()->associate($this->createAttachment($casaData->main_photo));
+            $attachment = $this->createAttachment($casaData->main_photo);
+            $casa->attachment()->associate($attachment);
             // tags
             $officialTags = $this->getOfficalTags($casaData->tags);
             $customTags = $this->getCustomTags($casaData->user_tags);

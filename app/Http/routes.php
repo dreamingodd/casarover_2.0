@@ -81,7 +81,7 @@ Route::group(['prefix' => 'api'],function () {
 });
 
 /**
- * wechat public routes
+ * wechat public routess
  */
 Route::group(['prefix' => 'wx'],function () {
     Route::get('/', 'Wx\WxCasaController@index');

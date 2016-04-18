@@ -45,6 +45,7 @@ class WxCasaController extends BaseController
             }
             $wxCasa->name = $request->input('name');
             $wxCasa->brief = $request->input('brief');
+            $wxCasa->phone = $request->input('phone');
             $wxCasa->desc = $request->input('desc');
             $wxCasa->spec = $request->input('spec');
             $wxCasa->rule = $request->input('rule');
