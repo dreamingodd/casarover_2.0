@@ -9,7 +9,7 @@ use App\Http\Requests;
 use App\Content;
 use App\Attachment;
 
-class BaseController extends Controller
+abstract class BaseController extends Controller
 {
 
     /**
