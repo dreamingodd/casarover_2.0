@@ -29,8 +29,8 @@ class WechatSeriesEditRequset extends Request
      */
     public function rules()
     {
-        return [
-            'name'=>'required|unique:wechat_series'
-        ];
+//        return [
+//            'name'=>'required|unique:wechat_series'
+//        ];
     }
 }

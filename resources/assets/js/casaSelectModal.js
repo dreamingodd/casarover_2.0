@@ -1,6 +1,12 @@
+function selectCasa(id,name){
+    var dom = $("#select-casa");
+    var domvalue = $("#casa-id");
+    domvalue.val(id);
+    dom.val(name);
+}
 $(function()
 {
-    $('#enlarge').click(function ()
+    $('#enlarge').click(function (e)
     {
         x=$('#search').val();
         a=1;
@@ -15,6 +21,7 @@ $(function()
                 a++;
             }
         });
+        e.preventDefault();
     });
     $('#reset').click(function ()
     {
@@ -24,6 +31,7 @@ $(function()
         event=document.all?window.event:event;
         if((event.keyCode || event.which)==13){
             $('#enlarge').click();
+            event.preventDefault();
         }
     });
     $("#search").keydown(function(event){

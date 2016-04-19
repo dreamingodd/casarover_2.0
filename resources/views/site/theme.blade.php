@@ -7,7 +7,7 @@
     <div class="main">
         <div class="left">
             <h1>{{ $theme->name }}</h1>
-            @foreach($theme->contents as $article)
+            @foreach($contents as $article)
                 <a
                         @if($article->house)
                         href="/casa/{{ $article->house }}"

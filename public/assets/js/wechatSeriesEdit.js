@@ -1,0 +1,1 @@
+function sed(){var i=$(".oss_hidden_input input").val();$("#pic").val(i)}

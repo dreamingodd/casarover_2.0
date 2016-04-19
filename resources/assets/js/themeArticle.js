@@ -6,7 +6,8 @@ $(document).ready(function(){
             selected:null
         },
         created: function () {
-            this.getArticle(2);
+            this.selected = $("#sel option:last").val();
+            this.getArticle(this.selected);
         },
         methods:{
             getArticle:function(){
