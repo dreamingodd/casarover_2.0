@@ -1,5 +1,9 @@
+@a-hover:#ff8c00;
+@import "block/slider";
+@import "block/load";
 a,a:link,a:visited ,a:hover,a:active{
   text-decoration:none;
+  color: black;
 }
 a:hover{color: black}
 u{
@@ -31,28 +35,69 @@ html{
 .navbartop{
   height: 2rem;
   padding: 2rem;
+  position: relative;
 }
 .logo img{
   width: 6rem;
   float: left;
 }
+.nav-middle{
+  position: absolute;
+  top: 2.4em;
+  left: 50%;
+  margin-left: -6rem;
+  input{
+    width: 12rem;
+  }
+}
 .nav-right{
   float: right;
   a{
     font-size: 2rem;
-    color: black;
+    color: #f7bb1d;
   }
 }
 
-.nav-middle{
-  padding-left: 40px;
+.navcon{
   text-align: center;
   a{
+    margin-top: 2rem;
     display: inline-block;
-    padding: 0 30px;
-    border-bottom: 2px solid transparent;
+    padding: 0 2rem;
     font-size: 16px;
     color: #666;
     cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-left: 2rem;
+  }
+  margin-left: -2rem;
+}
+section{
+  padding: 1rem;
+  overflow: hidden;
+}
+.line{
+  background: #E4E4E4;
+  width: 100%;
+  margin: 0 auto;
+  height: 1px;
+}
+.city-list{
+  margin: 2rem 2rem;
+  text-align: center;
+  a{
+    padding: 0 2rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+}
+.loader{
+  text-align: center;
+}
+.casa-card{
+  padding: 1rem;
+  .cardcon{
+    img{width: 28rem;}
   }
 }

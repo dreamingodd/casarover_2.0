@@ -22,22 +22,14 @@
                 <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
             </a>
         </div>
+        <div class="nav-middle">
+            <input type="text" placeholder="搜索民宿">
+        </div>
         <div class="nav-right">
             <a href="">登录</a>
-            <a href="">注册</a>
         </div>
     </div>
     @yield('body')
-<nav class="navbar navbar-default">
-    <div class="nav-middle">
-        @if(config('casarover.toggle_allcasa'))
-            <a href="/allcasa">民宿大全</a>
-        @endif
-        <a href="/#recom">民宿推荐</a>
-        <a href="/#theme">精选主题</a>
-        <a href="/#series">探庐系列</a>
-    </div>
-</nav>
 {{--<footer>--}}
     {{--<div class="message">--}}
         {{--<div class="pic">--}}
@@ -72,5 +64,8 @@
 {{--</footer>--}}
 {{--测试如果放在下面能不能解决被提前加载的问题--}}
 <script src="/assets/js/home.js" type="text/javascript"></script>
+<script>
+
+</script>
 </body>
 </html>

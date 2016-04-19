@@ -48,7 +48,6 @@
         <div class="message">
             <h3>公司</h3>
             <ul>
-                <li><a href="/about#casarover">探庐者</a></li>
                 <li><a href="/about#about-us">关于我们</a></li>
                 <li><a href="/about#brand-culture">品牌文化</a></li>
                 <li><a href="/about#media-cooperation">媒体合作</a></li>
