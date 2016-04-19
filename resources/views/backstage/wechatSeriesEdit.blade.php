@@ -23,7 +23,8 @@
             </div>
         </div>
      <div class="col-md-12">
-         <p>上传介绍图片</p>
+         <p>上传图片</p>
+         <p style="color: red">最佳尺寸1350*400</p>
          <!-- OSS start -->
          <div class="oss_photo_tool col-lg-12 clearfix" target_folder="image" file_prefix="image" limit_size="1024"
               oss_address="{{Config::get("casarover.oss_external")}}">
@@ -39,6 +40,7 @@
          </div>
          <!-- OSS end -->
          <label for="text">简介</label>
+         <p>建议不超过64个字</p>
          <textarea name="brief" id="" cols="30" rows="10" class="form-control">{{ $series->brief or null }}</textarea>
      </div>
         <div class="col-lg-12">
