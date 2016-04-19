@@ -1,4 +1,4 @@
-@extends('wechattemp')
+@extends('wxBase')
 @section('title','民宿预订')
 @section('head')
     <link href="/assets/css/wxPay.css" rel="stylesheet"/>
