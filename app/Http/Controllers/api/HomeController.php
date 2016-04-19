@@ -56,10 +56,10 @@ class HomeController extends Controller
     //探庐系列
     public function getSeries()
     {
-        $series = WechatSeries::all()->take(6);
+        $series = WechatSeries::where('status',1)->take(6)->get();
         foreach($series as $serie)
         {
-            $serie->pic = 'http://7xp9p2.com1.z0.glb.clouddn.com/4ee24efc7084e57bb090cabd099cdb76c7dd65b4376e-3UjFHM_fw658.jpg';
+            $serie->pic = config('casarover.image_folder').$serie->attachment->filepath;
         }
         return response()->json($series);
     }

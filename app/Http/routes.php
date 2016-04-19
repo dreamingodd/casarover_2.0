@@ -47,8 +47,9 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('casaEdit', 'CasaController@casaEdit');
     Route::get('participateList', 'WechatController@participateList');
     Route::get('wechatSeriesList','WechatController@wechatSeriesList');
-    Route::post('wechatSeriesList','WechatController@wechatSeriesEdits');
-    Route::get('wechatSeriesEdit','WechatController@wechatSeriesEdit');
+    Route::get('wechatSeriesadd','WechatController@wechatSeriesCreate');
+    Route::post('wechatSeriesStore','WechatController@wechatSeriesStore');
+    Route::get('wechatSeriesEdit/{id}','WechatController@wechatSeriesEdit');
     Route::get('wechatList/{type?}/{deleted?}', 'WechatController@wechatList');
     Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
     Route::post('wechatEdit/{id?}', 'WechatController@wechatEdits');
@@ -78,6 +79,7 @@ Route::group(['prefix' => 'api'],function () {
     Route::get('casa/recom/{id?}','api\CasaController@getCasasById');
     Route::post('/recom/save/','api\CasaController@save');
     Route::post('/theme/change/','api\ThemeController@setchange');
+    Route::post('/wechat/change/','api\WechatController@setchange');
     Route::get('theme/article/{id}','api\ThemeController@getThemeArticle');
 });
 

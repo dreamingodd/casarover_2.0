@@ -5,21 +5,16 @@
     @endsection
 @section('body')
 <section class='tanlu'>
-    {{--<div class='tanlutop'>--}}
-        {{--<h2>探庐·临安</h2>--}}
-        {{--<p>临安介绍 xxxxxxxxxxxxxxxxxxxxxxxxx</p>--}}
-    {{--</div>--}}
+    <div class='tanlutop' style="background: url({{ config('casarover.image_folder').$serie->attachment->filepath }});">
+        <h2>{{ $serie->name }}</h2>
+        <p>{{ $serie->brief }}</p>
+    </div>
     @foreach($articles as $article)
     <div id="list" class="article_list">
         <a href="{{$article->address}}" >
             <div class="articles">
                 <div class="left">
-                    @foreach($attachments as $attachment)
-                        @if($attachment->id==$article->attachment_id)
-                        <?php $attachmentpath=$attachment->filepath;break;?>
-                        @endif
-                    @endforeach
-                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$attachmentpath}}"/>
+                    <img src="{{config('casarover.photo_folder').$article->attachment->filepath}}"/>
                 </div>
                 <div class="right">
                     <span class="title">{{$article->title}}</span>
