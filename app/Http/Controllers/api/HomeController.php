@@ -59,7 +59,7 @@ class HomeController extends Controller
         $series = WechatSeries::where('status',1)->take(6)->get();
         foreach($series as $serie)
         {
-            $serie->pic = config('casarover.image_folder').$serie->attachment->filepath;
+            $serie->pic = config('casarover.image_folder').$serie->thumbnail->filepath;
         }
         return response()->json($series);
     }

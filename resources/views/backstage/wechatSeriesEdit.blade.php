@@ -9,6 +9,7 @@
  <form id="wechat_series_form" method="post" action="/back/wechatSeriesStore">
     <input name="_token" type="hidden" value="<?php echo csrf_token(); ?>">
      <input type="hidden" name="pic" value="{{ $series->attachment->filepath or null }}" id="pic">
+     <input type="hidden" name="thumbnail" value="{{ $series->thumbnail->filepath or null }}" id="thumb">
      <input type="hidden" name="id" value="{{ $series->id or null }}">
      <div class="col-lg-12">
             <h4>类别</h4>
@@ -23,17 +24,17 @@
             </div>
         </div>
      <div class="col-md-12">
-         <p>上传图片</p>
-         <p style="color: red">最佳尺寸1350*400</p>
+         <p>上传首页显示缩略图</p>
+         <p style="color: red">最佳尺寸6:1</p>
          <!-- OSS start -->
          <div class="oss_photo_tool col-lg-12 clearfix" target_folder="image" file_prefix="image" limit_size="1024"
               oss_address="{{Config::get("casarover.oss_external")}}">
              <div class="oss_button">
                  <button class="show_uploader btn btn-primary btn-sm" type="button">插入图片</button>
              </div>
-             <div class="oss_hidden_input">
-                 @if(isset($series->attachment))
-                     <input type="hidden" class="hidden_photo" value="{{ $series->attachment->filepath }}"/>
+             <div class="oss_hidden_input thumb">
+                 @if(isset($series->thumbnail))
+                     <input type="hidden" class="hidden_photo" value="{{ $series->thumbnail->filepath }}"/>
                  @endif
              </div>
              <div class="oss_photo"></div>
@@ -42,6 +43,25 @@
          <label for="text">简介</label>
          <p>建议不超过64个字</p>
          <textarea name="brief" id="" cols="30" rows="10" class="form-control">{{ $series->brief or null }}</textarea>
+     </div>
+
+     <div class="col-md-12">
+         <p>上传大图</p>
+         <p style="color: red">最佳尺寸1350*400</p>
+         <!-- OSS start -->
+         <div class="oss_photo_tool col-lg-12 clearfix" target_folder="image" file_prefix="image" limit_size="1024"
+              oss_address="{{Config::get("casarover.oss_external")}}">
+             <div class="oss_button">
+                 <button class="show_uploader btn btn-primary btn-sm" type="button">插入图片</button>
+             </div>
+             <div class="oss_hidden_input pic">
+                 @if(isset($series->attachment))
+                     <input type="hidden" class="hidden_photo" value="{{ $series->attachment->filepath }}"/>
+                 @endif
+             </div>
+             <div class="oss_photo"></div>
+         </div>
+         <!-- OSS end -->
      </div>
         <div class="col-lg-12">
             <input type="submit" style="margin-left: 15px; margin-top: 30px;" class="btn btn-info" onclick="sed()" value="提交"/>

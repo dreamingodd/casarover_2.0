@@ -26,6 +26,10 @@ Route::get('/bookdetails', 'WechatController@bookdetails');
 Route::get('/bookpay', 'WechatController@bookpay');
 Route::get('/wechatperson', 'WechatController@wechatperson');
 Route::get('/theme/{id}','ThemeController@show');
+Route::get('/about', function(){
+    return view('site.about');
+});
+
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'CasaController@casaList');
@@ -93,10 +97,4 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
     Route::get('casa/{id?}', 'Wx\WxCasaController@show');
     Route::post('edit', 'Wx\WxCasaController@edit');
-});
-/**
- * mobile phoe public routes
- */
-Route::group(['prefix' => 'mobile'],function () {
-    Route::get('/home','SiteController@index');
 });
