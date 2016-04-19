@@ -40,7 +40,7 @@
     {{--</div>--}}
     {{--<!-- end 搜索框 -->--}}
 
-    <div class="container" id="main">
+    <div class="container" id="app">
         @if(config('casarover.toggle_recom'))
                 <!-- 民宿推荐 -->
         <section id="recom">

@@ -8,7 +8,7 @@ function setchange(themeId){
         success: function(data){
             console.log(data);
             if(data.msg){
-                alert("保存成功");
+                alert("修改成功");
             }
         }
     });
