@@ -13,7 +13,7 @@ use App\Theme;
 
 class SiteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $casas = Option::all();
         foreach($casas as $casa)
@@ -25,7 +25,10 @@ class SiteController extends Controller
         $theme = Theme::where('status',1)->get();
         $themeNum = count($theme);
         $status = $themeNum >2 ? true:false;
-        return view('site.home',compact('casas','citys','status'));
+        if(strpos($request->url(), 'mobile'))
+            return  view('mobile.home',compact('casas','citys','status'));
+        else
+            return view('site.home',compact('casas','citys','status'));
     }
 
     public function slide()

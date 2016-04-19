@@ -32,7 +32,6 @@
             <a href="/#series">探庐系列</a>
         </div>
         <div class="nav-right">
-            <a href=""></a>
             <a href="">登录</a>
             <a href="">注册</a>
         </div>
@@ -49,22 +48,25 @@
         <div class="message">
             <h3>公司</h3>
             <ul>
-                <li><a href="">关于我们</a></li>
-                <li><a href="">媒体合作</a></li>
+                <li><a href="/about#casarover">探庐者</a></li>
+                <li><a href="/about#about-us">关于我们</a></li>
+                <li><a href="/about#brand-culture">品牌文化</a></li>
+                <li><a href="/about#media-cooperation">媒体合作</a></li>
             </ul>
         </div>
         <div class="message">
             <h3>服务</h3>
             <ul>
-                <li><a href="">免费推荐</a></li>
-                <li><a href="">私人定制</a></li>
-                <li><a href="">团队客户</a></li>
+                <li><a href="/about#free-promotion">免费推广</a></li>
+                <li><a href="/about#personal-customized">私人定制</a></li>
             </ul>
         </div>
         <div class="message">
             <h3>帮助中心</h3>
             <ul>
-                <li><a href="">商务合作</a></li>
+                <li><a href="/about#business-cooperation">商务合作</a></li>
+                <li><a href="/about#charge-standard">合作推广收费标准</a></li>
+                <li><a href="/about#contact-us">联系我们</a></li>
             </ul>
         </div>
         <p>浙ICP备<span>15036536号</span></p>

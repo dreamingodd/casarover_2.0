@@ -91,3 +91,9 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('casa/{id?}', 'Wx\WxCasaController@show');
     Route::post('edit', 'Wx\WxCasaController@edit');
 });
+/**
+ * mobile phoe public routes
+ */
+Route::group(['prefix' => 'mobile'],function () {
+    Route::get('/home','SiteController@index');
+});
