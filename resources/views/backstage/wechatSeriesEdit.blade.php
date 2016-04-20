@@ -25,7 +25,7 @@
         </div>
      <div class="col-md-12">
          <p>上传首页显示缩略图</p>
-         <p style="color: red">最佳尺寸6:1</p>
+         <p style="color: red">最佳尺寸1.6:1</p>
          <!-- OSS start -->
          <div class="oss_photo_tool col-lg-12 clearfix" target_folder="image" file_prefix="image" limit_size="1024"
               oss_address="{{Config::get("casarover.oss_external")}}">
@@ -46,7 +46,7 @@
      </div>
 
      <div class="col-md-12">
-         <p>上传大图</p>
+         <p>上传详情页显示大图</p>
          <p style="color: red">最佳尺寸1350*400</p>
          <!-- OSS start -->
          <div class="oss_photo_tool col-lg-12 clearfix" target_folder="image" file_prefix="image" limit_size="1024"

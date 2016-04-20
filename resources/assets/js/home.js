@@ -9,6 +9,9 @@ $(document).ready(function(){
     $('.search-input input').blur(function(){
         $('.search-place').css('display','none');
     });
+
+
+
     //scroll 是记录是否已经进行了滚动操作，
     //为了防止在重新进行turn的时候再次执行scrollTo
     var vm = new Vue({
@@ -20,6 +23,9 @@ $(document).ready(function(){
                 series:null,
                 scroll:null
             };
+        },
+        compiled:function(){
+            this.changeBr();
         },
         ready:function(){
           this.turn(7);
@@ -46,6 +52,7 @@ $(document).ready(function(){
                 vm = this;
                 $.getJSON('/api/home/series/',function (data) {
                     vm.series = data;
+                    //this.changeBr();
                     this.scrollTo();
                 }.bind(vm));
             },
@@ -67,6 +74,15 @@ $(document).ready(function(){
                         $(this).addClass('active');
                     }
                 });
+            },
+            changeBr:function(){
+                //对info中的br进行处理
+                $('.info p').each(function () {
+                    var str = $(this).html();
+                    str = str.split('<BR/>').join('\n');
+                    str = str.split('&lt;BR/&gt;').join('\n');
+                    $(this).text(str);
+                })
             }
         }
     });
