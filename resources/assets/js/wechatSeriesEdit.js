@@ -1,4 +1,6 @@
 function sed(){
-    var img = $(".oss_hidden_input input").val();
+    var img = $(".pic input").val();
     $("#pic").val(img);
+    var thumb = $(".thumb input").val();
+    $("#thumb").val(thumb);
 }

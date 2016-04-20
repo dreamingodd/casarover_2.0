@@ -18,7 +18,6 @@ Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
 Route::get('/casaserise/{type}/{series?}', 'CasaSeriesController@casas');
-Route::get('/about', function(){return view('site.about');});
 Route::get('/allcasa','CasaController@allcasa');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
@@ -27,6 +26,10 @@ Route::get('/bookdetails', 'WechatController@bookdetails');
 Route::get('/bookpay', 'WechatController@bookpay');
 Route::get('/wechatperson', 'WechatController@wechatperson');
 Route::get('/theme/{id}','ThemeController@show');
+Route::get('/about', function(){
+    return view('site.about');
+});
+
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'CasaController@casaList');
@@ -50,6 +53,7 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('wechatSeriesadd','WechatController@wechatSeriesCreate');
     Route::post('wechatSeriesStore','WechatController@wechatSeriesStore');
     Route::get('wechatSeriesEdit/{id}','WechatController@wechatSeriesEdit');
+    Route::post('wechatSeriesDel','WechatController@wechatSeriesDel');
     Route::get('wechatList/{type?}/{deleted?}', 'WechatController@wechatList');
     Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
     Route::post('wechatEdit/{id?}', 'WechatController@wechatEdits');
@@ -93,10 +97,4 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
     Route::get('casa/{id?}', 'Wx\WxCasaController@show');
     Route::post('edit', 'Wx\WxCasaController@edit');
-});
-/**
- * mobile phoe public routes
- */
-Route::group(['prefix' => 'mobile'],function () {
-    Route::get('/home','SiteController@index');
 });

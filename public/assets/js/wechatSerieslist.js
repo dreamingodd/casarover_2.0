@@ -1,1 +1,1 @@
-function setchange(a){$.ajax("/api/wechat/change",{type:"post",data:{id:a},headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},success:function(a){$("body").append(a),a.msg&&alert("保存成功")}})}
+function setchange(a){$.ajax("/api/wechat/change",{type:"post",data:{id:a},headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},success:function(a){$("body").append(a),a.msg&&alert("修改成功")}})}

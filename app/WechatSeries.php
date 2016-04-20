@@ -11,4 +11,9 @@ class WechatSeries extends Model
     {
         return $this->hasOne('App\Attachment','id','attachment_id');
     }
+
+    public function thumbnail()
+    {
+        return $this->hasOne('App\Attachment','id','thumb_id');
+    }
 }

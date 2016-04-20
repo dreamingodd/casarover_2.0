@@ -2,7 +2,7 @@
 @section('title','探庐系列')
 @section('head')
     <link rel="stylesheet" href="/assets/css/casaseries.css">
-    @endsection
+@endsection
 @section('body')
 <section class='tanlu'>
     <div class='tanlutop' style="background: url({{ config('casarover.image_folder').$serie->attachment->filepath }});background-repeat:no-repeat;background-size:cover;-moz-background-size:cover;-webkit-background-size:cover;">
@@ -24,8 +24,6 @@
                     <span class="content">{{$article->brief}}</span>
                 </div>
             </div>
-        </a>
-    </div>
-    @endforeach
-</section>
-    @endsection
+        @endforeach
+    </section>
+@endsection

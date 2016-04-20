@@ -11,7 +11,7 @@
         <input type="text" class="form-control" name="title" value="{{ $slide->title or '' }}">
         <h3>简介</h3>
         <textarea name="brief" id="" cols="30" rows="3" class="form-control">{{ $slide->brief or '' }}</textarea>
-        <h3>一张高清大图</h3>
+        <h3>大图(1350*450以上)</h3>
         <!-- OSS start -->
         <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
              oss_address="{{Config::get("casarover.oss_external")}}">

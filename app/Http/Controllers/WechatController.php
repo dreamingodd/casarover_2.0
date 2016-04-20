@@ -137,8 +137,11 @@ class WechatController extends Controller
         $wechatSerie->name = $request->name;
         $wechatSerie->brief = $request->brief;
         $pic = new \App\Attachment(['filepath' => $request->pic]);
+        $thumbnail = new \App\Attachment(['filepath' => $request->thumbnail]);
+        $wechatSerie->thumbnail()->save($thumbnail);
         $wechatSerie->attachment()->save($pic);
         $wechatSerie->attachment_id = $pic->id;
+        $wechatSerie->thumb_id = $thumbnail->id;
         $wechatSerie->save();
         return redirect('back/wechatSeriesList');
     }
@@ -149,9 +152,13 @@ class WechatController extends Controller
         $wechatSerie->name = $request->name;
         $wechatSerie->brief = $request->brief;
         $pic = new \App\Attachment(['filepath' => $request->pic]);
+        $thumbnail = new \App\Attachment(['filepath' => $request->thumbnail]);
+        $wechatSerie->thumbnail()->delete();
+        $wechatSerie->thumbnail()->save($thumbnail);
         $wechatSerie->attachment()->delete();
         $wechatSerie->attachment()->save($pic);
         $wechatSerie->attachment_id = $pic->id;
+        $wechatSerie->thumb_id = $thumbnail->id;
         $wechatSerie->save();
         return redirect('back/wechatSeriesList');
     }

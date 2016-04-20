@@ -40,7 +40,7 @@
     {{--</div>--}}
     {{--<!-- end 搜索框 -->--}}
 
-    <div class="container" id="main">
+    <div class="container" id="app">
         @if(config('casarover.toggle_recom'))
                 <!-- 民宿推荐 -->
         <section id="recom">
@@ -60,7 +60,7 @@
                     <div></div>
                 </div>
             </div>
-            <div class="casa-card" v-for="casa in casas" transition="expand">
+            <div class="casa-card" v-for="casa in casas" transition="expand" id="test">
                 <div class="card-b">
                     <a href="casa/@{{ casa.id }}" target="_blank">
                         <img :src="casa.pic" height="100%">
