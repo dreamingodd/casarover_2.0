@@ -3,20 +3,14 @@
 @section('title', '探庐者后台-微信预定民宿编辑')
 
 @section('head')
-<script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js"></script>
+<script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js">
+</script>
 <script src="/assets/js/integration/json2.js"></script>
 <script src="/assets/js/wxEdit.js"></script>
 <script src="/assets/js/casaSelectModal.js"></script>
 <style>
-.col-lg-11 {
-    margin: 2px 0 3px 20px;
-}
 .nav-tabs {
     width: 100%;
-    float: left;
-}
-.content textarea {
-    margin: 5px 0 0 15px;
     float: left;
 }
 .table thead tr td {
@@ -82,7 +76,7 @@
     <form id="wx_casa_form" action="/back/wx/casa/edit" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <input type="hidden" name="id" value="{{ $wxCasa->id or 0 }}"/>
-        <input type="hidden" name="casa_id" value="{{ $wxCasa->casa_id or 0 }}"/>
+        <input type="hidden" name="casa_id" id="casa_id" value="{{ $wxCasa->casa_id or '' }}"/>
         <input type="hidden" name="main_photo" id="main_photo" value="{{ $wxCasa->attachment->filepath or '' }}"/>
         <input type="hidden" name="contents" id="contents"/>
         <div class="name col-lg-11">
@@ -96,7 +90,7 @@
             <div class="input-group input-group-sm col-lg-9">
                 <span class="input-group-addon">一句话简介</span>
                 <input name="brief" type="text" class="form-control" aria-describedby="sizing-addon3"
-                        value="{{$wxCasa->brief or ''}}" placeholder="不要超过25个字"/>
+                        value="{{$wxCasa->brief or ''}}" placeholder="一行25个字"/>
             </div>
         </div>
         <div class="phone col-lg-11">
@@ -108,15 +102,15 @@
         </div>
         <div class="col-lg-11">
             <h4>产品详情</h4>
-            <textarea name="desc" class="form-control" rows="5">{{ $wxCasa->desc or '' }}</textarea>
+            <textarea name="desc" class="basic_text form-control" rows="5">{{ $wxCasa->desc or '' }}</textarea>
         </div>
         <div class="col-lg-11">
             <h4>使用说明</h4>
-            <textarea name="spec" class="form-control" rows="5">{{ $wxCasa->spec or '' }}</textarea>
+            <textarea name="spec" class="basic_text form-control" rows="5">{{ $wxCasa->spec or '' }}</textarea>
         </div>
         <div class="col-lg-11">
             <h4>改退规则</h4>
-            <textarea name="rule" class="form-control" rows="5">{{ $wxCasa->rule or '' }}</textarea>
+            <textarea name="rule" class="basic_text form-control" rows="5">{{ $wxCasa->rule or '' }}</textarea>
         </div>
         <div class="col-lg-11">
             <h4>图文说明</h4>
@@ -130,9 +124,13 @@
             </ul>
             <div class="tab-content col-lg-11">
                 <div class="tab-pane active" id="select_casa">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#casaSelectModal">
-                        选择民宿
-                    </button>
+                    <br />
+                    <div id="selectedCasa" style="float:left; display:none;">
+                        <span>已选择的民宿：</span>
+                        <span id="selectedCasaInfo">{{ $wxCasa->casa->code or ''}} | {{ $wxCasa->casa->name or ''}}</span>
+                        <button type="button" id="delSelectCasa" class="btn btn-danger">删除</button>&nbsp;
+                    </div>
+                    <button type="button" id="showCasaModal" class="btn btn-info">选择民宿</button>
                     <br/>
                     <br/>
                 </div>
@@ -141,16 +139,18 @@
                     <div class="main-photo col-lg-12">
                         <h4>上传民宿缩略图</h4>
                         <div class="input-group input-group-sm col-lg-10 reminder">插入多张无意义，只取第一张</div>
-                        <div class="input-group input-group-sm col-lg-10 reminder">最佳分辨率比例1.6：1，比如320：200。</div>
+                        <div class="input-group input-group-sm col-lg-10 reminder">最佳分辨率比例1.6：1，比如320：200。
+                        </div>
                         <!-- OSS start -->
-                        <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
-                                oss_address="{{Config::get("casarover.oss_external")}}">
+                        <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa"
+                                limit_size="1024" oss_address="{{Config::get("casarover.oss_external")}}">
                             <div class="oss_button">
                                 <button type="button" class="show_uploader btn btn-info btn-sm">插入图片</button>
                             </div>
                             <div class="oss_hidden_input">
                                 @if (isset($wxCasa->attachment))
-                                    <input type="hidden" class="hidden_photo" value="{{$wxCasa->attachment->filepath}}"/>
+                                    <input type="hidden" class="hidden_photo"
+                                            value="{{$wxCasa->attachment->filepath}}"/>
                                 @endif
                             </div>
                             <div class="oss_photo"></div>
@@ -165,15 +165,16 @@
                         @foreach ($wxCasa->contents()->orderBy('id')->get() as $content)
                             <div class="content col-lg-12">
                                 <div class="name col-lg-2 vertical5">
-                                    <input type="text" class="form-control" value="{{$content->name or ''}}" aria-describedby="sizing-addon3" />
+                                    <input type="text" class="form-control" value="{{$content->name or ''}}"
+                                            aria-describedby="sizing-addon3" />
                                 </div>
                                 <div class="col-lg-10 vertical5">
                                     <button type="button" class="btn btn-info add_content">插入内容</button>
                                     <button type="button" class="btn btn-info del_content">删除内容</button>
                                 </div>
                                 <!-- OSS start -->
-                                <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
-                                        oss_address="{{Config::get("casarover.oss_external")}}">
+                                <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa"
+                                        limit_size="1024" oss_address="{{Config::get("casarover.oss_external")}}">
                                     <div class="oss_button">
                                         <button type="button" class="show_uploader btn btn-info btn-sm">插入图片</button>
                                     </div>
@@ -191,15 +192,16 @@
                     @else
                         <div class="content col-lg-12">
                             <div class="name col-lg-2 vertical5">
-                                <input type="text" class="form-control" value="{{$content->name or ''}}" aria-describedby="sizing-addon3" />
+                                <input type="text" class="form-control" value="{{$content->name or ''}}"
+                                        aria-describedby="sizing-addon3" />
                             </div>
                             <div class="col-lg-10 vertical5">
                                 <button type="button" class="btn btn-info add_content">插入内容</button>
                                 <button type="button" class="btn btn-info del_content">删除内容</button>
                             </div>
                             <!-- OSS start -->
-                            <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"
-                                    oss_address="{{Config::get("casarover.oss_external")}}">
+                            <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa"
+                                    limit_size="1024" oss_address="{{Config::get("casarover.oss_external")}}">
                                 <div class="oss_button">
                                     <button type="button" class="show_uploader btn btn-info btn-sm">插入图片</button>
                                 </div>
@@ -226,7 +228,9 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             <h4 class="modal-title" id="myModalLabel">选择一家民宿</h4>
           </div>
           <div class="modal-body" style="height:500px; overflow:scroll;">
@@ -238,17 +242,8 @@
               <div class="alert alert-info" role="alert" style="float: left; padding: 2px; margin: 7px 0 0 10px;">
                   可搜索编码和名称，按回车搜索，按Shift重置。
               </div>
-              <table class="table table-hover">
-                  <tr>
-                      <td>1-1</td>
-                      <td>上海宏泉艾瑞酒店</td>
-                      <td><button type="button" class="select_modal btn btn-info btn-sm">Select</button></td>
-                  </tr>
-                  <tr>
-                      <td>1-2</td>
-                      <td>微风山谷旅店</td>
-                      <td><button type="button" class="select_modal btn btn-info btn-sm">Select</button></td>
-                  </tr>
+              <table id="slimCasaTable" class="table table-hover">
+                  <!-- Simple casas data to be added. -->
               </table>
           </div>
         </div>

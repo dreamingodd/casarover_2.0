@@ -173,21 +173,6 @@ function collectUserTags() {
     }
     return user_tags;
 }
-function collectContents() {
-    contents = [];
-    $('.content').each(function() {
-        var content = {};
-        content.name = $(this).children('.name').children(0).val();
-        content.text = $(this).children('.text').children(0).val();
-        content.text = LFtoBR(content.text);
-        content.photos = [];
-        $(this).children('.oss_photo_tool').children('.oss_hidden_input').children().each(function() {
-            content.photos.push($(this).val());
-        });
-        contents.push(content);
-    });
-    return contents;
-}
 function newContentTemplate() {
     return $(
         '<div class="content">' +
@@ -208,9 +193,7 @@ function newContentTemplate() {
         '        <div class="oss_photo"></div>' +
         '    </div>' +
         '    <!-- OSS end -->' +
-        '    <div class="text col-lg-12 vertical5">' +
-        '        <textarea rows="3" cols="150"></textarea>' +
-        '    </div>' +
+        '    <textarea class="form-control" rows="3"></textarea>' +
         '</div>'
     );
 }

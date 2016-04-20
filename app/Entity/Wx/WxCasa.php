@@ -15,6 +15,9 @@ class WxCasa extends Model
     public function attachment() {
         return $this->belongsTo('App\Attachment');
     }
+    public function casa() {
+        return $this->belongsTo('App\Casa');
+    }
     public function contents() {
         return $this->belongsToMany('App\Content', 'wx_casa_content');
     }

@@ -7,8 +7,9 @@ $(function(){
     $('.addRoom').click(function() {
         addRoom();
     });
-    //When one presses the delete icon.
+    // When one presses the delete icon.
     $('#room_container').on('click', '.delRoom', function() {
+        // TODO ajax check to confirm whether the room is deletable.
         if (deleted) {
             $(this).parent().remove();
         }

@@ -76,7 +76,10 @@ class WxCasaController extends BaseController
             $rawContents = json_decode($request->input('contents'));
             $contents = $this->createContents($rawContents);
 
-            $wxCasa->attachment()->associate($this->createAttachment($mainPhotoPath));
+            if (!empty($mainPhotoPath)) {
+                $content->attachments()->delete();
+                $wxCasa->attachment()->associate($this->createAttachment($mainPhotoPath));
+            }
             $wxCasa->save();
             $wxCasa->contents()->saveMany($contents);
 
@@ -95,6 +98,6 @@ class WxCasaController extends BaseController
 
     public function restore($id) {
         WxCasa::onlyTrashed()->find($id)->restore();
-        return redirect('/back/wx/1');
+        return redirect('/back/wx/trash/1');
     }
 }
