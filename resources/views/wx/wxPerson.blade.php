@@ -1,4 +1,4 @@
-@extends('wechattemp')
+@extends('wxBase')
 @section('title','个人中心')
 @section('head')
     <link href="/assets/css/wxPerson.css" rel="stylesheet"/>

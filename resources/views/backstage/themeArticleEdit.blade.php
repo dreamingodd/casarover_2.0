@@ -77,8 +77,8 @@
                 <div class="modal-body" style="height:500px; overflow:scroll;">
                     <div class="search">
                         <input type="text" value="" id="search" />
-                        <button class="glyphicon glyphicon-search" id="enlarge"></button>
-                        <button class="glyphicon glyphicon-repeat" id="reset"></button>
+                        <button class="glyphicon glyphicon-search" type="button" id="enlarge"></button>
+                        <button class="glyphicon glyphicon-repeat" type="button" id="reset"></button>
                     </div>
                     <table class="table table-hover">
                         @foreach($casas as $casa)

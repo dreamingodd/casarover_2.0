@@ -1,46 +1,35 @@
-@extends('site')
-@section('title','民宿')
+@extends('mobile')
+@section('title','探庐者')
 @section('head')
-    <link rel="stylesheet" href="/assets/css/home.css">
+    {{--<link rel="stylesheet" href="/assets/css/home.css">--}}
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
-    @endsection
-    @section('body')
-            <!-- slider -->
+@endsection
+@section('body')
     <div class="flexslider">
         <ul class="slides">
             @foreach($casas as $casa)
                 <li style="background:url({{ $casa->pic }}) ; background-size:100% 100%;">
                     <a href="casa/{{ $casa->casa_id }}" target="_blank" class="slide-a">
                         <div class="slide-mess">
-                            {{ $casa->title }}
+                            {{$casa->title }}
                         </div>
                     </a>
                 </li>
             @endforeach
         </ul>
     </div>
-    <!-- endslider -->
-    {{--<!-- 搜索框 -->--}}
-    {{--<div class="search">--}}
-    {{--<div class="search-form">--}}
-    {{--<form action="">--}}
-    {{--<div class="search-input">--}}
-    {{--<input type="text" placeholder="找到好民宿">--}}
-    {{--</div>--}}
-    {{--</form>--}}
-    {{--<div class="search-place" id="city">--}}
-    {{--<ul>--}}
-    {{--@foreach($citys as $city)--}}
-    {{--<li><a href="">{{ $city->value }}</a></li>--}}
-    {{--@endforeach--}}
-    {{--</ul>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<!-- end 搜索框 -->--}}
-
-    <div class="container" id="app">
+    <nav class="navbar">
+        <div class="navcon">
+            @if(config('casarover.toggle_allcasa'))
+                <a href="/allcasa">民宿大全</a>
+            @endif
+            <a href="/#recom">民宿推荐</a>
+            <a href="/#theme">精选主题</a>
+            <a href="/#series">探庐系列</a>
+        </div>
+    </nav>
+    <div class="container" id="main">
         @if(config('casarover.toggle_recom'))
                 <!-- 民宿推荐 -->
         <section id="recom">
@@ -60,13 +49,10 @@
                     <div></div>
                 </div>
             </div>
-            <div class="casa-card" v-for="casa in casas" transition="expand" id="test">
-                <div class="card-b">
+            <div class="casa-card" v-for="casa in casas" transition="expand">
+                <div class="cardcon">
                     <a href="casa/@{{ casa.id }}" target="_blank">
-                        <img :src="casa.pic" height="100%">
-                        <div class="card">
-                            <h3>@{{ casa.name }}</h3>
-                        </div>
+                        <img :src="casa.pic" >
                         <div class="info">
                             <div class="middle">
                                 <h3>@{{ casa.name }}</h3>
@@ -82,24 +68,21 @@
                 <!-- 精选主题 -->
         @if(config('casarover.toggle_theme'))
             <section id="theme" >
-                <h2>精选主题</h2>
-                <div class="line"></div>
-                <div class="casa-card" v-for="theme in themes">
-                    <div class="card-b">
-                        <a href="theme/@{{ theme.id }}" target="_blank">
-                            <img :src="theme.pic" height="100%">
-                            <div class="card">
-                                <h3>@{{ theme.name }}</h3>
-                            </div>
-                            <div class="info">
-                                <div class="middle">
-                                    <h3>@{{ theme.name }}</h3>
-                                    <p>@{{{ theme.brief }}}</p>
+                    <h2>精选主题</h2>
+                    <div class="line"></div>
+                    <div class="casa-card" v-for="theme in themes">
+                        <div class="cardcon">
+                            <a href="theme/@{{ theme.id }}" target="_blank">
+                                <img :src="theme.pic" height="100%">
+                                <div class="info">
+                                    <div class="middle">
+                                        <h3>@{{ theme.name }}</h3>
+                                        <p>@{{{ theme.brief }}}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
-                </div>
             </section>
             @endif
                     <!-- 探庐系列 -->
@@ -107,13 +90,15 @@
                 <section id="series">
                     <h2>探庐系列</h2>
                     <div class="line"></div>
+                    <div class="city-list">
+                        @foreach($citys as $city)
+                            <a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>
+                        @endforeach
+                    </div>
                     <div class="casa-card" v-for="serie in series">
-                        <div class="card-b">
+                        <div class="cardcon">
                             <a href="casaserise/@{{ serie.type }}/@{{ serie.id }}" target="_blank">
                                 <img :src="serie.pic" height="100%">
-                                <div class="card">
-                                    <h3>@{{ serie.name }}</h3>
-                                </div>
                                 <div class="info">
                                     <div class="middle">
                                         <h3>@{{ serie.name }}</h3>
@@ -128,4 +113,5 @@
     </div>
     {{--测试如果放在下面能不能解决被提前加载的问题--}}
     <script src="/assets/js/home.js" type="text/javascript"></script>
-@endsection
+
+@stop

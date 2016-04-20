@@ -118,13 +118,58 @@ class WechatController extends Controller
         $this->series = wechatSeries::all();
         return view('backstage.wechatSeriesList',['wechatSeries' => $this->series]);
     }
-    public function wechatSeriesEdit() {
+    public function wechatSeriesCreate()
+    {
         return view('backstage.wechatSeriesEdit');
     }
-    public function wechatSeriesEdits(Requests\WechatSeriesEditRequset $request) {
-        wechatSeries::insert(['type' => '1', 'name' => $request->name]);
-        return view('backstage.sucess',['type'=>1,'id'=>0]);
+    public function wechatSeriesEdit($id) {
+        $series = WechatSeries::find($id);
+        return view('backstage.wechatSeriesEdit',compact('series'));
     }
+    public function wechatSeriesStore(Request $request)
+    {
+        if($request->id != "")
+        {
+            return $this->wechatSeriesUpdate($request);
+        }
+        $wechatSerie = new WechatSeries();
+        $wechatSerie->type = 1;
+        $wechatSerie->name = $request->name;
+        $wechatSerie->brief = $request->brief;
+        $pic = new \App\Attachment(['filepath' => $request->pic]);
+        $thumbnail = new \App\Attachment(['filepath' => $request->thumbnail]);
+        $wechatSerie->thumbnail()->save($thumbnail);
+        $wechatSerie->attachment()->save($pic);
+        $wechatSerie->attachment_id = $pic->id;
+        $wechatSerie->thumb_id = $thumbnail->id;
+        $wechatSerie->save();
+        return redirect('back/wechatSeriesList');
+    }
+    public function wechatSeriesUpdate($request)
+    {
+        $wechatSerie = WechatSeries::find($request->id);
+        $wechatSerie->type = 1;
+        $wechatSerie->name = $request->name;
+        $wechatSerie->brief = $request->brief;
+        $pic = new \App\Attachment(['filepath' => $request->pic]);
+        $thumbnail = new \App\Attachment(['filepath' => $request->thumbnail]);
+        $wechatSerie->thumbnail()->delete();
+        $wechatSerie->thumbnail()->save($thumbnail);
+        $wechatSerie->attachment()->delete();
+        $wechatSerie->attachment()->save($pic);
+        $wechatSerie->attachment_id = $pic->id;
+        $wechatSerie->thumb_id = $thumbnail->id;
+        $wechatSerie->save();
+        return redirect('back/wechatSeriesList');
+    }
+
+    public function wechatSeriesDel(Request $request)
+    {
+        $content = WechatSeries::find($request->id);
+        $content->delete();
+        return redirect('back/wechatSeriesList');
+    }
+
     public function book(){
         return view('wechat.book');
     }

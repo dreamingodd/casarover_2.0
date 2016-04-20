@@ -13,6 +13,16 @@
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="//cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    {{--百度统计代码--}}
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?4f26b22fbfe63c2ca0935f07dc6159ca";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
     @yield('head')
 </head>
 <body>
@@ -32,7 +42,6 @@
             <a href="/#series">探庐系列</a>
         </div>
         <div class="nav-right">
-            <a href=""></a>
             <a href="">登录</a>
             <a href="">注册</a>
         </div>
@@ -49,25 +58,24 @@
         <div class="message">
             <h3>公司</h3>
             <ul>
-                <li><a href="">关于我们</a></li>
-                <li><a href="">媒体合作</a></li>
+                <li><a href="/about#about-us">关于我们</a></li>
+                <li><a href="/about#media-cooperation">媒体合作</a></li>
             </ul>
         </div>
         <div class="message">
             <h3>服务</h3>
             <ul>
-                <li><a href="">免费推荐</a></li>
-                <li><a href="">私人定制</a></li>
-                <li><a href="">团队客户</a></li>
+                <li><a href="/about#free-promotion">免费推广</a></li>
+                <li><a href="/about#personal-customized">私人定制</a></li>
             </ul>
         </div>
         <div class="message">
             <h3>帮助中心</h3>
             <ul>
-                <li><a href="">商务合作</a></li>
+                <li><a href="/about#business-cooperation">商务合作</a></li>
+                <li><a href="" class="icp">浙ICP备<span>15036536号</span></a></li>
             </ul>
         </div>
-        <p>浙ICP备<span>15036536号</span></p>
     </footer>
 </body>
 </html>

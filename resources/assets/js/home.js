@@ -9,18 +9,23 @@ $(document).ready(function(){
     $('.search-input input').blur(function(){
         $('.search-place').css('display','none');
     });
+
+
+
     //scroll 是记录是否已经进行了滚动操作，
     //为了防止在重新进行turn的时候再次执行scrollTo
     var vm = new Vue({
-        el: '#main',
+        el: '#app',
         data: function () {
             return {
                 casas:null,
                 themes:null,
                 series:null,
-                status:2,
                 scroll:null
             };
+        },
+        compiled:function(){
+            this.changeBr();
         },
         ready:function(){
           this.turn(7);
@@ -37,18 +42,19 @@ $(document).ready(function(){
                 }.bind(vm));
             },
             getthemes: function (){
-                vmtheme = this;
+                vm = this;
                 $.getJSON('/api/home/themes/',function (data) {
-                    vmtheme.themes = data;
+                    vm.themes = data;
                     this.getseries();
-                }.bind(vmtheme));
+                }.bind(vm));
             },
             getseries: function (){
-                vmseries = this;
+                vm = this;
                 $.getJSON('/api/home/series/',function (data) {
-                    vmseries.series = data;
+                    vm.series = data;
+                    //this.changeBr();
                     this.scrollTo();
-                }.bind(vmseries));
+                }.bind(vm));
             },
             scrollTo:function(){
                 if(this.scroll){
@@ -68,9 +74,16 @@ $(document).ready(function(){
                         $(this).addClass('active');
                     }
                 });
+            },
+            changeBr:function(){
+                //对info中的br进行处理
+                $('.info p').each(function () {
+                    var str = $(this).html();
+                    str = str.split('<BR/>').join('\n');
+                    str = str.split('&lt;BR/&gt;').join('\n');
+                    $(this).text(str);
+                })
             }
         }
     });
-
-
 });

@@ -18,7 +18,6 @@ Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
 Route::get('/casaserise/{type}/{series?}', 'CasaSeriesController@casas');
-Route::get('/about', function(){return view('site.about');});
 Route::get('/allcasa','CasaController@allcasa');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
@@ -27,6 +26,10 @@ Route::get('/bookdetails', 'WechatController@bookdetails');
 Route::get('/bookpay', 'WechatController@bookpay');
 Route::get('/wechatperson', 'WechatController@wechatperson');
 Route::get('/theme/{id}','ThemeController@show');
+Route::get('/about', function(){
+    return view('site.about');
+});
+
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('/', 'SiteController@slide');
@@ -47,8 +50,10 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('casaEdit', 'CasaController@casaEdit');
     Route::get('participateList', 'WechatController@participateList');
     Route::get('wechatSeriesList','WechatController@wechatSeriesList');
-    Route::post('wechatSeriesList','WechatController@wechatSeriesEdits');
-    Route::get('wechatSeriesEdit','WechatController@wechatSeriesEdit');
+    Route::get('wechatSeriesadd','WechatController@wechatSeriesCreate');
+    Route::post('wechatSeriesStore','WechatController@wechatSeriesStore');
+    Route::get('wechatSeriesEdit/{id}','WechatController@wechatSeriesEdit');
+    Route::post('wechatSeriesDel','WechatController@wechatSeriesDel');
     Route::get('wechatList/{type?}/{deleted?}', 'WechatController@wechatList');
     Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
     Route::post('wechatEdit/{id?}', 'WechatController@wechatEdits');
@@ -78,6 +83,7 @@ Route::group(['prefix' => 'api'],function () {
     Route::get('casa/recom/{id?}','api\CasaController@getCasasById');
     Route::post('/recom/save/','api\CasaController@save');
     Route::post('/theme/change/','api\ThemeController@setchange');
+    Route::post('/wechat/change/','api\WechatController@setchange');
     Route::get('theme/article/{id}','api\ThemeController@getThemeArticle');
 });
 
