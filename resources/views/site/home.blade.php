@@ -128,14 +128,4 @@
     </div>
     {{--测试如果放在下面能不能解决被提前加载的问题--}}
     <script src="/assets/js/home.js" type="text/javascript"></script>
-    {{--百度统计代码--}}
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?4f26b22fbfe63c2ca0935f07dc6159ca";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
 @endsection
