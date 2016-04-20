@@ -4,11 +4,19 @@ $(function(){
         e.preventDefault();
         alert('此功能期待完善！');
     });
+    $('.not_completed').click(function(e){
+        e.preventDefault();
+        alert('此功能期待完善！');
+    });
     // navigator select
     // 确认导航栏当前位置
     var page = $('#page').val();
     console.log(page + " page!");
     $('.' + page).addClass('active');
+    // 返回按钮
+    $('.goback').click(function(){
+        history.go(-1);
+    });
 });
 /**
  * Convert methods for textarea(HTML).

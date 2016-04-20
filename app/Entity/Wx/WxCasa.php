@@ -3,10 +3,14 @@
 namespace App\Entity\Wx;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class WxCasa extends Model
 {
+    use SoftDeletes;
+
     protected $table = "wx_casa";
+    protected $dates = ["deleted_at"];
 
     public function attachment() {
         return $this->belongsTo('App\Attachment');

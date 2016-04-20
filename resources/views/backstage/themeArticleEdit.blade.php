@@ -6,6 +6,7 @@
     <script src="/assets/js/casaSelectModal.js"></script>
 @endsection
 @section('body')
+    <input type="hidden" id="page" value="home"/>
     <div class="container"></div>
     <form action="/back/theme/article/store" id="themeForm" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>

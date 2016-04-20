@@ -4,6 +4,7 @@
     <script src="{{ asset('assets/js/themeEdit.js') }}" type="text/javascript"></script>
 @endsection
 @section('body')
+    <input type="hidden" id="page" value="home"/>
     <div class="container"></div>
     <form action="/back/theme/store" id="area-form" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>

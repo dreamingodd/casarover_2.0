@@ -7,7 +7,7 @@ Countline::count("/Applications/XAMPP/xamppfiles/htdocs/casarover_2.0");
 // Countline::count(__FILE__);
 // var_dump(FileUtils::listAllFiles("/Applications/XAMPP/xamppfiles/htdocs/casarover_2.0/database"));
 // var_dump(FileUtils::listAllFiles(__FILE__));
-echo "\n\n";
+echo "\n";
 
 class Countline {
     /** File in this list must be included.
@@ -19,13 +19,25 @@ class Countline {
     /** Folder or file in this list will be excluded. */
     private static $blackList = [
         "/tests/Countline.php",
-        "/vendor",
         "/bootstrap",
-        "/node_modules",
-        "/storage",
-        "/gulpfile.js",
-        "/public",
         "/config",
+        "/public",
+        "/storage",
+        "/vendor",
+        "/server.php",
+        "/app/Console",
+        "/app/Providers/AppServiceProvider.php",
+        "/app/Providers/AuthServiceProvider.php",
+        "/app/Providers/EventServiceProvider.php",
+        "/app/Providers/RouteServiceProvider.php",
+        "/app/Http/Controllers/Auth/AuthController.php",
+        "/app/Http/Controllers/Auth/PasswordController.php",
+        "/app/Http/Middleware/Authenticate.php",
+        "/app/Http/Middleware/EncryptCookies.php",
+        "/app/Http/Middleware/RedirectIfAuthenticated.php",
+        "/app/Http/Middleware/VerifyCsrfToken.php",
+        "/node_modules",
+        "/gulpfile.js",
         "/resources/assets/js/integration",
         "/app/oss",
     ];
@@ -107,7 +119,7 @@ class Countline {
         $enterComment = false;
         foreach ($lines as $line) {
             $line = trim($line);
-            if (empty($line)) {
+            if (empty($line) || $line === "{" || $line === "}") {
                  self::$whiteLineCount++;
             } else if ($enterComment) {
                 self::$commentLineCount++;

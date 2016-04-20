@@ -29,7 +29,7 @@ Route::get('/wechatperson', 'WechatController@wechatperson');
 Route::get('/theme/{id}','ThemeController@show');
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
-    Route::get('/', 'CasaController@casaList');
+    Route::get('/', 'SiteController@slide');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
     Route::get('casa/{id?}', 'CasaController@show');
@@ -89,6 +89,11 @@ Route::group(['prefix' => 'wx'],function () {
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
+    Route::get('/trash/{deleted}', 'Wx\WxCasaController@showList');
     Route::get('casa/{id?}', 'Wx\WxCasaController@show');
-    Route::post('edit', 'Wx\WxCasaController@edit');
+    Route::post('casa/edit', 'Wx\WxCasaController@edit');
+    Route::get('casa/del/{id?}', 'Wx\WxCasaController@del');
+    Route::get('casa/restore/{id?}', 'Wx\WxCasaController@restore');
+    Route::get('room/{id}', 'Wx\WxRoomController@show');
+    Route::post('room/edit', 'Wx\WxRoomController@edit');
 });

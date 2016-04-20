@@ -5,6 +5,7 @@
     <script src="/assets/js/recomCasa.js"></script>
 @endsection
 @section('body')
+    <input type="hidden" id="page" value="home"/>
     <div id="main">
         <div class="col-md-3">
             <a href="#" aria-label="Previous" onclick="history.back()">

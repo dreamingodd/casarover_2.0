@@ -5,6 +5,7 @@
     <script src="/assets/js/theme.js"></script>
 @endsection
 @section('body')
+    <input type="hidden" id="page" value="home"/>
     <div class="options vertical5">
         <a href="#" aria-label="Previous" onclick="history.back()">
             <span aria-hidden="true">&laquo;返回</span>

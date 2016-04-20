@@ -15,7 +15,6 @@ $(function() {
         $(target).siblings().removeClass('active');
         $(target).addClass('active');
     });
-
     /* 添加和删除内容功能 */
     $('body').on('click', '.add_content', function(){
         $(this).parent().parent().after(newContentTemplate());

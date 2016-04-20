@@ -60,7 +60,7 @@
 
 @section('body')
 
-    <input type="hidden" id="page" value="wechat"/>
+    <input type="hidden" id="page" value="reserve"/>
 
     <div class="col-lg-11" style="margin-top: -15px">
         <h3>微信预定民宿编辑</h3>
@@ -76,9 +76,10 @@
     @endif
     <div class="btn_div col-lg-11">
         <button class="btn btn-primary submit_btn">提交</button>
+        <button type="button" class="btn btn-default goback">返回</button>
     </div>
     <br/>
-    <form id="wx_casa_form" action="/back/wx/edit" method="post">
+    <form id="wx_casa_form" action="/back/wx/casa/edit" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <input type="hidden" name="id" value="{{ $wxCasa->id or 0 }}"/>
         <input type="hidden" name="casa_id" value="{{ $wxCasa->casa_id or 0 }}"/>
@@ -160,7 +161,7 @@
                     <div class="col-lg-12">
                         <h4>图文内容</h4>
                     </div>
-                    @if (count($wxCasa->contents) > 0)
+                    @if (isset($wxCasa) && count($wxCasa->contents) > 0)
                         @foreach ($wxCasa->contents()->orderBy('id')->get() as $content)
                             <div class="content col-lg-12">
                                 <div class="name col-lg-2 vertical5">
@@ -177,6 +178,9 @@
                                         <button type="button" class="show_uploader btn btn-info btn-sm">插入图片</button>
                                     </div>
                                     <div class="oss_hidden_input">
+                                        @foreach ($content->attachments as $photo)
+                                            <input type="hidden" class="hidden_photo" value="{{$photo->filepath}}"/>
+                                        @endforeach
                                     </div>
                                     <div class="oss_photo"></div>
                                 </div>
@@ -214,6 +218,7 @@
     </form>
     <div class="btn_div col-lg-11">
         <button class="btn btn-primary submit_btn">提交</button>
+        <button type="button" class="btn btn-default goback">返回</button>
     </div>
 
     <!-- Modal -->
@@ -230,16 +235,19 @@
                   <button class="glyphicon glyphicon-search" id="enlarge"></button>
                   <button class="glyphicon glyphicon-repeat" id="reset"></button>
               </div>
+              <div class="alert alert-info" role="alert" style="float: left; padding: 2px; margin: 7px 0 0 10px;">
+                  可搜索编码和名称，按回车搜索，按Shift重置。
+              </div>
               <table class="table table-hover">
                   <tr>
                       <td>1-1</td>
                       <td>上海宏泉艾瑞酒店</td>
-                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                      <td><button type="button" class="select_modal btn btn-info btn-sm">Select</button></td>
                   </tr>
                   <tr>
                       <td>1-2</td>
                       <td>微风山谷旅店</td>
-                      <td><button type="button" class="btn btn-info btn-sm">Select</button></td>
+                      <td><button type="button" class="select_modal btn btn-info btn-sm">Select</button></td>
                   </tr>
               </table>
           </div>

@@ -4,6 +4,7 @@
     <script src="{{ asset('assets/js/recom.js') }}" type="text/javascript"></script>
 @endsection
 @section('body')
+    <input type="hidden" id="page" value="home"/>
     <div class="col-md-12">
         <div class="col-md-3">
             <h4>设置显示在民宿推荐中的城市</h4>

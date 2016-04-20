@@ -8,6 +8,7 @@ use DB;
 use App\Entity\Wx\WxCasa;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests;
+use Illuminate\Support\Str;
 
 class WxCasaController extends BaseController
 {
@@ -15,8 +16,21 @@ class WxCasaController extends BaseController
         $wxCasas = WxCasa::orderBy('id', 'desc')->get();
         return view('wx.wxIndex', compact('wxCasas'));
     }
-    public function showList() {
-        $wxCasas = WxCasa::orderBy('id', 'desc')->get();
+    public function showList($deleted = 0) {
+        $wxCasas = null;
+        if ($deleted) {
+            $wxCasas = WxCasa::onlyTrashed()->orderBy('id', 'desc')->get();
+        } else {
+            $wxCasas = WxCasa::orderBy('id', 'desc')->get();
+        }
+        foreach ($wxCasas as $casa) {
+            $rooms = $casa->wxRooms;
+            $casa->roomString = "";
+            for ($i = 0; $i < count($rooms); $i++) {
+                $room = $rooms[$i];
+                $casa->roomString .= ($room->name . "&nbsp;&nbsp;¥" . $room->price . "<BR />");
+            }
+        }
         return view('backstage.wxList', compact('wxCasas'));
     }
     public function show($id = 0) {
@@ -26,7 +40,6 @@ class WxCasaController extends BaseController
         $wxCasa = WxCasa::find($id);
         return view('backstage.wxEdit', compact('wxCasa'));
     }
-
 
     /**
      * Add or update a wx casa.
@@ -73,5 +86,15 @@ class WxCasaController extends BaseController
             DB::rollback();
             dd($ex);
         }
+    }
+
+    public function del($id) {
+        WxCasa::find($id)->delete();
+        return redirect('/back/wx');
+    }
+
+    public function restore($id) {
+        WxCasa::onlyTrashed()->find($id)->restore();
+        return redirect('/back/wx/1');
     }
 }
