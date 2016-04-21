@@ -20,7 +20,7 @@
                 <button class="show_uploader btn btn-primary btn-sm" type="button">插入图片</button>
             </div>
             <div class="oss_hidden_input">
-                @if(isset($slide->attachment->filepath))
+                @if(!empty($slide->attachment->filepath))
                     <input type="hidden" class="hidden_photo" name="pic" value="{{ $slide->attachment->filepath}}"/>
                 @endif
             </div>
