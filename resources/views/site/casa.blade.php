@@ -25,7 +25,7 @@
                     <img src="{{ config('casarover.photo_folder').$photo->filepath }}" alt="" width="100%">
                 @endforeach
                 <br>
-                {!! $content->text !!}
+                <p>{!! $content->text !!}</p>
             @endforeach
         </div>
     </article>
