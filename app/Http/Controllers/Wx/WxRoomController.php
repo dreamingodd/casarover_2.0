@@ -40,7 +40,6 @@ class WxRoomController extends Controller
             $room = WxRoom::find($rawRoom->id);
         } else {
             $room = new WxRoom();
-            $room->id = $rawRoom->id;
         }
         $room->name = $rawRoom->name;
         $room->price = $rawRoom->price;
