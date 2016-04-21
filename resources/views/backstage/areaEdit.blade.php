@@ -5,6 +5,7 @@
     <script src="{{ asset('assets/js/areaedit.js') }}" type="text/javascript"></script>
 @endsection
 @section('body')
+    <input type="hidden" id="page" value="area"/>
     <form action="{{ route('back.areas.update',$message->id) }}" id="area-form" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden" name="_method" value="PUT">
@@ -42,12 +43,12 @@
         <hr>
         <div class="raiders">
             <p>到下面的这个网站选取坐标和层级然后复制过来</p>
-            <a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank">
-                百度地图坐标拾取器
+            <a href="http://lbs.amap.com/console/show/picker" target="_blank">
+                高德地图坐标拾取器
             </a>
             <h3>坐标</h3>
             <input type="text" class="form-control"  value="{{ $message->position }}" name="position" placeholder="从坐标拾取复制过来" />
-            <h3>层级</h3>
+            <h3>层级(没有特殊需求填写15)</h3>
             <input type="text" class="form-control"  value="{{ $message->tier }}" name="tier" placeholder="显示层级" />
         </div>
 
@@ -73,19 +74,15 @@
         </div>
 
         <!-- OSS end -->
-        <textarea class="form-control" rows="4" name="content{{ $con }}" placeholder="对景点的描述">
-            @if(isset($message->contents[$con]))
-                {{ $message->contents[$con]->text }}
-            @endif
-        </textarea>
+        <textarea class="form-control" rows="4" name="content{{ $con }}" placeholder="对景点的描述">@if(isset($message->contents[$con])){{ $message->contents[$con]->text }}@endif</textarea>
         @endfor
 
         <div class="sub">
             <button v-on:click="sed()" type="submit" class="btn btn-primary">保存</button>
     </form>
     {{--<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">--}}
-        {{--<i class="fa fa-times-circle"></i>--}}
-        {{--删除--}}
+    {{--<i class="fa fa-times-circle"></i>--}}
+    {{--删除--}}
     {{--</button>--}}
     <div class="modal fade" id="modal-delete" tabIndex="-1">
         <div class="modal-dialog">

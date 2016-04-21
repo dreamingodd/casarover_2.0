@@ -97,7 +97,7 @@
         <p>只属于你的故事</p>
         <img src="/assets/images/footer.png" alt="" class="">
         <div class="footerbottom">
-            
+
         </div>
     </div>
 @endsection

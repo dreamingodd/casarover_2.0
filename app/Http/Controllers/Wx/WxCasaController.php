@@ -8,6 +8,7 @@ use DB;
 use App\Entity\Wx\WxCasa;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests;
+use Illuminate\Support\Str;
 
 class WxCasaController extends BaseController
 {
@@ -15,8 +16,21 @@ class WxCasaController extends BaseController
         $wxCasas = WxCasa::orderBy('id', 'desc')->get();
         return view('wx.wxIndex', compact('wxCasas'));
     }
-    public function showList() {
-        $wxCasas = WxCasa::orderBy('id', 'desc')->get();
+    public function showList($deleted = 0) {
+        $wxCasas = null;
+        if ($deleted) {
+            $wxCasas = WxCasa::onlyTrashed()->orderBy('id', 'desc')->get();
+        } else {
+            $wxCasas = WxCasa::orderBy('id', 'desc')->get();
+        }
+        foreach ($wxCasas as $casa) {
+            $rooms = $casa->wxRooms;
+            $casa->roomString = "";
+            for ($i = 0; $i < count($rooms); $i++) {
+                $room = $rooms[$i];
+                $casa->roomString .= ($room->name . "&nbsp;&nbsp;¥" . $room->price . "<BR />");
+            }
+        }
         return view('backstage.wxList', compact('wxCasas'));
     }
     public function show($id = 0) {
@@ -26,7 +40,6 @@ class WxCasaController extends BaseController
         $wxCasa = WxCasa::find($id);
         return view('backstage.wxEdit', compact('wxCasa'));
     }
-
 
     /**
      * Add or update a wx casa.
@@ -42,6 +55,13 @@ class WxCasaController extends BaseController
                 $wxCasa = new WxCasa;
             } else {
                 $wxCasa = WxCasa::find($request->input('id'));
+                $wxCasa->attachment()->delete();
+                foreach ($wxCasa->contents as $content) {
+                    $content->attachments()->delete();
+                    DB::delete('delete from content_attachment where content_id='.$content->id);
+                }
+                $wxCasa->contents()->delete();
+                DB::delete('delete from wx_casa_content where wx_casa_id='.$wxCasa->id);
             }
             $wxCasa->name = $request->input('name');
             $wxCasa->brief = $request->input('brief');
@@ -51,13 +71,17 @@ class WxCasaController extends BaseController
             $wxCasa->rule = $request->input('rule');
             $wxCasa->casa_id = $request->input('casa_id');
             // 简介显示图片
-            $wxCasa->attachment()->delete();
             $mainPhotoPath = $request->input('main_photo');
-            $content = $request->input('text');
-            // contents 内容
-            $wxCasa->attachment()->associate($this->createAttachment($mainPhotoPath));
-            dd($content);
+            // 图文内容
+            $rawContents = json_decode($request->input('contents'));
+            $contents = $this->createContents($rawContents);
+
+            if (!empty($mainPhotoPath)) {
+                $content->attachments()->delete();
+                $wxCasa->attachment()->associate($this->createAttachment($mainPhotoPath));
+            }
             $wxCasa->save();
+            $wxCasa->contents()->saveMany($contents);
 
             DB::commit();
             return redirect('/back/wx');
@@ -65,5 +89,15 @@ class WxCasaController extends BaseController
             DB::rollback();
             dd($ex);
         }
+    }
+
+    public function del($id) {
+        WxCasa::find($id)->delete();
+        return redirect('/back/wx');
+    }
+
+    public function restore($id) {
+        WxCasa::onlyTrashed()->find($id)->restore();
+        return redirect('/back/wx/trash/1');
     }
 }

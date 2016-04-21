@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
@@ -60,5 +60,14 @@ class CasaController extends Controller
               $delId->pivot->delete();
           }
       }
+    }
+
+    /**
+     * Get (just) id, code, name of all of the casas.
+     */
+    public function getSlimCasas() {
+        $slimCasas = DB::table('casa')->select('id', 'code', 'name')->get();
+        usort($slimCasas, 'App\Common\CommonTools::sortCasaCode');
+        return response()->json($slimCasas);
     }
 }

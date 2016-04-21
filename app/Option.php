@@ -10,4 +10,9 @@ class Option extends Model
     {
         return $this->hasOne('App\Attachment','id','attachment_id');
     }
+
+    public function casa()
+    {
+        return $this->hasOne('App\Casa','id','casa_id');
+    }
 }

@@ -2,17 +2,17 @@
 @section('title',$area->value)
 @section('head')
     <link rel="stylesheet" href="/assets/css/area.css">
+    <script src="http://webapi.amap.com/maps?v=1.3&key=6490a159a96f22a0436c5b87e0f71672"></script>
     @endsection
-
     @section('body')
             <!-- 民宿大图  -->
     <div class="banner">
         <div class="cover-photo">
-            <img src="{{ asset('assets/images/head.png') }}" width="100%" alt="">
+            <img src="{{ config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath }}" width="100%" alt="">
         </div>
         <div class="guide-mess">
             <h1>{{ $area->value }}</h1>
-            <p>{{ $area->contents['0']->text }}</p>
+            <p>{{ $area->contents['0']->text or null}}</p>
         </div>
 
     </div>
@@ -20,10 +20,12 @@
         <!-- 文字介绍 -->
         <section>
             <div class="article-main">
-                <p>{{ $area->contents['1']->text }}</p>
+                <p>{{ $area->contents['1']->text or null}}</p>
             </div>
         </section>
         <div class="line"></div>
+        {{--地图显示位置--}}
+        <div id="mapContainer"></div>
         <!-- 附近景点 -->
         <section>
             <div class="article-nav">附近景点</div>
@@ -31,10 +33,14 @@
                 @for($i=2;$i<count($area->contents);$i++)
                     <div class="place-item">
                         <div class="place-img">
-                            <img src="{{ asset('assets/images/fang.png') }}" wdith="100%;" alt="">
+                            @if(count($area->contents[$i]->attachments))
+                                <img src="{{ config('casarover.oss_external').'/area/'.$area->contents[$i]->attachments[0]->filepath }}" wdith="100%;" alt="">
+                            @endif
                         </div>
                         <div class="place-mess">
-                            {{ $area->contents[$i]->text }}
+                            <p>
+                                {{ $area->contents[$i]->text or null }}
+                            </p>
                         </div>
                     </div>
                 @endfor
@@ -44,74 +50,41 @@
         <!-- 附近民宿 -->
         <section>
             <div class="article-nav">附近民宿</div>
-            <div class="casa-card">
-                <div class="card-c">
-                    <a href="">
-                        <img src="{{ asset('assets/images/fang.jpg') }}" height="100%">
-                        <div class="card">
-                            <h3>花千谷</h3>
-                        </div>
-                        <div class="info">
-                            <div class="middle">
-                                <h3>花千谷</h3>
-                                <p>位于云南省西部，这里冬天依旧温暖<br>
-                                    这是多民族聚集区，可以吃到众多的云南小吃；丰富的热带水果；欣赏美丽的孔雀舞</p>
+            @for($i=0;$i<count($casas);$i++)
+                <div class="casa-card">
+                    <div class="card-c">
+                        <a href="/casa/{{ $casas[$i]->id }}">
+                            <img src="{{ config('casarover.photo_folder').$casas[$i]->attachment->filepath }}" height="100%">
+                            <div class="card">
+                                <h3>{{ $casas[$i]->name }}</h3>
                             </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="casa-card">
-                <div class="card-d">
-                    <a href="">
-                        <img src="{{ asset('assets/images/fang.jpg') }}" height="100%">
-                        <div class="card">
-                            <h3>花千谷</h3>
-                        </div>
-                        <div class="info">
-                            <div class="middle">
-                                <h3>花千谷</h3>
-                                <p>位于云南省西部，这里冬天依旧温暖<br>
-                                    这是多民族聚集区，可以吃到众多的云南小吃；丰富的热带水果；欣赏美丽的孔雀舞</p>
+                            <div class="info">
+                                <div class="middle">
+                                    <h3>{{ $casas[$i]->name }}</h3>
+                                    <p>{{ $casas[$i]->contents[0]->text }}</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="casa-card">
-                <div class="card-d">
-                    <a href="">
-                        <img src="{{ asset('assets/images/fang.jpg') }}" height="100%">
-                        <div class="card">
-                            <h3>花千谷</h3>
-                        </div>
-                        <div class="info">
-                            <div class="middle">
-                                <h3>花千谷</h3>
-                                <p>位于云南省西部，这里冬天依旧温暖<br>
-                                    这是多民族聚集区，可以吃到众多的云南小吃；丰富的热带水果；欣赏美丽的孔雀舞</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="casa-card">
-                <div class="card-c">
-                    <a href="">
-                        <img src="{{ asset('assets/images/fang.png') }}" height="100%">
-                        <div class="card">
-                            <h3>花千谷</h3>
-                        </div>
-                        <div class="info">
-                            <div class="middle">
-                                <h3>花千谷</h3>
-                                <p>位于云南省西部，这里冬天依旧温暖<br>
-                                    这是多民族聚集区，可以吃到众多的云南小吃；丰富的热带水果；欣赏美丽的孔雀舞</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            @endfor
         </section>
     </div>
+    <script>
+        var map = new AMap.Map('mapContainer', {
+            center: [{{ $area->position }}],
+            lang:'zh_en',
+            zoom:{{ $area->tier }},
+            zoomEnable:false,
+            dragEnable:false
+        });
+    </script>
+    <script>
+//        底部民宿卡片添加多种显示方式
+        $(".card-c").each(function(i){
+            if(i ==1 || i ==2 ){
+                $(this).addClass('card-d');
+            }
+        })
+    </script>
 @endsection

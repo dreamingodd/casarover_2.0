@@ -5,6 +5,7 @@
     <script src="/assets/js/theme.js"></script>
 @endsection
 @section('body')
+    <input type="hidden" id="page" value="home"/>
     <div class="options vertical5">
         <a href="#" aria-label="Previous" onclick="history.back()">
             <span aria-hidden="true">&laquo;返回</span>
@@ -13,6 +14,7 @@
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加主题
         </a>
     </div>
+    <div class="alert alert-success tip" role="alert">修改成功</div>
     <table class="table table-striped">
         <thead>
         <tr>

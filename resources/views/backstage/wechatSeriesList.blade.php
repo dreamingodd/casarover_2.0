@@ -7,7 +7,9 @@
     <script src="/assets/js/wechatSerieslist.js"></script>
 @endsection
 @section('body')
+    <div class="alert alert-success tip"  role="alert">修改成功</div>
     <h4>探庐系列微信端和网站端一致</h4>
+    <p class="text-danger">请上传好图片后再勾选显示在首页</p>
     <div class="options vertical5">
         <a href="/back/wechatSeriesadd">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
