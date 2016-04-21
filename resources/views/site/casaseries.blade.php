@@ -24,6 +24,8 @@
                     <span class="content">{{$article->brief}}</span>
                 </div>
             </div>
+        </a>
+        </div>
         @endforeach
     </section>
 @endsection

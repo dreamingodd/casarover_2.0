@@ -1,6 +1,9 @@
-p,h1,h2,h3,h4,h5,h6{
+p,h1,h2,h3,h4,h5,h6,dl,dt,dd{
   margin: 0;
   padding: 0;
+}
+body{
+  overflow-x: hidden;
 }
 .banner{
   height: 484px;
@@ -72,13 +75,50 @@ p,h1,h2,h3,h4,h5,h6{
 }
 }
 .footer{
+  padding-bottom: 20px;
+  position: relative;
   text-align: center;
+  background: #fff;
   h2{
     font-size: 24px;
     line-height: 48px;
+    background: #f8f8f8;
   }
   p{
     font-size: 14px;
     line-height: 28px;
-  };
+    background: #f8f8f8;
+  }
+  h3{
+    margin-top: 20px;
+  }
+  .qrcode{
+    margin-top: 24px;
+    height: 110px;
+  }
+  dl{
+    position: absolute;
+    float: left;
+    top: 268px;
+  }
+  #left{
+    left: 300px;
+  }
+  #right{
+    right: 300px;
+  }
+  dt{
+    font-size: 18px;
+    line-height: 34px;
+  }
+  dd{
+    text-align: center;
+    font-size: 14px;
+    line-height: 26px;
+  }
+  span{
+    display: block;
+    width: 300px;
+    margin: 0 auto;
+  }
 }

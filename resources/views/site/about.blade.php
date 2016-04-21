@@ -1,5 +1,5 @@
 @extends('site')
-@section('title','探庐系列')
+@section('title','关于我们')
 @section('head')
     <link rel="stylesheet" href="/assets/css/about.css">
 @endsection
@@ -92,12 +92,27 @@
         </div>
     </div>
 </div>
-    <div class="footer">
-        <h2>一种民宿，一种风情</h2>
-        <p>只属于你的故事</p>
-        <img src="/assets/images/footer.png" alt="" class="">
-        <div class="footerbottom">
-
-        </div>
-    </div>
+    {{--<div class="footer">--}}
+        {{--<h2>一种民宿，一种风情</h2>--}}
+        {{--<p>只属于你的故事</p>--}}
+        {{--<img src="/assets/images/footer.png" alt="" class="">--}}
+        {{--<div class="footerbottom">--}}
+            {{--<h3>关注我们</h3>--}}
+            {{--<img src="{{ asset('assets/images/qcode.jpg') }} " height="100%" alt="二维码" class="qrcode">--}}
+            {{--<dl id="left">--}}
+                {{--<dt>公司信息</dt>--}}
+                {{--<dd><a href="/about#about-us">关于我们</a></dd>--}}
+                {{--<dd><a href="/about#brand-culture">品牌文化</a></dd>--}}
+                {{--<dd><a href="/about#media-cooperation">媒体合作</a></dd>--}}
+                {{--<dd><a href="/about#contact">联系我们</a></dd>--}}
+            {{--</dl>--}}
+            {{--<dl id="right">--}}
+                {{--<dt>服务</dt>--}}
+                {{--<dd><a href="/about#charge-standard">合作推广</a></dd>--}}
+                {{--<dd><a href="/about#personal-customized">私人定制</a></dd>--}}
+                {{--<dd><a href="/about#business-cooperation">商务合作</a></dd>--}}
+            {{--</dl>--}}
+            {{--<span>浙ICP备15036536号</span>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 @endsection
