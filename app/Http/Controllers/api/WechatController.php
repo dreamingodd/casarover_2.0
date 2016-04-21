@@ -13,8 +13,16 @@ class WechatController extends Controller
     public function setchange(Request $request)
     {
         $series = WechatSeries::find($request->id);
-        $series->status = $series->status == 1 ? 0 : 1;
-        $series->save();
-        return response()->json(['msg'=>'ok']);
+        if($series->thumbnail)
+        {
+            $series->status = $series->status == 1 ? 0 : 1;
+            $series->save();
+            $msg = 'ok';
+        }
+        else
+        {
+            $msg = '修改失败，请上传介绍图片';
+        }
+        return response()->json(['msg'=>$msg]);
     }
 }

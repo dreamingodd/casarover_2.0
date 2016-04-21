@@ -31,7 +31,7 @@
                 <td>{{$series->name}}</td>
                 <td>探庐系列</td>
                 <td>
-                    <input type="checkbox" @if($series->status) checked="checked" @endif onclick="setchange({{ $series->id }})" >
+                    <input type="checkbox" @if($series->status) checked="checked" @endif onclick="setchange({{ $series->id }},this)" >
                 </td>
                 <td>
                     <a href="/back/wechatSeriesEdit/{{ $series->id }}">
