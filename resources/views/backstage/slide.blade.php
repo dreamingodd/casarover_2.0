@@ -3,6 +3,7 @@
 <script src="{{ asset('assets/js/integration/vue.js') }}" type="text/javascript"></script>
 @endsection
 @section('body')
+    <input type="hidden" id="page" value="home"/>
     <div class="options vertical5">
         <a href="/back/slide/add">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加

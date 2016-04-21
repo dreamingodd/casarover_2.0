@@ -5,6 +5,7 @@
     <script src="/assets/js/recomCasa.js"></script>
 @endsection
 @section('body')
+    <input type="hidden" id="page" value="home"/>
     <div class="alert alert-success tip"  role="alert">修改成功</div>
     <div id="main">
         <div class="col-md-3">

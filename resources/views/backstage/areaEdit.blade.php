@@ -5,6 +5,7 @@
     <script src="{{ asset('assets/js/areaedit.js') }}" type="text/javascript"></script>
 @endsection
 @section('body')
+    <input type="hidden" id="page" value="area"/>
     <form action="{{ route('back.areas.update',$message->id) }}" id="area-form" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden" name="_method" value="PUT">

@@ -4,6 +4,7 @@
     <script src="/assets/js/themeArticle.js"></script>
 @endsection
 @section('body')
+    <input type="hidden" id="page" value="home"/>
     <div id="main">
         <div class="col-md-4">
             <h4>按主题查看</h4>

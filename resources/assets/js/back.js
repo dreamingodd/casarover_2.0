@@ -4,11 +4,19 @@ $(function(){
         e.preventDefault();
         alert('此功能期待完善！');
     });
+    $('.not_completed').click(function(e){
+        e.preventDefault();
+        alert('此功能期待完善！');
+    });
     // navigator select
     // 确认导航栏当前位置
     var page = $('#page').val();
     console.log(page + " page!");
     $('.' + page).addClass('active');
+    // 返回按钮
+    $('.goback').click(function(){
+        history.go(-1);
+    });
 });
 /**
  * Convert methods for textarea(HTML).
@@ -26,18 +34,6 @@ function BRtoLF(str) {
         return str;
     } else return str;
 }
-/**
- * e.g. www.casarover.com/casarover/
- */
-function getBaseUrl() {
-    var backstage_url = $('#backstage_url').val();
-    if (backstage_url) {
-        var end = backstage_url.lastIndexOf('casarover/') + 10;
-        return backstage_url.substring(0, end);
-    } else {
-        alert("Backstage url is missing!");
-    }
-}
 
 /**
  * e.g. www.casarover.com/
@@ -51,6 +47,38 @@ function getRootUrl() {
     }
 }
 
+/**
+ * Collect all the contents on the webpage before submit.
+ * Currently invoked by casaEdit.js, exEdit.js
+ */
+function collectContents() {
+    contents = [];
+    $('.content').each(function() {
+        var content = {};
+        content.name = $(this).children('.name').children(0).val();
+        content.text = $(this).children('textarea').val();
+        content.text = LFtoBR(content.text);
+        content.photos = [];
+        $(this).children('.oss_photo_tool').children('.oss_hidden_input').children().each(function() {
+            content.photos.push($(this).val());
+        });
+        contents.push(content);
+    });
+    return contents;
+}
+
+/**
+* e.g. www.casarover.com/casarover/
+*/
+// function getBaseUrl() {
+//     var backstage_url = $('#backstage_url').val();
+//     if (backstage_url) {
+//         var end = backstage_url.lastIndexOf('casarover/') + 10;
+//         return backstage_url.substring(0, end);
+//     } else {
+//         alert("Backstage url is missing!");
+//     }
+// }
 /** Below are photo upload action related*********************************************************/
 ///**The following methods are to upload a photo to Aliyun ECS linux server.
 // * Deprecated because we moved all photo resource to Aliyun OSS.

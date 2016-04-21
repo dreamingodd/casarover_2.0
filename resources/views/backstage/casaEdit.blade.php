@@ -143,9 +143,7 @@
                     <div class="oss_photo"></div>
                 </div>
                 <!-- OSS end -->
-                <div class="text col-lg-12 vertical5">
-                    <textarea rows="3" cols="150">{{$content->text}}</textarea>
-                </div>
+                <textarea name="text" class="form-control" rows="3">{{$content->text or ''}}</textarea>
             </div>
         @endforeach
         <!-- Content section ends. -->

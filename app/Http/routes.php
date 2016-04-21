@@ -32,7 +32,7 @@ Route::get('/about', function(){
 
 
 Route::group(['prefix' => 'back','middleware' => ['web']], function () {
-    Route::get('/', 'CasaController@casaList');
+    Route::get('/', 'SiteController@slide');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
     Route::get('casa/{id?}', 'CasaController@show');
@@ -77,14 +77,15 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
  * api route ，use for Vue，
 **/
 Route::group(['prefix' => 'api'],function () {
-    Route::get('home/recom/{id?}','api\HomeController@getCasasByCityId');
-    Route::get('home/series/','api\HomeController@getSeries');
-    Route::get('home/themes/','api\HomeController@getThemes');
-    Route::get('casa/recom/{id?}','api\CasaController@getCasasById');
-    Route::post('/recom/save/','api\CasaController@save');
-    Route::post('/theme/change/','api\ThemeController@setchange');
-    Route::post('/wechat/change/','api\WechatController@setchange');
-    Route::get('theme/article/{id}','api\ThemeController@getThemeArticle');
+    Route::get('home/recom/{id?}','Api\HomeController@getCasasByCityId');
+    Route::get('home/series/','Api\HomeController@getSeries');
+    Route::get('home/themes/','Api\HomeController@getThemes');
+    Route::get('casa/recom/{id?}','Api\CasaController@getCasasById');
+    Route::get('casa/slim/all', 'Api\CasaController@getSlimCasas');
+    Route::post('/recom/save/','Api\CasaController@save');
+    Route::post('/theme/change/','Api\ThemeController@setchange');
+    Route::post('/wechat/change/','Api\WechatController@setchange');
+    Route::get('theme/article/{id}','Api\ThemeController@getThemeArticle');
 });
 
 /**
@@ -95,6 +96,11 @@ Route::group(['prefix' => 'wx'],function () {
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
+    Route::get('trash/{deleted}', 'Wx\WxCasaController@showList');
     Route::get('casa/{id?}', 'Wx\WxCasaController@show');
-    Route::post('edit', 'Wx\WxCasaController@edit');
+    Route::post('casa/edit', 'Wx\WxCasaController@edit');
+    Route::get('casa/del/{id?}', 'Wx\WxCasaController@del');
+    Route::get('casa/restore/{id?}', 'Wx\WxCasaController@restore');
+    Route::get('room/{id}', 'Wx\WxRoomController@show');
+    Route::post('room/edit', 'Wx\WxRoomController@edit');
 });

@@ -1,11 +1,10 @@
 require.config({
     paths : {
         "oss_uploader" : "/assets/js/integration/oss_plupload.full.min",
-        "jquery":"//cdn.bootcss.com/jquery/2.1.2/jquery.min",
         "domready":"/assets/js/integration/domready"
     }
 });
-require(['jquery', 'oss_uploader', 'domready!'], function($, oss_uploader, domready){
+require(['oss_uploader', 'domready!'], function(oss_uploader, domready){
     var accessid = '';
     var host = '';
     var policyBase64 = '';
