@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="/assets/css/about.css">
 @endsection
 @section('body')
-    <img src="/assets/images/aboutus.jpg" alt="" class="banner">
+    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/aboutus.jpg" alt="" class="banner">
     <div class="main">
     <div class="part" id="about-us">
         <h2>--A--</h2>
@@ -95,7 +95,7 @@
     {{--<div class="footer">--}}
         {{--<h2>一种民宿，一种风情</h2>--}}
         {{--<p>只属于你的故事</p>--}}
-        {{--<img src="/assets/images/footer.png" alt="" class="">--}}
+        {{--<img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/footer.png" alt="" class="">--}}
         {{--<div class="footerbottom">--}}
             {{--<h3>关注我们</h3>--}}
             {{--<img src="{{ asset('assets/images/qcode.jpg') }} " height="100%" alt="二维码" class="qrcode">--}}

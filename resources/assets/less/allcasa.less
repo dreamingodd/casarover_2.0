@@ -1,4 +1,7 @@
-body{position: relative}
+@import "block/slider";
+body{
+  position: relative;
+}
 a,a:link,a:visited ,a:hover,a:active{
   text-decoration:none;
 }
@@ -12,29 +15,33 @@ ul,li,ol{
   padding: 0;
 }
 .main{
-  width: 978px;
+  width: 1253px;
   margin: 0px auto;
   .screen{
+    box-shadow: 5px 5px 10px #d6d6d6;
+    padding-bottom: 20px;
     margin: 30px auto;
-    background:#363230;
+    background: #fff;
     border-radius: 5px;
-    padding: 20px;
   }
   .case{
     display: inline-block;
-    width: 930px;
+    width: 1253px;
+    background: #fff;
   }
   p{
-    color: #fff;
+    color: black;
+    margin-left: 48px;
     line-height: 10px;
+    margin-right: 20px;
     .show{
       float: right;
-      color: #fff;
+      color: black;
     }
   }
   ul{
-    margin: -35px 0 10px 60px;
-    width: 800px;
+    margin: -35px 0 10px 150px;
+    width: 1000px;
     height: 30px;
     overflow: hidden;
   }
@@ -42,35 +49,23 @@ ul,li,ol{
     display: inline-block ;
     a{
       display: inline-block;
-      padding: 0 20px;
+      padding: 0 10px;
       height: 30px;
-      margin: 0 20px 20px 0;
+      margin: 0 40px 20px 0;
       text-align: center;
       border-radius: 3px;
       line-height: 30px;
-      color: #fff;
-      background: #363230;
+      color: #000;
+      background: #FFF;
       cursor: pointer;
     }
     a:hover{
-      color: #363230;
-      background: #fff;
+      color: #f85800;
     }
-    .active{ color: #363230;
-      background: #fff;}
+    .active{
+      color: #f85800;
+    }
   }
-  //.returntop{
-  //  display: block;
-  //  width: 50px;
-  //  height: 50px;
-  //  position: fixed;
-  //  right: 30px;
-  //  bottom: 50px;
-  //  border-radius: 9px ;
-  //  background: #e74430;
-  //  cursor: pointer;
-  //  opacity: 0;
-  //}
   .right-float-top,.right-float-middle,.right-float-bottom{z-index: 10;}
   .right-float-top,.right-float-middle{
     position: fixed;
@@ -82,19 +77,19 @@ ul,li,ol{
     font-size: 12px;
   }
   .right-float-top{
-    right: 31px;
+    right: 1px;
     bottom: 138px;
     background: url("/assets/images/rightfloat.png") 0 0;
   }
   .right-float-middle{
-    right: 31px;
+    right: 1px;
     bottom: 94px;
     background: url("/assets/images/rightfloat.png") 0 -44px;
   }
   .right-float-top:hover,.right-float-middle:hover{background: #aaaaaa;color: #fff}
   .right-float-bottom{
     position: fixed;
-    right: 31px;
+    right: 1px;
     bottom: 50px;
     width: 45px;
     height: 45px;
