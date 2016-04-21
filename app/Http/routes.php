@@ -41,7 +41,7 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::get('slide','SiteController@slide');
     Route::get('slide/add','SiteController@create');
     Route::get('slide/edit/{id}','SiteController@edit');
-    Route::post('slide/del/{id}','SiteController@del');
+    Route::post('slidedel','SiteController@del');
     Route::post('slide/store','SiteController@store');
     Route::get('recom','RecomController@index');
     Route::post('recom/update','RecomController@update');

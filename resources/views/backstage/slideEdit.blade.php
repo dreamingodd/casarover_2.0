@@ -34,41 +34,8 @@
             @endforeach
         </select>
         <button class="btn btn-primary" type="submit" id="submit">保存</button>
-        @if(isset($slide))
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
-            <i class="fa fa-times-circle"></i>
-            删除
-        </button>
-            @endif
     </form>
-    <div class="modal fade" id="modal-delete" tabIndex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        ×
-                    </button>
-                    <h4 class="modal-title">注意</h4>
-                </div>
-                <div class="modal-body">
-                    <p class="lead">
-                        <i class="fa fa-question-circle fa-lg"></i>
-                        确定删除吗？
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <form method="post" action="/back/slide/del/{{ $slide->id or '' }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                        </button>
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fa fa-times-circle"></i> 确定删除
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <script>
         $("#sel").val("{{ $slide->casa_id or 1 }}");
         $("#submit").click(function(){
