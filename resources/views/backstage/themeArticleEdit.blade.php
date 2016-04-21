@@ -40,7 +40,7 @@
         <label for="text">介绍内容</label>
         <textarea name="text" id="" cols="30" rows="10" class="form-control">{{ $article->text or null }}</textarea>
         <div class="col-md-4" style="margin: 10px">
-            <p>选择关联民宿</p>
+            <p>点击选择关联民宿</p>
             <input type="text" id="select-casa" class="form-control disabled" data-toggle="modal"
                    data-target="#casaSelectModal" readonly value="{{ $casa->name or '选择所属民宿' }}">
             <input type="hidden" id="casa-id" name="casa" value="{{ $casa->id or null }}">
@@ -71,7 +71,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">选择一家民宿</h4>
+                    <h4 class="modal-title" id="myModalLabel">搜索</h4>
                 </div>
                 <div class="modal-body" style="height:500px; overflow:scroll;">
                     <div class="search">

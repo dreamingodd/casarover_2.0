@@ -8,7 +8,8 @@ function setchange(themeId){
         success: function(data){
             $("body").append(data);
             if(data.msg){
-                alert("修改成功");
+                $('.alert').css('display','block');
+                $('.alert').delay("slow").slideUp(500);
             }
         }
     });

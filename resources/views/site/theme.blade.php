@@ -1,5 +1,5 @@
 @extends('site')
-@section('title','民宿')
+@section('title',$theme->name)
 @section('head')
     <link rel="stylesheet" href="/assets/css/themerecommend.css">
 @endsection

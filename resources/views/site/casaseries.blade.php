@@ -1,5 +1,5 @@
 @extends('site')
-@section('title','探庐系列')
+@section('title',$serie->name)
 @section('head')
     <link rel="stylesheet" href="/assets/css/casaseries.css">
 @endsection

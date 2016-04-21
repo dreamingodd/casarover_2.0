@@ -30,7 +30,8 @@ class AreaController extends Controller
     public function show($id)
     {
         $area = Area::find($id);
-        return view('site.area',compact('area'));
+        $casas = $area->casas()->take(4)->get();
+        return view('site.area',compact('area','casas'));
     }
 
     /**

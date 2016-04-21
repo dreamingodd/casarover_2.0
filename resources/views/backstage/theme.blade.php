@@ -13,6 +13,7 @@
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加主题
         </a>
     </div>
+    <div class="alert alert-success tip" role="alert">修改成功</div>
     <table class="table table-striped">
         <thead>
         <tr>
