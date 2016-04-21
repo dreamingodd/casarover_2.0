@@ -21,10 +21,10 @@
     <article class="casa-article">
         <div class="article-main">
             @foreach($casa->contents as $content)
-                @foreach($content->attachments as $photo)
+            @foreach($content->attachments as $photo)
                     <img src="{{ config('casarover.photo_folder').$photo->filepath }}" alt="" width="100%">
                 @endforeach
-                <br>
+                <h2>{{ $content->name }}</h2>
                 <p>{!! $content->text !!}</p>
             @endforeach
         </div>
