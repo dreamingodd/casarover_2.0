@@ -68,7 +68,6 @@ Route::group(['prefix' => 'back','middleware' => ['web']], function () {
     Route::post('theme/article/store','ThemeController@articleStore');
     Route::get('theme/article/edit/{id}','ThemeController@articleEdit');
     Route::post('theme/article/del/','ThemeController@articleDel');
-
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
 });
@@ -97,4 +96,7 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
     Route::get('casa/{id?}', 'Wx\WxCasaController@show');
     Route::post('edit', 'Wx\WxCasaController@edit');
+});
+Route::group(['prefix' => 'mobile'],function () {
+    Route::get('/home', 'SiteController@index');
 });

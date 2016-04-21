@@ -29,7 +29,7 @@
             <a href="/#series">探庐系列</a>
         </div>
     </nav>
-    <div class="container" id="main">
+    <div class="container" id="app">
         @if(config('casarover.toggle_recom'))
                 <!-- 民宿推荐 -->
         <section id="recom">
@@ -113,5 +113,4 @@
     </div>
     {{--测试如果放在下面能不能解决被提前加载的问题--}}
     <script src="/assets/js/home.js" type="text/javascript"></script>
-
 @stop

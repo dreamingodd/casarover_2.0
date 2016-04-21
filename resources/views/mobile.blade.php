@@ -30,39 +30,16 @@
         </div>
     </div>
     @yield('body')
-{{--<footer>--}}
-    {{--<div class="message">--}}
-        {{--<div class="pic">--}}
-            {{--<img src="{{ asset('assets/images/qcode.jpg') }} " height="100%" alt="二维码">--}}
-        {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="message">--}}
-        {{--<h3>公司</h3>--}}
-        {{--<ul>--}}
-            {{--<li><a href="/about#casarover">探庐者</a></li>--}}
-            {{--<li><a href="/about#about-us">关于我们</a></li>--}}
-            {{--<li><a href="/about#brand-culture">品牌文化</a></li>--}}
-            {{--<li><a href="/about#media-cooperation">媒体合作</a></li>--}}
-        {{--</ul>--}}
-    {{--</div>--}}
-    {{--<div class="message">--}}
-        {{--<h3>服务</h3>--}}
-        {{--<ul>--}}
-            {{--<li><a href="/about#free-promotion">免费推广</a></li>--}}
-            {{--<li><a href="/about#personal-customized">私人定制</a></li>--}}
-        {{--</ul>--}}
-    {{--</div>--}}
-    {{--<div class="message">--}}
-        {{--<h3>帮助中心</h3>--}}
-        {{--<ul>--}}
-            {{--<li><a href="/about#business-cooperation">商务合作</a></li>--}}
-            {{--<li><a href="/about#charge-standard">合作推广收费标准</a></li>--}}
-            {{--<li><a href="/about#contact-us">联系我们</a></li>--}}
-        {{--</ul>--}}
-    {{--</div>--}}
-    {{--<p>浙ICP备<span>15036536号</span></p>--}}
-{{--</footer>--}}
-{{--测试如果放在下面能不能解决被提前加载的问题--}}
+<footer>
+    <img src="{{ asset('assets/images/qcode.jpg') }} " height="100%" alt="二维码">
+    <div class="message">
+        <ul>
+            <li><a href="/about#about-us">用户反馈</a></li>
+            <li><a href="/about#about-us">关于我们</a></li>
+        </ul>
+    </div>
+    <p>浙ICP备<span>15036536号</span></p>
+</footer>
 <script src="/assets/js/home.js" type="text/javascript"></script>
 <script>
 

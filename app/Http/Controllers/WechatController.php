@@ -171,15 +171,15 @@ class WechatController extends Controller
     }
 
     public function book(){
-        return view('wechat.book');
+        return view('wx.wxIndex');
     }
     public function bookdetails(){
-        return view('wechat.bookdetails');
+        return view('wx.wxDetails');
     }
     public function bookpay(){
-        return view('wechat.bookpay');
+        return view('wx.wxPay');
     }
     public function wechatperson(){
-        return view('wechat.wechatperson');
+        return view('wx.wxPerson');
     }
 }
