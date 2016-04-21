@@ -49,33 +49,35 @@
 
     @yield('body')
 
-    <footer>
-        <div class="message">
-            <div class="pic">
-                <img src="{{ asset('assets/images/qcode.jpg') }} " height="100%" alt="二维码">
-            </div>
-        </div>
-        <div class="message">
-            <h3>公司</h3>
-            <ul>
-                <li><a href="/about#about-us">关于我们</a></li>
-                <li><a href="/about#media-cooperation">媒体合作</a></li>
-            </ul>
-        </div>
-        <div class="message">
-            <h3>服务</h3>
-            <ul>
-                <li><a href="/about#free-promotion">免费推广</a></li>
-                <li><a href="/about#personal-customized">私人定制</a></li>
-            </ul>
-        </div>
-        <div class="message">
-            <h3>帮助中心</h3>
-            <ul>
-                <li><a href="/about#business-cooperation">商务合作</a></li>
-                <li><a href="" class="icp">浙ICP备<span>15036536号</span></a></li>
-            </ul>
-        </div>
-    </footer>
+    {{--<footer>--}}
+        {{--<div class="message">--}}
+            {{--<div class="pic">--}}
+                {{--<img src="{{ asset('assets/images/qcode.jpg') }} " height="100%" alt="二维码">--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="message">--}}
+            {{--<h3>公司</h3>--}}
+            {{--<ul>--}}
+                {{--<li><a href="/about#about-us">关于我们</a></li>--}}
+                {{--<li><a href="/about#brand-culture">品牌文化</a></li>--}}
+                {{--<li><a href="/about#media-cooperation">媒体合作</a></li>--}}
+            {{--</ul>--}}
+        {{--</div>--}}
+        {{--<div class="message">--}}
+            {{--<h3>服务</h3>--}}
+            {{--<ul>--}}
+                {{--<li><a href="/about#charge-standard">合作推广</a></li>--}}
+                {{--<li><a href="/about#personal-customized">私人定制</a></li>--}}
+            {{--</ul>--}}
+        {{--</div>--}}
+        {{--<div class="message">--}}
+            {{--<h3>帮助中心</h3>--}}
+            {{--<ul>--}}
+                {{--<li><a href="/about#contact">联系我们</a></li>--}}
+                {{--<li><a href="/about#business-cooperation">商务合作</a></li>--}}
+                {{--<li><a href="" class="icp">浙ICP备<span>15036536号</span></a></li>--}}
+            {{--</ul>--}}
+        {{--</div>--}}
+    {{--</footer>--}}
 </body>
 </html>
