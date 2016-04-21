@@ -13,6 +13,7 @@
         <tr>
             <th>编号</th>
             <th>标题</th>
+            <th>对应民宿</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -21,7 +22,14 @@
         @foreach($slides as $slide)
         <tr>
             <th scope="row">{{ $num++ }}</th>
-            <td>{{ $slide->title }}</td>
+            <td>
+                @if(empty($slide->title))
+                    暂无
+                @else
+                    {{ $slide->title }}
+                @endif
+            </td>
+            <td>{{ $slide->casa->name }}</td>
             <td>
                <button class="btn btn-default"><a href="/back/slide/edit/{{ $slide->id }}">编辑</a></button>
             </td>

@@ -28,7 +28,8 @@ $(document).ready(function(){
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     success: function(data){
                         if(data.msg){
-                            alert("保存成功");
+                            $('.alert').css('display','block');
+                            $('.alert').delay("slow").slideUp(500);
                             vm.sel();
                         }
                     }

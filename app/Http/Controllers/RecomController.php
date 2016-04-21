@@ -11,7 +11,7 @@ class RecomController extends Controller
 {
     public function index()
     {
-        $areas = Area::where('level',3)->orwhere('value','上海') ->get();
+        $areas = Area::where('level',3)->whereNotIn('value', ['朱家角','黄浦区','其他'])->orwhere('value','上海') ->get();
         return view('backstage.recom',compact('areas'));
     }
 
@@ -37,7 +37,7 @@ class RecomController extends Controller
 
     public function casa()
     {
-        $areas = Area::where('level',3)->orwhere('value','上海') ->get();
+        $areas = Area::where('level',3)->whereNotIn('value', ['朱家角','黄浦区','其他'])->orwhere('value','上海') ->get();
         return view('backstage.recomCasa',compact('areas'));
     }
 
