@@ -1,7 +1,4 @@
 @extends('back')
-@section('head')
-<script src="{{ asset('assets/js/integration/vue.js') }}" type="text/javascript"></script>
-@endsection
 @section('body')
     <input type="hidden" id="page" value="home"/>
     <div class="options vertical5">
@@ -21,21 +18,59 @@
         <tbody id="app">
         <?php $num=1 ?>
         @foreach($slides as $slide)
-        <tr>
-            <th scope="row">{{ $num++ }}</th>
-            <td>
-                @if(empty($slide->title))
-                    暂无
-                @else
-                    {{ $slide->title }}
-                @endif
-            </td>
-            <td>{{ $slide->casa->name }}</td>
-            <td>
-               <button class="btn btn-default"><a href="/back/slide/edit/{{ $slide->id }}">编辑</a></button>
-            </td>
-        </tr>
-            @endforeach
+            <tr>
+                <th scope="row">{{ $num++ }}</th>
+                <td>
+                    @if(empty($slide->title))
+                        暂无
+                    @else
+                        {{ $slide->title }}
+                    @endif
+                </td>
+                <td>{{ $slide->casa->name }}</td>
+                <td>
+                    <button class="btn btn-default"><a href="/back/slide/edit/{{ $slide->id }}">编辑</a></button>
+                    <button type="button" onclick="del({{ $slide->id }})" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
+                        <i class="fa fa-times-circle"></i>
+                        删除
+                    </button>
+                </td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
+    <div class="modal fade" id="modal-delete" tabIndex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        ×
+                    </button>
+                    <h4 class="modal-title">注意</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="lead">
+                        <i class="fa fa-question-circle fa-lg"></i>
+                        真的删除吗？
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <form method="POST" action="/back/slidedel">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="id" id="delId">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-times-circle"></i> 确定删除
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function del(id){
+            $("#delId").val(id);
+        }
+    </script>
 @endsection
