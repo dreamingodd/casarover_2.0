@@ -1,12 +1,12 @@
 @extends('wxBase')
-@section('title','民宿预订')
+@section('title','探庐者－民宿详情')
 @section('head')
     <link href="/assets/css/wxDetails.css" rel="stylesheet"/>
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
 @stop
 @section('body')
-    <nav><a href="/wechatbook" class="glyphicon glyphicon-chevron-left"></a>
-        <a href="tel:12345678901" class="glyphicon glyphicon-earphone"></a>
+    <nav><a href="/wx" class="glyphicon glyphicon-chevron-left"></a>
+        <a href="tel:15868102935" class="glyphicon glyphicon-earphone"></a>
         <h1>探庐者</h1>
     </nav>
     <div class="flexslider">
@@ -32,9 +32,13 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="product">
                     @if (empty($wxCasa->casa_id))
-                        <p>
-                            self
-                        </p>
+                        @foreach ($wxCasa->contents as $content)
+                            <h2></h2>
+                            @foreach ($content->attachments as $attachment)
+                            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$attachment->filepath}}"/>
+                            @endforeach
+                            <p></p>
+                        @endforeach
                     @else
                         @foreach ($wxCasa->casa->contents as $content)
                             <h2>{{$content->name}}</h2>
@@ -58,7 +62,7 @@
             </div>
         </div>
     </div>
-    <a href="#" class="btn">立即购买</a>
+    <a href="/wx/order/{{$wxCasa->id}}" class="btn">立即购买</a>
     <script>
         $('.flexslider').flexslider({
             directionNav: true,
