@@ -31,10 +31,10 @@
     </div>
     @yield('body')
 <footer>
-    <img src="{{ asset('assets/images/qcode.jpg') }} " height="100%" alt="二维码">
     <div class="message">
         <ul>
             <li><a href="/about#about-us">用户反馈</a></li>
+            {{--<li><img src="{{ asset('assets/images/qcode.jpg') }} " height="100%" alt="二维码"></li>--}}
             <li><a href="/about#about-us">关于我们</a></li>
         </ul>
     </div>

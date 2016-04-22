@@ -1,5 +1,10 @@
 @a-hover:#ff8c00;
 @import "block/slider";
+.slides{
+  li{
+    height: 13rem;
+  }
+}
 @import "block/load";
 a,a:link,a:visited ,a:hover,a:active{
   text-decoration:none;
@@ -73,8 +78,10 @@ html{
   }
   margin-left: -2rem;
 }
+.container{
+  padding: 0 1rem;
+}
 section{
-  padding: 1rem;
   overflow: hidden;
 }
 .line{
@@ -96,9 +103,12 @@ section{
   text-align: center;
 }
 .casa-card{
-  padding: 1rem;
   .cardcon{
-    img{width: 28rem;}
+    width: 28rem;
+    margin: 0 auto;
+    img{
+      width: 100%;
+    }
   }
 }
 footer{
@@ -115,9 +125,7 @@ footer{
       margin: 2.2rem 2.2rem 0 0;
       li{
         display: inline-block;
-      };
-      li:nth-child(1){
-        margin-right: 6rem;
+        margin: 0 3rem;
         font-size: 2rem;
       }
     a{

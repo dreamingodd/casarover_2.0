@@ -140,7 +140,6 @@ class CasaController extends BaseController
    public function allcasa()
    {
        $citys = Area::where('level','3')->orwhere('value','上海')->get();
-       dd($citys);
        return view('site.allcasa');
    }
 
