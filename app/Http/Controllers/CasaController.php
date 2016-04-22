@@ -132,8 +132,15 @@ class CasaController extends BaseController
        $casa->headImg = config('casarover.photo_folder').$casa->attachment->filepath;
        return view('site.casa',compact('casa'));
    }
+    /**
+     * 民宿大全
+     * 这里传入信息，所有城市，被选中城市，轮播图信息
+     * 其他下面显示的部分是由vue进行处理
+    **/
    public function allcasa()
    {
+       $citys = Area::where('level','3')->orwhere('value','上海')->get();
+       dd($citys);
        return view('site.allcasa');
    }
 
