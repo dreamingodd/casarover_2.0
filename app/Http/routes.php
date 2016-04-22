@@ -81,6 +81,9 @@ Route::group(['prefix' => 'api'],function () {
     Route::post('/theme/change/','Api\ThemeController@setchange');
     Route::post('/wechat/change/','Api\WechatController@setchange');
     Route::get('theme/article/{id}','Api\ThemeController@getThemeArticle');
+    //民宿大全
+    Route::get('areas/{id?}','Api\AllCasaController@getAreasByCityId');
+    Route::get('casas/city/{id?}/areas/{areas?}','Api\AllCasaController@getCasas');
 });
 
 /**
