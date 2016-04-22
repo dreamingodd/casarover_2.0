@@ -70,4 +70,6 @@ class CasaController extends Controller
         usort($slimCasas, 'App\Common\CommonTools::sortCasaCode');
         return response()->json($slimCasas);
     }
+
+//    民宿大全部分
 }

@@ -8,7 +8,9 @@
             <!-- 民宿大图  -->
     <div class="banner">
         <div class="cover-photo">
-            <img src="{{ config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath }}" width="100%" alt="">
+            @if($area->contents[1]->attachmets)
+                <img src="{{ config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath }}" width="100%" alt="">
+            @endif
         </div>
         <div class="guide-mess">
             <h1>{{ $area->value }}</h1>
@@ -80,7 +82,7 @@
         });
     </script>
     <script>
-//        底部民宿卡片添加多种显示方式
+        //        底部民宿卡片添加多种显示方式
         $(".card-c").each(function(i){
             if(i ==1 || i ==2 ){
                 $(this).addClass('card-d');

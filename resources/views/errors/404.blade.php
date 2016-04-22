@@ -37,6 +37,8 @@
         }
         a{
             text-decoration: none;
+            margin-top: 30px;
+            display: block;
         }
     </style>
 </head>
@@ -44,6 +46,7 @@
 <div class="container">
     <div class="content">
         <div class="title">页面不存在</div>
+        <a href="" onclick="history.back()">返回上一页</a>
         <a href="/">返回首页</a>
     </div>
 </div>

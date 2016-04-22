@@ -1,6 +1,15 @@
 @import "block/slider";
+@a-hover:#ff8c00;
+@import "block/load";
+p,h1,h2,h3,h4,h5,h6,dl,dt,dd{
+  margin: 0;
+  padding: 0;
+}
 body{
   position: relative;
+}
+.loader{
+  text-align: center;
 }
 a,a:link,a:visited ,a:hover,a:active{
   text-decoration:none;
@@ -14,9 +23,10 @@ ul,li,ol{
   margin: 0;
   padding: 0;
 }
+.all{
+  padding: 0 50px;
+}
 .main{
-  width: 1253px;
-  margin: 0px auto;
   .screen{
     box-shadow: 5px 5px 10px #d6d6d6;
     padding-bottom: 20px;
@@ -26,44 +36,43 @@ ul,li,ol{
   }
   .case{
     display: inline-block;
-    width: 1253px;
     background: #fff;
-  }
-  p{
-    color: black;
-    margin-left: 48px;
-    line-height: 10px;
-    margin-right: 20px;
-    .show{
-      float: right;
+    p{
       color: black;
+      margin: 36px 20px 0 48px;
+      z-index: 2;
+      .show{
+        float: right;
+        color: black;
+      }
     }
-  }
-  ul{
-    margin: -35px 0 10px 150px;
-    width: 1000px;
-    height: 30px;
-    overflow: hidden;
-  }
-  ul li,ol li{
-    display: inline-block ;
-    a{
-      display: inline-block;
-      padding: 0 10px;
+    ul{
+      margin: -23px 0 10px 150px;
+      width: 70%;
       height: 30px;
-      margin: 0 40px 20px 0;
-      text-align: center;
-      border-radius: 3px;
-      line-height: 30px;
-      color: #000;
-      background: #FFF;
-      cursor: pointer;
+      overflow: hidden;
+      z-index: 1;
     }
-    a:hover{
-      color: #f85800;
-    }
-    .active{
-      color: #f85800;
+    ul li{
+      display: inline-block ;
+      a{
+        display: inline-block;
+        padding: 0 10px;
+        height: 30px;
+        margin: 0 40px 20px 0;
+        text-align: center;
+        border-radius: 3px;
+        line-height: 30px;
+        color: #000;
+        background: #FFF;
+        cursor: pointer;
+      }
+      a:hover{
+        color: #f85800;
+      }
+      .active{
+        color: #f85800;
+      }
     }
   }
   .right-float-top,.right-float-middle,.right-float-bottom{z-index: 10;}
@@ -104,5 +113,47 @@ ul,li,ol{
     border-bottom: 10px solid #fff;
     border-right: 10px solid transparent;
     border-left: 10px solid transparent;
+  }
+}
+section{
+  .card{
+    width: 31%;
+    padding-bottom: 10px;
+    cursor: pointer ;
+    float: left;
+    margin: 0 1% 40px 1%;
+    background: #fff;
+  }
+  img{
+    width: 100%;
+  }
+  .card:hover{
+    box-shadow: 5px 5px 10px #d6d6d6;
+  }
+  h3{
+    font-size: 16px;
+    line-height: 24px;
+    margin: 8px 0 0 15px;
+  }
+  p{
+    font-size: 12px;
+    line-height: 20px;
+    text-align: left;
+    margin-left: 15px;
+  }
+  ul{
+    margin: -20px 0 0 55px;
+    height: 22px;
+    overflow: hidden;
+    li{
+      display: inline-block;
+      border-radius: 5px;
+      background: #ff8c00;
+      color: #fff;
+      padding: 2px 5px;
+      font-size: 12px;
+      margin: 0 5px 5px 0;
+
+    }
   }
 }
