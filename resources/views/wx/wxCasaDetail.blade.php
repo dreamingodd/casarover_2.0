@@ -37,7 +37,7 @@
                         </p>
                     @else
                         @foreach ($wxCasa->casa->contents as $content)
-                            <p>{{$content->name}}</p>
+                            <h2>{{$content->name}}</h2>
                             @foreach ($content->attachments as $attachment)
                             <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$attachment->filepath}}"/>
                             @endforeach
