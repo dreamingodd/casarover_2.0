@@ -22,11 +22,11 @@
     <nav class="navbar">
         <div class="navcon">
             @if(config('casarover.toggle_allcasa'))
-                <a href="/allcasa">民宿大全</a>
+                <a href="/mobile/allcasa">民宿大全</a>
             @endif
-            <a href="/#recom">民宿推荐</a>
-            <a href="/#theme">精选主题</a>
-            <a href="/#series">探庐系列</a>
+            <a href="/mobile/home#recom">民宿推荐</a>
+            <a href="/mobile/home#theme">精选主题</a>
+            <a href="/mobile/home#series">探庐系列</a>
         </div>
     </nav>
     <div class="container" id="app">
@@ -51,7 +51,7 @@
             </div>
             <div class="casa-card" v-for="casa in casas" transition="expand">
                 <div class="cardcon">
-                    <a href="casa/@{{ casa.id }}" target="_blank">
+                    <a href="/mobile/casa/@{{ casa.id }}" target="_blank">
                         <img :src="casa.pic" >
                         <div class="info">
                             <div class="middle">
@@ -72,7 +72,7 @@
                     <div class="line"></div>
                     <div class="casa-card" v-for="theme in themes">
                         <div class="cardcon">
-                            <a href="theme/@{{ theme.id }}" target="_blank">
+                            <a href="/mobile/theme/@{{ theme.id }}" target="_blank">
                                 <img :src="theme.pic" height="100%">
                                 <div class="info">
                                     <div class="middle">
@@ -97,7 +97,7 @@
                     </div>
                     <div class="casa-card" v-for="serie in series">
                         <div class="cardcon">
-                            <a href="casaserise/@{{ serie.type }}/@{{ serie.id }}" target="_blank">
+                            <a href="/mobile/casaserise/@{{ serie.type }}/@{{ serie.id }}" target="_blank">
                                 <img :src="serie.pic" height="100%">
                                 <div class="info">
                                     <div class="middle">

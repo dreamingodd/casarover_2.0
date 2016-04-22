@@ -17,7 +17,7 @@ class ThemeController extends Controller
         return view('backstage.theme',compact('themes'));
     }
 
-    public function show($id)
+    public function show($id,Request $request)
     {
         $theme = Theme::find($id);
         $others = Theme::whereNotIn('id',[$id])->orderBy('id','asc')->where('status',1)->get();
@@ -26,7 +26,10 @@ class ThemeController extends Controller
         {
             $otherTheme->pic = config('casarover.image_folder').$otherTheme->attachment->filepath;
         }
-        return view('site.theme',compact('theme','contents','others'));
+        if(strpos($request->url(), 'mobile'))
+            return  view('mobile.theme',compact('theme','contents','others'));
+        else
+            return view('site.theme',compact('theme','contents','others'));
     }
     public function create()
     {

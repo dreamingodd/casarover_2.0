@@ -78,11 +78,12 @@ $(document).ready(function(){
             changeBr:function(){
                 //对info中的br进行处理
                 $('.info p').each(function () {
+                    console.log(123);
                     var str = $(this).html();
                     str = str.split('<BR/>').join('\n');
                     str = str.split('&lt;BR/&gt;').join('\n');
                     $(this).text(str);
-                })
+                });
             }
         }
     });

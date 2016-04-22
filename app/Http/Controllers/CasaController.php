@@ -126,11 +126,14 @@ class CasaController extends BaseController
             return redirect('/back/casaList/1');
         }
     }
-   public function casaInfo($id)
+   public function casaInfo($id,Request $request)
    {
        $casa = Casa::find($id);
        $casa->headImg = config('casarover.photo_folder').$casa->attachment->filepath;
-       return view('site.casa',compact('casa'));
+       if(strpos($request->url(), 'mobile'))
+           return  view('mobile.casa',compact('casa'));
+       else
+           return view('site.casa',compact('casa'));
    }
     /**
      * 民宿大全
