@@ -93,7 +93,7 @@ Route::group(['prefix' => 'wx'],function () {
     Route::get('/', 'Wx\WxSiteController@index');
     Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
-    Route::get('/order', 'Wx\WxSiteController@order');
+    Route::get('/order/{id}', 'Wx\WxSiteController@order');
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');

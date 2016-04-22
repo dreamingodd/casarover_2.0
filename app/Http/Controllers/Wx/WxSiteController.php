@@ -30,8 +30,9 @@ class WxSiteController extends Controller
         return view('wx.wxUser');
     }
 
-    public function order() {
-        return view('wx.wxPay');
+    public function order($id) {
+        $wxCasa = WxCasa::find($id);
+        return view('wx.wxOrder', compact('wxCasa'));
     }
 
     private function convertToViewCasa(WxCasa $casa) {
