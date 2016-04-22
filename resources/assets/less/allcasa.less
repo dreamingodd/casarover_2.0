@@ -23,9 +23,10 @@ ul,li,ol{
   margin: 0;
   padding: 0;
 }
+.all{
+  padding: 0 50px;
+}
 .main{
-  width: 1253px;
-  margin: 0 auto;
   .screen{
     box-shadow: 5px 5px 10px #d6d6d6;
     padding-bottom: 20px;
@@ -35,11 +36,11 @@ ul,li,ol{
   }
   .case{
     display: inline-block;
-    width: 1253px;
     background: #fff;
     p{
       color: black;
       margin: 36px 20px 0 48px;
+      z-index: 2;
       .show{
         float: right;
         color: black;
@@ -47,9 +48,10 @@ ul,li,ol{
     }
     ul{
       margin: -23px 0 10px 150px;
-      width: 1000px;
+      width: 70%;
       height: 30px;
       overflow: hidden;
+      z-index: 1;
     }
     ul li{
       display: inline-block ;
@@ -114,15 +116,16 @@ ul,li,ol{
   }
 }
 section{
-  width: 1275px;
-  margin: 0 auto;
   .card{
-    width: 404px;
-    height: 466px;
+    width: 31%;
+    padding-bottom: 10px;
     cursor: pointer ;
     float: left;
-    margin: 0 10px 40px 10px;
+    margin: 0 1% 40px 1%;
     background: #fff;
+  }
+  img{
+    width: 100%;
   }
   .card:hover{
     box-shadow: 5px 5px 10px #d6d6d6;
