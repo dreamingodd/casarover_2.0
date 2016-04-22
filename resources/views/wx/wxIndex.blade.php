@@ -24,7 +24,10 @@
                     @if (count($casa->wxRooms) > 0)
                         <div class="case">
                             <div class="image">
-                                <a href="/wx/casa/{{$casa->id}}"><img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}" alt=""></a>
+                                <a href="/wx/casa/{{$casa->id}}">
+                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}"
+                                            alt="">
+                                </a>
                                 <span>¥{{$casa->cheapestPrice}}元起</span>
                             </div>
                             <p>{{$casa->name or ""}}</p>
