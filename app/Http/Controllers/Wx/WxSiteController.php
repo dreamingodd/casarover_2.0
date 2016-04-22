@@ -21,7 +21,9 @@ class WxSiteController extends Controller
     }
 
     public function casa($id) {
-        return view('wx.wxCasaDetail');
+        $wxCasa = WxCasa::find($id);
+        $this->convertToViewCasa($wxCasa);
+        return view('wx.wxCasaDetail', compact('wxCasa'));
     }
 
     public function user() {
