@@ -12,10 +12,6 @@ use Illuminate\Support\Str;
 
 class WxCasaController extends BaseController
 {
-    public function index() {
-        $wxCasas = WxCasa::orderBy('id', 'desc')->get();
-        return view('wx.wxIndex', compact('wxCasas'));
-    }
     public function showList($deleted = 0) {
         $wxCasas = null;
         if ($deleted) {

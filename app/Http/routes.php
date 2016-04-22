@@ -21,10 +21,6 @@ Route::get('/casaserise/{type}/{series?}', 'CasaSeriesController@casas');
 Route::get('/allcasa','CasaController@allcasa');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
-Route::get('/wechatbook', 'WechatController@book');
-Route::get('/bookdetails', 'WechatController@bookdetails');
-Route::get('/bookpay', 'WechatController@bookpay');
-Route::get('/wechatperson', 'WechatController@wechatperson');
 Route::get('/theme/{id}','ThemeController@show');
 Route::get('/about', function(){
     return view('site.about');
@@ -94,7 +90,10 @@ Route::group(['prefix' => 'api'],function () {
  * wechat public routess
  */
 Route::group(['prefix' => 'wx'],function () {
-    Route::get('/', 'Wx\WxCasaController@index');
+    Route::get('/', 'Wx\WxSiteController@index');
+    Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
+    Route::get('/user', 'Wx\WxSiteController@user');
+    Route::get('/order', 'Wx\WxSiteController@order');
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
@@ -106,6 +105,8 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('room/{id}', 'Wx\WxRoomController@show');
     Route::post('room/edit', 'Wx\WxRoomController@edit');
 });
+
+/** Routes for mobile phone. */
 Route::group(['prefix' => 'mobile'],function () {
     Route::get('/home', 'SiteController@index');
 });

@@ -1,10 +1,10 @@
 $(function(){
     // 未完成功能
-    $('.not_complete').click(function(e){
+    $('body').on('click', '.not_complete', function(e) {
         e.preventDefault();
         alert('此功能期待完善！');
     });
-    $('.not_completed').click(function(e){
+    $('body').on('click', '.not_completed', function(e) {
         e.preventDefault();
         alert('此功能期待完善！');
     });

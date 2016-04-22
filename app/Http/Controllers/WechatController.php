@@ -170,16 +170,4 @@ class WechatController extends Controller
         return redirect('back/wechatSeriesList');
     }
 
-    public function book(){
-        return view('wx.wxIndex');
-    }
-    public function bookdetails(){
-        return view('wx.wxDetails');
-    }
-    public function bookpay(){
-        return view('wx.wxPay');
-    }
-    public function wechatperson(){
-        return view('wx.wxPerson');
-    }
 }
