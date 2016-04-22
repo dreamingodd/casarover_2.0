@@ -3,21 +3,38 @@
 @section('head')
 <link href="/assets/css/wxOrder.css" rel="stylesheet"/>
 <script type="text/javascript">
+    function total(){
+        totals=0;
+        price=0;
+        counts=0;
+        $('.room').each(function(){
+            if ($(this).children('.quantity').css('display') == 'block') {
+                counts=  $(this).find('.room_quantity').html();
+                price = $(this).find('.price').html().replace('￥','');
+                totals=totals + parseFloat(counts) * parseFloat(price);
+                console.log(totals);
+            }
+        });
+        $('#total').children('i').html(totals);
+    }
 $(function() {
     window.onload=function(){
         $('.detail').click(function() {
             $(this).next().toggle();
             $(this).children('span').children('em').toggle();
+            total();
         });
         $(".reduce").click(function(){
             var i = parseInt($(this).parents('.room').find('.room_quantity').html());
             if(i<=1)
             return 0;
             $(this).parents('.room').find('.room_quantity').html(--i);
+            total();
         });
         $(".add").click(function(){
             var i = parseInt($(this).parents('.room').find('.room_quantity').html());
             $(this).parents('.room').find('.room_quantity').html(++i);
+            total();
         });
     }
     $('#submitBtn').click(function(){
@@ -57,6 +74,7 @@ $(function() {
             </div>
         </div>
     @endforeach
+    <p id="total">总价：<i>0</i>元</p>
     <form action="" method="">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden" value="" id="counts">
