@@ -18,16 +18,16 @@
     <!-- logo -->
     <div  class="navbartop">
         <div class="nav-left">
-            <a href="/" class="logo">
+            <a href="/mobile/home" class="logo">
                 <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
             </a>
         </div>
         {{--<div class="nav-middle">--}}
             {{--<input type="text" placeholder="搜索民宿">--}}
         {{--</div>--}}
-        <div class="nav-right">
-            <a href="">登录</a>
-        </div>
+        {{--<div class="nav-right">--}}
+            {{--<a href="">登录</a>--}}
+        {{--</div>--}}
     </div>
     @yield('body')
 <footer>
@@ -40,8 +40,5 @@
     <p>浙ICP备15036536号</p>
 </footer>
 <script src="/assets/js/home.js" type="text/javascript"></script>
-<script>
-
-</script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 @section('title','探庐者')
 @section('head')
     <link href="/assets/css/wx.css " rel="stylesheet"/>
+    <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
 @stop
 @section('body')
     <nav>
@@ -11,6 +12,18 @@
         <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/logo.png"/>
         <a href="/wechatperson" class="glyphicon glyphicon-user"></a>
     </nav>
+    <div class="flexslider">
+        <ul class="slides">
+            <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/image/image_20160419-094608-425r3598.jpg') ; background-size:100% 100%;">
+                <a href="#" target="_blank" class="slide-a">
+                </a>
+            </li>
+            <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/image/image_20160419-094608-425r3598.jpg') ; background-size:100% 100%;">
+                <a href="#" target="_blank" class="slide-a">
+                </a>
+            </li>
+        </ul>
+    </div>
     <div class="tabtable">
         <!--
         <ul class="nav nav-tabs">
@@ -40,4 +53,10 @@
             </div>
         </div>
     </div>
+    <script>
+        $('.flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false
+        });
+    </script>
 @stop

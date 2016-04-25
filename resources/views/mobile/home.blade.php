@@ -1,7 +1,6 @@
 @extends('mobile')
 @section('title','探庐者')
 @section('head')
-    {{--<link rel="stylesheet" href="/assets/css/home.css">--}}
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
 @endsection
@@ -22,7 +21,7 @@
     <nav class="navbar">
         <div class="navcon">
             @if(config('casarover.toggle_allcasa'))
-                <a href="/mobile/allcasa">民宿大全</a>
+                {{--<a href="/mobile/allcasa">民宿大全</a>--}}
             @endif
             <a href="/mobile/home#recom">民宿推荐</a>
             <a href="/mobile/home#theme">精选主题</a>
@@ -90,14 +89,9 @@
                 <section id="series">
                     <h2>探庐系列</h2>
                     <div class="line"></div>
-                    <div class="city-list">
-                        @foreach($citys as $city)
-                            <a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>
-                        @endforeach
-                    </div>
                     <div class="casa-card" v-for="serie in series">
                         <div class="cardcon">
-                            <a href="/mobile/casaserise/@{{ serie.type }}/@{{ serie.id }}" target="_blank">
+                            <a href="/mobile/casaseries/@{{ serie.type }}/@{{ serie.id }}" target="_blank">
                                 <img :src="serie.pic" height="100%">
                                 <div class="info">
                                     <div class="middle">
