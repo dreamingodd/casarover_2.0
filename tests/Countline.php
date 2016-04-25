@@ -1,15 +1,25 @@
 <?php
-
+/**
+ * Must be put in the folder like project/tests
+ */
 
 // 结尾不能加反斜杠
 // Countline::count("/Applications/XAMPP/xamppfiles/htdocs/php_oop");
-Countline::count("/Applications/XAMPP/xamppfiles/htdocs/casarover_2.0");
+$projectPath = str_replace('/tests', '', __DIR__);
+echo "Path: " . $projectPath . "\n";
+Countline::count($projectPath);
 // Countline::count(__FILE__);
 // var_dump(FileUtils::listAllFiles("/Applications/XAMPP/xamppfiles/htdocs/casarover_2.0/database"));
 // var_dump(FileUtils::listAllFiles(__FILE__));
 echo "\n";
 
 class Countline {
+    /** File types which would be counted. */
+    private static $fileTypes = [
+        '.php',
+        '.js',
+        '.less',
+    ];
     /** File in this list must be included.
      * ##Only File.
      */
@@ -40,11 +50,6 @@ class Countline {
         "/gulpfile.js",
         "/resources/assets/js/integration",
         "/app/oss",
-    ];
-    private static $fileTypes = [
-        '.php',
-        '.js',
-        '.less',
     ];
     private static $codeLineCount = 0;
     private static $commentLineCount = 0;
