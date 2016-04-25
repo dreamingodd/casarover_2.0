@@ -21,10 +21,6 @@ class SiteController extends Controller
             $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
         }
         $citys = Area::where('status',1)->get();
-
-        $theme = Theme::where('status',1)->get();
-        $themeNum = count($theme);
-        $status = $themeNum >2 ? true:false;
         if(strpos($request->url(), 'mobile'))
             return  view('mobile.home',compact('casas','citys','status'));
         else

@@ -139,9 +139,12 @@ class CasaController extends BaseController
     **/
    public function allcasa()
    {
-       $citys = Area::where('level','3')->orwhere('value','上海')->get();
-       dd($citys);
-       return view('site.allcasa');
+       $citys = Area::where('level','3')->whereNotIn('value', ['朱家角','黄浦区','其他'])->orwhere('value','上海')->get();
+       //随机，应该是指定两个
+       $areas = Area::where('level','4')->get()->random(2);
+       //默认被选中的city 为杭州
+       $sel = 7;
+       return view('site.allcasa',compact('citys','areas','sel'));
    }
 
     private function updateSimpleCasa($casa, $casaData) {
