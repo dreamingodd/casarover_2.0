@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
-Route::get('/casaserise/{type}/{series?}', 'CasaSeriesController@casas');
+Route::get('/casaseries/{type}/{series?}', 'CasaSeriesController@casas');
 Route::get('/allcasa','CasaController@allcasa');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
@@ -93,7 +93,7 @@ Route::group(['prefix' => 'wx'],function () {
     Route::get('/', 'Wx\WxSiteController@index');
     Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
-    Route::get('/order', 'Wx\WxSiteController@order');
+    Route::get('/order/{id}', 'Wx\WxSiteController@order');
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
@@ -109,4 +109,8 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
 /** Routes for mobile phone. */
 Route::group(['prefix' => 'mobile'],function () {
     Route::get('/home', 'SiteController@index');
+    Route::get('/casa/{id}' , 'CasaController@casaInfo');
+    Route::get('/casaseries/{type}/{series?}', 'CasaSeriesController@casas');
+    Route::get('/allcasa','CasaController@allcasa');
+    Route::get('/theme/{id}','ThemeController@show');
 });

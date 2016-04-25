@@ -122,7 +122,7 @@ if($ua != '' && preg_match($uachar, $ua)){
                 <div class="line"></div>
                 <div class="casa-card" v-for="serie in series">
                     <div class="card-b">
-                        <a href="casaserise/@{{ serie.type }}/@{{ serie.id }}" target="_blank">
+                        <a href="casaseries/@{{ serie.type }}/@{{ serie.id }}" target="_blank">
                             <img :src="serie.pic" height="100%">
                             <div class="card">
                                 <h3>@{{ serie.name }}</h3>

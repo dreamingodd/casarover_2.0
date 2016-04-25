@@ -79,7 +79,7 @@ $(document).ready(function(){
                     str = str.split('<BR/>').join('\n');
                     str = str.split('&lt;BR/&gt;').join('\n');
                     $(this).text(str);
-                })
+                });
             }
         }
     });

@@ -68,6 +68,24 @@ function collectContents() {
 }
 
 /**
+ * Below 3 methods are input parameter check methods.
+ * @param str input
+ * @returns whether the input string is standard.
+ */
+function isCellphoneNumber(str) {
+    var pattern = /^\d{11}$/;
+    return pattern.test(str);
+}
+function isLegalPassword(str) {
+    var pattern1 = /([a-zA-z]+\d+)|(\d+[a-zA-z]+)/;
+    var pattern2 = /\w{6,}/;
+    return pattern1.test(str) && pattern2.test(str);
+}
+function isLegalVerify_code(str) {
+    var pattern = /^\d{6}$/;
+    return pattern.test(str);
+}
+/**
 * e.g. www.casarover.com/casarover/
 */
 // function getBaseUrl() {
