@@ -24,9 +24,6 @@ $(document).ready(function(){
                 scroll:null
             };
         },
-        compiled:function(){
-            this.changeBr();
-        },
         ready:function(){
           this.turn(7);
         },
@@ -52,8 +49,8 @@ $(document).ready(function(){
                 vm = this;
                 $.getJSON('/api/home/series/',function (data) {
                     vm.series = data;
-                    //this.changeBr();
                     this.scrollTo();
+                    this.changeBr();
                 }.bind(vm));
             },
             scrollTo:function(){
@@ -77,8 +74,7 @@ $(document).ready(function(){
             },
             changeBr:function(){
                 //对info中的br进行处理
-                $('.info p').each(function () {
-                    console.log(123);
+                $('.middle p').each(function () {
                     var str = $(this).html();
                     str = str.split('<BR/>').join('\n');
                     str = str.split('&lt;BR/&gt;').join('\n');
