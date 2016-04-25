@@ -140,9 +140,12 @@ class CasaController extends BaseController
      * 这里传入信息，所有城市，被选中城市，轮播图信息
      * 其他下面显示的部分是由vue进行处理
     **/
-   public function allcasa()
+   public function allcasa(Request $request)
    {
        $citys = Area::where('level','3')->orwhere('value','上海')->get();
+       if(strpos($request->url(), 'mobile'))
+           return  view('mobile.home',compact('casas','citys','status'));
+       else
        return view('site.allcasa');
    }
 
