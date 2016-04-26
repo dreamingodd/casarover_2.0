@@ -2,6 +2,9 @@
 @import "block/slider";
 @import "block/load";
 //标签选择
+body{
+  position: relative;
+}
 .all{
   width: 90%;
   height:100%;
@@ -70,9 +73,22 @@
   text-align: center;
 }
 //
-.right-float-top,.right-float-middle,.right-float-bottom{z-index: 10;}
-.right-float-top,.right-float-middle{
+.scroll-back{
   position: fixed;
+  right: 1px;
+  bottom: 138px;
+  z-index: 10;
+}
+.top{
+  position: absolute;
+  right: 1px;
+  bottom: 330px;
+}
+.right-float-top,.right-float-middle,.right-float-bottom{
+  display: block;
+}
+.right-float-top,.right-float-middle{
+  //position: fixed;
   width: 25px;
   height: 25px;
   text-align: center;
@@ -81,25 +97,38 @@
   font-size: 12px;
 }
 .right-float-top{
-  right: 1px;
-  bottom: 138px;
+  //right: 1px;
+  //bottom: 138px;
   background: url("/assets/images/rightfloat.png") 0 0;
 }
 .right-float-middle{
-  right: 1px;
-  bottom: 94px;
+  //right: 1px;
+  //bottom: 94px;
   background: url("/assets/images/rightfloat.png") 0 -44px;
 }
 .right-float-top:hover,.right-float-middle:hover{background: #aaaaaa;color: #fff}
 .right-float-bottom{
-  position: fixed;
-  right: 1px;
-  bottom: 50px;
+  //position: fixed;
+  //right: 1px;
+  //bottom: 50px;
+  position: relative;
   width: 45px;
   height: 45px;
   background: url("/assets/images/rightfloat.png") 0 -88px;
+  span{
+    display: none;
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    left: -100px;
+    bottom: 0;
+    background: url("/assets/images/qcode.jpg");
+    background-size: 100px;
+  }
 }
-.right-float-bottom:hover{background: url('/assets/images/wxqrcode.png')}
+.right-float-bottom:hover{
+  background: url('/assets/images/wxqrcode.png');
+}
 .caret {
   width: 0;
   height: 0;
