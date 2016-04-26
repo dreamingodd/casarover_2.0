@@ -1,8 +1,8 @@
 @extends('site')
-@section('title','民宿')
+@section('title','民宿大全')
 @section('head')
     <link rel="stylesheet" href="/assets/css/allcasa.css">
-    <script src="{{ asset('assets/js/integration/jquery.flexslider-min.js') }}" type="text/javascript"></script>
+    <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
     <script src="/assets/js/allcasa.js" type="text/javascript"></script>
 @endsection
@@ -12,7 +12,7 @@
             @foreach($areas as $area)
                 @if(!empty($area->contents[1]->attachments[0]))
                 <li style="background:url({{ config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath }}); background-size:100% 100%;">
-                    <a href="area/{{ $area->id }}" target="_blank" class="slide-a">
+                    <a href="/area/{{ $area->id }}" target="_blank" class="slide-a">
                         {{--<div class="slide-mess">{{ $area->value }}</div>--}}
                     </a>
                 </li>
@@ -25,6 +25,7 @@
             <div class="screen">
                 <div class="case">
                     <div class="sel-key">
+                        <input type="hidden" v-model="city" value="{{ $sel }}">
                         <span>城市</span>
                     </div>
                     <div class="sel-val">
@@ -64,7 +65,7 @@
         <section id="casa-list">
             <template v-for="casa in casas" block transition="expand">
                 <div class="card">
-                    <a href="casa/@{{ casa.id }}" target="_blank">
+                    <a href="/casa/@{{ casa.id }}" target="_blank">
                         <img :src="casa.pic" width="100%" alt="@{{ casa.pic }}">
                         <h3>@{{ casa.name }}</h3>
                         {{--<p>地址：西湖区灵隐支路白乐桥246号</p>--}}
