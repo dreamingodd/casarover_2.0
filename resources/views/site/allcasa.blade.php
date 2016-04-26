@@ -59,8 +59,8 @@
             </div>
         </div>
         {{--民宿显示列表--}}
-        <section>
-            <template v-for="casa in casas" block>
+        <section id="test">
+            <template v-for="casa in casas" block transition="expand">
                 <div class="card">
                     <a href="casa/@{{ casa.id }}" target="_blank">
                         <img :src="casa.pic" width="100%" alt="@{{ casa.pic }}">
@@ -73,6 +73,11 @@
                 </div>
             </template>
         </section>
+        <div class="scroll-back">
+            <a href="javascript:void(0)" class="right-float-top" id="toTop" >返回顶部</a>
+            {{--<a href="javascript:void(0)" class="right-float-middle" id="advice">意见反馈</a>--}}
+            <a href="javascript:void(0)" class="right-float-bottom" id="qrcode"></a>
+        </div>
     </div>
     <div class="loader" style="display: none">
         <div class="loader-inner line-scale">
@@ -83,9 +88,7 @@
             <div></div>
         </div>
     </div>
-    <div class="scroll-back">
-        <a href="javascript:void(0)" class="right-float-top" id="toTop" >返回顶部</a>
-        <a href="javascript:void(0)" class="right-float-middle" id="advice">意见反馈</a>
-        <a href="javascript:void(0)" class="right-float-bottom" id="qrcode"></a>
+    <div class="no-more">
+        没有更多了
     </div>
 @endsection
