@@ -10,11 +10,13 @@
     <div class="flexslider">
         <ul class="slides">
             @foreach($areas as $area)
-                <li style="background:url('/assets/images/aboutus.jpg'); background-size:100% 100%;">
-                    <a href="" target="_blank" class="slide-a">
-                        <div class="slide-mess">{{ $area->value }}</div>
+                @if(!empty($area->contents[1]->attachments[0]))
+                <li style="background:url({{ config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath }}); background-size:100% 100%;">
+                    <a href="area/{{ $area->id }}" target="_blank" class="slide-a">
+                        {{--<div class="slide-mess">{{ $area->value }}</div>--}}
                     </a>
                 </li>
+                @endif
             @endforeach
         </ul>
     </div>
@@ -59,7 +61,7 @@
             </div>
         </div>
         {{--民宿显示列表--}}
-        <section id="test">
+        <section id="casa-list">
             <template v-for="casa in casas" block transition="expand">
                 <div class="card">
                     <a href="casa/@{{ casa.id }}" target="_blank">
@@ -73,11 +75,6 @@
                 </div>
             </template>
         </section>
-        <div class="scroll-back">
-            <a href="javascript:void(0)" class="right-float-top" id="toTop" >返回顶部</a>
-            {{--<a href="javascript:void(0)" class="right-float-middle" id="advice">意见反馈</a>--}}
-            <a href="javascript:void(0)" class="right-float-bottom" id="qrcode"></a>
-        </div>
     </div>
     <div class="loader" style="display: none">
         <div class="loader-inner line-scale">
@@ -90,5 +87,9 @@
     </div>
     <div class="no-more">
         没有更多了
+    </div>
+    <div class="scroll-back">
+        <a href="javascript:void(0)" class="right-float-top" id="toTop" >返回顶部</a>
+        <a href="javascript:void(0)" class="right-float-bottom" id="qrcode"><span></span></a>
     </div>
 @endsection

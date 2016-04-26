@@ -8,7 +8,7 @@
             <!-- 民宿大图  -->
     <div class="banner">
         <div class="cover-photo">
-            @if($area->contents[1]->attachmets)
+            @if(!empty($area->contents[1]->attachments[0]))
                 <img src="{{ config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath }}" width="100%" alt="">
             @endif
         </div>
@@ -52,24 +52,44 @@
         <!-- 附近民宿 -->
         <section>
             <div class="article-nav">附近民宿</div>
-            @for($i=0;$i<count($casas);$i++)
-                <div class="casa-card">
-                    <div class="card-c">
-                        <a href="/casa/{{ $casas[$i]->id }}">
-                            <img src="{{ config('casarover.photo_folder').$casas[$i]->attachment->filepath }}" height="100%">
-                            <div class="card">
-                                <h3>{{ $casas[$i]->name }}</h3>
+            @foreach($casas as $casa)
+            <div class="casa-card">
+                <div class="card-b">
+                    <a href="/casa/{{ $casa->id }}" target="_blank">
+                        <img src="{{ config('casarover.photo_folder').$casa->attachment->filepath }}" height="100%">
+                        <div class="card">
+                            <h3>{{ $casa->name }}</h3>
+                        </div>
+                        <div class="info">
+                            <div class="middle">
+                                <h3>{{ $casa->name }}</h3>
+                                <p>{{ $casa->contents[0]->text }}</p>
                             </div>
-                            <div class="info">
-                                <div class="middle">
-                                    <h3>{{ $casas[$i]->name }}</h3>
-                                    <p>{{ $casas[$i]->contents[0]->text }}</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
-            @endfor
+            </div>
+            @endforeach
+
+            {{--因为民宿的首图被去除所以不同的显示效果不能实现--}}
+            {{--@for($i=0;$i<count($casas);$i++)--}}
+                {{--<div class="casa-card">--}}
+                    {{--<div class="card-c">--}}
+                        {{--<a href="/casa/{{ $casas[$i]->id }}">--}}
+                            {{--<img src="{{ config('casarover.photo_folder').$casas[$i]->attachment->filepath }}" height="100%">--}}
+                            {{--<div class="card">--}}
+                                {{--<h3>{{ $casas[$i]->name }}</h3>--}}
+                            {{--</div>--}}
+                            {{--<div class="info">--}}
+                                {{--<div class="middle">--}}
+                                    {{--<h3>{{ $casas[$i]->name }}</h3>--}}
+                                    {{--<p>{{ $casas[$i]->contents[0]->text }}</p>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</a>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--@endfor--}}
         </section>
     </div>
     <script>

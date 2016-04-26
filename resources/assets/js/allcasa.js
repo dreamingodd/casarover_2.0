@@ -16,7 +16,13 @@ $(function ($)
     $('.casa a').click(function () {
         $('.casa a').removeClass();
         $(this).addClass('active');
-    })
+    });
+    //        显示收起二维码
+    $("#qrcode").hover(function(){
+        $("#qrcode span").show();
+    },function(){
+        $("#qrcode span").hide();
+    });
 });
 window.onload=function() {
     $(window).scroll(function() {
@@ -26,22 +32,15 @@ window.onload=function() {
         if($(this).scrollTop()!=0){
             $("#toTop").show();
         }
-
         var screenT = $(window).scrollTop();
         var doc = $(document).height();
         var win = $(window).height();
         if(doc - win - screenT < 170) {
             vm.nextpage();
-            $("#toTop").css({"position":"#absolute","bottom":"330px"});
-            $("#advice").css({"position":"#absolute","bottom":"286px"});
-            $("#qrcode").css({"position":"#absolute","bottom":"242px"});
-            //$(".scroll-back").addClass("scroll-back-footer");
+            $(".scroll-back").addClass('top');
         }
         else {
-            //$(".scroll-back").addClass("scroll-back-footer");
-            $("#toTop").css({"position":"#fixed","bottom":"138px"});
-            $("#advice").css({"position":"#fixed","bottom":"94px"});
-            $("#qrcode").css({"position":"#fixed","bottom":"50px"});
+            $(".scroll-back").removeClass('top');
         }
     });
     //返回顶部
@@ -101,14 +100,14 @@ window.onload=function() {
             },
             getCasas:function(){
                 var vmcasas = this;
-                $("#test").css('display','none');
+                $("#casa-list").css('display','none');
                 $(".no-more").css('display','none');
                 $(".loader").css('display','block');
                 var areas = vmcasas.checkareas.toString();
                 $.getJSON('/api/casas/city/'+vmcasas.city+'/areas/'+areas,function (data) {
                     vmcasas.casas = data.data;
                     $(".loader").css('display','none');
-                    $("#test").css('display','block');
+                    $("#casa-list").css('display','block');
                 }.bind(vmcasas));
             },
             nextpage:function(){

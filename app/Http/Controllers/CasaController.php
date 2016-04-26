@@ -143,8 +143,8 @@ class CasaController extends BaseController
    public function allcasa(Request $request)
    {
        $citys = Area::where('level','3')->whereNotIn('value', ['朱家角','黄浦区','其他'])->orwhere('value','上海')->get();
-       //随机，应该是指定两个
-       $areas = Area::where('level','4')->get()->random(2);
+       //应该是指定三个，后面应该是相互联系的
+       $areas = Area::where('level','4')->whereIn('id',[8,10,19])->get();
        //默认被选中的city 为杭州
        $sel = 7;
        return view('site.allcasa',compact('citys','areas','sel'));
