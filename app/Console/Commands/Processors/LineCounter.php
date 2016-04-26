@@ -54,16 +54,13 @@ class LineCounter {
         $blackList = $whiteList = [];
         foreach (LineCounter::$blackList as $apath) {
             $blackPath = $path . $apath;
-            if (PHP_OS == "WINNT") {
-                $blackPath = str_replace("\\", "/", $blackPath);
-            }
+            // if (PHP_OS == "WINNT") {
+            //     $blackPath = str_replace("\\", "/", $blackPath);
+            // }
             array_push($blackList, $blackPath);
         }
         foreach (LineCounter::$whiteList as $apath) {
             $whitePath = $path . $apath;
-            if (PHP_OS == "WINNT") {
-                $whitePath = str_replace("\\", "/", $whitePath);
-            }
             array_push($whiteList, $whitePath);
         }
         // Exclude the folers in blackList.
