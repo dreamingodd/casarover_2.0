@@ -161,6 +161,8 @@ return [
         App\Providers\CasaServiceProvider::class,
         /**wechat*/
         Overtrue\LaravelWechat\ServiceProvider::class,
+        /**LaravelIdeHelper*/
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
 
     ],
