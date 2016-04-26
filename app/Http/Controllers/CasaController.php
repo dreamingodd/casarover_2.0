@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use DB;
+use Log;
 use App\Casa;
 use App\Area;
 use App\Tag;
@@ -20,7 +21,7 @@ class CasaController extends BaseController
 {
     private $casa;
     private $casas;
-    
+
     /**
      * Add or update a casa.
      */
@@ -67,6 +68,7 @@ class CasaController extends BaseController
             dd($e);
         } catch(\Exception $e) {
             DB::rollback();
+            Log::error($e);
             dd($e);
         }
     }

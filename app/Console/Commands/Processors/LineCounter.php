@@ -27,7 +27,7 @@ class LineCounter {
         "/storage",
         "/vendor",
         "/server.php",
-        "/app/Console",
+        "/app/lib",
         "/app/Providers/AppServiceProvider.php",
         "/app/Providers/AuthServiceProvider.php",
         "/app/Providers/EventServiceProvider.php",
@@ -41,7 +41,6 @@ class LineCounter {
         "/node_modules",
         "/gulpfile.js",
         "/resources/assets/js/integration",
-        "/app/oss",
     ];
     private static $codeLineCount = 0;
     private static $commentLineCount = 0;

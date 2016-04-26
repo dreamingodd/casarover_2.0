@@ -94,6 +94,7 @@ Route::group(['prefix' => 'wx'],function () {
     Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
     Route::get('/order/{id}', 'Wx\WxSiteController@order');
+    Route::post('/order/create', 'Wx\WxOrderController@create');
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
