@@ -19,7 +19,13 @@ $(function ($)
     $('.casa a').click(function () {
         $('.casa a').removeClass();
         $(this).addClass('active');
-    })
+    });
+    //        显示收起二维码
+    $("#qrcode").hover(function(){
+        $("#qrcode span").show();
+    },function(){
+        $("#qrcode span").hide();
+    });
 });
 //回到头部
 window.onload=function() {
@@ -43,17 +49,11 @@ window.onload=function() {
         )
     });
     $(window).scroll(function() {
-        var a = $("#toTop").offset().top;
-        var b = $("footer").offset().top;
         if($(document).height() - $(window).height() -$(window).scrollTop()<170) {
-            $("#toTop").css({"position":"#absolute","bottom":"330px"});
-            $("#advice").css({"position":"#absolute","bottom":"286px"});
-            $("#qrcode").css({"position":"#absolute","bottom":"242px"});
+            $(".scroll-back").addClass('top');
         }
         else {
-            $("#toTop").css({"position":"#fixed","bottom":"138px"});
-            $("#advice").css({"position":"#fixed","bottom":"94px"});
-            $("#qrcode").css({"position":"#fixed","bottom":"50px"});
+            $(".scroll-back").removeClass('top');
         }
     });
 

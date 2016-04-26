@@ -86,7 +86,7 @@
     </div>
     <div class="scroll-back">
         <a href="javascript:void(0)" class="right-float-top" id="toTop" >返回顶部</a>
-        <a href="javascript:void(0)" class="right-float-middle" id="advice">意见反馈</a>
-        <a href="javascript:void(0)" class="right-float-bottom" id="qrcode"></a>
+        {{--<a href="javascript:void(0)" class="right-float-middle" id="advice">意见反馈</a>--}}
+        <a href="javascript:void(0)" class="right-float-bottom" id="qrcode"><span></span></a>
     </div>
 @endsection
