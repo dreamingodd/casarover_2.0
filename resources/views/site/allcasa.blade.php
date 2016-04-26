@@ -19,7 +19,7 @@
         </ul>
     </div>
     <div class="all" id="app">
-        <a class="next" v-on:click="nextpage()">下一页</a>
+        {{--<a class="next" v-on:click="nextpage()">下一页</a>--}}
         <div class="main">
             <div class="screen">
                 <div class="case">
