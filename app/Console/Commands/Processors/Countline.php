@@ -18,12 +18,10 @@ trait Countline
     // LineCounter::count("/Applications/XAMPP/xamppfiles/htdocs/php_oop");
     public function countline()
     {
-        $projectPath = __DIR__;
-        if (PHP_OS == "Darwin" || PHP_OS == "Linux") {
-            $projectPath = str_replace('/app/Console/Commands/Processors', '', $projectPath);
-        } else {
-            $projectPath = str_replace("\\app\\Console\\Commands\\Processors", '', $projectPath);
-        }
+        $projectPath = str_replace("\\", "/", __DIR__);
+        // if (PHP_OS == "Darwin" || PHP_OS == "Linux") {
+        $projectPath = str_replace('/app/Console/Commands/Processors', '', $projectPath);
+
         // Print project path for counting.
         echo "Path: " . $projectPath . "\n";
         LineCounter::count($projectPath);

@@ -20,7 +20,9 @@ class LineCounter {
     ];
     /** Folder or file in this list will be excluded. */
     private static $blackList = [
-        "/tests/Countline.php",
+        "/app/Console/Commands/Processors/Countline.php",
+        "/app/Console/Commands/Processors/FileUtils.php",
+        "/app/Console/Commands/Processors/LineCounter.php",
         "/bootstrap",
         "/config",
         "/public",
@@ -51,10 +53,18 @@ class LineCounter {
         // convert black list and white list to full path.
         $blackList = $whiteList = [];
         foreach (LineCounter::$blackList as $apath) {
-            array_push($blackList, $path . $apath);
+            $blackPath = $path . $apath;
+            if (PHP_OS == "WINNT") {
+                $blackPath = str_replace("\\", "/", $blackPath);
+            }
+            array_push($blackList, $blackPath);
         }
         foreach (LineCounter::$whiteList as $apath) {
-            array_push($whiteList, $path . $apath);
+            $whitePath = $path . $apath;
+            if (PHP_OS == "WINNT") {
+                $whitePath = str_replace("\\", "/", $whitePath);
+            }
+            array_push($whiteList, $whitePath);
         }
         // Exclude the folers in blackList.
         $files = FileUtils::listAllFiles($path, $blackList);
