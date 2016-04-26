@@ -4,23 +4,23 @@
 interface ILogHandler
 {
 	public function write($msg);
-	
+
 }
 
 class CLogFileHandler implements ILogHandler
 {
 	private $handle = null;
-	
+
 	public function __construct($file = '')
 	{
 		$this->handle = fopen($file,'a');
 	}
-	
+
 	public function write($msg)
 	{
 		fwrite($this->handle, $msg, 4096);
 	}
-	
+
 	public function __destruct()
 	{
 		fclose($this->handle);
@@ -31,13 +31,13 @@ class Log
 {
 	private $handler = null;
 	private $level = 15;
-	
+
 	private static $instance = null;
-	
+
 	private function __construct(){}
 
 	private function __clone(){}
-	
+
 	public static function Init($handler = null,$level = 15)
 	{
 		if(!self::$instance instanceof self)
@@ -48,27 +48,27 @@ class Log
 		}
 		return self::$instance;
 	}
-	
-	
+
+
 	private function __setHandle($handler){
 		$this->handler = $handler;
 	}
-	
+
 	private function __setLevel($level)
 	{
 		$this->level = $level;
 	}
-	
+
 	public static function DEBUG($msg)
 	{
 		self::$instance->write(1, $msg);
 	}
-	
+
 	public static function WARN($msg)
 	{
 		self::$instance->write(4, $msg);
 	}
-	
+
 	public static function ERROR($msg)
 	{
 		$debugInfo = debug_backtrace();
@@ -87,12 +87,12 @@ class Log
 		$stack .= "]";
 		self::$instance->write(8, $stack . $msg);
 	}
-	
+
 	public static function INFO($msg)
 	{
 		self::$instance->write(2, $msg);
 	}
-	
+
 	private function getLevelStr($level)
 	{
 		switch ($level)
@@ -101,7 +101,7 @@ class Log
 			return 'debug';
 		break;
 		case 2:
-			return 'info';	
+			return 'info';
 		break;
 		case 4:
 			return 'warn';
@@ -110,10 +110,10 @@ class Log
 			return 'error';
 		break;
 		default:
-				
+
 		}
 	}
-	
+
 	protected function write($level,$msg)
 	{
 		if(($level & $this->level) == $level )

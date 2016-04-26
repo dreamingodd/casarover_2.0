@@ -5,7 +5,13 @@
 
 // 结尾不能加反斜杠
 // Countline::count("/Applications/XAMPP/xamppfiles/htdocs/php_oop");
-$projectPath = str_replace('/tests', '', __DIR__);
+$projectPath = __DIR__;
+if (PHP_OS == "Darwin" || PHP_OS == "Linux") {
+    $projectPath = str_replace('/tests', '', $projectPath);
+} else {
+    $projectPath = str_replace("\\tests", '', $projectPath);
+}
+// Print project path for counting.
 echo "Path: " . $projectPath . "\n";
 Countline::count($projectPath);
 // Countline::count(__FILE__);
@@ -64,6 +70,7 @@ class Countline {
         foreach (Countline::$whiteList as $apath) {
             array_push($whiteList, $path . $apath);
         }
+        // Exclude the folers in blackList.
         $files = FileUtils::listAllFiles($path, $blackList);
         $actualFiles = [];
         // exclude folders and unmentioned file types.
@@ -158,7 +165,7 @@ class FileUtils {
      * If $path is a file, will return the file.
      * To improve efficiency, I pass in $exclude_folders.
      */
-    public static function listAllFiles($path, $exclude_folders, $exts = '', $list = array()) {
+    public static function listAllFiles($path, $exclude_folders = array(), $exts = '', $list = array()) {
         if (is_file($path)) {
             return $path;
         }
