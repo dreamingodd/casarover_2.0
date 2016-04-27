@@ -107,4 +107,11 @@
     </div>
     {{--测试如果放在下面能不能解决被提前加载的问题--}}
     <script src="/assets/js/home.js" type="text/javascript"></script>
+    <script>
+        $(function($){
+        $('."city-list a').click(function () {
+        $('."city-list a').removeClass();
+        $(this).addClass('active');
+        });});
+    </script>
 @stop

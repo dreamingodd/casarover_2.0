@@ -93,6 +93,9 @@ Route::group(['prefix' => 'wx'],function () {
     Route::get('/', 'Wx\WxSiteController@index');
     Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
+    Route::get('/orderdetails', 'Wx\WxSiteController@orderDetails');
+    Route::get('/confirm', 'Wx\WxSiteController@confirm');
+    Route::get('/bill', 'Wx\WxSiteController@bill');
     Route::get('/order/{id}', 'Wx\WxSiteController@order');
     Route::post('/order/create', 'Wx\WxOrderController@create');
     Route::get('/pay/wxorder/{id}', 'Wx\WxPayController@wxOrder');

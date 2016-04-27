@@ -48,4 +48,16 @@ class WxSiteController extends Controller
             $casa->thumbnail = $casa->casa->attachment->filepath;
         }
     }
+    public function orderdetails()
+    {
+        return view('wx.wxOrderDetail');
+    }
+    public function confirm()
+    {
+        return view('wx.wxConfirm');
+    }
+    public function bill()
+{
+    return view('wx.wxBill');
+}
 }

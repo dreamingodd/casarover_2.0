@@ -43,18 +43,19 @@ class WechatController extends Controller
         $article->save();
         $deleted = $deleted==0?1:0;
         $this->wechatList(1, $deleted);
+        
         return view('backstage.wechatArticleList', ['wechatArticles' => $this->articles]);
     }
     public function wechatEdit($id=0) {
-        $this->series = wechatSeries::all();
+        $this->series = WechatSeries::all();
         $article = WechatArticle::find($id);
         $seriesID=0;
         if ($id!=0){
             if($article->type==1){
                 $fname='探庐系列';
                 $fid = 1;
-                $sname=wechatSeries::find($article->series)->name;
-                $seriesID=wechatSeries::find($article->series)->id;
+                $sname=WechatSeries::find($article->series)->name;
+                $seriesID=WechatSeries::find($article->series)->id;
             }
             else if($article->type==2){
                 $fname='民宿推荐';
@@ -66,7 +67,7 @@ class WechatController extends Controller
                 $fid = 3;
                 $sname='';
             }
-            $filepath=attachment::find($article->attachment_id)->filepath;
+            $filepath=Attachment::find($article->attachment_id)->filepath;
             $wechatadd=$article->address;
             $title=$article->title;
             $brief=$article->brief;
@@ -115,7 +116,7 @@ class WechatController extends Controller
         return view('backstage.participateList');
     }
     public function wechatSeriesList() {
-        $this->series = wechatSeries::all();
+        $this->series = WechatSeries::all();
         return view('backstage.wechatSeriesList',['wechatSeries' => $this->series]);
     }
     public function wechatSeriesCreate()
