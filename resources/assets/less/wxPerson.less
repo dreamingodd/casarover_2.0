@@ -1,5 +1,5 @@
 nav{
-  height: 6rem;
+  height: 5rem;
   width: 100%;
   margin: 0 auto;
   background: #fff;
@@ -20,20 +20,74 @@ nav{
   }
   h1{
     color: black;
-    font-size: 2rem
+    font-size: 2rem;
+    margin-top: 1.5rem;
   }
 }
 .main{
-  padding:0 1rem;
-  border-top:8rem solid #f8f8f8;
+  padding: 0 1rem;
+  border-top: 6rem solid #f8f8f8;
   background: #fff;
-  .divider{border-bottom:1px solid #eaeaea }
+  .divider{
+    border-bottom: 1px solid #eaeaea
+  }
   p{
     line-height: 4rem;
     font-size: 1.5rem;
     margin-bottom: 0;
   }
   em{margin-right: 1rem;}
-  span{float: right;margin-top: 1rem;}
+  span{
+    float: right;
+    margin-top: 1rem;
+  }
+  .glyphicon-triangle-bottom{
+    display: none;
+  }
   a{color: black;}
+}
+.tabtable{
+  display: none;
+}
+.nav-tabs li{
+  width: 25%;
+  font-size: 1rem ;
+}
+.case{
+  padding: 1rem;
+  border-bottom: 1px solid #CFCFCF;
+}
+.images,.info,.bill{
+  float: left;
+  text-align: center;
+  p{
+    font-size: 1.2rem;
+    line-height: 2rem;
+    margin-top: 1rem;
+  }
+}
+.images {
+  width:25% ;
+  img {
+    width: 80%;
+    margin-top: 0.5rem;
+  }
+  p{
+    margin-top: 0.5rem
+  }
+  border-right: 1px solid #CFCFCF;
+}
+.info{
+  width: 50%;
+  #gray{
+    font-size: 1rem;
+    color: #aaa9a9;
+  }
+}
+.bill{
+  width: 15%;
+  float: right;
+  #orange{
+    color: #ff7100;
+  }
 }

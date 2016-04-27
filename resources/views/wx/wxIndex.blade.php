@@ -9,8 +9,8 @@
         <!--
         <a href="#" class="glyphicon glyphicon-search"></a>
         -->
-        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/logo.png"/>
-        <a href="/wechatperson" class="glyphicon glyphicon-user"></a>
+        <img  src="/assets/images/logob.png" />
+        <a href="wx/user" class="glyphicon glyphicon-user"></a>
     </nav>
     <div class="flexslider">
         <ul class="slides">
