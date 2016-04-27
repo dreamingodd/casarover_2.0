@@ -6,13 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class WxOrder extends Model
 {
-    const STATUS_PAYING = 0;
-    const STATUS_PAYED = 1;
-    const STATUS_RESERVED = 2;
-    const STATUS_CONSUMED = 3;
-    const STATUS_REFUNDING = 4;
-    const STATUS_REFUNDED = 5;
-    const STATUS_CANCELED = 6;
+    const PAY_STATUS_NO = 0;
+    const PAY_STATUS_YES = 1;
+    const PAY_STATUS_REFUNDING = 2;
+    const PAY_STATUS_REFUNDED = 3;
+    const RESERVE_STATUS_NO = 0;
+    const RESERVE_STATUS_YES = 1;
+    const RESERVE_STATUS_PROCESS = 2;
+    const RESERVE_STATUS_FAIL = 3;
+    const CONSUME_STATUS_NO = 0;
+    const CONSUME_STATUS_YES = 1;
+    const CONSUME_STATUS_EXPIRED = 2;
 
     protected $table = "wx_order";
 }
