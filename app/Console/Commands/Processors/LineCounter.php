@@ -20,14 +20,16 @@ class LineCounter {
     ];
     /** Folder or file in this list will be excluded. */
     private static $blackList = [
-        "/tests/Countline.php",
+        "/app/Console/Commands/Processors/Countline.php",
+        "/app/Console/Commands/Processors/FileUtils.php",
+        "/app/Console/Commands/Processors/LineCounter.php",
         "/bootstrap",
         "/config",
         "/public",
         "/storage",
         "/vendor",
         "/server.php",
-        "/app/Console",
+        "/app/lib",
         "/app/Providers/AppServiceProvider.php",
         "/app/Providers/AuthServiceProvider.php",
         "/app/Providers/EventServiceProvider.php",
@@ -41,7 +43,6 @@ class LineCounter {
         "/node_modules",
         "/gulpfile.js",
         "/resources/assets/js/integration",
-        "/app/oss",
     ];
     private static $codeLineCount = 0;
     private static $commentLineCount = 0;
@@ -52,10 +53,15 @@ class LineCounter {
         // convert black list and white list to full path.
         $blackList = $whiteList = [];
         foreach (LineCounter::$blackList as $apath) {
-            array_push($blackList, $path . $apath);
+            $blackPath = $path . $apath;
+            // if (PHP_OS == "WINNT") {
+            //     $blackPath = str_replace("\\", "/", $blackPath);
+            // }
+            array_push($blackList, $blackPath);
         }
         foreach (LineCounter::$whiteList as $apath) {
-            array_push($whiteList, $path . $apath);
+            $whitePath = $path . $apath;
+            array_push($whiteList, $whitePath);
         }
         // Exclude the folers in blackList.
         $files = FileUtils::listAllFiles($path, $blackList);

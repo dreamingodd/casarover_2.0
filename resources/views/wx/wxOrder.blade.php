@@ -2,6 +2,7 @@
 @section('title','民宿预订')
 @section('head')
 <link href="/assets/css/wxOrder.css" rel="stylesheet"/>
+<script src="/assets/js/integration/json2.js"></script>
 <script src="/assets/js/back.js"></script>
 <script src="/assets/js/wxOrder.js"></script>
 @stop

@@ -1,8 +1,8 @@
 @extends('site')
-@section('title','民宿')
+@section('title','民宿大全')
 @section('head')
     <link rel="stylesheet" href="/assets/css/allcasa.css">
-    <script src="{{ asset('assets/js/integration/jquery.flexslider-min.js') }}" type="text/javascript"></script>
+    <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
     <script src="/assets/js/allcasa.js" type="text/javascript"></script>
 @endsection
@@ -10,20 +10,22 @@
     <div class="flexslider">
         <ul class="slides">
             @foreach($areas as $area)
-                <li style="background:url('/assets/images/aboutus.jpg'); background-size:100% 100%;">
-                    <a href="" target="_blank" class="slide-a">
-                        <div class="slide-mess">{{ $area->value }}</div>
+                @if(!empty($area->contents[1]->attachments[0]))
+                <li style="background:url({{ config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath }}); background-size:100% 100%;">
+                    <a href="/area/{{ $area->id }}" target="_blank" class="slide-a">
+                        {{--<div class="slide-mess">{{ $area->value }}</div>--}}
                     </a>
                 </li>
+                @endif
             @endforeach
         </ul>
     </div>
     <div class="all" id="app">
-        {{--<a class="next" v-on:click="nextpage()">下一页</a>--}}
         <div class="main">
             <div class="screen">
                 <div class="case">
                     <div class="sel-key">
+                        <input type="hidden" v-model="city" value="{{ $sel }}">
                         <span>城市</span>
                     </div>
                     <div class="sel-val">
@@ -60,10 +62,10 @@
             </div>
         </div>
         {{--民宿显示列表--}}
-        <section>
-            <template v-for="casa in casas" block>
+        <section id="casa-list">
+            <template v-for="casa in casas" block transition="expand">
                 <div class="card">
-                    <a href="casa/@{{ casa.id }}" target="_blank">
+                    <a href="/casa/@{{ casa.id }}" target="_blank">
                         <img :src="casa.pic" width="100%" alt="@{{ casa.pic }}">
                         <h3>@{{ casa.name }}</h3>
                         {{--<p>地址：西湖区灵隐支路白乐桥246号</p>--}}
@@ -84,9 +86,11 @@
             <div></div>
         </div>
     </div>
+    <div class="no-more">
+        没有更多了
+    </div>
     <div class="scroll-back">
         <a href="javascript:void(0)" class="right-float-top" id="toTop" >返回顶部</a>
-        {{--<a href="javascript:void(0)" class="right-float-middle" id="advice">意见反馈</a>--}}
         <a href="javascript:void(0)" class="right-float-bottom" id="qrcode"><span></span></a>
     </div>
 @endsection

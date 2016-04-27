@@ -18,7 +18,7 @@ Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
 Route::get('/casaseries/{type}/{series?}', 'CasaSeriesController@casas');
-Route::get('/allcasa','CasaController@allcasa');
+Route::get('/allcasa/{id?}','CasaController@allcasa');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
 Route::get('/theme/{id}','ThemeController@show');
@@ -94,6 +94,7 @@ Route::group(['prefix' => 'wx'],function () {
     Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
     Route::get('/order/{id}', 'Wx\WxSiteController@order');
+    Route::post('/order/create', 'Wx\WxOrderController@create');
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');

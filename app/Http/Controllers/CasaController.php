@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use DB;
+use Log;
 use App\Casa;
 use App\Area;
 use App\Tag;
@@ -20,7 +21,7 @@ class CasaController extends BaseController
 {
     private $casa;
     private $casas;
-    
+
     /**
      * Add or update a casa.
      */
@@ -67,6 +68,7 @@ class CasaController extends BaseController
             dd($e);
         } catch(\Exception $e) {
             DB::rollback();
+            Log::error($e);
             dd($e);
         }
     }
@@ -129,24 +131,55 @@ class CasaController extends BaseController
    public function casaInfo($id,Request $request)
    {
        $casa = Casa::find($id);
-       $casa->headImg = config('casarover.photo_folder').$casa->attachment->filepath;
+       $city = Area::find($casa->area->id)->supArea;
+       $casas = $this->guessCasas($city);
        if(strpos($request->url(), 'mobile'))
            return  view('mobile.casa',compact('casa'));
        else
-           return view('site.casa',compact('casa'));
+           return view('site.casa',compact('casa','city','casas'));
    }
+    private function guessCasas($city)
+    {
+        //       推荐的民宿
+        $arealast = Area::where('parentid',$city->id)->where('islast',1)->get();
+        if(count($arealast))
+        {
+            $areaIds = array();
+            foreach($arealast as $area)
+            {
+                array_push($areaIds,$area->id);
+            }
+            $casas = Casa::whereIn('dictionary_id',$areaIds)->get()->random(4);
+            foreach($casas as $casa)
+            {
+                if($casa->attachment)
+                {
+                    $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
+                }
+                if(isset($casa->tags[0]))
+                {
+                    $casa->tip = $casa->tags[0]->name;
+                }
+                else
+                {
+                    $casa->tip = '民宿';
+                }
+            }
+        }
+        return $casas;
+    }
     /**
      * 民宿大全
      * 这里传入信息，所有城市，被选中城市，轮播图信息
      * 其他下面显示的部分是由vue进行处理
     **/
-   public function allcasa(Request $request)
+   public function allcasa($cityId=7)
    {
        $citys = Area::where('level','3')->whereNotIn('value', ['朱家角','黄浦区','其他'])->orwhere('value','上海')->get();
-       //随机，应该是指定两个
-       $areas = Area::where('level','4')->get()->random(2);
+       //应该是指定三个，后面应该是相互联系的
+       $areas = Area::where('level','4')->whereIn('id',[8,10,19])->get();
        //默认被选中的city 为杭州
-       $sel = 7;
+       $sel = $cityId;
        return view('site.allcasa',compact('citys','areas','sel'));
    }
 

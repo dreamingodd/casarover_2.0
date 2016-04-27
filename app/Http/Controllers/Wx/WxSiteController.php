@@ -12,7 +12,8 @@ use App\Entity\Wx\WxRoom;
 
 class WxSiteController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $wxCasas = WxCasa::orderBy('id', 'desc')->get();
         foreach ($wxCasas as $casa) {
             $this->convertToViewCasa($casa);
@@ -20,22 +21,26 @@ class WxSiteController extends Controller
         return view('wx.wxIndex', compact('wxCasas'));
     }
 
-    public function casa($id) {
+    public function casa($id)
+    {
         $wxCasa = WxCasa::find($id);
         $this->convertToViewCasa($wxCasa);
         return view('wx.wxCasaDetail', compact('wxCasa'));
     }
 
-    public function user() {
+    public function user()
+    {
         return view('wx.wxUser');
     }
 
-    public function order($id) {
+    public function order($id)
+    {
         $wxCasa = WxCasa::find($id);
         return view('wx.wxOrder', compact('wxCasa'));
     }
 
-    private function convertToViewCasa(WxCasa $casa) {
+    private function convertToViewCasa(WxCasa $casa)
+    {
         $casa->cheapestPrice = DB::table('wx_room')->where('wx_casa_id', $casa->id)->min('price');
         if (empty($casa->casa_id)) {
             $casa->thumbnail = $casa->attachment->filepath;
