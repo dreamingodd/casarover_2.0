@@ -20,7 +20,7 @@ class WxOrderController extends Controller
         try {
             $reservedRooms = $request->input('reservedRooms');
             $wxOrder = new WxOrder();
-            $wxOrder->status = WxOrder::STATUS_PAYING;
+            //$wxOrder->status = WxOrder::STATUS_PAYING;
             $wxOrder->save();
             if (empty($reservedRooms)) {
                 return "没有选购商品！";

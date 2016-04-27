@@ -27,7 +27,7 @@ $input = new WxPayUnifiedOrder();
 $input->SetBody("test");
 $input->SetAttach("test");
 $input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
-$input->SetTotal_fee(1);
+$input->SetTotal_fee(1000);
 $input->SetTime_start(date("YmdHis"));
 $input->SetTime_expire(date("YmdHis", time() + 600));
 $input->SetGoods_tag("test");
@@ -120,7 +120,7 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 </head>
 <body>
     <br/>
-    <font color="#9ACD32"><b>该笔订单支付金额为<span style="color:#f00;font-size:50px">1分</span>钱</b></font><br/><br/>
+    <font color="#9ACD32"><b>该笔订单支付金额为<span style="color:#f00;font-size:50px">10元</span>钱</b></font><br/><br/>
     <div align="center">
         <button style="width:210px; height:50px; border-radius: 15px;background-color:#FE6714; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;" type="button" onclick="callpay()" >立即支付</button>
     </div>
