@@ -47,13 +47,15 @@ class WxPayController extends Controller
             'detail'           => 'casarover',
             'out_trade_no'     => '1217752501201407033233368018',
             'total_fee'        => 4,//$casaroverOrder->total,
-            'notify_url'       => '', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
+            'trade_type'       => 'JSAPI',
+            //'notify_url'       => '', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
             // ...
         ];
 
         // 统一下单
         $order = new Order($attributes);
         $result = $payment->prepare($order);
+        dd($result);
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
             $prepayId = $result->prepay_id;
         }
