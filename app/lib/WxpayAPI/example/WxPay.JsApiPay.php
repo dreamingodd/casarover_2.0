@@ -1,5 +1,5 @@
 <?php
-require_once "../lib/WxPay.Api.php";
+require_once app_path()."/lib/WxpayAPI/lib/WxPay.Api.php";
 /**
  *
  * JSAPI支付实现类
