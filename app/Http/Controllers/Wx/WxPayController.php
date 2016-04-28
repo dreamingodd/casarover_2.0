@@ -20,7 +20,7 @@ class WxPayController extends Controller
         ini_set('date.timezone','Asia/Shanghai');
         //error_reporting(E_ERROR);
         require_once app_path()."/lib/WxpayAPI/lib/WxPay.Api.php";
-        require_once app_path()."/lib/WxpayAPI/lib/WxPay.JsApiPay.php";
+        require_once app_path()."/lib/WxpayAPI/example/WxPay.JsApiPay.php";
         require_once app_path().'/lib/WxpayAPI/example/log.php';
 
         //初始化日志
