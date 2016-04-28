@@ -21,11 +21,11 @@ class WxPayController extends Controller
         //error_reporting(E_ERROR);
         require_once app_path()."/lib/WxpayAPI/lib/WxPay.Api.php";
         require_once app_path()."/lib/WxpayAPI/example/WxPay.JsApiPay.php";
-        require_once app_path().'/lib/WxpayAPI/example/log.php';
 
-        //初始化日志
-        $logHandler= new CLogFileHandler(app_path()."/lib/WxpayAPI/logs/".date('Y-m-d').'.log');
-        $log = Log::Init($logHandler, 15);
+        // 微信API日志 //初始化日志
+        // require_once app_path().'/lib/WxpayAPI/example/log.php';
+        // $logHandler= new CLogFileHandler(app_path()."/lib/WxpayAPI/logs/".date('Y-m-d').'.log');
+        // $log = Log::Init($logHandler, 15);
 
         //①、获取用户openid
         $tools = new JsApiPay();
