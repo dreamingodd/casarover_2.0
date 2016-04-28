@@ -1,15 +1,9 @@
 @extends('mobile')
 @section('title','民宿推荐')
 @section('head')
-    {{--<link rel="stylesheet" href="/assets/css/home.css">--}}
+    <link rel="stylesheet" href="/assets/css/mobileCasa.css">
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
-    <style>
-        .main{
-            padding: 0 1rem;
-            margin-bottom: 1rem;
-        }
-    </style>
 @endsection
 @section('body')
     <div class="main">
@@ -44,5 +38,21 @@
             @endforeach
         </div>
     </div>
+        <div class="bottom">
+            <h2>猜你喜欢</h2>
+            <div class="flexslider">
+                <ul class="slides">
+                    @foreach($casas as $casa)
+                        <li style="background:url({{ config('casarover.photo_folder').$casa->attachment->filepath }}) ; background-size:100% 100%;">
+                            <a href="{{ $casa->id }}" target="_blank" class="slide-a">
+                                <div class="slide-mess">
+                                    {{$casa->name }}
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
     </div>
 @stop

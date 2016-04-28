@@ -5,13 +5,11 @@
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
 @stop
 @section('body')
-    <nav>
-        <!--
-        <a href="#" class="glyphicon glyphicon-search"></a>
-        -->
-        <img  src="/assets/images/logob.png" />
-        <a href="wx/user" class="glyphicon glyphicon-user"></a>
-    </nav>
+    @section('nav')
+    <a href="#"  id="navleft" class="glyphicon glyphicon-home"></a>
+    <img  src="/assets/images/logow.png" />
+    <a href="wx/user" id="navright" class="glyphicon glyphicon-user"></a>
+    @stop
     <div class="flexslider">
         <ul class="slides">
             <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160420-105355-748r5403.jpg') ; background-size:100% 100%;">

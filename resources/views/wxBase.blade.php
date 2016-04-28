@@ -12,6 +12,9 @@
     @yield('head')
 </head>
 <body>
+<nav>
+    @yield('nav')
+</nav>
     @yield('body')
 </body>
 </html>

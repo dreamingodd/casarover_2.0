@@ -134,7 +134,7 @@ class CasaController extends BaseController
        $city = Area::find($casa->area->id)->supArea;
        $casas = $this->guessCasas($city);
        if(strpos($request->url(), 'mobile'))
-           return  view('mobile.casa',compact('casa'));
+           return  view('mobile.casa',compact('casa','city','casas'));
        else
            return view('site.casa',compact('casa','city','casas'));
    }

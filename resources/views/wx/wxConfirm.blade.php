@@ -4,10 +4,11 @@
     <link href="/assets/css/wxConfirm.css" rel="stylesheet"/>
 @stop
 @section('body')
-    <nav><a href="/wx" class="glyphicon glyphicon-chevron-left"></a>
-        <a href="tel:12345678901" class="glyphicon glyphicon-earphone"></a>
-        <h1>探庐者</h1>
-    </nav>
+@section('nav')
+    <a href="/wx/order/1" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a href="tel:15868102935" id="navright" class="glyphicon glyphicon-earphone"></a>
+    <img  src="/assets/images/logow.png" />
+@stop
     <div class="main">
         <div class="commodity">
             <h2>商品信息</h2>

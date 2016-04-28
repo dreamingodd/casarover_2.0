@@ -5,10 +5,11 @@
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
 @stop
 @section('body')
-    <nav><a href="/wx" class="glyphicon glyphicon-chevron-left"></a>
-        <a href="tel:15868102935" class="glyphicon glyphicon-earphone"></a>
-        <h1>探庐者</h1>
-    </nav>
+    @section('nav')
+        <a href="/wx" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+        <a href="tel:15868102935" id="navright" class="glyphicon glyphicon-earphone"></a>
+        <img  src="/assets/images/logow.png" />
+    @stop
     <div class="flexslider">
         <ul class="slides">
             <li onclick="goto_link1()"
