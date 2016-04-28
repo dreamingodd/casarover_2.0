@@ -17,6 +17,7 @@ class LineCounter {
      */
     private static $whiteList = [
         "/config/casarover.php",
+        "/public/WxpayAPI/example/jsapi.php",
     ];
     /** Folder or file in this list will be excluded. */
     private static $blackList = [
