@@ -4,7 +4,7 @@
     <link href="/assets/css/wx.css " rel="stylesheet"/>
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
 @stop
-@section('body')
+@section('body'){{Session::get('openid')}}
     <nav>
         <!--
         <a href="#" class="glyphicon glyphicon-search"></a>

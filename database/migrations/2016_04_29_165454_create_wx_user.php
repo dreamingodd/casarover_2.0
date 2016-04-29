@@ -17,7 +17,9 @@ class CreateWxUser extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('openid', 128)->unique();
             $table->string('unionid', 128)->unique();
-            $table->string('nickname', 128);
+            $table->string('realname', 64);
+            $table->string('nickname', 64);
+            $table->string('cellphone', 32);
             $table->smallInteger('sex')->default(0);
             $table->string('headimgurl', 512);
             $table->timestamps();

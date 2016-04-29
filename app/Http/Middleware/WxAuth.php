@@ -5,9 +5,14 @@ namespace App\Http\Middleware;
 use Closure;
 use Session;
 use Config;
+use App\Entity\Wx\WxUser;
+use App\Common\WxTools;
 
 class WxAuth
 {
+
+    use WxTools;
+
     /**
      * Handle an incoming request.
      *
@@ -19,56 +24,62 @@ class WxAuth
     {
         $appid = Config::get("casarover.wx_appid");
         $appsecret = Config::get("casarover.wx_appsecret");
-        if (Session::has('wxUser')) {
+        if (Session::has('openid')) {
             return $next($request);
         } else {
             if (env('ENV') == 'PROD') {
-                if (isset($_GET['code'])) {
-                    return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" . $appid
-                            . "&redirect_uri=http%3A%2F%2Fwww.casarover.com%2Fwx&response_type=code"
-                            . "&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+                if (!isset($request->all()['code'])) {
+                    return redirect(WxTools::getUserInfoScopeUrl($appid));
                 } else {
-                    $wxCode = $_GET['code'];
-                    $json = $this->getAccessToken($appid, $appsecret, $wxCode);
-                    $accessToken = $json_obj['access_token'];
-                    $openid = $json_obj['openid'];
-                    echo $openid;
+                    $wxCode = $request->all()['code'];
+                    $baseJson = WxTools::getOpenidAndAccessToken($appid, $appsecret, $wxCode);
+                    $accessToken = $baseJson['access_token'];
+                    $openid = $baseJson['openid'];
+                    $user = WxUser::where('openid', $openid)->distinct()->get();
+                    if (empty($user)) {
+                        // The very first login.
+                        $userInfoJson = WxTools::getUserInfo($accessToken, $openid);
+                        $this->saveWxUser($userInfoJson);
+                    }
+                    Session::put('openid', $openid);
+                    return $next($request);
                 }
-                // return $next($request);
             } else if (env('ENV') == 'DEV') {
-                return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxeafd79d8fcbd74ee"
-                . "&redirect_uri=http%3A%2F%2Fwww.casarover.com%2Fwx&response_type=code"
-                . "&scope=snsapi_userinfo&state=STATE#wechat_redirect");
-                echo 'DEV';
+                $user = $this->getDummyUser();
+                Session::put('openid', $user->openid);
+                return $next($request);
             }
         }
     }
 
-    private function getAccessToken($appid, $appsecret, $wxCode) {
-        $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='
-                . $appid . '&secret=' . $appsecret .'&code=' . $wxCode . '&grant_type=authorization_code';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-        $res = curl_exec($ch);
-        curl_close($ch);
-        $jsonObj = json_decode($res, true);
-        return $jsonObj;
+    private function saveWxUser($userJson)
+    {
+        $user = new WxUser();
+        $user->openid = $userJson->openid;
+        $user->nickname = $userJson->nickname;
+        $user->sex = $userJson->sex;
+        $user->headimgurl = $userJson->headimgurl;
+        $user->save();
     }
 
-    private function getUserInfo($accessToken, $openid) {
-        $url = "https://api.weixin.qq.com/sns/userinfo?access_token="
-                . $accessToken . "&openid=" . $openid . "&lang=zh_CN ";
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-        $res = curl_exec($ch);
-        curl_close($ch);
-        $jsonObj = json_decode($res, true);
-        return $jsonObj;
+    /**
+     * @return a dummy user for dev machine to run testings.
+     */
+    private function getDummyUser()
+    {
+        $user = WxUser::find(9999);
+        if (empty($user)) {
+            $user = new WxUser();
+            $user->id = 9999;
+            $user->nickname = "Lunatic";
+            $user->openid = "FAKE-openid-kbMrB-T0ZGEjGZBIX24";
+            $user->unionid = "FAKE-unionid-ssddiibbllssnnllss";
+            $user->cellphone = "18368841168";
+            $user->sex = 1;
+            $user->headimgurl =
+                    "http://casarover.oss-cn-hangzhou.aliyuncs.com/image/image_20160427-162517-907r1707.jpg";
+            $user->save();
+        }
+        return $user;
     }
 }
