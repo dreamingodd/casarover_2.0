@@ -89,7 +89,7 @@ Route::group(['prefix' => 'api'],function () {
 /**
  * wechat public routess
  */
-Route::group(['prefix' => 'wx'],function () {
+Route::group(['prefix' => 'wx', 'middleware' => ['wx.auth']],function () {
     Route::get('/', 'Wx\WxSiteController@index');
     Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
