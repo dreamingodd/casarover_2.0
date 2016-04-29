@@ -1,0 +1,135 @@
+@import "block/variables";
+//.whole{
+//  padding: 0 1rem;
+//  margin-bottom: 1rem;
+//}
+.all{
+  width: 90%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.main {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.case {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  .show{
+    position: absolute;
+    top: 6px;
+    right: 0;
+    padding-right: 60px;
+  }
+}
+.screen{
+  box-shadow: 5px 5px 10px #d6d6d6;
+  padding-bottom: 20px;
+  margin: 10px auto;
+  background: #fff;
+  padding-top: 30px;
+}
+.sel-key{
+  float: left;
+  width: 100px;
+  padding-left: 48px;
+  line-height: 34px;
+}
+.sel-val{
+  float: left;
+  width: 50%;
+  //height: auto;
+  height: 34px;
+  overflow: hidden;
+  ul{
+    line-height: 34px;
+    overflow: hidden;
+    li{
+      display: inline-block ;
+      a{
+        padding: 0 10px;
+        cursor: pointer;
+      }
+      a:hover{
+        color: @a-hover;
+      }
+      #active{
+        color: @a-hover;
+      }
+    }
+  }
+}
+.extend{
+  height: auto;
+}
+.loader{
+  text-align: center;
+}
+.mobile {
+  width: 100%;
+  position: relative;
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+/*Hiding the checkbox*/
+#tm {
+  display: none;
+}
+/*Content area*/
+.mobile section {
+  background: #fff;
+  width: 100%;
+  height: 300px;
+  position: relative; transition: all 0.25s;
+}
+.mobile section label {
+  color: black; font: bold 14px; text-align: center;
+  border: 2px solid black; border-radius: 4px;
+  display: block; padding: 10px 0;
+  width: 60%; position: absolute; left: 20%; top: 50px;
+  cursor: pointer; text-transform: uppercase;
+}
+/*Nav styles*/
+.sidenav {
+  background: rgb(50, 60, 60); width: 100px;
+  position: absolute; left: 0; top: 0; bottom: 0; padding-top: 50px;
+}
+.sidenav li {
+  list-style-type: none;
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
+.casa a {
+  color: white;
+  text-decoration: none;
+}
+.sidenav b {
+  font: bold 12px/48px Montserrat; display: block;
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.4s;
+}
+.sidenav i {
+  display: block; width: 50px; float: left;
+  font-size: 16px;
+  line-height: 48px;
+  text-align: center;
+}
+/*Animation controls using checkbox hack*/
+/*Animate content area to the right*/
+#tm:checked ~ section {transform: translateX(100px);}
+/*Animate links from right to left + fade in effect*/
+#tm:checked ~ .sidenav b {opacity: 1; transform: translateX(0);}
+/*Adding delay to link animation - in multiples of .08s*/
+/*One can use jQuery also for creating the delayed effect. But I will stick to manual CSS for this walkthrough.*/
+#tm:checked ~ .sidenav li:nth-child(1) b {transition-delay: 0.08s;}
+#tm:checked ~ .sidenav li:nth-child(2) b {transition-delay: 0.16s;}
+#tm:checked ~ .sidenav li:nth-child(3) b {transition-delay: 0.24s;}
+#tm:checked ~ .sidenav li:nth-child(4) b {transition-delay: 0.32s;}
+#tm:checked ~ .sidenav li:nth-child(5) b {transition-delay: 0.40s;}
+#tm:checked ~ .sidenav li:nth-child(6) b {transition-delay: 0.48s;}

@@ -116,6 +116,6 @@ Route::group(['prefix' => 'mobile'],function () {
     Route::get('/home', 'SiteController@index');
     Route::get('/casa/{id}' , 'CasaController@casaInfo');
     Route::get('/casaseries/{type}/{series?}', 'CasaSeriesController@casas');
-    Route::get('/allcasa','CasaController@allcasa');
+    Route::get('/allcasa/{id?}','CasaController@allcasa');
     Route::get('/theme/{id}','ThemeController@show');
 });
