@@ -29,7 +29,7 @@
     <div class="message">
         <ul>
             <li><a href="#">用户反馈</a></li>
-            <li><a href="/about#about-us">关于我们</a></li>
+            <li><a href="/mobile/about#about-us">关于我们</a></li>
         </ul>
     </div>
     <p>浙ICP备15036536号</p>

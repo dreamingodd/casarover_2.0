@@ -1,5 +1,5 @@
 @extends('mobile')
-@section('title','民宿推荐')
+@section('title','主题民宿')
 @section('head')
     <link rel="stylesheet" href="/assets/css/mobileTheme.css">
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
