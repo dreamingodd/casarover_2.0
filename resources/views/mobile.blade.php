@@ -25,7 +25,7 @@
         {{--</div>--}}
     </div>
     @yield('body')
-<footer>
+<footer clear>
     <div class="message">
         <ul>
             <li><a href="#">用户反馈</a></li>
