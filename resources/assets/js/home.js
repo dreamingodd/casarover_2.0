@@ -21,6 +21,7 @@ $(document).ready(function(){
                 casas:null,
                 themes:null,
                 series:null,
+                city:null,
                 scroll:null
             };
         },
@@ -30,6 +31,7 @@ $(document).ready(function(){
         methods: {
             turn: function (event){
                 vm = this;
+                vm.city = event;
                 $(".loader").css('display','block');
                 $.getJSON('/api/home/recom/'+event,function (data) {
                     vm.casas = data;
