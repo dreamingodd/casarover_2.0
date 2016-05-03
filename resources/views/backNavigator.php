@@ -48,8 +48,8 @@
             <li role="presentation" class="system not_completed">
                 <a href="website/backstage/system.php">系统功能</a>
             </li>
-            <li role="presentation" class="logout not_complete">
-                <a href="application/controllers/logout_action.php?location=backstage">退出</a>
+            <li role="presentation" class="logout">
+                <a href="/admin/logout">退出</a>
             </li>
         </ul>
     </div>

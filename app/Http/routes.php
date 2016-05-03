@@ -26,8 +26,20 @@ Route::get('/about', function(){
     return view('site.about');
 });
 
+Route::group(['middleware' => ['web']], function () {
+    Route::auth();
+    Route::get('admin/login', 'Admin\AuthController@getLogin');
+    Route::post('admin/login', 'Admin\AuthController@postLogin');
+    Route::get('admin/logout','Admin\AuthController@logout');
+    Route::get('admin/register', 'Admin\AuthController@getRegister');
+    Route::post('admin/register', 'Admin\AuthController@postRegister');
+    Route::get('admin/wait',function(){
+        return view('admin.wait');
+    });
+});
 
-Route::group(['prefix' => 'back','middleware' => ['web']], function () {
+Route::group(['prefix' => 'back','middleware' => ['web','auth:admin']], function () {
+
     Route::get('/', 'SiteController@slide');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaDel/{id}/{deleted}', 'CasaController@del');

@@ -17,7 +17,6 @@
     <!-- nav bar start -->
     <?php include_once resource_path() . '/views/backNavigator.php';?>
             <!-- nav bar end -->
-
     @yield('body')
 </div>
 </body>
