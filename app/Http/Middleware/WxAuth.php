@@ -33,6 +33,9 @@ class WxAuth
                 } else {
                     $wxCode = $request->all()['code'];
                     $baseJson = WxTools::getOpenidAndAccessToken($appid, $appsecret, $wxCode);
+                    if (empty($baseJson['access_token'])) {
+                        return "登录失败！";
+                    }
                     $accessToken = $baseJson['access_token'];
                     $openid = $baseJson['openid'];
                     $user = WxUser::where('openid', $openid)->distinct()->get();
