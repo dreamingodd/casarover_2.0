@@ -31,7 +31,7 @@
         <!-- logo -->
         <div class="nav-left">
             <a href="/">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
+                <img src="/assets/images/logo.png" alt="logo">
             </a>
         </div>
         <div class="nav-middle">
@@ -49,16 +49,45 @@
     </nav>
     <div class="md-modal md-effect-1" id="modal-1">
         <div class="md-content">
-            <h3>Modal Dialog</h3>
-            <div>
-                <p>This is a modal window. You can do the following things with it:</p>
-                <ul>
-                    <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
-                    <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
-                    <li><strong>Close:</strong> click on the button below to close the modal.</li>
-                </ul>
-                <button class="md-close">Close me!</button>
+            <div class="left">
+                <h3>登陆</h3>
+                <p>探庐者帮你探寻远方的家</p>
+                <form action="" method="post">
+                    <div class="tel">
+                        <label for="tel"></label>
+                        <input type="tel" name="tel" placeholder="手机号">
+                    </div>
+                    <div class="password">
+                        <label for="password"></label>
+                        <input type="password" name="password" placeholder="密码" >
+                    </div>
+                    <input type="submit" value="登陆" id="submit">
+                    <div class="checkbox">
+                        <input type="checkbox" id="checkbox">
+                        <span>自动登陆</span>
+                    </div>
+                    <div class="forget">
+                        <a href="#">忘记密码?</a>
+                    </div>
+                </form>
             </div>
+            <div class="right">
+                <a class="md-close">Close me!</a>
+                    <p>合作网站账号登陆</p>
+                <a href=""><img src="/assets/images/qq.png" alt=""></a>
+                <a href=""><img src="/assets/images/wechat.png" alt=""></a>
+            </div>
+
+            {{--<h3>Modal Dialog</h3>--}}
+            {{--<div>--}}
+                {{--<p>This is a modal window. You can do the following things with it:</p>--}}
+                {{--<ul>--}}
+                    {{--<li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>--}}
+                    {{--<li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>--}}
+                    {{--<li><strong>Close:</strong> click on the button below to close the modal.</li>--}}
+                {{--</ul>--}}
+                {{--<button class="md-close">Close me!</button>--}}
+            {{--</div>--}}
         </div>
     </div>
     <div class="md-overlay"></div>

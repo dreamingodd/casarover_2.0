@@ -21,7 +21,9 @@ perspective effects (not including the modals and the overlay).
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	width: 50%;
+	width: 60%;
+	background: #f8f8f8;
+	padding: 10px 0;
 	max-width: 630px;
 	min-width: 320px;
 	height: auto;
@@ -63,33 +65,92 @@ perspective effects (not including the modals and the overlay).
 /* Content styles */
 .md-content {
 	color: #000;
-	background: #fff;
+	background: #f8f8f8;
 	position: relative;
 	border-radius: 3px;
 	margin: 0 auto;
-}
+	text-align: center;
+	form{
+		width: 84%;
+		margin: 0 auto;
+	}
+	.left{
+		float: left;
+		width: 62.5%;
+		border-right: 1px solid #c5c5c5 ;
+		p{
+			font-size: 16px;
+		}
+		.tel label{
+			display: inline-block;
+			background: url('/assets/images/user.png');
+			width: 33px;
+			height: 32px;
+			vertical-align:top;
+		}
+		.password label{
+			display: inline-block;
+			background: url('/assets/images/password.png');
+			width: 33px;
+			height: 32px;
+			vertical-align:top;
+		}
+		input{
+			vertical-align:middle;
+			margin-left: 10px;
+			height: 32px;
+			background: #fff;
+			margin-bottom: 27px;
+			width: 70%;
+		}
+		#submit{
+			margin-top: 14px ;
+			background: #35b449;
+			font-size: 28px;
+			color: #fff;
+			height: 57px;
+			width: 100%;
+		}
+		.checkbox {
+			span {
+				vertical-align:middle;
+				margin-top: -10px;
+			}
+		}
+		#checkbox{
+			width: 15px;
+			margin: 0;
+			padding: 0;
+			vertical-align:middle;
+		}
+		.checkbox{
+			float: left;
+		}
+		.forget{
+			float: right;
+			a{
+				color: #35b449;;
+			}
+		}
+	}
+	.right{
+		float: right;
 
+		a{
+			cursor: pointer;
+			width: 80%;
+		}
+		img{
+			max-width: 80%;
+			display: block;
+		}
+	}
+}
 .md-content h3 {
 	margin: 0;
-	padding: 0.4em;
 	text-align: center;
-	font-size: 2.4em;
-	font-weight: 300;
-	opacity: 0.8;
-	background: rgba(0,0,0,0.1);
-	border-radius: 3px 3px 0 0;
-}
-
-.md-content > div {
-	padding: 15px 40px 30px;
-	margin: 0;
-	font-weight: 300;
-	font-size: 1.15em;
-}
-
-.md-content > div p {
-	margin: 0;
-	padding: 10px 0;
+	font-size: 32px;
+	font-weight: bold;
 }
 
 .md-content > div ul {
