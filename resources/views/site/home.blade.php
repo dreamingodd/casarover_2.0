@@ -73,7 +73,7 @@ if($ua != '' && preg_match($uachar, $ua)){
                 <div></div>
             </div>
         </div>
-        <div class="casa-card" v-for="casa in casas" transition="expand" id="test">
+        <div class="casa-card" v-for="casa in casas" transition="expand">
             <div class="card-b">
                 <a href="casa/@{{ casa.id }}" target="_blank">
                     <img :src="casa.pic" height="100%">
@@ -89,6 +89,7 @@ if($ua != '' && preg_match($uachar, $ua)){
                 </a>
             </div>
         </div>
+        <a href="/allcasa/@{{ city }}" class="city-casa">更多</a>
     </section>
     @endif
 

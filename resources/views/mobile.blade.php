@@ -34,6 +34,5 @@
     </div>
     <p>浙ICP备15036536号</p>
 </footer>
-<script src="/assets/js/home.js" type="text/javascript"></script>
 </body>
 </html>
