@@ -4,10 +4,11 @@
     <link href="/assets/css/wxBill.css" rel="stylesheet"/>
 @stop
 @section('body')
-    <nav><a href="/wx" class="glyphicon glyphicon-chevron-left"></a>
-        <a href="tel:12345678901" class="glyphicon glyphicon-earphone"></a>
-        <h1>探庐者</h1>
-    </nav>
+@section('nav')
+    <a href="/wx/confirm" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a href="tel:15868102935" id="navright" class="glyphicon glyphicon-earphone"></a>
+    <img  src="/assets/images/logow.png" />
+@stop
     <div class="main">
         <div class="total">
             <h2>交易金额：</h2>
@@ -24,5 +25,9 @@
         <div class="succes">
                 <h1><span class="glyphicon glyphicon-ok"></span>交易成功</h1>
         </div>
+    </div>
+    <div class="return clear">
+        <a href="/wx" >返回首页</a>
+        <a href="/wx" id="info">查看订单</a>
     </div>
 @stop

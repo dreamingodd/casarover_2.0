@@ -109,9 +109,9 @@
     <script src="/assets/js/home.js" type="text/javascript"></script>
     <script>
         $(function($){
-        $('."city-list a').click(function () {
-        $('."city-list a').removeClass();
-        $(this).addClass('active');
+        $('.city-list a').click(function () {
+        $('.city-list a').removeAttr('id');
+        $(this).attr('id','active');
         });});
     </script>
 @stop

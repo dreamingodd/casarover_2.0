@@ -1,7 +1,7 @@
 @extends('mobile')
-@section('title','民宿推荐')
+@section('title','主题民宿')
 @section('head')
-    <link rel="stylesheet" href="/assets/css/mobiletheme.css">
+    <link rel="stylesheet" href="/assets/css/mobileTheme.css">
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
 @endsection
@@ -43,15 +43,6 @@
                         @endforeach
                     </ul>
                 </div>
-                {{--<h2>其他主题：</h2>--}}
-                {{--@foreach($others as $theme)--}}
-                    {{--<div class="other">--}}
-                        {{--<a href="/theme/{{ $theme->id }}">--}}
-                            {{--<img src="{{ $theme->pic }}" alt="">--}}
-                            {{--<p>{{ $theme->name }}</p>--}}
-                        {{--</a>--}}
-                    {{--</div>--}}
-                {{--@endforeach--}}
             </div>
         </div>
     </div>

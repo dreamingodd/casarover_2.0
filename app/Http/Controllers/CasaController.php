@@ -134,7 +134,7 @@ class CasaController extends BaseController
        $city = Area::find($casa->area->id)->supArea;
        $casas = $this->guessCasas($city);
        if(strpos($request->url(), 'mobile'))
-           return  view('mobile.casa',compact('casa'));
+           return  view('mobile.casa',compact('casa','city','casas'));
        else
            return view('site.casa',compact('casa','city','casas'));
    }
@@ -173,13 +173,16 @@ class CasaController extends BaseController
      * 这里传入信息，所有城市，被选中城市，轮播图信息
      * 其他下面显示的部分是由vue进行处理
     **/
-   public function allcasa($cityId=7)
+   public function allcasa(Request $request,$cityId=7)
    {
        $citys = Area::where('level','3')->whereNotIn('value', ['朱家角','黄浦区','其他'])->orwhere('value','上海')->get();
        //应该是指定三个，后面应该是相互联系的
        $areas = Area::where('level','4')->whereIn('id',[8,10,19])->get();
        //默认被选中的city 为杭州
        $sel = $cityId;
+       if(strpos($request->url(), 'mobile'))
+           return  view('mobile.allcasa',compact('citys','areas','sel'));
+       else
        return view('site.allcasa',compact('citys','areas','sel'));
    }
 

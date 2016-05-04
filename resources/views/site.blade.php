@@ -8,6 +8,7 @@
     <meta name="description" content="找到好民宿">
     <title>探庐者-@yield('title')</title>
     <link rel="stylesheet" href="/assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/component.css" />
     <!--[if lt IE 9]>
     <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
@@ -42,11 +43,25 @@
             <a href="/#series">探庐系列</a>
         </div>
         <div class="nav-right">
-            <a href="">登录</a>
-            <a href="">注册</a>
+            <a href="#" class="md-trigger" data-modal="modal-1">登录</a>
+            <a href="#">注册</a>
         </div>
     </nav>
-
+    {{--<div class="md-modal md-effect-1" id="modal-1">--}}
+        {{--<div class="md-content">--}}
+            {{--<h3>Modal Dialog</h3>--}}
+            {{--<div>--}}
+                {{--<p>This is a modal window. You can do the following things with it:</p>--}}
+                {{--<ul>--}}
+                    {{--<li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>--}}
+                    {{--<li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>--}}
+                    {{--<li><strong>Close:</strong> click on the button below to close the modal.</li>--}}
+                {{--</ul>--}}
+                {{--<button class="md-close">Close me!</button>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+    {{--<div class="md-overlay"></div>--}}
     @yield('body')
 
     <footer>
@@ -79,5 +94,7 @@
             </ul>
         </div>
     </footer>
+    <script src="/assets/js/classie.js"></script>
+    <script src="/assets/js/modalEffects.js"></script>
 </body>
 </html>

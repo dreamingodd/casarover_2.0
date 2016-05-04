@@ -14,6 +14,7 @@ class WxSiteController extends Controller
 {
     public function index()
     {
+        dd(123);
         $wxCasas = WxCasa::orderBy('id', 'desc')->get();
         foreach ($wxCasas as $casa) {
             $this->convertToViewCasa($casa);

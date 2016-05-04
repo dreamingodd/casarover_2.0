@@ -4,10 +4,11 @@
     <link href="/assets/css/wxPerson.css" rel="stylesheet"/>
 @stop
 @section('body')
-    <nav><a href="/wx" class="glyphicon glyphicon-chevron-left"></a>
-        <a href="tel:12345678901" class="glyphicon glyphicon-earphone"></a>
-        <h1>探庐者</h1>
-    </nav>
+@section('nav')
+    <a href="/wx" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a href="tel:15868102935" id="navright" class="glyphicon glyphicon-earphone"></a>
+    <img  src="/assets/images/logow.png" />
+@stop
     <div class="main">
         <a href="#" id="order"><p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
                 <span class="glyphicon glyphicon-triangle-right"></span><span class="glyphicon glyphicon-triangle-bottom"></span></p></a>
@@ -21,7 +22,7 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="already">
-                    <a href="#">
+                    <a href="/wx/orderdetails">
                       <div class="case clear">
                           <div class="images">
                             <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
