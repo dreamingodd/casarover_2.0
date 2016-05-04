@@ -1,8 +1,8 @@
 /**
-*总计两个命令
-*开发的时候gulp
-*部署的时候gulp produc
-**/
+ *总计两个命令
+ *开发的时候gulp
+ *部署的时候gulp produc
+ **/
 
 // 适配laravel的工作流
 // 本地开发环境下less js 等文件放在 resources/assets/ 下
@@ -16,20 +16,33 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     rev = require('gulp-rev'),
     revCollector = require('gulp-rev-collector'),
-    // jshint=require('gulp-jshint'),
+// jshint=require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     browserSync = require('browser-sync').create(),
     reload = browserSync.reload,
     minifycss = require('gulp-minify-css');
-    const del = require('del');
+const del = require('del');
 
+//配置部分
+var lessDir = ['resources/assets/less/**/*.less'];
+var jsDir = ['resources/assets/js/**/*.js'];
+var reloadDir = ['resources/assets/**/*.*','resources/views/**/*.*'];
 
 // 通用
 
-
+//开发使用
+// 编译less
+gulp.task('dev-less',function() {
+    //为了加快编译速度不进行删除操作，如果出现问题，重新添加回来
+    //del.sync('public/assets/css/*.css');
+    gulp.src('resources/assets/less/*.less')
+        .pipe(less())
+        .pipe(minifycss())
+        .pipe(gulp.dest('public/assets/css/'))
+});
 // 压缩js
 gulp.task('uglify',function () {
-    gulp.src('resources/assets/js/*.js')
+    gulp.src('resources/assets/js/**/*.js')
         .pipe(uglify())
         .pipe(gulp.dest('public/assets/js/'));
 });
@@ -40,14 +53,7 @@ gulp.task('uglify_integration',function () {
         .pipe(gulp.dest('public/assets/js/integration/'));
 });
 
-// 编译less
-gulp.task('dev-less', function() {
-    del.sync('public/assets/css/*.css');
-    gulp.src('resources/assets/less/*.less')
-        .pipe(less())
-        .pipe(minifycss())
-        .pipe(gulp.dest('public/assets/css/'))
-});
+
 
 
 // 部署执行
@@ -85,15 +91,13 @@ gulp.task('replace',['less'], function() {     //说明replace 是依赖于less�
 gulp.task('deploy',['replace','less','clean']);
 
 
-gulp.task('default', ['dev-less'],function() {
-
+gulp.task('default',function() {
     browserSync.init({
         proxy: "http://localhost",
         port:"80"
     });
-
-    gulp.watch('resources/assets/less/*.less',['dev-less']);
-    gulp.watch('resources/assets/js/*js',['uglify']);
+    gulp.watch(lessDir,['dev-less']);
+    gulp.watch(jsDir,['uglify']);
     gulp.watch('resources/assets/js/integration/*js',['uglify_integration']);
-    gulp.watch('resources/**/**/*.*').on('change',reload);
+    gulp.watch(reloadDir).on('change',reload);
 });
