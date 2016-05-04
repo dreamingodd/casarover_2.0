@@ -53,7 +53,7 @@
         </div>
 
         <h3>附近景点</h3>
-        <p>一个景点一张图片，请把多余的删掉</p>
+        <p class="text-danger">一个景点一张图片，请把多余的删掉(图片大小490*300)</p>
         @for($con=2; $con<5; $con++)
                 <!-- OSS start -->
         <div class="oss_photo_tool col-lg-12 clearfix" target_folder="area" file_prefix="area" limit_size="1024"

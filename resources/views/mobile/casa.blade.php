@@ -9,11 +9,10 @@
     <div class="main">
         <!-- 民宿大图  -->
     <div class="banner">
-        <div class="cover-photo">
-            <img src="{{ $casa->headImg }}" width="100%" alt="">
-        </div>
+        {{--<div class="cover-photo">--}}
+            {{--<img src="{{ $casa->headImg }}" width="100%" alt="">--}}
+        {{--</div>--}}
         <div class="show-mess">
-            <!-- <div class="mark">浏览233</div> -->
             <h1>{{ $casa->name }}</h1>
         </div>
 

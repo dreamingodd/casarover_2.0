@@ -16,7 +16,6 @@
             <h1>{{ $area->value }}</h1>
             <p>{{ $area->contents['0']->text or null}}</p>
         </div>
-
     </div>
     <div class="container">
         <!-- 文字介绍 -->
