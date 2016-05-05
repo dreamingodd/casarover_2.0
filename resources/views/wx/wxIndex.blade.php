@@ -19,7 +19,7 @@
                 <a href="/wx/casa/2" class="slide-a"></a>
             </li>
         </ul>
-    </div>{{Session::get('openid')}}
+    </div>
     <div class="tabtable">
         <!--
         <ul class="nav nav-tabs">

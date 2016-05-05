@@ -29,7 +29,7 @@
         </div>
     @endforeach
     <p id="total">总价：<i id="totalPayment">0</i>元</p>
-    <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+    <input type="hidden" id="csrf_token" name="_token" value="{{csrf_token()}}"/>
     <p class="title">
         <span class="glyphicon glyphicon-user"></span>联系人信息
     </p>

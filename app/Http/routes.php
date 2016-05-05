@@ -11,8 +11,6 @@
 |
 */
 
-use App\Task;
-use Illuminate\Http\Request;
 
 Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
@@ -38,7 +36,7 @@ Route::group(['middleware' => ['web']], function () {
     });
 });
 
-Route::group(['prefix' => 'back','middleware' => ['web','auth:admin']], function () {
+Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], function () {
 
     Route::get('/', 'SiteController@slide');
     Route::get('casaList/{deleted?}', 'CasaController@showList');

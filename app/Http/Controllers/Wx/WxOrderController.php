@@ -7,15 +7,14 @@ use Exception;
 use DB;
 use Log;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxOrder;
 use App\Entity\Wx\WxOrderItem;
-use App\Entity\Wx\WxRoom;
 
 class WxOrderController extends Controller
 {
     public function create(Request $request) {
+
         DB::beginTransaction();
         try {
             $reservedRooms = $request->input('reservedRooms');
