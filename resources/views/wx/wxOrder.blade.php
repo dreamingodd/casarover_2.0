@@ -34,8 +34,14 @@
         <span class="glyphicon glyphicon-user"></span>联系人信息
     </p>
     <div class="person">
-        <input type="text" id="personName" value="" placeholder="请输入姓名" >
-        <input type="number" id="cellphone" value="" placeholder="请输入11位手机号">
+        <div class="personName">
+            <label for="personName">姓名：</label>
+            <input type="text" id="personName" value="" placeholder="请输入姓名" >
+        </div>
+        <div class="cellphone">
+            <label for="cellphone" >手机：</label>
+            <input type="number" id="cellphone" value="" placeholder="请输入11位手机号">
+        </div>
     </div>
     <input type="button" id="submitBtn" class="btn" value="立即预定" />
 @stop

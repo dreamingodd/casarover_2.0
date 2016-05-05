@@ -24,7 +24,9 @@ class WxRoomController extends Controller
         $wxCasa->wxRooms()->saveMany($wxRooms);
         return redirect('/back/wx');
     }
-
+    public function date($id) {
+        return view('backstage.wxRoomDate');
+    }
     private function createRooms($rawRooms) {
         $rooms = array();
         foreach ($rawRooms as $rawRoom) {

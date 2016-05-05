@@ -119,6 +119,7 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('casa/restore/{id?}', 'Wx\WxCasaController@restore');
     Route::get('room/{id}', 'Wx\WxRoomController@show');
     Route::post('room/edit', 'Wx\WxRoomController@edit');
+    Route::get('room/date/{id}', 'Wx\WxRoomController@date');
 });
 
 /** Routes for mobile phone. */
