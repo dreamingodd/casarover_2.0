@@ -1,1 +1,1 @@
-window.onload=function(){var n=(document.getElementsByTagName("nav")[0],$(".nav-middle li:eq(3)")),e=($("#asd"),$(".nav-middle dl"));n.mouseover(function(){e.show()}),n.mouseout(function(){e.hide()})};
+"use strict";window.onload=function(){var e=(document.getElementsByTagName("nav")[0],$(".nav-middle li:eq(3)")),n=($("#asd"),$(".nav-middle dl"));e.mouseover(function(){n.show()}),e.mouseout(function(){n.hide()})};

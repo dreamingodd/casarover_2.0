@@ -22,6 +22,7 @@ var gulp = require('gulp'),
     reload = browserSync.reload,
     minifycss = require('gulp-minify-css');
 const del = require('del');
+const babel = require('gulp-babel');
 
 //配置部分
 var lessDir = ['resources/assets/less/**/*.less'];
@@ -42,7 +43,10 @@ gulp.task('dev-less',function() {
 });
 // 压缩js
 gulp.task('uglify',function () {
-    gulp.src('resources/assets/js/**/*.js')
+    gulp.src('resources/assets/js/*.js')
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(uglify())
         .pipe(gulp.dest('public/assets/js/'));
 });

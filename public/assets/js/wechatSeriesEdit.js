@@ -1,1 +1,1 @@
-function sed(){var a=$(".pic input").val();$("#pic").val(a);var v=$(".thumb input").val();$("#thumb").val(v)}
+"use strict";function sed(){var t=$(".pic input").val();$("#pic").val(t);var a=$(".thumb input").val();$("#thumb").val(a)}
