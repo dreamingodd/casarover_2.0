@@ -15,6 +15,9 @@ class WxPayController extends Controller
      */
     public function wxOrder($orderId) {
         $casaroverOrder = WxOrder::find($orderId);
+        if (env('ENV') == 'DEV' && !empty($casaroverOrder)) {
+            return "订单已创建，订单信息：" . $casaroverOrder;
+        }
         $options = [
             // 前面的appid什么的也得保留哦
             'app_id' => Config::get("casarover.wx_appid"),

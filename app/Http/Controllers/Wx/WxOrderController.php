@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use Exception;
 use DB;
 use Log;
+use Config;
+use Session;
 
 use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxOrder;
+use App\Entity\Wx\WxUser;
 use App\Entity\Wx\WxOrderItem;
 
 class WxOrderController extends Controller
@@ -19,7 +22,9 @@ class WxOrderController extends Controller
         try {
             $reservedRooms = $request->input('reservedRooms');
             $wxOrder = new WxOrder();
-            //$wxOrder->status = WxOrder::STATUS_PAYING;
+            $wxOrder->wx_user_id = WxUser::find(Session::get('wx_user_id'))->id;
+            $wxOrder->save();
+            $wxOrder->order_id = Config::get("casarover.wx_shopid") . '-' . $wxOrder->id;
             $wxOrder->save();
             if (empty($reservedRooms)) {
                 return "没有选购商品！";

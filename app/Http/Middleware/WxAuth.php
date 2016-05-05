@@ -45,12 +45,14 @@ class WxAuth
                         $this->saveWxUser($userInfoJson);
                     }
                     Session::put('openid', $openid);
+                    Session::put('wx_user_id', $user->id);
                     Session::save();
                     return $next($request);
                 }
             } else if (env('ENV') == 'DEV') {
                 $user = $this->getDummyUser();
                 Session::put('openid', $user->openid);
+                Session::put('wx_user_id', $user->id);
                 Session::save();
                 return $next($request);
             }
