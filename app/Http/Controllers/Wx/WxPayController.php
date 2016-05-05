@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers\Wx;
 
-use Illuminate\Http\Request;
-
-use Log;
 use Config;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Payment\Order;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxOrder;
-use App\Entity\Wx\WxOrderItem;
 
 class WxPayController extends Controller
 {

@@ -19,20 +19,20 @@ $(function() {
     });
     $('#submitBtn').click(function(){
         // 1.Parameter check.
-        // var personName = $('#personName').val();
-        // var cellphone = $('#cellphone').val();
-        // if (!$('#totalPayment').html() || $('#totalPayment').html() === "0") {
-        //     alert("您还没有选择房间/套餐！");
-        //     return;
-        // }
-        // if (!personName) {
-        //     alert("请输入姓名！");
-        //     return;
-        // }
-        // if (!isCellphoneNumber(cellphone)) {
-        //     alert("请输入正确的手机号码！");
-        //     return;
-        // }
+        var personName = $('#personName').val();
+        var cellphone = $('#cellphone').val();
+        if (!$('#totalPayment').html() || $('#totalPayment').html() === "0") {
+            alert("您还没有选择房间/套餐！");
+            return;
+        }
+        if (!personName) {
+            alert("请输入姓名！");
+            return;
+        }
+        if (!isCellphoneNumber(cellphone)) {
+            alert("请输入正确的手机号码！");
+            return;
+        }
         // 2.Collect room information for the order.
         var reservedRooms = [];
         $('.room').each(function(){
@@ -46,15 +46,16 @@ $(function() {
         });
         // reservedRoomsJson = JSON.stringify(reservedRooms);
         console.log("Rooms INFO:" + JSON.stringify(reservedRooms));
+        var csrf_token = $('#csrf_token').val();
         // 3.Ajax call to create the order.
         $.ajax({
             type: 'post',
             url : '/wx/order/create',
             dataType : 'json',
             data: {
-                "reservedRooms":reservedRooms
+                "reservedRooms" : reservedRooms,
+                "_token" : csrf_token
             },
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             success : function(data) {
                console.log('order create successfully!');
                 // 4.Order create successfully, then pay...
