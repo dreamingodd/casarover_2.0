@@ -75,13 +75,12 @@ class WxAuth
      */
     private function getDummyUser()
     {
-        $user = WxUser::find(9999);
+        $user = WxUser::find(9998);
         if (empty($user)) {
             $user = new WxUser();
-            $user->id = 9999;
-            $user->nickname = "Lunatic";
-            $user->openid = "FAKE-openid-kbMrB-T0ZGEjGZBIX24";
-            $user->unionid = "FAKE-unionid-ssddiibbllssnnllss";
+            $user->id = 9998;
+            $user->nickname = "ywd";
+            $user->openid = "FAKE-openid-kbMrB-T0ZGEjGZBIX25";
             $user->cellphone = "18368841168";
             $user->sex = 1;
             $user->headimgurl =
