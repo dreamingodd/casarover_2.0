@@ -38,7 +38,7 @@ class WxAuth
                     }
                     $accessToken = $baseJson['access_token'];
                     $openid = $baseJson['openid'];
-                    $user = WxUser::where('openid', $openid)->distinct()->get();
+                    $user = WxUser::where('openid', $openid)->get()->first();
                     if (empty($user)) {
                         // The very first login.
                         $userInfoJson = WxTools::getUserInfo($accessToken, $openid);
@@ -59,13 +59,13 @@ class WxAuth
         }
     }
 
-    private function saveWxUser($userJson)
+    private function saveWxUser($jsonUser)
     {
         $user = new WxUser();
-        $user->openid = $userJson->openid;
-        $user->nickname = $userJson->nickname;
-        $user->sex = $userJson->sex;
-        $user->headimgurl = $userJson->headimgurl;
+        $user->openid = $jsonUser['openid'];
+        $user->nickname = $jsonUser['nickname'];
+        $user->sex = $jsonUser['sex'];
+        $user->headimgurl = $jsonUser['headimgurl'];
         $user->save();
         return $user;
     }

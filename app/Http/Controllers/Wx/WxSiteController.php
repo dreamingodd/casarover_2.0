@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Wx;
 
-use Illuminate\Http\Request;
 
 use DB;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxCasa;
-use App\Entity\Wx\WxRoom;
+use App\Entity\Wx\WxUser;
 
 class WxSiteController extends Controller
 {
