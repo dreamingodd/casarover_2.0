@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Wx;
 
 use Config;
+use Session;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Payment\Order;
 use App\Http\Controllers\Controller;
@@ -13,7 +14,7 @@ class WxPayController extends Controller
     /**
      * Create an order and return to confirm page.
      */
-    public function wxOrder($orderId) {
+    public function prepare($orderId) {
         $casaroverOrder = WxOrder::find($orderId);
         if (env('ENV') == 'DEV' && !empty($casaroverOrder)) {
             return "订单已创建，订单信息：" . $casaroverOrder;
@@ -44,12 +45,12 @@ class WxPayController extends Controller
         $attributes = [
             'body'             => 'casarover',
             'detail'           => 'casarover',
-            'out_trade_no'     => Config::get("casarover.wx_shopid").date('YmdHis'),
-            'total_fee'        => 1000,//$casaroverOrder->total,
+            'out_trade_no'     => $casaroverOrder->order_id,
+            'total_fee'        => $casaroverOrder->total,//$casaroverOrder->total,
             'trade_type'       => 'JSAPI',
-            'openid'          => 'of43pwvQNRnpxjQ3S94wYVbSgnU0',
-            'notify_url'       => 'https://www.casarover.com/wx/pay/notify', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
-            // ...
+            'openid'           => Session::get('openid'),
+            // 支付结果通知网址，如果不设置则会使用配置里的默认地址
+            'notify_url'       => 'https://www.casarover.com/wx/pay/notify',
         ];
 
         // 统一下单
