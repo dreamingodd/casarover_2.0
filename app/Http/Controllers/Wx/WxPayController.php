@@ -17,7 +17,7 @@ class WxPayController extends Controller
     public function prepare($orderId) {
         $casaroverOrder = WxOrder::find($orderId);
         if (env('ENV') == 'DEV' && !empty($casaroverOrder)) {
-            return "订单已创建，订单信息：" . $casaroverOrder;
+            //return "订单已创建，订单信息：" . $casaroverOrder;
         }
         $options = [
             // 前面的appid什么的也得保留哦
@@ -38,7 +38,7 @@ class WxPayController extends Controller
                 // ...
             ],
         ];
-
+        // var_dump($options);
         $app = new Application($options);
         $payment = $app->payment;
 
@@ -52,16 +52,16 @@ class WxPayController extends Controller
             // 支付结果通知网址，如果不设置则会使用配置里的默认地址
             'notify_url'       => 'https://www.casarover.com/wx/pay/notify',
         ];
-
         // 统一下单
         $order = new Order($attributes);
+        // var_dump($order);
         $result = $payment->prepare($order);
+        var_dump($result);
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
             $prepayId = $result->prepay_id;
         }
 
         $payConfig = $payment->configForPayment($prepayId);
-
         return view("wx.wxConfirm", compact('payConfig', 'order', 'casaroverOrder'));
     }
 
