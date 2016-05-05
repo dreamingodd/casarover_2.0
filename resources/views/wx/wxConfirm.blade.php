@@ -17,7 +17,7 @@
             {{--下两行做循环--}}
             <p>房间型号:<span>标准间</span></p>
             <p>房间数量:<span>2</span></p>
-            <p id="total">总价：<i>{{$order->total_fee or ''}}元</i></p>
+            <p id="total">总价：<i>{{$casaroverOrder->total or ''}}</i>元</p>
         </div>
         {{--<div class="person">--}}
             {{--<h2>用户信息</h2>--}}
@@ -27,11 +27,11 @@
 <script type="text/javascript">
     var WXPayment = function() {
         if( typeof WeixinJSBridge === 'undefined' ) {
-            alert('请在微信在打开页面！');
+            alert('请在微信中在打开页面！');
             return false;
         }
         WeixinJSBridge.invoke(
-                'getBrandWCPayRequest', {{$payConfig or ''}}, function(res) {
+                'getBrandWCPayRequest', <?php echo $payConfig; ?>, function(res) {
                     switch(res.err_msg) {
                         case 'get_brand_wcpay_request:cancel':
                             alert('用户取消支付！');
