@@ -11,7 +11,6 @@ use Session;
 
 use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxOrder;
-use App\Entity\Wx\WxUser;
 use App\Entity\Wx\WxOrderItem;
 use App\Entity\Wx\WxRoom;
 
@@ -23,7 +22,11 @@ class WxOrderController extends Controller
         try {
             $reservedRooms = $request->input('reservedRooms');
             $wxOrder = new WxOrder();
-            $wxOrder->wx_user_id = WxUser::find(Session::get('wx_user_id'))->id;
+            if (empty(Session::get('wx_user_id'))) {
+                return "用户信息（ID）获取失败！";
+            } else {
+                $wxOrder->wx_user_id = Session::get('wx_user_id');
+            }
             $wxOrder->save();
             if (empty($reservedRooms)) {
                 return "没有选购商品！";
