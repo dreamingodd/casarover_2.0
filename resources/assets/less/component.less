@@ -24,7 +24,7 @@ perspective effects (not including the modals and the overlay).
 	width: 60%;
 	background: #f8f8f8;
 	padding: 10px 0;
-	max-width: 630px;
+	max-width: 800px;
 	min-width: 320px;
 	height: auto;
 	z-index: 2000;
@@ -103,6 +103,10 @@ perspective effects (not including the modals and the overlay).
 			margin-bottom: 27px;
 			width: 70%;
 		}
+		::-moz-placeholder,::-webkit-input-placeholder, :-ms-input-placeholder{
+			color: #8f8f8f;
+			font-family: Microsoft YaHei;
+		}
 		#submit{
 			margin-top: 14px ;
 			background: #35b449;
@@ -121,28 +125,67 @@ perspective effects (not including the modals and the overlay).
 			width: 15px;
 			margin: 0;
 			padding: 0;
+			cursor: pointer;
 			vertical-align:middle;
 		}
 		.checkbox{
 			float: left;
+			font-size: 14px;
 		}
 		.forget{
 			float: right;
 			a{
+				font-size: 14px;
 				color: #35b449;;
 			}
 		}
 	}
 	.right{
+		width: 37%;
 		float: right;
-
+		text-align: center;
 		a{
+			display: block;
 			cursor: pointer;
-			width: 80%;
+			width: 77%;
+			margin: 16px auto;
 		}
 		img{
-			max-width: 80%;
+			width: 100%;
+		}
+		p{
+			margin: 62px 0 18px 0;
+			font-size: 18px;
+		}
+		#noyet{
+			margin-top: 68px;
+			font-size: 14px;
+			span{
+				color: #35b449 ;
+				cursor: pointer;
+			}
+		}
+		.md-close{
+			transition-property:transform ;
+			/* Firefox 4 */
+			-moz-transition:transform 1s ;
+			/* Safari and Chrome */
+			-webkit-transition:transform 1s ;
+			/* Opera */
+			-o-transition:transform 1s ;
+			float: right;
+			margin-right: 20px;
+			width: 24px;
+			height: 24px;
 			display: block;
+			background: url('/assets/images/close.png');
+		}
+		.md-close:hover{
+			transform:rotate(360deg);
+			-ms-transform:rotate(360deg); 	/* IE 9 */
+			-moz-transform:rotate(360deg); 	/* Firefox */
+			-webkit-transform:rotate(360deg); /* Safari 和 Chrome */
+			-o-transform:rotate(360deg); 	/* Opera */
 		}
 	}
 }

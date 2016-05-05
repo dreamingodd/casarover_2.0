@@ -72,10 +72,11 @@
                 </form>
             </div>
             <div class="right">
-                <a class="md-close">Close me!</a>
+                <div class="md-close"></div>
                     <p>合作网站账号登陆</p>
                 <a href=""><img src="/assets/images/qq.png" alt=""></a>
                 <a href=""><img src="/assets/images/wechat.png" alt=""></a>
+                <p id="noyet">还没有注册？<span>注册账号＞＞</span></p>
             </div>
 
             {{--<h3>Modal Dialog</h3>--}}
