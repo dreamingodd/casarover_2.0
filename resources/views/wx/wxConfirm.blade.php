@@ -8,6 +8,7 @@
     <a href="tel:15868102935" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop
+@section('body')
     <div class="main">
         <div class="commodity">
             <h2>商品信息</h2>
@@ -16,7 +17,7 @@
             {{--下两行做循环--}}
             <p>房间型号:<span>标准间</span></p>
             <p>房间数量:<span>2</span></p>
-            <p id="total">总价：<i><?php echo ($order->total_fee / 100); ?>元</i></p>
+            <p id="total">总价：<i>{{$order->total_fee or ''}}元</i></p>
         </div>
         {{--<div class="person">--}}
             {{--<h2>用户信息</h2>--}}
@@ -30,7 +31,7 @@
             return false;
         }
         WeixinJSBridge.invoke(
-                'getBrandWCPayRequest', <?php echo $payConfig; ?>, function(res) {
+                'getBrandWCPayRequest', {{$payConfig or ''}}, function(res) {
                     switch(res.err_msg) {
                         case 'get_brand_wcpay_request:cancel':
                             alert('用户取消支付！');

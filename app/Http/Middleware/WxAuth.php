@@ -42,15 +42,17 @@ class WxAuth
                     if (empty($user)) {
                         // The very first login.
                         $userInfoJson = WxTools::getUserInfo($accessToken, $openid);
-                        $this->saveWxUser($userInfoJson);
+                        $user = $this->saveWxUser($userInfoJson);
                     }
                     Session::put('openid', $openid);
+                    Session::put('wx_user_id', $user->id);
                     Session::save();
                     return $next($request);
                 }
             } else if (env('ENV') == 'DEV') {
                 $user = $this->getDummyUser();
                 Session::put('openid', $user->openid);
+                Session::put('wx_user_id', $user->id);
                 Session::save();
                 return $next($request);
             }
@@ -65,6 +67,7 @@ class WxAuth
         $user->sex = $userJson->sex;
         $user->headimgurl = $userJson->headimgurl;
         $user->save();
+        return $user;
     }
 
     /**
