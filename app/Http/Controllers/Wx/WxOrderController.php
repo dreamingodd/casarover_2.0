@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wx;
 
+use App\Entity\Wx\WxUser;
 use Illuminate\Http\Request;
 use Exception;
 use DB;
@@ -16,20 +17,31 @@ use App\Entity\Wx\WxRoom;
 
 class WxOrderController extends Controller
 {
+    public function show($id) {
+        $order = WxOrder::find($id);
+        return view('wx.wxOrderDetail', compact('order'));
+    }
+
     public function create(Request $request) {
 
         DB::beginTransaction();
         try {
+            // update user information.
+            if (empty(Session::get('wx_user_id'))) {
+                return "用户信息（ID）获取失败！";
+            }
+            $userId = Session::get('wx_user_id');
+            $user = WxUser::find($userId);
+            $user->realname = $request->input('realname');
+            $user->cellphone = $request->input('cellphone');
+            $user->save();
+            // reserved rooms editing.
             $reservedRooms = $request->input('reservedRooms');
             $wxOrder = new WxOrder();
             if (empty($reservedRooms)) {
                 return "没有选购商品！";
             }
-            if (empty(Session::get('wx_user_id'))) {
-                return "用户信息（ID）获取失败！";
-            } else {
-                $wxOrder->wx_user_id = Session::get('wx_user_id');
-            }
+            $wxOrder->wx_user_id = $userId;
             $wxOrder->wx_casa_id = $request->input('wxCasaId');
             $wxOrder->save();
             $total = 0;
@@ -52,6 +64,7 @@ class WxOrderController extends Controller
         } catch (Exception $ex) {
             DB::rollback();
             Log::critical($ex);
+            return $ex;
         }
     }
 

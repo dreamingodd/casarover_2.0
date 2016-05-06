@@ -3,6 +3,7 @@ $(document).ready(function(){
         template : '#goodlist',
         props : ['goods']
     });
+    
     new Vue({
         el: '#app',
         data: {

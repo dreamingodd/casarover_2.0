@@ -7,8 +7,12 @@ $(function() {
     });
     $(".reduce").click(function(){
         var i = parseInt($(this).parents('.room').find('.room_quantity').html());
-        if(i<=1)
-        return 0;
+        if(i<=1) {
+            $(this).parents('.room').find('.quantity').hide();
+            $(this).parents('.room').find('em').toggle();
+            total();
+            return 0;
+        }
         $(this).parents('.room').find('.room_quantity').html(--i);
         total();
     });
@@ -53,6 +57,8 @@ $(function() {
             url : '/wx/order/create',
             dataType : 'json',
             data: {
+                "realname" : personName,
+                "cellphone" : cellphone,
                 "wxCasaId" : $('#wxCasaId').val(),
                 "reservedRooms" : reservedRooms,
                 "_token" : csrf_token
@@ -87,7 +93,6 @@ function total(){
             counts =  $(this).find('.room_quantity').html();
             price = $(this).find('.price').html().replace('￥','');
             totals = totals + parseFloat(counts) * parseFloat(price);
-            console.log(totals);
         }
     });
     $('#totalPayment').html(totals);

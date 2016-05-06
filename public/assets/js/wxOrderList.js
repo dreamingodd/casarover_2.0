@@ -3,12 +3,13 @@ $(document).ready(function(){
         template : '#goodlist',
         props : ['goods']
     });
+    
     new Vue({
         el: '#app',
         data: {
             orders: null,
             type:0,
-            message:null
+            message:null,
         },
         created: function () {
             this.getOrder();

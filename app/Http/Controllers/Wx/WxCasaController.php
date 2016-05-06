@@ -32,6 +32,8 @@ class WxCasaController extends BaseController
             return view('backstage.wxEdit');
         }
         $wxCasa = WxCasa::find($id);
+        // 不知道为什么倒序了.....
+        $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         return view('backstage.wxEdit', compact('wxCasa'));
     }
 

@@ -24,7 +24,15 @@
                     <a class="reduce glyphicon glyphicon-minus"></a>
                     <a class="add glyphicon glyphicon-plus"></a>
                 </div>
-                <p></p>
+                <p>
+                    @if($room->wxRoomDates!='[]')
+                    可入住时间：
+                        @foreach ($room->wxRoomDates as $date)
+                            <span>{{$date->year}}年{{$date->month}}月{{$date->day}}号、</span>
+                        @endforeach
+                        @else
+                    @endif
+                </p>
             </div>
         </div>
     @endforeach
@@ -37,11 +45,11 @@
     <div class="person">
         <div class="personName">
             <label for="personName">姓名：</label>
-            <input type="text" id="personName" value="" placeholder="请输入姓名" >
+            <input type="text" id="personName" value="{{$wxUser->realname}}" placeholder="请输入姓名" >
         </div>
         <div class="cellphone">
             <label for="cellphone">手机：</label>
-            <input type="number" id="cellphone" value="" placeholder="请输入11位手机号">
+            <input type="number" id="cellphone" value="{{$wxUser->cellphone}}" placeholder="请输入11位手机号">
         </div>
     </div>
     <input type="button" id="submitBtn" class="btn" value="立即预定" />

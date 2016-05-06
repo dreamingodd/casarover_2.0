@@ -119,7 +119,7 @@ function newContentTemplate() {
         '    </div>' +
         '    <!-- OSS start -->' +
         '    <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"' +
-        '            oss_address="{{Config::get("casarover.oss_external")}}">' +
+        '            oss_address="http://casarover.oss-cn-hangzhou.aliyuncs.com">' +
         '        <div class="oss_button">' +
         '            <button type="button" class="show_uploader btn btn-info btn-sm">插入图片</button>' +
         '        </div>' +

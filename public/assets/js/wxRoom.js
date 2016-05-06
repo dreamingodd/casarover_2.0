@@ -1,12 +1,12 @@
 $(function(){
-    // If there's no room in this casa, add an empty one.
-    if ($('#room_container').children().length === 0) {
-        addRoom();
-    }
-    // When one presses the add icon
-    $('.addRoom').click(function() {
-        addRoom();
-    });
+        // If there's no room in this casa, add an empty one.
+        if ($('#room_container').children().length === 0) {
+            addRoom();
+        }
+        // When one presses the add icon
+        $('.addRoom').click(function() {
+            addRoom();
+        });
     // When one presses the delete icon.
     $('#room_container').on('click', '.delRoom', function() {
         // TODO ajax check to confirm whether the room is deletable.
