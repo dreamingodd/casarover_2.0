@@ -10,9 +10,11 @@
     <img  src="/assets/images/logow.png" />
 @stop
     <div class="main">
+        <p>{{$wxUser->realname}}</p>
+        <p>{{$wxUser->cellphone}}</p>
         <a href="#" id="order"><p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
                 <span class="glyphicon glyphicon-triangle-right"></span><span class="glyphicon glyphicon-triangle-bottom"></span></p></a>
-        <div class="tabtable">
+        <!--<div class="tabtable">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#already" data-target="#already" data-toggle="tab" aria-expanded="false">
                         待支付</a></li>
@@ -20,100 +22,62 @@
                 <li><a href="#complete" data-target="#complete" data-toggle="tab" aria-expanded="false">已完成</a></li>
                 <li><a href="#refund" data-target="#refund" data-toggle="tab" aria-expanded="false">已退款</a></li>
             </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="already">
-                    <a href="/wx/orderdetails">
-                      <div class="case clear">
-                          <div class="images">
-                            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
-                                 alt="">
-                            <p>民宿名字</p>
+        -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="already">
+                @foreach($orders as $order)
+                    <div class="case clear">
+                        <a href="/wx/order/{{$order->id}}">
+                            <div class="images">
+                                <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
+                                        alt="">
+                            <p>{{$order->wxCasa->getName()}}</p>
                           </div>
-                          <div class="info">
-                              <p>房间型号</p>
-                              <p id="gray">下单时间</p>
-                          </div>
-                          <div class="bill">
-                              <p>价格</p>
-                              <p id="orange">未支付</p>
-                          </div>
-                      </div>
-                    </a>
-                    <a href="#">
-                        <div class="case clear">
-                            <div class="images">
-                                <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
-                                     alt="">
-                                <p>民宿名字</p>
-                            </div>
-                            <div class="info">
-                                <p>房间型号</p>
-                                <p id="gray">下单时间</p>
-                            </div>
-                            <div class="bill">
-                                <p>价格</p>
-                                <p id="orange">未支付</p>
-                            </div>
+                        </a>
+                        <div class="info">
+                            <p>房间型号</p>
+                            <p id="gray">{{$order->update_at}}</p>
                         </div>
-                    </a>
-                </div>
-                <div class="tab-pane" id="not">
-                    <a href="#">
-                        <div class="case clear">
-                            <div class="images">
-                                <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
-                                     alt="">
-                                <p>民宿名字</p>
-                            </div>
-                            <div class="info">
-                                <p>房间型号</p>
-                                <p id="gray">下单时间</p>
-                            </div>
-                            <div class="bill">
-                                <p>价格</p>
-                                <p id="orange">以支付</p>
-                            </div>
+                        <div class="bill">
+                            <p>价格</p>
+                            <p id="orange">{{$order->total}}元</p>
                         </div>
-                    </a>
-                </div>
-                <div class="tab-pane" id="complete">
-                    <a href="#">
-                        <div class="case clear">
-                            <div class="images">
-                                <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
-                                     alt="">
-                                <p>民宿名字</p>
-                            </div>
-                            <div class="info">
-                                <p>房间型号</p>
-                                <p id="gray">下单时间</p>
-                            </div>
-                            <div class="bill">
-                                <p>价格</p>
-                                <p id="orange">以完成</p>
-                            </div>
+                        <div>
+                            <p>订单号</p>
+                            <p id="orange">{{$order->order_id}}</p>
                         </div>
-                    </a>
-                </div>
-                <div class="tab-pane" id="refund">
-                    <a href="#">
-                        <div class="case clear">
-                            <div class="images">
-                                <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
-                                     alt="">
-                                <p>民宿名字</p>
-                            </div>
-                            <div class="info">
-                                <p>房间型号</p>
-                                <p id="gray">下单时间</p>
-                            </div>
-                            <div class="bill">
-                                <p>价格</p>
-                                <p id="orange">以退款</p>
-                            </div>
+                        <div>
+                            <p>状态</p>
+                            @if ($order->pay_status == 0)
+                                <p>未付款</p>
+                            @elseif ($order->pay_status == 1)
+                                <p>已付款</p>
+                            @elseif ($order->pay_status == 2)
+                                <p>正在退款</p>
+                            @elseif ($order->pay_status == 3)
+                                <p>已退款</p>
+                            @else
+                                <p>未确认</p>
+                            @endif
+
+                            @if ($order->reserve_status == 0)
+                                <p>未预约</p>
+                            @elseif ($order->reserve_status == 1)
+                                <p>已预约</p>
+                            @elseif ($order->reserve_status == 1)
+                                <p>预约失败</p>
+                            @endif
+
+                            @if ($order->consume_status == 0)
+                                <p>未消费</p>
+                            @elseif ($order->consume_status == 1)
+                                <p>已完成</p>
+                            @elseif ($order->consume_status == 2)
+                                <p>已过期</p>
+                            @endif
                         </div>
-                    </a>
-                </div>
+                    </div>
+                @endforeach
             </div>
         </div>
         {{--<p><a href="#"><em class="glyphicon glyphicon-piggy-bank"></em>我的优惠券--}}

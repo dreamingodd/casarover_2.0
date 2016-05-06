@@ -53,6 +53,8 @@ $(function() {
             url : '/wx/order/create',
             dataType : 'json',
             data: {
+                "realname" : personName,
+                "cellphone" : cellphone,
                 "wxCasaId" : $('#wxCasaId').val(),
                 "reservedRooms" : reservedRooms,
                 "_token" : csrf_token

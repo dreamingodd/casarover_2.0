@@ -7,7 +7,7 @@
 @section('body')
     @section('nav')
         <a href="/wx" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
-        <a href="tel:15868102935" id="navright" class="glyphicon glyphicon-earphone"></a>
+        <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a>
         <img  src="/assets/images/logow.png" />
     @stop
     <div class="flexslider">

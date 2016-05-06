@@ -5,7 +5,7 @@
 @stop
 @section('nav')
     <a href="/wx/order/1" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
-    <a href="tel:15868102935" id="navright" class="glyphicon glyphicon-earphone"></a>
+    <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a>
     <img  src="/assets/images/logow.png" />
 @stop
 @section('body')
@@ -36,11 +36,13 @@
                 'getBrandWCPayRequest', <?php echo $payConfig; ?>, function(res) {
                     switch(res.err_msg) {
                         case 'get_brand_wcpay_request:cancel':
+                            alert('您已取消支付！订单已创建，可以到右上角个人中心查看！');
                             break;
                         case 'get_brand_wcpay_request:fail':
                             alert('支付失败！（'+res.err_desc+'）');
                             break;
                         case 'get_brand_wcpay_request:ok':
+                            alert('支付成功！请点击右上角到个人中心进行电话预约！');
                             break;
                         default:
                             alert(JSON.stringify(res));
