@@ -27,6 +27,6 @@
             @endforeach
         </table>
         <h4>订单总额：<i>{{$order->total}}元</i></h4>
-        <h5>下单时间：<span>{{$order->created_at}}</span></h5>
+        <h5 style="float:left;">下单时间：<span>{{$order->created_at}}</span></h5>
     </div>
 @stop

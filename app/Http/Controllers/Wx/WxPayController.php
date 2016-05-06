@@ -50,7 +50,7 @@ class WxPayController extends Controller
             'trade_type'       => 'JSAPI',
             'openid'           => Session::get('openid'),
             // 支付结果通知网址，如果不设置则会使用配置里的默认地址
-            'notify_url'       => 'https://www.casarover.com/wx/pay/notify',
+            'notify_url'       => 'http://www.casarover.com/wx/pay/notify',
         ];
         // 统一下单
         $order = new Order($attributes);
@@ -61,7 +61,6 @@ class WxPayController extends Controller
             $prepayId = $result->prepay_id;
         }
 
-        Log::critical('Order created:' . $casaroverOrder->order_id);
         Log::info('Order created:' . $casaroverOrder->order_id);
         $payConfig = $payment->configForPayment($prepayId);
         return view("wx.wxConfirm", compact('payConfig', 'order', 'casaroverOrder'));

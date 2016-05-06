@@ -99,6 +99,7 @@ Route::group(['prefix' => 'api'],function () {
 /**
  * wechat public routess
  */
+Route::post('/wx/pay/notify', 'Wx\WxPayController@notify');
 Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () {
     Route::get('/', 'Wx\WxSiteController@index');
     Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
@@ -110,7 +111,6 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/order/detail/{id}', 'Wx\WxOrderController@show');
     Route::post('/order/create', 'Wx\WxOrderController@create');
     Route::get('/pay/wxorder/{id}', 'Wx\WxPayController@prepare');
-    Route::get('/pay/notify', 'Wx\WxPayController@notify');
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');

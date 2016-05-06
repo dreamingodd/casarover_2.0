@@ -32,7 +32,7 @@ class WxSiteController extends Controller
     public function user()
     {
         $wxUser = WxUser::find(Session::get('wx_user_id'));
-        $orders = WxOrder::where('wx_user_id', Session::get('wx_user_id'))->get();
+        $orders = WxOrder::where('wx_user_id', Session::get('wx_user_id'))->orderBy('id', 'desc')->get();
         return view('wx.wxUser', compact('orders', 'wxUser'));
     }
 
@@ -52,7 +52,7 @@ class WxSiteController extends Controller
             $casa->thumbnail = $casa->casa->attachment->filepath;
         }
     }
-    
+
     public function orderdetails()
     {
         return view('wx.wxOrderDetail');
