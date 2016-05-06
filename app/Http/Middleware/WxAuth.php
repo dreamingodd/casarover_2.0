@@ -38,7 +38,7 @@ class WxAuth
                     }
                     $accessToken = $baseJson['access_token'];
                     $openid = $baseJson['openid'];
-                    $user = WxUser::where('openid', $openid)->distinct()->get();
+                    $user = WxUser::where('openid', $openid)->get()->first();
                     if (empty($user)) {
                         // The very first login.
                         $userInfoJson = WxTools::getUserInfo($accessToken, $openid);
@@ -59,13 +59,13 @@ class WxAuth
         }
     }
 
-    private function saveWxUser($userJson)
+    private function saveWxUser($jsonUser)
     {
         $user = new WxUser();
-        $user->openid = $userJson->openid;
-        $user->nickname = $userJson->nickname;
-        $user->sex = $userJson->sex;
-        $user->headimgurl = $userJson->headimgurl;
+        $user->openid = $jsonUser['openid'];
+        $user->nickname = $jsonUser['nickname'];
+        $user->sex = $jsonUser['sex'];
+        $user->headimgurl = $jsonUser['headimgurl'];
         $user->save();
         return $user;
     }
@@ -75,13 +75,12 @@ class WxAuth
      */
     private function getDummyUser()
     {
-        $user = WxUser::find(9999);
+        $user = WxUser::find(9998);
         if (empty($user)) {
             $user = new WxUser();
-            $user->id = 9999;
-            $user->nickname = "Lunatic";
-            $user->openid = "FAKE-openid-kbMrB-T0ZGEjGZBIX24";
-            $user->unionid = "FAKE-unionid-ssddiibbllssnnllss";
+            $user->id = 9998;
+            $user->nickname = "ywd";
+            $user->openid = "FAKE-openid-kbMrB-T0ZGEjGZBIX25";
             $user->cellphone = "18368841168";
             $user->sex = 1;
             $user->headimgurl =
