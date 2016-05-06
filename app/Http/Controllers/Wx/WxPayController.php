@@ -66,6 +66,8 @@ class WxPayController extends Controller
                     $wxOrder = WxOrder::where("order_id", $orderId)->get()->first();
                     if ($resultCode == 'SUCCESS' && !empty($wxOrder)) {
                         $wxOrder->pay_status = 1;
+                        $wxOrder->wxpay_id = $transactionId;
+                        $wxOrder->save();
                         Log::info("Order:" . $orderId . " payment is successful!");
                     }
                 }
