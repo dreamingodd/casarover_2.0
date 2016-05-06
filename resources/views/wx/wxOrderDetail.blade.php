@@ -10,31 +10,23 @@
         <img  src="/assets/images/logow.png" />
     @stop
     <div class="main clear">
-        <h2>民宿: 法云安居</h2>
-        <h3>订单编号：1234567</h3>
+        <h2>{{$order->wxCasa->getName()}}</h2>
+        <h3>订单编号：{{$order->order_id}}</h3>
         <table class="table table-hover">
             <tr>
                 <th>房间型号</th>
                 <th>数量</th>
-                <th>总价</th>
+                <th>价格</th>
             </tr>
+            @foreach ($order->wxOrderItems as $item)
             <tr>
-                <td>123</td>
-                <td>123</td>
-                <td>123</td>
+                <td>{{$item->wxRoom->name}}</td>
+                <td>{{$item->quantity}}</td>
+                <td>{{$item->price}}</td>
             </tr>
-            <tr>
-                <td>123</td>
-                <td>123</td>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-                <td>123</td>
-                <td>123</td>
-            </tr>
-            </table>
-        <h4>订单总额：<i>998元</i></h4>
-        <h5>下单时间：<span>2016年5月1日16点12分</span></h5>
+            @endforeach
+        </table>
+        <h4>订单总额：<i>{{$order->total}}元</i></h4>
+        <h5>下单时间：<span>{{$order->created_at}}</span></h5>
     </div>
 @stop

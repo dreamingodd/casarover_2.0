@@ -27,7 +27,7 @@
             <div class="tab-pane active" id="already">
                 @foreach($orders as $order)
                     <div class="case clear">
-                        <a href="/wx/order/{{$order->id}}">
+                        <a href="/wx/order/detail/{{$order->id}}">
                             <div class="images">
                                 <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
                                         alt="">

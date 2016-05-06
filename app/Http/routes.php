@@ -107,7 +107,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/confirm', 'Wx\WxSiteController@confirm');
     Route::get('/bill', 'Wx\WxSiteController@bill');
     Route::get('/order/{id}', 'Wx\WxSiteController@order');
-    Route::post('/order/{id}}', 'Wx\WxOrderController@show');
+    Route::get('/order/detail/{id}', 'Wx\WxOrderController@show');
     Route::post('/order/create', 'Wx\WxOrderController@create');
     Route::get('/pay/wxorder/{id}', 'Wx\WxPayController@prepare');
     Route::get('/pay/notify', 'Wx\WxPayController@prepare');

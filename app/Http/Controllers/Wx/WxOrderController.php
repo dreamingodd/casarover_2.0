@@ -17,6 +17,11 @@ use App\Entity\Wx\WxRoom;
 
 class WxOrderController extends Controller
 {
+    public function show($id) {
+        $order = WxOrder::find($id);
+        return view('wx.wxOrderDetail', compact('order'));
+    }
+
     public function create(Request $request) {
 
         DB::beginTransaction();
