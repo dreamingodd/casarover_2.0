@@ -121,7 +121,7 @@ function newContentTemplate() {
         '    <div class="oss_photo_tool col-lg-12 clearfix" target_folder="casa" file_prefix="casa" limit_size="1024"' +
         '            oss_address="{{Config::get("casarover.oss_external")}}">' +
         '        <div class="oss_button">' +
-        '            <button class="show_uploader btn btn-info btn-sm">插入图片</button>' +
+        '            <button type="button" class="show_uploader btn btn-info btn-sm">插入图片</button>' +
         '        </div>' +
         '        <div class="oss_hidden_input"></div>' +
         '        <div class="oss_photo"></div>' +

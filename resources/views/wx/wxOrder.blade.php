@@ -7,7 +7,7 @@
 <script src="/assets/js/wxOrder.js"></script>
 @stop
 @section('body')
-    <p class="title">{{$wxCasa->getName()}}
+    <p class="title">
         <span class="glyphicon glyphicon-th-list"></span>套餐／房间选择
         <a href="/wx/casa/{{$wxCasa->id}}"  class="glyphicon glyphicon-remove"></a>
     </p>

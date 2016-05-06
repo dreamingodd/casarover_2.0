@@ -71,9 +71,6 @@ class WxCasaController extends BaseController
             $contents = $this->createContents($rawContents);
 
             if (!empty($mainPhotoPath)) {
-                foreach ($contents as $content) {
-                    $content->attachments()->delete();
-                }
                 $wxCasa->attachment()->associate($this->createAttachment($mainPhotoPath));
             }
             $wxCasa->save();

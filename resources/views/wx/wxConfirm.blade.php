@@ -16,10 +16,10 @@
             <p>订单号:<span>{{$casaroverOrder->order_id}}</span></p>
             {{--下两行做循环--}}
             @foreach($casaroverOrder->wxOrderItems as $item)
-                <p>房间型号:<span>$item->wxRoom->name</span></p>
-                <p>房间数量:<span>$item->quntity</span></p>
+                <p>房间型号:<span>{{$item->wxRoom->name}}</span></p>
+                <p>房间数量:<span>{{$item->quantity}}</span></p>
             @endforeach
-            <p id="total">总价：<i>{{$casaroverOrder->total or ''}}</i><i>元</i></p>
+            <p id="total">总价：<i>元</i><i>{{$casaroverOrder->total or ''}}</i></p>
         </div>
         {{--<div class="person">--}}
             {{--<h2>用户信息</h2>--}}
@@ -36,13 +36,11 @@
                 'getBrandWCPayRequest', <?php echo $payConfig; ?>, function(res) {
                     switch(res.err_msg) {
                         case 'get_brand_wcpay_request:cancel':
-                            alert('用户取消支付！');
                             break;
                         case 'get_brand_wcpay_request:fail':
                             alert('支付失败！（'+res.err_desc+'）');
                             break;
                         case 'get_brand_wcpay_request:ok':
-                            alert('支付成功！');
                             break;
                         default:
                             alert(JSON.stringify(res));
