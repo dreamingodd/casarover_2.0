@@ -1,1 +1,16 @@
-"use strict";window.onload=function(){var e=(document.getElementsByTagName("nav")[0],$(".nav-middle li:eq(3)")),n=($("#asd"),$(".nav-middle dl"));e.mouseover(function(){n.show()}),e.mouseout(function(){n.hide()})};
+window.onload=function()
+{
+	var a=document.getElementsByTagName('nav')[0];
+	var oli=$(".nav-middle li:eq(3)");
+	var asd=$("#asd");
+	var odl=$(".nav-middle dl");
+	oli.mouseover(function()
+		{
+			odl.show();
+		});
+
+	oli.mouseout(function()
+		{	
+			odl.hide();
+		});
+}

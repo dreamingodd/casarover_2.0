@@ -57,6 +57,7 @@
                             value="{{$wxRoom->price or ''}}"/>
                         </div>
                         <a class="not_complete delRoom" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete</a>
+                        <a class="editDate" href="date/{{$wxRoom->id or ''}}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Edit Date</a>
                     </div>
                 @endforeach
             @endif

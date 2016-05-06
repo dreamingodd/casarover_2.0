@@ -96,6 +96,9 @@ Route::group(['prefix' => 'api'],function () {
     Route::get('casas/city/{id?}/areas/{areas?}','Api\AllCasaController@getCasas');
 //    api需要做拆分 有些是要做验证的
     Route::get('wxorder/list/{type?}','Wx\WxOrderController@orderlist');
+//    Route::get('wxorder/changetype/{orderId}/{type?}','Wx\WxOrderController@editStatus');
+
+
 });
 
 /**
@@ -123,6 +126,8 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],funct
     Route::get('room/{id}', 'Wx\WxRoomController@show');
     Route::post('room/edit', 'Wx\WxRoomController@edit');
     Route::get('order/list','Wx\WxOrderController@index');
+    Route::get('room/date/{id}', 'Wx\WxRoomController@date');
+    Route::post('changewxordertype','Wx\WxOrderController@editStatus');
 });
 
 /** Routes for mobile phone. */

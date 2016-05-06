@@ -45,10 +45,7 @@ gulp.task('dev-less',function() {
 // 压缩js
 gulp.task('uglify',function () {
     gulp.src('resources/assets/js/*.js')
-        .pipe(babel({
-            presets: ['es2015']
-        }))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('public/assets/js/'))
         .pipe(reload({stream: true}));
 });

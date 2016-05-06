@@ -1,1 +1,19 @@
-"use strict";function setchange(e,a){var t=a;$.ajax("/api/wechat/change",{type:"post",data:{id:e},headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},success:function(e){"ok"==e.msg?($(".alert").css("display","block"),$(".alert").delay("slow").slideUp(500)):(alert(e.msg),t.checked=!1)}})}
+function setchange(themeId,obj){
+    var checkDom = obj;
+    $.ajax('/api/wechat/change', {
+        type: 'post',
+        data: {
+            id:themeId
+        },
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        success: function(data){
+            if(data.msg == 'ok'){
+                $('.alert').css('display','block');
+                $('.alert').delay("slow").slideUp(500);
+            }else{
+                alert(data.msg);
+                checkDom.checked = false;
+            }
+        }
+    });
+}

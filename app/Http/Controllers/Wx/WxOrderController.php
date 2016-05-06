@@ -11,10 +11,8 @@ use Session;
 
 use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxOrder;
-use App\Entity\Wx\WxUser;
 use App\Entity\Wx\WxOrderItem;
 use App\Entity\Wx\WxRoom;
-use Carbon\Carbon;
 
 class WxOrderController extends Controller
 {
@@ -24,11 +22,16 @@ class WxOrderController extends Controller
         try {
             $reservedRooms = $request->input('reservedRooms');
             $wxOrder = new WxOrder();
-            $wxOrder->wx_user_id = WxUser::find(Session::get('wx_user_id'))->id;
-            $wxOrder->save();
             if (empty($reservedRooms)) {
                 return "没有选购商品！";
             }
+            if (empty(Session::get('wx_user_id'))) {
+                return "用户信息（ID）获取失败！";
+            } else {
+                $wxOrder->wx_user_id = Session::get('wx_user_id');
+            }
+            $wxOrder->wx_casa_id = $request->input('wxCasaId');
+            $wxOrder->save();
             $total = 0;
             foreach ($reservedRooms as $reservedRoom) {
                 $wxOrderItem = new WxOrderItem();
@@ -64,36 +67,78 @@ class WxOrderController extends Controller
         foreach($orderlist as $order)
         {
             $order->time = $order->created_at->format('Y-m-d H:i');
-            $order->paystatus= $this->paystatus($order->pay_status);
-            $order->goods = $order->orderItems();
+            $order->paystatus = $this->orderstatus(0,$order->pay_status);
+            $order->reserveStatus = $this->orderstatus(1,$order->reserve_status);
+            $order->consumeStatus = $this->orderstatus(2,$order->consume_status);
+            $order->goods = $order->wxOrderItems;
+            foreach($order->goods as $good)
+            {
+                $good->name = WxRoom::find($good->wx_room_id)->name;
+            }
             $order->username = $order->wxUser->realname;
             $order->userphone = $order->wxUser->cellphone;
+            $order->nickname = $order->wxUser->nickname;
+            $order->casaname = $order->wxCasa->name;
         }
         $data = $this->jsondata('200','获取成功',$orderlist);
         return response()->json($data);
     }
-    protected function paystatus($code)
+    protected function orderstatus($type,$code)
     {
         $allstatus = $this->allstatus();
-        return $allstatus[$code];
+        return $allstatus[$type][$code];
     }
 
+    public function editStatus(Request $request)
+    {
+        $order = WxOrder::find($request->orderid);
+        $order->reserve_time = $request->message;
+        $order->reserve_status = 1;
+        $order->save();
+        return redirect('back/wx/order/list');
+    }
+//    付款状态的修改
+    public function payStatus($orderId,$status)
+    {
+        $order = WxOrder::find($orderId);
+        $order->consume_status = $status;
+        $order->save();
+    }
+//    预约状态的修改
+    public function reserveStatus($orderId,$status)
+    {
+        $order = WxOrder::find($orderId);
+        $order->consume_status = $status;
+        $order->save();
+    }
+//    消费状态的修改
+    public function consumeStatus($orderId,$status)
+    {
+        $order = WxOrder::find($orderId);
+        $order->consume_status = $status;
+        $order->save();
+    }
     private function allstatus()
     {
         $allstatus = [
-            '0' => '订单状态',
-            '1' => '未付款',
-            '2' => '已付款',
-            '3' => '申请退款',
-            '4' => '已退款',
-            '5' => '预订成功',
-            '6' => '已消费',
-            '7' => '过期'
+            [
+                '未付款',
+                '已付款',
+                '申请退款',
+                '已退款'
+            ],
+            [
+                '未预约',
+                '已预约',
+                '预约失败'
+            ],
+            [
+                '未消费',
+                '已消费',
+                '过期'
+            ]
         ];
         return $allstatus;
-//        sex 0 未知
-//    1男
-//    2女
     }
 
     public function jsondata($code=0,$msg='成功',$data)

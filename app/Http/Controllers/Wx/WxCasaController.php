@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use DB;
 use App\Entity\Wx\WxCasa;
 use App\Http\Controllers\BaseController;
-use App\Http\Requests;
-use Illuminate\Support\Str;
 
 class WxCasaController extends BaseController
 {
@@ -73,7 +71,6 @@ class WxCasaController extends BaseController
             $contents = $this->createContents($rawContents);
 
             if (!empty($mainPhotoPath)) {
-                $content->attachments()->delete();
                 $wxCasa->attachment()->associate($this->createAttachment($mainPhotoPath));
             }
             $wxCasa->save();
@@ -81,7 +78,7 @@ class WxCasaController extends BaseController
 
             DB::commit();
             return redirect('/back/wx');
-        } catch (\Excpetion $ex) {
+        } catch (\Exception $ex) {
             DB::rollback();
             dd($ex);
         }

@@ -34,11 +34,11 @@
                 <div class="tab-pane active" id="product">
                     @if (empty($wxCasa->casa_id))
                         @foreach ($wxCasa->contents as $content)
-                            <h2></h2>
+                            <h2>{{$content->name}}</h2>
                             @foreach ($content->attachments as $attachment)
                             <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$attachment->filepath}}"/>
                             @endforeach
-                            <p></p>
+                            <p>{!!$content->text!!}</p>
                         @endforeach
                     @else
                         @foreach ($wxCasa->casa->contents as $content)

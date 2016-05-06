@@ -1,1 +1,6 @@
-"use strict";function sed(){var t=$(".pic input").val();$("#pic").val(t);var a=$(".thumb input").val();$("#thumb").val(a)}
+function sed(){
+    var img = $(".pic input").val();
+    $("#pic").val(img);
+    var thumb = $(".thumb input").val();
+    $("#thumb").val(thumb);
+}

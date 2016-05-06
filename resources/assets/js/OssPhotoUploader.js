@@ -171,7 +171,7 @@ require(['oss_uploader', 'domready!'], function(oss_uploader, domready){
 
     function get_signature() {
         //可以判断当前expire是否超过了当前时间,如果超过了当前时间,就重新取一下.3s 做为缓冲
-        now = timestamp = Date.parse(new Date()) / 1000;
+        now = Date.parse(new Date()) / 1000;
         console.log('get_signature ...');
         console.log('expire:' + expire.toString());
         console.log('now:', + now.toString());

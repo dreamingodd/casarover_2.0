@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStatusToWxOrder extends Migration
+class AddReserveTimeToWxOrder extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddStatusToWxOrder extends Migration
     public function up()
     {
         Schema::table('wx_order', function (Blueprint $table) {
-            $table->string('reserve_time')->nullable();
+            $table->string('reserve_time', 100)->nullable();
         });
     }
 

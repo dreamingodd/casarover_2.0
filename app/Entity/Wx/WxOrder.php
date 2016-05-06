@@ -23,9 +23,10 @@ class WxOrder extends Model
     {
         return $this->belongsTo('App\Entity\Wx\WxUser','wx_user_id','id');
     }
-
-    public function orderItems()
-    {
-        return $this->hasMany('App\Entity\Wx\WxOrderItem','wx_order_id','id');
+    public function wxCasa() {
+        return $this->belongsTo('App\Entity\Wx\WxCasa');
+    }
+    public function wxOrderItems() {
+        return $this->hasMany('App\Entity\Wx\WxOrderItem');
     }
 }

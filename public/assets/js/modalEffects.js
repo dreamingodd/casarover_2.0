@@ -1,1 +1,57 @@
-"use strict";var ModalEffects=function(){function e(){var e=document.querySelector(".md-overlay");[].slice.call(document.querySelectorAll(".md-trigger")).forEach(function(t,c){function n(e){classie.remove(s,"md-show"),e&&classie.remove(document.documentElement,"md-perspective")}function o(){n(classie.has(t,"md-setperspective"))}function i(c){classie.add(s,"md-show"),e.removeEventListener("click",o),e.addEventListener("click",o),classie.has(t,"md-setperspective")&&setTimeout(function(){classie.add(document.documentElement,"md-perspective")},25)}var s=document.querySelector("#"+t.getAttribute("data-modal")),d=s.querySelector(".md-close");t.addEventListener("click",function(){i()}),d.addEventListener("click",function(e){e.stopPropagation(),o()})})}e()}();
+/**
+ * modalEffects.js v1.0.0
+ * http://www.codrops.com
+ *
+ * Licensed under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Copyright 2013, Codrops
+ * http://www.codrops.com
+ */
+var ModalEffects = (function() {
+
+	function init() {
+
+		var overlay = document.querySelector( '.md-overlay' );
+
+		[].slice.call( document.querySelectorAll( '.md-trigger' ) ).forEach( function( el, i ) {
+
+			var modal = document.querySelector( '#' + el.getAttribute( 'data-modal' ) ),
+				close = modal.querySelector( '.md-close' );
+
+			function removeModal( hasPerspective ) {
+				classie.remove( modal, 'md-show' );
+
+				if( hasPerspective ) {
+					classie.remove( document.documentElement, 'md-perspective' );
+				}
+			}
+
+			function removeModalHandler() {
+				removeModal( classie.has( el, 'md-setperspective' ) );
+			}
+			//显示模态框
+			function showmodel( ev ) {
+				classie.add( modal, 'md-show' );
+				overlay.removeEventListener( 'click', removeModalHandler );
+				overlay.addEventListener( 'click', removeModalHandler );
+				if( classie.has( el, 'md-setperspective' ) ) {
+					setTimeout( function() {
+						classie.add( document.documentElement, 'md-perspective' );
+					}, 25 );
+				}
+			}
+			el.addEventListener( 'click', function () {
+				showmodel();
+			});
+
+			close.addEventListener( 'click', function( ev ) {
+				ev.stopPropagation();
+				removeModalHandler();
+			});
+			// showmodel();
+		} );
+	}
+	init();
+
+})();
