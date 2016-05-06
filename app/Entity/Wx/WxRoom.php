@@ -8,6 +8,10 @@ class WxRoom extends Model
 {
     protected $table = "wx_room";
     public function wxCasa() {
-        return $this->belongsTo('App\Entity\Wx\WxCasa','wx_casa_id', 'id');
+        return $this->belongsTo('App\Entity\Wx\WxCasa');
+    }
+
+    public function wxRoomDates() {
+        return $this->hasMany('App\Entity\Wx\WxRoomDate','room_id','id');
     }
 }

@@ -7,6 +7,8 @@ use DB;
 use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxUser;
+use App\Entity\Wx\WxRoomDate;
+use App\Entity\Wx\WxRoom;
 
 class WxSiteController extends Controller
 {
@@ -34,6 +36,8 @@ class WxSiteController extends Controller
     public function order($id)
     {
         $wxCasa = WxCasa::find($id);
+//        $wxroom= WxRoom::find(13);
+//        dd($wxroom->wxRoomDates);
         return view('wx.wxOrder', compact('wxCasa'));
     }
 

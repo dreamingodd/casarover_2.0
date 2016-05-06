@@ -17,9 +17,7 @@ class CreateWxRoomDate extends Migration
             $table->string('room_id', 128);
             $table->string('year', 32);
             $table->string('month', 32);
-            $table->string('weekday', 128);
-            $table->string('weekend', 128);
-            $table->string('holiday', 128);
+            $table->string('day', 128);
             $table->timestamps();
         });
     }

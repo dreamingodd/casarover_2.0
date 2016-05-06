@@ -26,13 +26,15 @@ class WxRoomController extends Controller
         return redirect('/back/wx');
     }
     public function date($id) {
-        $date=WxRoomDate::where('room_id',$id)->first();
-        $wxRooms = WxRoom::find($id);
-        return view('backstage.wxRoomDate',compact('date','wxRooms'));
+        $date=WxRoomDate::where('room_id',$id)->get();
+        $wxRoom = WxRoom::find($id);
+        return view('backstage.wxRoomDate',compact('date','wxRoom'));
     }
     public function postdate(Request $request , $id) {
         $save= $request->all();
         $count=count($save['year']);
+        $wxRooms = WxRoom::find($id);
+        $casaId=$wxRooms->wxCasa->id;
         for($i=0;$i<$count;$i++){
             $date=WxRoomDate::where('room_id',$id)->where('year',$save['year'][$i])->where
             ('month',$save['month'][$i])->first();
@@ -42,12 +44,10 @@ class WxRoomController extends Controller
             $date->room_id=$save['room_id'];
             $date->year=$save['year'][$i];
             $date->month=$save['month'][$i];
-            $date->weekday=$save['weekday'][$i];
-            $date->weekend=$save['weekend'][$i];
-            $date->holiday=$save['holiday'][$i];
+            $date->day=$save['day'][$i];
             $date->save();
         }
-        return redirect('/back/wx');
+        return redirect("/back/wx/room/$casaId");
     }
     private function createRooms($rawRooms) {
         $rooms = array();
