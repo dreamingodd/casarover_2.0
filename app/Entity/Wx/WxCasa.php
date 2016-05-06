@@ -24,4 +24,11 @@ class WxCasa extends Model
     public function wxRooms() {
         return $this->hasMany('App\Entity\Wx\WxRoom');
     }
+    public function getName() {
+        if (empty($this->name)) {
+            return $this->casa->name;
+        } else {
+            return $this->name;
+        }
+    }
 }

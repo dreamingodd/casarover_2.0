@@ -12,12 +12,14 @@
     <div class="main">
         <div class="commodity">
             <h2>商品信息</h2>
-            <p>民宿名称:<span>卷西山</span></p>
-            <p>订单号:<span>1234567</span></p>
+            <p>民宿名称:<span>{{$casaroverOrder->wxCasa->getName()}}</span></p>
+            <p>订单号:<span>{{$casaroverOrder->order_id}}</span></p>
             {{--下两行做循环--}}
-            <p>房间型号:<span>标准间</span></p>
-            <p>房间数量:<span>2</span></p>
-            <p id="total">总价：<i>{{$casaroverOrder->total or ''}}</i>元</p>
+            @foreach($casaroverOrder->wxOrderItems as $item)
+                <p>房间型号:<span>$item->wxRoom->name</span></p>
+                <p>房间数量:<span>$item->quntity</span></p>
+            @endforeach
+            <p id="total">总价：<i>{{$casaroverOrder->total or ''}}</i><i>元</i></p>
         </div>
         {{--<div class="person">--}}
             {{--<h2>用户信息</h2>--}}

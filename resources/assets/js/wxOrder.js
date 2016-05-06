@@ -7,12 +7,8 @@ $(function() {
     });
     $(".reduce").click(function(){
         var i = parseInt($(this).parents('.room').find('.room_quantity').html());
-        if(i<=1) {
-            $(this).parents('.room').find('.quantity').hide();
-            $(this).parents('.room').find('em').toggle();
-            total();
-            return 0;
-        }
+        if(i<=1)
+        return 0;
         $(this).parents('.room').find('.room_quantity').html(--i);
         total();
     });
@@ -49,7 +45,7 @@ $(function() {
             }
         });
         // reservedRoomsJson = JSON.stringify(reservedRooms);
-        // console.log("Rooms INFO:" + JSON.stringify(reservedRooms));
+        console.log("Rooms INFO:" + JSON.stringify(reservedRooms));
         var csrf_token = $('#csrf_token').val();
         // 3.Ajax call to create the order.
         $.ajax({
@@ -57,11 +53,12 @@ $(function() {
             url : '/wx/order/create',
             dataType : 'json',
             data: {
+                "wxCasaId" : $('#wxCasaId').val(),
                 "reservedRooms" : reservedRooms,
                 "_token" : csrf_token
             },
             success : function(data) {
-               // console.log('order create successfully!');
+               console.log('order create successfully!');
                 // 4.Order create successfully, then pay...
                 location.href = "/wx/pay/wxorder/" + data.orderId;
                 // location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxeafd79d8fcbd74ee" +
@@ -73,7 +70,7 @@ $(function() {
                 //         data.orderId + "&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
             },
             error : function(xhr) {
-               // console.log(xhr.responseText);
+               console.log(xhr.responseText);
                alert('订单创建失败！\n' + 'ERROR INFO:\n' + xhr.responseText);
             }
         });
@@ -90,6 +87,7 @@ function total(){
             counts =  $(this).find('.room_quantity').html();
             price = $(this).find('.price').html().replace('￥','');
             totals = totals + parseFloat(counts) * parseFloat(price);
+            console.log(totals);
         }
     });
     $('#totalPayment').html(totals);

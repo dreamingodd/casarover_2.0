@@ -22,15 +22,16 @@ class WxOrderController extends Controller
         try {
             $reservedRooms = $request->input('reservedRooms');
             $wxOrder = new WxOrder();
+            if (empty($reservedRooms)) {
+                return "没有选购商品！";
+            }
             if (empty(Session::get('wx_user_id'))) {
                 return "用户信息（ID）获取失败！";
             } else {
                 $wxOrder->wx_user_id = Session::get('wx_user_id');
             }
+            $wxOrder->wx_casa_id = $request->input('wxCasaId');
             $wxOrder->save();
-            if (empty($reservedRooms)) {
-                return "没有选购商品！";
-            }
             $total = 0;
             foreach ($reservedRooms as $reservedRoom) {
                 $wxOrderItem = new WxOrderItem();
