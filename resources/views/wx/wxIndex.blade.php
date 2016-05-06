@@ -9,7 +9,7 @@
     <img  src="/assets/images/logow.png" />
     <a href="wx/user" id="navright" class="glyphicon glyphicon-user"></a>
 @stop
-@section('body'){{Session::get('openid')}}
+@section('body')
     <div class="flexslider">
         <ul class="slides">
             <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160420-105355-748r5403.jpg') ; background-size:100% 100%;">

@@ -4,7 +4,7 @@
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
- * 
+ *
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
@@ -28,30 +28,30 @@ var ModalEffects = (function() {
 			}
 
 			function removeModalHandler() {
-				removeModal( classie.has( el, 'md-setperspective' ) ); 
+				removeModal( classie.has( el, 'md-setperspective' ) );
 			}
-
-			el.addEventListener( 'click', function( ev ) {
+			//显示模态框
+			function showmodel( ev ) {
 				classie.add( modal, 'md-show' );
 				overlay.removeEventListener( 'click', removeModalHandler );
 				overlay.addEventListener( 'click', removeModalHandler );
-
 				if( classie.has( el, 'md-setperspective' ) ) {
 					setTimeout( function() {
 						classie.add( document.documentElement, 'md-perspective' );
 					}, 25 );
 				}
+			}
+			el.addEventListener( 'click', function () {
+				showmodel();
 			});
 
 			close.addEventListener( 'click', function( ev ) {
 				ev.stopPropagation();
 				removeModalHandler();
 			});
-
+			// showmodel();
 		} );
-
 	}
-
 	init();
 
 })();

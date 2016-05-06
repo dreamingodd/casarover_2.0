@@ -11,8 +11,6 @@
 |
 */
 
-use App\Task;
-use Illuminate\Http\Request;
 
 Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
@@ -38,7 +36,7 @@ Route::group(['middleware' => ['web']], function () {
     });
 });
 
-Route::group(['prefix' => 'back','middleware' => ['web','auth:admin']], function () {
+Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], function () {
 
     Route::get('/', 'SiteController@slide');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
@@ -96,12 +94,14 @@ Route::group(['prefix' => 'api'],function () {
     //民宿大全
     Route::get('areas/{id?}','Api\AllCasaController@getAreasByCityId');
     Route::get('casas/city/{id?}/areas/{areas?}','Api\AllCasaController@getCasas');
+//    api需要做拆分 有些是要做验证的
+    Route::get('wxorder/list/{type?}','Wx\WxOrderController@orderlist');
 });
 
 /**
  * wechat public routess
  */
-Route::group(['prefix' => 'wx', 'middleware' => ['wx.auth']],function () {
+Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () {
     Route::get('/', 'Wx\WxSiteController@index');
     Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
@@ -110,9 +110,10 @@ Route::group(['prefix' => 'wx', 'middleware' => ['wx.auth']],function () {
     Route::get('/bill', 'Wx\WxSiteController@bill');
     Route::get('/order/{id}', 'Wx\WxSiteController@order');
     Route::post('/order/create', 'Wx\WxOrderController@create');
-    Route::get('/pay/wxorder/{id}', 'Wx\WxPayController@wxOrder');
+    Route::get('/pay/wxorder/{id}', 'Wx\WxPayController@prepare');
+    Route::get('/pay/notify', 'Wx\WxPayController@prepare');
 });
-Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
+Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
     Route::get('trash/{deleted}', 'Wx\WxCasaController@showList');
     Route::get('casa/{id?}', 'Wx\WxCasaController@show');
@@ -121,6 +122,7 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('casa/restore/{id?}', 'Wx\WxCasaController@restore');
     Route::get('room/{id}', 'Wx\WxRoomController@show');
     Route::post('room/edit', 'Wx\WxRoomController@edit');
+    Route::get('order/list','Wx\WxOrderController@index');
 });
 
 /** Routes for mobile phone. */

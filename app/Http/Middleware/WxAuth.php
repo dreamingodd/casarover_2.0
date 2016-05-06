@@ -22,17 +22,20 @@ class WxAuth
      */
     public function handle($request, Closure $next)
     {
-        $appid = Config::get("casarover.wx_appid");
-        $appsecret = Config::get("casarover.wx_appsecret");
         if (Session::has('openid')) {
             return $next($request);
         } else {
             if (env('ENV') == 'PROD') {
+                $appid = Config::get("casarover.wx_appid");
+                $appsecret = Config::get("casarover.wx_appsecret");
                 if (!isset($request->all()['code'])) {
                     return redirect(WxTools::getUserInfoScopeUrl($appid));
                 } else {
                     $wxCode = $request->all()['code'];
                     $baseJson = WxTools::getOpenidAndAccessToken($appid, $appsecret, $wxCode);
+                    if (empty($baseJson['access_token'])) {
+                        return "登录失败！";
+                    }
                     $accessToken = $baseJson['access_token'];
                     $openid = $baseJson['openid'];
                     $user = WxUser::where('openid', $openid)->distinct()->get();
@@ -42,11 +45,15 @@ class WxAuth
                         $this->saveWxUser($userInfoJson);
                     }
                     Session::put('openid', $openid);
+                    Session::put('wx_user_id', $user->id);
+                    Session::save();
                     return $next($request);
                 }
             } else if (env('ENV') == 'DEV') {
                 $user = $this->getDummyUser();
                 Session::put('openid', $user->openid);
+                Session::put('wx_user_id', $user->id);
+                Session::save();
                 return $next($request);
             }
         }

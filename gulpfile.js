@@ -16,18 +16,18 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     rev = require('gulp-rev'),
     revCollector = require('gulp-rev-collector'),
-// jshint=require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     browserSync = require('browser-sync').create(),
     reload = browserSync.reload,
     minifycss = require('gulp-minify-css');
 const del = require('del');
 const babel = require('gulp-babel');
+const changed = require('gulp-changed');
 
 //配置部分
 var lessDir = ['resources/assets/less/**/*.less'];
 var jsDir = ['resources/assets/js/**/*.js'];
-var reloadDir = ['resources/assets/**/*.*','resources/views/**/*.*'];
+var reloadDir = ['resources/views/**/*.*'];
 
 // 通用
 
@@ -35,11 +35,12 @@ var reloadDir = ['resources/assets/**/*.*','resources/views/**/*.*'];
 // 编译less
 gulp.task('dev-less',function() {
     //为了加快编译速度不进行删除操作，如果出现问题，重新添加回来
-    //del.sync('public/assets/css/*.css');
     gulp.src('resources/assets/less/*.less')
+        .pipe(changed('public/assets/css/*'))
         .pipe(less())
         .pipe(minifycss())
         .pipe(gulp.dest('public/assets/css/'))
+        .pipe(reload({stream: true}));
 });
 // 压缩js
 gulp.task('uglify',function () {
@@ -48,13 +49,15 @@ gulp.task('uglify',function () {
             presets: ['es2015']
         }))
         .pipe(uglify())
-        .pipe(gulp.dest('public/assets/js/'));
+        .pipe(gulp.dest('public/assets/js/'))
+        .pipe(reload({stream: true}));
 });
 // 压缩js源码包
 gulp.task('uglify_integration',function () {
     gulp.src('resources/assets/js/integration/*.js')
         .pipe(uglify())
-        .pipe(gulp.dest('public/assets/js/integration/'));
+        .pipe(gulp.dest('public/assets/js/integration/'))
+        .pipe(reload({stream: true}));
 });
 
 
