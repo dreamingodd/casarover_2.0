@@ -7,7 +7,7 @@
 @section('nav')
     <a href="#"  id="navleft" class="glyphicon glyphicon-home"></a>
     <img  src="/assets/images/logow.png" />
-    <a href="wx/user" id="navright" class="glyphicon glyphicon-user"></a>
+    <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a>
 @stop
 @section('body')
     <div class="flexslider">

@@ -1,1 +1,64 @@
-function addDate(){var t=$($(".date_template")[0].outerHTML);t.css("display","block"),$("#date_container").append(t)}function del(t){var e=$(t).parent();e.detach()}function checksubmit(){var t=!0;return length=$(".year").length,i=1,$(".year").each(function(){return i==length?!1:($(this).val()||(t=!1,alert("请输入年份！")),void++i)}),i=1,$(".month").each(function(){return i==length?!1:($(this).val()||(t=!1,alert("请输入月份！")),void++i)}),i=1,$(".day").each(function(){if(i==length)return!1;for(var e=$(this).val().split(""),a=0;a<e.length;a++)if(isNaN(parseInt(e[a]))&&","!=e[a]){alert("可入住日输入有误，请以数字加英文逗号的形式输入。"),t=!1;break}$(this).val()||(t=!1,alert("请输入工作日！")),++i}),i=1,$(".weekend").each(function(){if(i==length)return!1;for(var e=$(this).val().split(""),a=0;a<e.length;a++)if(isNaN(parseInt(e[a]))&&","!=e[a]){alert("双休日输入有误，请以数字加英文逗号的形式输入。"),t=!1;break}$(this).val()||(t=!1,alert("请输入双休日！")),++i}),i=1,$(".holiday").each(function(){if(i==length)return!1;for(var e=$(this).val().split(""),a=0;a<e.length;a++)if(isNaN(parseInt(e[a]))&&","!=e[a]){alert("节假日输入有误，请以数字加英文逗号的形式输入。"),t=!1;break}$(this).val()||(t=!1,alert("请输入节假日！")),++i}),t}$(function(){0==$("#date_container").children().length&&addDate(),$(".addDate").click(function(){addDate()})});
+function addDate() {
+    var newRoom = $($('.date_template')[0].outerHTML);
+    newRoom.css('display', 'block');
+    $('#date_container').append(newRoom);
+}
+$(function() {
+    // If there's no room in this casa, add an empty one.
+    if ($('#date_container').children().length == 0) {
+        addDate();
+    }
+    // When one presses the add icon
+    $('.addDate').click(function () {
+        addDate();
+    });
+});
+// Delete Date
+function del(obj) {
+    var parent=$(obj).parent();
+    parent.detach();
+}
+function checksubmit()
+{
+    var submit = true;
+    length = $ ('.year‘).length;
+    i=1;
+    $('.year').each(function () {
+        if(i==length)
+            return false;
+        if (!$(this).val()) {
+            submit = false;
+            alert('请输入年份！');
+        }
+        ++i;
+    });
+    i=1;
+    $('.month').each(function () {
+        if(i==length)
+            return false;
+        if (!$(this).val()) {
+            submit = false;
+            alert('请输入月份！');
+        }
+        ++i;
+    });
+    i=1;
+    $('.day').each(function () {
+        if(i==length)
+            return false;
+        var str=$(this).val().split('');
+        for(var j= 0;j<str.length;j++){
+            if(isNaN(parseInt(str[j])) && str[j]!=',' ) {
+                alert('可入住日期输入有误，请以数字加英文逗号的形式输入。');
+                submit = false;
+                break;
+            }
+        }
+        if (!$(this).val()) {
+            submit = false;
+            alert('请输入工作日！');
+        }
+        ++i;
+    });
+    return submit;
+}

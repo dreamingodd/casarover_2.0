@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Wx;
 
 
 use DB;
+use Session;
+use App\Entity\Wx\WxUser;
 use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxCasa;
-use App\Entity\Wx\WxUser;
-use App\Entity\Wx\WxRoomDate;
-use App\Entity\Wx\WxRoom;
+use App\Entity\Wx\WxOrder;
 
 class WxSiteController extends Controller
 {
@@ -30,15 +30,16 @@ class WxSiteController extends Controller
 
     public function user()
     {
-        return view('wx.wxUser');
+        $wxUser = WxUser::find(Session::get('wx_user_id'));
+        $orders = WxOrder::where('wx_user_id', Session::get('wx_user_id'))->get();
+        return view('wx.wxUser', compact('orders', 'wxUser'));
     }
 
     public function order($id)
     {
         $wxCasa = WxCasa::find($id);
-//        $wxroom= WxRoom::find(13);
-//        dd($wxroom->wxRoomDates);
-        return view('wx.wxOrder', compact('wxCasa'));
+        $wxUser = WxUser::find(Session::get('wx_user_id'));
+        return view('wx.wxOrder', compact('wxCasa', 'wxUser'));
     }
 
     private function convertToViewCasa(WxCasa $casa)
@@ -50,6 +51,7 @@ class WxSiteController extends Controller
             $casa->thumbnail = $casa->casa->attachment->filepath;
         }
     }
+    
     public function orderdetails()
     {
         return view('wx.wxOrderDetail');

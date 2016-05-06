@@ -5,19 +5,21 @@
 @stop
 @section('nav')
     <a href="/wx/order/1" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
-    <a href="tel:15868102935" id="navright" class="glyphicon glyphicon-earphone"></a>
+    <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a>
     <img  src="/assets/images/logow.png" />
 @stop
 @section('body')
     <div class="main">
         <div class="commodity">
             <h2>商品信息</h2>
-            <p>民宿名称:<span>卷西山</span></p>
-            <p>订单号:<span>1234567</span></p>
+            <p>民宿名称:<span>{{$casaroverOrder->wxCasa->getName()}}</span></p>
+            <p>订单号:<span>{{$casaroverOrder->order_id}}</span></p>
             {{--下两行做循环--}}
-            <p>房间型号:<span>标准间</span></p>
-            <p>房间数量:<span>2</span></p>
-            <p id="total">总价：<i>{{$casaroverOrder->total or ''}}</i>元</p>
+            @foreach($casaroverOrder->wxOrderItems as $item)
+                <p>房间型号:<span>{{$item->wxRoom->name}}</span></p>
+                <p>房间数量:<span>{{$item->quantity}}</span></p>
+            @endforeach
+            <p id="total">总价：<i>元</i><i>{{$casaroverOrder->total or ''}}</i></p>
         </div>
         {{--<div class="person">--}}
             {{--<h2>用户信息</h2>--}}
@@ -34,13 +36,13 @@
                 'getBrandWCPayRequest', <?php echo $payConfig; ?>, function(res) {
                     switch(res.err_msg) {
                         case 'get_brand_wcpay_request:cancel':
-                            alert('用户取消支付！');
+                            alert('您已取消支付！订单已创建，可以到右上角个人中心查看！');
                             break;
                         case 'get_brand_wcpay_request:fail':
                             alert('支付失败！（'+res.err_desc+'）');
                             break;
                         case 'get_brand_wcpay_request:ok':
-                            alert('支付成功！');
+                            alert('支付成功！请点击右上角到个人中心进行电话预约！');
                             break;
                         default:
                             alert(JSON.stringify(res));

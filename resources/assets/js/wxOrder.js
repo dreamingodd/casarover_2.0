@@ -49,7 +49,7 @@ $(function() {
             }
         });
         // reservedRoomsJson = JSON.stringify(reservedRooms);
-        // console.log("Rooms INFO:" + JSON.stringify(reservedRooms));
+        console.log("Rooms INFO:" + JSON.stringify(reservedRooms));
         var csrf_token = $('#csrf_token').val();
         // 3.Ajax call to create the order.
         $.ajax({
@@ -57,11 +57,14 @@ $(function() {
             url : '/wx/order/create',
             dataType : 'json',
             data: {
+                "realname" : personName,
+                "cellphone" : cellphone,
+                "wxCasaId" : $('#wxCasaId').val(),
                 "reservedRooms" : reservedRooms,
                 "_token" : csrf_token
             },
             success : function(data) {
-               // console.log('order create successfully!');
+               console.log('order create successfully!');
                 // 4.Order create successfully, then pay...
                 location.href = "/wx/pay/wxorder/" + data.orderId;
                 // location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxeafd79d8fcbd74ee" +
@@ -73,7 +76,7 @@ $(function() {
                 //         data.orderId + "&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
             },
             error : function(xhr) {
-               // console.log(xhr.responseText);
+               console.log(xhr.responseText);
                alert('订单创建失败！\n' + 'ERROR INFO:\n' + xhr.responseText);
             }
         });

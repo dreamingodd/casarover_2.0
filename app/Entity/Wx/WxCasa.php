@@ -19,9 +19,16 @@ class WxCasa extends Model
         return $this->belongsTo('App\Casa');
     }
     public function contents() {
-        return $this->belongsToMany('App\Content', 'wx_casa_content');
+        return $this->belongsToMany('App\Content', 'wx_casa_content')->orderBy('id');
     }
     public function wxRooms() {
         return $this->hasMany('App\Entity\Wx\WxRoom');
+    }
+    public function getName() {
+        if (empty($this->name)) {
+            return $this->casa->name;
+        } else {
+            return $this->name;
+        }
     }
 }
