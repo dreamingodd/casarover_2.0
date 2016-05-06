@@ -10,8 +10,9 @@
     <img  src="/assets/images/logow.png" />
 @stop
     <div class="main">
-        <p>{{$wxUser->realname}}</p>
-        <p>{{$wxUser->cellphone}}</p>
+        <p>姓名：{{$wxUser->realname}}</p>
+        <p>手机号码：{{$wxUser->cellphone}}</p>
+        <p id="notice">点击右上方电话按钮进行预约</p>
         <a href="#" id="order"><p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
                 <span class="glyphicon glyphicon-triangle-right"></span><span class="glyphicon glyphicon-triangle-bottom"></span></p></a>
         <!--<div class="tabtable">
@@ -27,26 +28,25 @@
             <div class="tab-pane active" id="already">
                 @foreach($orders as $order)
                     <div class="case clear">
-                        <a href="/wx/order/detail/{{$order->id}}">
-                            <div class="images">
-                                <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
-                                        alt="">
-                            <p>{{$order->wxCasa->getName()}}</p>
-                          </div>
-                        </a>
+                        <div class="top clear">
+                            <a href="/wx/order/detail/{{$order->id}}">
+                                <div class="images">
+                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
+                                            alt="">
+                                    <p>{{$order->wxCasa->getName()}}</p>
+                                </div>
+                            </a>
                         <div class="info">
-                            <p>房间型号</p>
-                            <p id="gray">{{$order->update_at}}</p>
+                            <p>订单号</p>
+                            <p id="orange">{{$order->order_id}}</p>
+                            <p>下单时间</p>
+                            <p id="orange">{{$order->created_at}}</p>
                         </div>
                         <div class="bill">
                             <p>价格</p>
                             <p id="orange">{{$order->total}}元</p>
                         </div>
-                        <div>
-                            <p>订单号</p>
-                            <p id="orange">{{$order->order_id}}</p>
-                        </div>
-                        <div>
+                        <div class="state">
                             <p>状态</p>
                             @if ($order->pay_status == 0)
                                 <p>未付款</p>
@@ -76,6 +76,11 @@
                                 <p>已过期</p>
                             @endif
                         </div>
+                        </div>
+                        <div class="date">
+                            <p>预约日期:</p>
+                            <p>2016年5月10号</p>
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -88,7 +93,7 @@
            $('#order').click(function () {
                $('.glyphicon-triangle-right').toggle();
                $('.glyphicon-triangle-bottom').toggle();
-               $('.tabtable').toggle();
+               $('.case').toggle();
                $(this).children('p').toggleClass('divider');
            });
         });
