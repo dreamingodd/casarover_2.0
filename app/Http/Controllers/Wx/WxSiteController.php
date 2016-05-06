@@ -25,6 +25,7 @@ class WxSiteController extends Controller
     {
         $wxCasa = WxCasa::find($id);
         $this->convertToViewCasa($wxCasa);
+        $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         return view('wx.wxCasaDetail', compact('wxCasa'));
     }
 
