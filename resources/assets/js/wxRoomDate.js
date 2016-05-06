@@ -21,7 +21,8 @@ function del(obj) {
 function checksubmit()
 {
     var submit = true;
-    length = $ ('.year‘).length;
+    length = $ ('.year').length;
+        console.log(length);
     i=1;
     $('.year').each(function () {
         if(i==length)
@@ -56,7 +57,7 @@ function checksubmit()
         }
         if (!$(this).val()) {
             submit = false;
-            alert('请输入工作日！');
+            alert('请输入可入住日期！');
         }
         ++i;
     });
