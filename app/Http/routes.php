@@ -110,7 +110,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/order/detail/{id}', 'Wx\WxOrderController@show');
     Route::post('/order/create', 'Wx\WxOrderController@create');
     Route::get('/pay/wxorder/{id}', 'Wx\WxPayController@prepare');
-    Route::get('/pay/notify', 'Wx\WxPayController@prepare');
+    Route::get('/pay/notify', 'Wx\WxPayController@notify');
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
