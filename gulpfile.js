@@ -43,7 +43,7 @@ gulp.task('dev-less',function() {
 // 压缩js
 gulp.task('uglify',function () {
     gulp.src('resources/assets/js/**/*.js')
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest('public/assets/js/'));
 });
 // 压缩js源码包

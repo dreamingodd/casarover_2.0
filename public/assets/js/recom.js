@@ -1,1 +1,9 @@
-$(document).ready(function(){new Vue({el:"#check",data:{checkedNames:[]}})});
+$(document).ready(function(){
+    new Vue({
+        el: '#check',
+        data: {
+            checkedNames: []
+        }
+
+    })
+})

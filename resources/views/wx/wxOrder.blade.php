@@ -24,7 +24,15 @@
                     <a class="reduce glyphicon glyphicon-minus"></a>
                     <a class="add glyphicon glyphicon-plus"></a>
                 </div>
-                <p></p>
+                <p>
+                    @if($room->wxRoomDates!='[]')
+                    可入住时间：
+                        @foreach ($room->wxRoomDates as $date)
+                            <span>{{$date->year}}年{{$date->month}}月{{$date->day}}号、</span>
+                        @endforeach
+                        @else
+                    @endif
+                </p>
             </div>
         </div>
     @endforeach
