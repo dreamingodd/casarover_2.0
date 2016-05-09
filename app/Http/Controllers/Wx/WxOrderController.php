@@ -76,7 +76,7 @@ class WxOrderController extends Controller
 
     public function orderlist($type=0)
     {
-        $orderlist = WxOrder::all();
+        $orderlist = WxOrder::orderBy('id', 'desc')->get();
         foreach($orderlist as $order)
         {
             $order->time = $order->created_at->format('Y-m-d H:i');
@@ -106,7 +106,11 @@ class WxOrderController extends Controller
     {
         $order = WxOrder::find($request->orderid);
         $order->reserve_time = $request->message;
-        $order->reserve_status = 1;
+        if (empty($request->message)) {
+            $order->reserve_status = 0;
+        } else {
+            $order->reserve_status = 1;
+        }
         $order->save();
         return redirect('back/wx/order/list');
     }

@@ -28,7 +28,6 @@
         </thead>
         <div id="order-list">
             <tbody>
-
             <template v-for="order in orders">
                 <tr transition="expand">
                     <th scope="row">
@@ -69,14 +68,14 @@
                 </tr>
             </template>
             </tbody>
+        </div>
     </table>
-    </div>
     {{--vue组件--}}
     {{--商品信息--}}
     <template id="goodlist">
         <ul class="list-group">
             <template v-for="good in goods">
-                <li class="list-group-item">@{{ good.name }}--@{{ good.price }}</li>
+                <li class="list-group-item">@{{ good.name }}--@{{ good.quantity }}--@{{ good.price }}</li>
             </template>
         </ul>
     </template>

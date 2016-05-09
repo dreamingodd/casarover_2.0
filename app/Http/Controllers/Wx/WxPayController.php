@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Wx;
 
+use Illuminate\Http\Request;
+
 use Log;
 use Config;
 use Session;
+use Exception;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Payment\Order;
 use App\Http\Controllers\Controller;
@@ -20,26 +23,7 @@ class WxPayController extends Controller
         if (env('ENV') == 'DEV' && !empty($casaroverOrder)) {
             return "订单已创建，订单信息：" . $casaroverOrder;
         }
-        $options = [
-            // 前面的appid什么的也得保留哦
-            'app_id' => Config::get("casarover.wx_appid"),
-            'secret' => Config::get("casarover.wx_appsecret"),
-            // ...
-
-            // payment
-            'payment' => [
-                'merchant_id'        => Config::get("casarover.wx_shopid"),
-                'key'                => Config::get("casarover.wx_shopsecret"),
-                'cert_path'          => 'http://www.casarover.com/WxpayAPI/cert/apiclient_cert.pem', // XXX: 绝对路径！！！！
-                'key_path'           => 'http://www.casarover.com/WxpayAPI/cert/apiclient_key.pem',      // XXX: 绝对路径！！！！
-                // 'notify_url'         => '',       // 你也可以在下单时单独设置来想覆盖它
-                // 'device_info'     => '013467007045764',
-                // 'sub_app_id'      => '',
-                // 'sub_merchant_id' => '',
-                // ...
-            ],
-        ];
-        $app = new Application($options);
+        $app = new Application($this->getOptions());
         $payment = $app->payment;
 
         $attributes = [
@@ -69,8 +53,31 @@ class WxPayController extends Controller
     /**
      * Callback method after the payment is confirmed by wechat.
      */
-    public function notify() {
-        Log::info('I was notified.');
+    public function notify(Request $request) {
+        try {
+            $app = new Application($this->getOptions());
+            $response = $app->payment->handleNotify(function($notify, $successful) {
+                Log::info("Payment process has been notified!");
+                if ($successful) {
+                    $orderId = $notify->out_trade_no;
+                    Log::info("Order:" . $orderId . " has been notified!");
+                    $transactionId = $notify->transaction_id;
+                    $resultCode = $notify->result_code;
+                    $wxOrder = WxOrder::where("order_id", $orderId)->get()->first();
+                    if ($resultCode == 'SUCCESS' && !empty($wxOrder)) {
+                        $wxOrder->pay_status = 1;
+                        $wxOrder->wxpay_id = $transactionId;
+                        $wxOrder->save();
+                        Log::info("Order:" . $orderId . " payment is successful!");
+                    }
+                }
+                return true; // Or error msg
+            });
+            return $response;
+        } catch (Exception $e) {
+            Log::error($e);
+            return "fail";
+        }
     }
 
     /**
@@ -78,5 +85,27 @@ class WxPayController extends Controller
      */
     public function refund() {
 
+    }
+
+    private function getOptions() {
+        return [
+            // 前面的appid什么的也得保留哦
+            'app_id' => Config::get("casarover.wx_appid"),
+            'secret' => Config::get("casarover.wx_appsecret"),
+            // ...
+
+            // payment
+            'payment' => [
+                'merchant_id'        => Config::get("casarover.wx_shopid"),
+                'key'                => Config::get("casarover.wx_shopsecret"),
+                'cert_path'          => 'http://www.casarover.com/WxpayAPI/cert/apiclient_cert.pem', // XXX: 绝对路径！！！！
+                'key_path'           => 'http://www.casarover.com/WxpayAPI/cert/apiclient_key.pem',      // XXX: 绝对路径！！！！
+                // 'notify_url'         => '',       // 你也可以在下单时单独设置来想覆盖它
+                // 'device_info'     => '013467007045764',
+                // 'sub_app_id'      => '',
+                // 'sub_merchant_id' => '',
+                // ...
+            ],
+        ];
     }
 }

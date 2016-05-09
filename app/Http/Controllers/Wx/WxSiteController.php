@@ -62,7 +62,7 @@ class WxSiteController extends Controller
         return view('wx.wxConfirm');
     }
     public function bill()
-{
-    return view('wx.wxBill');
-}
+    {
+        return view('wx.wxBill');
+    }
 }
