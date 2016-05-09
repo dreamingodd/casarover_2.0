@@ -14,11 +14,11 @@ class WxBind extends Model
 
     protected $table = "wx_bind";
 
-    public function user() {
+    public function wxUser() {
         return $this->belongsTo('App\Entity\Wx\WxUser');
     }
 
-    public function casa() {
+    public function wxCasa() {
         return $this->belongsTo('App\Entity\Wx\WxCasa');
     }
 }

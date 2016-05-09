@@ -12,11 +12,11 @@
         <br/><br/><br/><br/>
         <form id="bindApplyForm" action="/wx/bind/apply" method="post">
             <input type="hidden" id="csrf_token" name="_token" value="{{csrf_token()}}"/>
-            <input type="hidden" id="userId" value="{{$user->id}}"/>
+            <input type="hidden" id="userId" name="userId" value="{{$user->id}}"/>
             <div class="personName">
                 <label for="personName">姓名：</label>
                 <input type="text" id="personName" name="realname" value="{{$user->realname or ''}}"
-                        placeholder="请输入姓名" >
+                        placeholder="请输入姓名">
             </div>
             <div class="cellphone">
                 <label for="cellphone">手机：</label>

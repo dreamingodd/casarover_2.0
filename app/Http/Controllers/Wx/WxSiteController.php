@@ -43,6 +43,9 @@ class WxSiteController extends Controller
         return view('wx.wxOrder', compact('wxCasa', 'wxUser'));
     }
 
+    /**
+    * A casa for user to view on wechat index page should have the least price and thumnail.
+    */
     private function convertToViewCasa(WxCasa $casa)
     {
         $casa->cheapestPrice = DB::table('wx_room')->where('wx_casa_id', $casa->id)->min('price');
@@ -51,18 +54,5 @@ class WxSiteController extends Controller
         } else {
             $casa->thumbnail = $casa->casa->attachment->filepath;
         }
-    }
-
-    public function orderdetails()
-    {
-        return view('wx.wxOrderDetail');
-    }
-    public function confirm()
-    {
-        return view('wx.wxConfirm');
-    }
-    public function bill()
-    {
-        return view('wx.wxBill');
     }
 }

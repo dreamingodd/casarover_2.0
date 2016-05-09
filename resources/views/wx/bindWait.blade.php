@@ -6,7 +6,8 @@
 @section('nav')
     <img  src="/assets/images/logow.png" />
 @stop
-    <div class="main">
-        Confirming
+    <div style="margin: 0 auto; width:200px;">
+        <br/><br/><br/><br/>
+        您的申请正在审核，请等候！
     </div>
 @stop

@@ -6,7 +6,8 @@
 @section('nav')
     <img  src="/assets/images/logow.png" />
 @stop
-    <div class="main">
+    <div>
+        <br/><br/><br/><br/>
         merchant
     </div>
 @stop

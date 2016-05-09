@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Wx;
 
 use Log;
 use Session;
+use Exception;
 use App\Entity\Wx\WxBind;
 use App\Entity\Wx\WxUser;
 use App\Entity\Wx\WxOrder;
@@ -40,23 +41,31 @@ class WxBindController extends Controller
     }
 
     public function apply(Request $request) {
-        // update user.
-        $user = WxUser::find($userId);
-        $user->realname = $request()->input('realname');
-        $user->cellphone = $request()->input('cellphone');
-        $user->save();
-        // insert a bind object.
-        $wxBind = new WxBind();
-        $wxBind->wx_user_id = $request->input('userId');
-        $wxBind->casaName = $request->input('casaName');
-        $wxBind->status = WxBind::STATUS_APPLYING;
-        $wxBind->save();
+        try {
+            // update user.
+            $userId = $request->input('userId');
+            $user = WxUser::find($userId);
+            $user->realname = $request->input('realname');
+            $user->cellphone = $request->input('cellphone');
+            $user->save();
+            // insert a bind object.
+            $wxBind = new WxBind();
+            $wxBind->wx_user_id = $userId;
+            $wxBind->casa_name = $request->input('casaName');
+            $wxBind->status = WxBind::STATUS_APPLYING;
+            $wxBind->save();
+            return view('wx.bindWait');
+        } catch (Exception $e) {
+            Log::error($e);
+            return "<p style='font-size: 100px;'>System Error!</p>";
+        }
     }
 
     /** The followings are backstage related. ********************************/
     public function bindList() {
-        $wxBinds = WxBind::orderBy("id", desc)->get();
-        return view('backstage.wxBindList.blade.php', compact('wxBinds'));
+        $wxBinds = WxBind::orderBy("id", "desc")->get();
+        // dd($wxBinds->first()->wxUser);
+        return view('backstage.wxBindList', compact('wxBinds'));
     }
 
     public function bind($userId, $casaId) {
