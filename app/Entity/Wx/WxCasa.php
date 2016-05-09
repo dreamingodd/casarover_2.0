@@ -24,6 +24,16 @@ class WxCasa extends Model
     public function wxRooms() {
         return $this->hasMany('App\Entity\Wx\WxRoom');
     }
+
+    // 民宿主人
+    public function wxUsers() {
+        return $this->belongsToMany('App\Entity\Wx\WxUser', 'wx_bind');
+    }
+    public function wxBinds() {
+        return $this->hasMany('App\Entity\Wx\WxBind');
+    }
+
+    // Now seems useless.
     public function getName() {
         if (empty($this->name)) {
             return $this->casa->name;

@@ -27,13 +27,16 @@
         <div class="tab-content">
             <div class="tab-pane active" id="already">
                 @foreach($orders as $order)
+                    @if ($order->pay_status == 0)
+                    <a href="/wx/pay/wxorder/{{$order->id}}">
+                    @else
                     <a href="/wx/order/detail/{{$order->id}}">
+                    @endif
                         <div class="case clear">
                             <div class="top clear">
                                 <div class="images">
-                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
-                                            alt="">
-                                    <p>{{$order->wxCasa->getName()}}</p>
+                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png" alt="">
+                                    <p>{{$order->wxCasa->name}}</p>
                                 </div>
                                 <div class="info">
                                     <p>订单号</p>
