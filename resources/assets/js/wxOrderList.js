@@ -3,7 +3,7 @@ $(document).ready(function(){
         template : '#goodlist',
         props : ['goods']
     });
-    
+
     new Vue({
         el: '#app',
         data: {
@@ -20,27 +20,19 @@ $(document).ready(function(){
                     this.orders = data.data;
                 });
             },
-            save(orderId){
-                $.ajax('/api/wxorder/changetype/', {
+            del(orderId){
+                $.ajax('/api/wxorder/del', {
                     type: 'post',
                     data: {
-                        orderid:orderId,
-                        message:this.message
+                        id:orderId
                     },
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                    success: function(data){
+                    success: (data)=>{
                         console.log(data);
                         this.getOrder();
                     }
                 });
             }
-            //changeType(orderId){
-            //    var changeType = $("#sel"+orderId).val();
-            //    $.getJSON('/api/wxorder/changetype/'+orderId+'/'+changeType, (data)=> {
-            //        console.log(data);
-            //        this.getOrder();
-            //    });
-            //}
         }
     })
 })

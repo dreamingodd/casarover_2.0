@@ -26,7 +26,7 @@
         <div class="col-md-12">
             <h4>主题下属文章</h4>
         </div>
-        <table class="table table-striped">
+        <table class="table ">
             <thead>
             <tr>
                 <th>编号</th>
@@ -35,7 +35,7 @@
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody id="app" v-for="article in articles">
+            <tbody id="app" v-for="article in articles" transition="expand">
             <tr>
                 <th scope="row">@{{ $index+1 }}</th>
                 <td>@{{ article.name }}</td>

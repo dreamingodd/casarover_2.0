@@ -1,6 +1,5 @@
 @extends('back')
 @section('body')
-{{--    {{ Auth::guard('admin')->user() }}--}}
     <input type="hidden" id="page" value="home"/>
     <div class="options vertical5">
         <a href="/back/slide/add">

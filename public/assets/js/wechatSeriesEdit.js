@@ -1,6 +1,1 @@
-function sed(){
-    var img = $(".pic input").val();
-    $("#pic").val(img);
-    var thumb = $(".thumb input").val();
-    $("#thumb").val(thumb);
-}
+function sed(){var a=$(".pic input").val();$("#pic").val(a);var v=$(".thumb input").val();$("#thumb").val(v)}

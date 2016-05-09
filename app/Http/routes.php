@@ -96,6 +96,7 @@ Route::group(['prefix' => 'api'],function () {
     Route::get('casas/city/{id?}/areas/{areas?}','Api\AllCasaController@getCasas');
 //    api需要做拆分 有些是要做验证的
     Route::get('wxorder/list/{type?}','Wx\WxOrderController@orderlist');
+    Route::post('/wxorder/del/','Wx\WxOrderController@del');
 //    Route::get('wxorder/changetype/{orderId}/{type?}','Wx\WxOrderController@editStatus');
 
 
@@ -105,7 +106,7 @@ Route::group(['prefix' => 'api'],function () {
  * wechat public routess
  */
 Route::post('/wx/pay/notify', 'Wx\WxPayController@notify');
-Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () {
+Route::group(['prefix' => 'wx', 'middleware' => ['web','wx.auth' ]],function () {
     Route::get('/', 'Wx\WxSiteController@index');
     Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
