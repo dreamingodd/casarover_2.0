@@ -3,10 +3,10 @@ $(document).ready(function(){
         directionNav: true,
         pauseOnAction: false
     });
-    $('.search-input input').click(function(){
+    $('.search-input input').click(()=>{
         $('.search-place').css('display','block');
     });
-    $('.search-input input').blur(function(){
+    $('.search-input input').blur(()=>{
         $('.search-place').css('display','none');
     });
     Vue.component('card',{   //这里就是注册的内容
@@ -15,7 +15,7 @@ $(document).ready(function(){
     });
     //scroll 是记录是否已经进行了滚动操作，
     //为了防止在重新进行turn的时候再次执行scrollTo
-    var vm = new Vue({
+    new Vue({
         el: '#app',
         data: function () {
             return {

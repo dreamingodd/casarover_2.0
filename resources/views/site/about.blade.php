@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="/assets/css/about.css">
 @endsection
 @section('body')
-    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/aboutus.jpg" alt="" class="banner">
+    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/aboutus.jpg" width="100%" alt="casa-about" class="banner">
     <div class="main">
     <div class="part" id="about-us">
         <h2>--A--</h2>

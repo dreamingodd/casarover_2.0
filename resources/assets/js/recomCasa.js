@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    Vue.component('casalist',{   //这里就是注册的内容
+        template : '#casa-list',
+        props : ['casas']
+    });
     new Vue({
         el: '#main',
         data: {

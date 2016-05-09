@@ -114,6 +114,12 @@ class WxOrderController extends Controller
         $order->save();
         return redirect('back/wx/order/list');
     }
+
+    public function del(Request $request)
+    {
+        $order = WxOrder::find($request->id);
+        $order->delete();
+    }
 //    付款状态的修改
     public function payStatus($orderId,$status)
     {
