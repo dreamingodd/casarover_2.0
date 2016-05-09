@@ -42,23 +42,21 @@
                 <td>@{{ order.total }}</td>
                 <td>
                     <p>
-                        @{{ order.paystatus }}
+                        <span>@{{ order.paystatus }}</span>
+                        <span>@{{ order.reserveStatus }}</span>
+                        <span>@{{ order.consumeStatus }}</span>
                     </p>
                     <p>
-                        @{{ order.reserveStatus }}<br/>
-                        <template v-if="!order.reserve_time">
-                            填写预约时间
-                        </template>
+                    <template v-if="!order.reserve_time">
+                        填写预约时间
+                        <span class="text-danger">(时间格式是2016年5月6日)</span>
+                    </template>
                     <form action="/back/wx/changewxordertype"  method="POST">
                         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                         <input type="hidden" name="orderid" value="@{{ order.id }}">
-                        <p class="text-danger">(时间格式是2016年5月6日)</p>
                         <input type="text" class="form-control" name="message" value="@{{ order.reserve_time }}">
                         <button type="submit" class="btn btn-default" >保存</button>
                     </form>
-                    </p>
-                    <p>
-                        @{{ order.consumeStatus }}
                     </p>
                 </td>
             </tr>
@@ -70,7 +68,7 @@
     <template id="goodlist">
         <ul class="list-group">
             <template v-for="good in goods">
-                <li class="list-group-item">@{{ good.name }}--@{{ good.price }}</li>
+                <li class="list-group-item">@{{ good.name }}--@{{ good.quantity }}--@{{ good.price }}</li>
             </template>
         </ul>
     </template>
