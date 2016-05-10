@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Wx;
 use Log;
 use Session;
 use Exception;
+use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxBind;
 use App\Entity\Wx\WxUser;
 use App\Entity\Wx\WxOrder;
@@ -67,9 +68,10 @@ class WxBindController extends Controller
         if ($deleted) {
             $wxBinds = WxBind::onlyTrashed()->orderBy("id", "desc")->get();
         } else {
+            $wxCasas = WxCasa::all();
             $wxBinds = WxBind::orderBy("id", "desc")->get();
         }
-        return view('backstage.wxBindList', compact('wxBinds'));
+        return view('backstage.wxBindList', compact('wxBinds', 'wxCasas'));
     }
 
     public function delete($id) {
