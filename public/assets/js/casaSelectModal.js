@@ -6,26 +6,20 @@ function selectCasa(id,name){
 }
 $(function()
 {
-    $('#enlarge').click(function (e)
-    {
-        x=$('#search').val();
-        a=1;
-        $('.table-hover td').each(function()
-        {
-            var t = $(this).text().indexOf(x);/*是否包含字段*/
-            if(t>-1)
-            {
-                if(a==1)/*第二次找到符合关键字的信息后不隐藏之前符合的信息*/
-                    $('.table-hover tr').hide();
+    $('#enlarge').click( function (e){
+        $('.modal .table-hover tr').hide();
+        var searchText = $('#search').val();
+        $('.modal .table-hover td').each(function(){
+            var contain = $(this).text().indexOf(searchText) > -1;/*是否包含字段*/
+            if (contain) {
                 $(this).parent().show();
-                a++;
             }
         });
         e.preventDefault();
     });
     $('#reset').click(function ()
     {
-        $('.table-hover tr').show();
+        $('.modal .table-hover tr').show();
     });
     $("#search").keydown(function(event){
         event=document.all?window.event:event;

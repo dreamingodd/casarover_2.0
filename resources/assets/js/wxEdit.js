@@ -97,7 +97,7 @@ function newCasaTr(id, code, name) {
             '<td>' + code + '</td>' +
             '<td>' + name + '</td>' +
             '<td><button db_id="' + id +
-                '" type="button" class="select_casa_btn btn btn-info btn-sm">Select</button>' +
+                '" type="button" class="select_casa_btn btn btn-info btn-xs">Select</button>' +
             '</td>' +
         '</tr>'
     );
