@@ -35,7 +35,7 @@ class WxBindController extends Controller
             $orders = WxOrder::where('wx_casa_id', $wxCasaId)
                             ->where('pay_status', WxOrder::PAY_STATUS_YES)
                             ->orderBy('id', 'desc')->get();
-            return view('wx.merchant');
+            return view('wx.merchant', compact('orders'));
         }
         Log::error("Error: Unpredicted condition!");
         return "Error: Unpredicted condition!";
