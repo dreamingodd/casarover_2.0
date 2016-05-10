@@ -68,7 +68,7 @@ class WxBindController extends Controller
         if ($deleted) {
             $wxBinds = WxBind::onlyTrashed()->orderBy("id", "desc")->get();
         } else {
-            $wxCasas = WxCasa::all();
+            $wxCasas = WxCasa::orderBy("id", "desc")->get();
             $wxBinds = WxBind::orderBy("id", "desc")->get();
         }
         return view('backstage.wxBindList', compact('wxBinds', 'wxCasas'));
@@ -84,7 +84,12 @@ class WxBindController extends Controller
         return redirect('/back/wx/bind/trash/1');
     }
 
-    public function bind($userId, $casaId) {
+    public function bind($bindId, $casaId) {
+        $wxBind = WxBind::find($bindId);
+        $wxBind->wx_casa_id = $casaId;
+        $wxBind->status = WxBind::STATUS_COMFIRMED;
+        $wxBind->save();
+        return redirect('/back/wx/bind');
     }
     /** The Above are backstage related. *************************************/
 }
