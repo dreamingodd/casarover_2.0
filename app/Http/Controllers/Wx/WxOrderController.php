@@ -74,9 +74,9 @@ class WxOrderController extends Controller
         return view('backstage.wxOrderList',compact('allstatus'));
     }
 
-    public function orderlist($type=0)
+    public function orderlist($page=1,$type=0)
     {
-        $orderlist = WxOrder::orderBy('id', 'desc')->get();
+        $orderlist = WxOrder::orderBy('id', 'desc')->paginate(2);
         foreach($orderlist as $order)
         {
             $order->time = $order->created_at->format('Y-m-d H:i');
@@ -101,7 +101,7 @@ class WxOrderController extends Controller
         $allstatus = $this->allstatus();
         return $allstatus[$type][$code];
     }
-
+//    手动确定预订时间
     public function editStatus(Request $request)
     {
         $order = WxOrder::find($request->orderid);
@@ -112,7 +112,16 @@ class WxOrderController extends Controller
             $order->reserve_status = 1;
         }
         $order->save();
+        $this->sendOrderSms(123);
         return redirect('back/wx/order/list');
+    }
+//    发送预约成功的短信
+    private function sendOrderSms($orderId)
+    {
+        $sms = app('sms');
+        $message = "{\"name\":\"yunlong\",\"thing\":\"这个是活动\",\"time\":\"2016.1.3\"}";
+        $phone = '18958142694';
+        $sms->send('活动验证','SMS_8550710',$message,$phone);
     }
 
     public function del(Request $request)
@@ -120,27 +129,7 @@ class WxOrderController extends Controller
         $order = WxOrder::find($request->id);
         $order->delete();
     }
-//    付款状态的修改
-    public function payStatus($orderId,$status)
-    {
-        $order = WxOrder::find($orderId);
-        $order->consume_status = $status;
-        $order->save();
-    }
-//    预约状态的修改
-    public function reserveStatus($orderId,$status)
-    {
-        $order = WxOrder::find($orderId);
-        $order->consume_status = $status;
-        $order->save();
-    }
-//    消费状态的修改
-    public function consumeStatus($orderId,$status)
-    {
-        $order = WxOrder::find($orderId);
-        $order->consume_status = $status;
-        $order->save();
-    }
+
     private function allstatus()
     {
         $allstatus = [

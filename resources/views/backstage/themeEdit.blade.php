@@ -32,42 +32,8 @@
         <textarea name="brief" id="" cols="30" rows="10" class="form-control">{{ $theme->brief or null }}</textarea>
         <div class="sub">
             <button onclick="sed()" type="btn" class="btn btn-primary">保存</button>
-    </form>
-    @if(isset($theme->id))
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
-    <i class="fa fa-times-circle"></i>
-    删除
-    </button>
-    @endif
-    <div class="modal fade" id="modal-delete" tabIndex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        ×
-                    </button>
-                    <h4 class="modal-title">注意</h4>
-                </div>
-                <div class="modal-body">
-                    <p class="lead">
-                        <i class="fa fa-question-circle fa-lg"></i>
-                        如果删除主题，下属文章将会被一并删除，建议先将文章移动到其他主题中
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <form method="post" action="/back/theme/del">
-                        <input type="hidden" name="id" value="{{ $theme->id or null }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                        </button>
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fa fa-times-circle"></i> 确定删除
-                        </button>
-                    </form>
-                </div>
-            </div>
         </div>
-    </div>
+    </form>
     </div>
     </form>
 @endsection

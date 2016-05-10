@@ -163,6 +163,8 @@ return [
         Overtrue\LaravelWechat\ServiceProvider::class,
         /**LaravelIdeHelper*/
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        /**sms**/
+        Draguo\Dayusms\ServiceProvider::class,
 
 
     ],

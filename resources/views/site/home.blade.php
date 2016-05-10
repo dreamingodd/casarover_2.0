@@ -75,7 +75,7 @@
             <template v-for="casa in casas">
                 <card :casa="casa"></card>
             </template>
-            <a href="/allcasa/@{{ city }}" class="city-casa">更多></a>
+            <a href="/allcasa/@{{ city }}" class="city-casa">更多»</a>
         </section>
         @endif
                 <!-- 精选主题 -->

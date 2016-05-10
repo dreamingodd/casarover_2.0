@@ -95,7 +95,7 @@ Route::group(['prefix' => 'api'],function () {
     Route::get('areas/{id?}','Api\AllCasaController@getAreasByCityId');
     Route::get('casas/city/{id?}/areas/{areas?}','Api\AllCasaController@getCasas');
 //    api需要做拆分 有些是要做验证的
-    Route::get('wxorder/list/{type?}','Wx\WxOrderController@orderlist');
+    Route::get('wxorder/list/{page?}/{type?}','Wx\WxOrderController@orderlist');
     Route::post('/wxorder/del/','Wx\WxOrderController@del');
 //    Route::get('wxorder/changetype/{orderId}/{type?}','Wx\WxOrderController@editStatus');
 

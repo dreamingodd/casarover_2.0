@@ -4,7 +4,7 @@
     <meta charset=UTF-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <link rel="stylesheet" href="/assets/css/mobileIndex.css">
+    <link rel="stylesheet" href="/assets/css/mobileindex.css">
     <script src="//cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <!--[if lt IE 9]>
     <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
