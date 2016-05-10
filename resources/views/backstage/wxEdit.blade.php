@@ -225,29 +225,28 @@
 
     <!-- Modal -->
     <div class="modal fade" id="casaSelectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">选择一家民宿</h4>
-                </div>
-                <div class="modal-body" style="height:500px; overflow:scroll;">
-                    <div class="search">
-                        <input type="text" value="" id="search" />
-                        <button class="glyphicon glyphicon-search" id="enlarge"></button>
-                        <button class="glyphicon glyphicon-repeat" id="reset"></button>
-                    </div>
-                    <div class="alert alert-info" role="alert"
-                            style="float: left; padding: 2px; margin: 7px 0 0 10px;">
-                        可搜索编码和名称，按回车搜索，按Shift重置。
-                    </div>
-                    <table id="slimCasaTable" class="table table-hover">
-                        <!-- Simple casas data to be added. -->
-                    </table>
-                </div>
-            </div>
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">选择一家民宿</h4>
+          </div>
+          <div class="modal-body" style="height:500px; overflow:scroll;">
+              <div class="search">
+                  <input type="text" value="" id="search" />
+                  <button class="glyphicon glyphicon-search" id="enlarge"></button>
+                  <button class="glyphicon glyphicon-repeat" id="reset"></button>
+              </div>
+              <div class="alert alert-info" role="alert" style="float: left; padding: 2px; margin: 7px 0 0 10px;">
+                  可搜索编码和名称，按回车搜索，按Shift重置。
+              </div>
+              <table id="slimCasaTable" class="table table-hover">
+                  <!-- Simple casas data to be added. -->
+              </table>
+          </div>
         </div>
+      </div>
     </div>
 @stop
