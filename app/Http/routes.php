@@ -137,6 +137,9 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],funct
     Route::post('changewxordertype','Wx\WxOrderController@editStatus');
     Route::post('room/date/{id}', 'Wx\WxRoomController@postdate');
     Route::get('bind', 'Wx\WxBindController@bindList');
+    Route::get('bind/trash/{deleted}', 'Wx\WxBindController@bindList');
+    Route::get('bind/delete/{id}', 'Wx\WxBindController@delete');
+    Route::get('bind/restore/{id}', 'Wx\WxBindController@restore');
     Route::get('bind/{userId}/{casaId}', 'Wx\WxBindController@bind');
 });
 

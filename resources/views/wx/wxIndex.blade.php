@@ -30,7 +30,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="hot">
                 @foreach($wxCasas as $casa)
-                    @if (count($casa->wxRooms) > 0)
+                    @if (count($casa->wxRooms) > 0 && !empty($casa->thumbnail))
                         <div class="case">
                             <div class="image">
                                 <a href="/wx/casa/{{$casa->id}}">

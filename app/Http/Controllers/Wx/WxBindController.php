@@ -24,10 +24,10 @@ class WxBindController extends Controller
         if (empty($wxBind)) {
             // 未申请
             return view('wx.bindApply', compact('user'));
-        } elseif ($wxBind->status == WxBind::BIND_STATUS_APPLYING) {
+        } elseif ($wxBind->status == WxBind::STATUS_APPLYING) {
             // 审核中
             return view('wx.bindWait');
-        } elseif ($wxBind->status == WxBind::BIND_STATUS_COMFIRMED) {
+        } elseif ($wxBind->status == WxBind::STATUS_COMFIRMED) {
             // 管理订单
             $wxCasaId = $wxBind->wx_casa_id;
             // Gets all payed orders.
@@ -62,14 +62,27 @@ class WxBindController extends Controller
     }
 
     /** The followings are backstage related. ********************************/
-    public function bindList() {
-        $wxBinds = WxBind::orderBy("id", "desc")->get();
-        // dd($wxBinds->first()->wxUser);
+    public function bindList($deleted = 0) {
+        $wxBinds = array();
+        if ($deleted) {
+            $wxBinds = WxBind::onlyTrashed()->orderBy("id", "desc")->get();
+        } else {
+            $wxBinds = WxBind::orderBy("id", "desc")->get();
+        }
         return view('backstage.wxBindList', compact('wxBinds'));
     }
 
-    public function bind($userId, $casaId) {
+    public function delete($id) {
+        WxBind::find($id)->delete();
+        return redirect('/back/wx/bind');
+    }
 
+    public function restore($id) {
+        WxBind::onlyTrashed()->find($id)->restore();
+        return redirect('/back/wx/bind/trash/1');
+    }
+
+    public function bind($userId, $casaId) {
     }
     /** The Above are backstage related. *************************************/
 }

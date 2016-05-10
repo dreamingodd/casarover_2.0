@@ -15,7 +15,7 @@ class WxUser extends Model
      * @2016-05-09
      */
     public function wxBind() {
-        return $this->hasMany('App\Entity\Wx\WxBind')->where('status', WxBind::STATUS_COMFIRMED)->first();
+        return $this->hasMany('App\Entity\Wx\WxBind')->first();
     }
 
     public function casas() {

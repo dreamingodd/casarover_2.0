@@ -10,13 +10,10 @@
     <input type="hidden" id="page" value="reserve"/>
 
     <div class="options vertical5">
-        <a href="/back/wx/casa">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-        </a>
-        <a href="/back/wx">
+        <a href="/back/wx/bind">
             <span class="glyphicon glyphicon-list" aria-hidden="true"></span>列表
         </a>
-        <a href="/back/wx/trash/1">
+        <a href="/back/wx/bind/trash/1">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>回收站
         </a>
     </div>
@@ -40,9 +37,7 @@
                 <td>{{$bind->wxUser->cellphone or ''}}</td>
                 <td>{{$bind->casa_name}}</td>
                 <td>
-                    <a href='/back/wx/bind/del/{{$bind->id}}'>
-                        <button type="button" class="btn btn-xs btn-info">选择</button>
-                    </a>
+                    <button type="button" class="btn btn-xs btn-info">选择</button>
                     {{$bind->wxCasa->name or ''}}
                 </td>
                 <td>{{$bind->updated_at==''?$bind->created_at:$bind->updated_at}}</td>
@@ -52,7 +47,7 @@
                             <button type="button" class="btn btn-xs btn-warning">还原</button>
                         </a>
                     @else
-                        <a href='/back/wx/bind/del/{{$bind->id}}'>
+                        <a href='/back/wx/bind/delete/{{$bind->id}}'>
                             <button type="button" class="btn btn-xs btn-danger">删除</button>
                         </a>
                     @endif
