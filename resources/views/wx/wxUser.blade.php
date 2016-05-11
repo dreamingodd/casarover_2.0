@@ -13,8 +13,12 @@
         <p>姓名：{{$wxUser->realname}}</p>
         <p>手机号码：{{$wxUser->cellphone}}</p>
         <p id="notice">点击右上方电话按钮进行预约</p>
-        <a href="#" id="order"><p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
-                <span class="glyphicon glyphicon-triangle-right"></span><span class="glyphicon glyphicon-triangle-bottom"></span></p></a>
+        <a href="#" id="order">
+            <p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
+                <span class="glyphicon glyphicon-minus"></span>
+                <span class="glyphicon glyphicon-plus"></span>
+            </p>
+        </a>
         <!--<div class="tabtable">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#already" data-target="#already" data-toggle="tab" aria-expanded="false">
@@ -99,12 +103,13 @@
     </div>
     <script>
         $(function ($) {
-           $('#order').click(function () {
-               $('.glyphicon-triangle-right').toggle();
-               $('.glyphicon-triangle-bottom').toggle();
-               $('.case').toggle();
-               $(this).children('p').toggleClass('divider');
-           });
+            $('.glyphicon-plus').hide();
+            $('#order').click(function () {
+                $('.glyphicon-plus').toggle();
+                $('.glyphicon-minus').toggle();
+                $('.case').toggle();
+                $(this).children('p').toggleClass('divider');
+            });
         });
     </script>
 @stop

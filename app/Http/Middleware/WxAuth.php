@@ -75,7 +75,7 @@ class WxAuth
      */
     private function getDummyUser()
     {
-        $userId = 9999;
+        $userId = 9998;
         $user = WxUser::find($userId);
         if (empty($user)) {
             $user = new WxUser();
