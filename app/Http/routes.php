@@ -140,7 +140,7 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],funct
     Route::get('bind/trash/{deleted}', 'Wx\WxBindController@bindList');
     Route::get('bind/delete/{id}', 'Wx\WxBindController@delete');
     Route::get('bind/restore/{id}', 'Wx\WxBindController@restore');
-    Route::get('bind/{userId}/{casaId}', 'Wx\WxBindController@bind');
+    Route::get('bind/{bindId}/{casaId}', 'Wx\WxBindController@bind');
 });
 
 /** Routes for mobile phone. */
