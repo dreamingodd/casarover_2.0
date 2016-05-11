@@ -33,8 +33,14 @@ class WxAuth
                 } else {
                     $wxCode = $request->all()['code'];
                     $baseJson = WxTools::getOpenidAndAccessToken($appid, $appsecret, $wxCode);
+                    // TODO refactor
+                    // Maybe others share their link with their code.
+                    // Then would return "invalid code" error.
+                    // This approach here seems to go into a endless loop of getting wrong code and set curl request
+                    // again when other errors occur in the phase of getting openid,
+                    // however I don't poccess a better solution for now.
                     if (empty($baseJson['access_token'])) {
-                        return "登录失败！";
+                        return redirect('http://www.casarover.com/wx');
                     }
                     $accessToken = $baseJson['access_token'];
                     $openid = $baseJson['openid'];
