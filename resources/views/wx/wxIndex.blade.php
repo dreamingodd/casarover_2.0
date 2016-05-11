@@ -1,5 +1,5 @@
 @extends('wxBase')
-@section('title','探庐者')
+@section('title','探庐者精品民宿预订')
 @section('head')
     <link href="/assets/css/wx.css " rel="stylesheet"/>
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>

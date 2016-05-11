@@ -122,6 +122,8 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     // Merchnat entry
     Route::get('/bind', 'Wx\WxBindController@index');
     Route::post('/bind/apply', 'Wx\WxBindController@apply');
+    Route::get('/consume/{id}', 'Wx\WxBindController@consume');
+    Route::get('/consume_cancel/{id}', 'Wx\WxBindController@cancelConsume');
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');

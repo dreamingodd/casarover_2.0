@@ -35,7 +35,9 @@ class WxBindController extends Controller
             $orders = WxOrder::where('wx_casa_id', $wxCasaId)
                             ->where('pay_status', WxOrder::PAY_STATUS_YES)
                             ->orderBy('id', 'desc')->get();
-            return view('wx.merchant', compact('orders'));
+            $reserveStatus = ['未预约', '已预约', '预约失败'];
+            $consumeStatus = ['未消费', '已消费', '已过期'];
+            return view('wx.merchant', compact('orders', 'reserveStatus', 'consumeStatus'));
         }
         Log::error("Error: Unpredicted condition!");
         return "Error: Unpredicted condition!";
@@ -60,6 +62,20 @@ class WxBindController extends Controller
             Log::error($e);
             return "<p style='font-size: 100px;'>System Error!</p>";
         }
+    }
+
+    public function consume($orderId) {
+        $order = WxOrder::findOrFail($orderId);
+        $order->consume_status = WxOrder::CONSUME_STATUS_YES;
+        $order->save();
+        return redirect('/wx/bind');
+    }
+
+    public function cancelConsume($orderId) {
+        $order = WxOrder::findOrFail($orderId);
+        $order->consume_status = WxOrder::CONSUME_STATUS_NO;
+        $order->save();
+        return redirect('/wx/bind');
     }
 
     /** The followings are backstage related. ********************************/

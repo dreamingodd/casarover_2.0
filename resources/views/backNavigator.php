@@ -41,11 +41,6 @@
                     <li><a href="/back/wx/bind">商家管理</a></li>
                 </ul>
             </li>
-            <!--
-            <li role="presentation" class="reward">
-                <a href="reward_list.php">领奖操作</a>
-            </li>
-             -->
             <li role="presentation" class="system not_completed">
                 <a href="website/backstage/system.php">系统功能</a>
             </li>

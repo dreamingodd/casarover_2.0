@@ -9,6 +9,7 @@
 @stop
 
 @section('body')
+    <input type="hidden" id="page" value="reserve"/>
     <table class="table" id="app">
         <thead>
         <tr>

@@ -84,8 +84,10 @@
                                 </div>
                             </div>
                             <div class="date">
+                                @if ($order->reserve_status == 1)
                                 <p>预约日期:</p>
-                                <p>2016年5月10号</p>
+                                <p>{{$order->reserve_time}}</p>
+                                @endif
                             </div>
                         </div>
                     </a>
