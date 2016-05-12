@@ -106,8 +106,10 @@ Route::group(['prefix' => 'api'],function () {
  * wechat public routess
  */
 Route::post('/wx/pay/notify', 'Wx\WxPayController@notify');
-Route::group(['prefix' => 'wx', 'middleware' => ['web','wx.auth' ]],function () {
+Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () {
     Route::get('/', 'Wx\WxSiteController@index');
+    // User scan the QR code on the back of the card.
+    Route::get('/credit_score', 'Wx\WxSiteController@index');
     Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
     Route::get('/orderdetails', 'Wx\WxSiteController@orderDetails');
@@ -117,6 +119,11 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web','wx.auth' ]],function () 
     Route::get('/order/detail/{id}', 'Wx\WxOrderController@show');
     Route::post('/order/create', 'Wx\WxOrderController@create');
     Route::get('/pay/wxorder/{id}', 'Wx\WxPayController@prepare');
+    // Merchnat entry
+    Route::get('/bind', 'Wx\WxBindController@index');
+    Route::post('/bind/apply', 'Wx\WxBindController@apply');
+    Route::get('/consume/{id}', 'Wx\WxBindController@consume');
+    Route::get('/consume_cancel/{id}', 'Wx\WxBindController@cancelConsume');
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
@@ -131,6 +138,11 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],funct
     Route::get('room/date/{id}', 'Wx\WxRoomController@date');
     Route::post('changewxordertype','Wx\WxOrderController@editStatus');
     Route::post('room/date/{id}', 'Wx\WxRoomController@postdate');
+    Route::get('bind', 'Wx\WxBindController@bindList');
+    Route::get('bind/trash/{deleted}', 'Wx\WxBindController@bindList');
+    Route::get('bind/delete/{id}', 'Wx\WxBindController@delete');
+    Route::get('bind/restore/{id}', 'Wx\WxBindController@restore');
+    Route::get('bind/{bindId}/{casaId}', 'Wx\WxBindController@bind');
 });
 
 /** Routes for mobile phone. */

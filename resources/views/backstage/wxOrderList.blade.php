@@ -80,8 +80,6 @@
             </ul>
         </nav>
     </div>
-
-
     {{--vue组件--}}
     {{--商品信息--}}
     <template id="goodlist">

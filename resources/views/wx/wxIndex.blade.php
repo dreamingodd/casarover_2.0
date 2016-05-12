@@ -1,5 +1,5 @@
 @extends('wxBase')
-@section('title','探庐者')
+@section('title','探庐者精品民宿预订')
 @section('head')
     <link href="/assets/css/wx.css " rel="stylesheet"/>
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
@@ -13,10 +13,10 @@
     <div class="flexslider">
         <ul class="slides">
             <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160420-105355-748r5403.jpg') ; background-size:100% 100%;">
-                <a href="/wx/casa/1" class="slide-a"></a>
+                <a href="/wx/casa/4" class="slide-a"></a>
             </li>
             <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/image/image_20160419-094608-425r3598.jpg') ; background-size:100% 100%;">
-                <a href="/wx/casa/2" class="slide-a"></a>
+                <a href="/wx/casa/5" class="slide-a"></a>
             </li>
         </ul>
     </div>
@@ -30,7 +30,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="hot">
                 @foreach($wxCasas as $casa)
-                    @if (count($casa->wxRooms) > 0)
+                    @if (count($casa->wxRooms) > 0 && !empty($casa->thumbnail))
                         <div class="case">
                             <div class="image">
                                 <a href="/wx/casa/{{$casa->id}}">

@@ -91,7 +91,11 @@ class WxOrderController extends Controller
             $order->username = $order->wxUser->realname;
             $order->userphone = $order->wxUser->cellphone;
             $order->nickname = $order->wxUser->nickname;
-            $order->casaname = $order->wxCasa->name;
+            if (empty($order->wxCasa->name)) {
+                $order->casaname = '该民宿已下架';
+            } else {
+                $order->casaname = $order->wxCasa->name;
+            }
         }
         $data = $this->jsondata('200','获取成功',$orderlist);
         return response()->json($data);

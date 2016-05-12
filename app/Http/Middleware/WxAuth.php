@@ -33,8 +33,14 @@ class WxAuth
                 } else {
                     $wxCode = $request->all()['code'];
                     $baseJson = WxTools::getOpenidAndAccessToken($appid, $appsecret, $wxCode);
+                    // TODO refactor
+                    // Maybe others share their link with their code.
+                    // Then would return "invalid code" error.
+                    // This approach here seems to go into a endless loop of getting wrong code and set curl request
+                    // again when other errors occur in the phase of getting openid,
+                    // however I don't poccess a better solution for now.
                     if (empty($baseJson['access_token'])) {
-                        return "登录失败！";
+                        return redirect('http://www.casarover.com/wx');
                     }
                     $accessToken = $baseJson['access_token'];
                     $openid = $baseJson['openid'];
@@ -71,16 +77,17 @@ class WxAuth
     }
 
     /**
-     * @return a dummy user for dev machine to run testings.
+     * @return $user a dummy user for dev machine to run testings.
      */
     private function getDummyUser()
     {
-        $user = WxUser::find(9998);
+        $userId = 9998;
+        $user = WxUser::find($userId);
         if (empty($user)) {
             $user = new WxUser();
-            $user->id = 9998;
-            $user->nickname = "ywd";
-            $user->openid = "FAKE-openid-kbMrB-T0ZGEjGZBIX25";
+            $user->id = $userId;
+            $user->nickname = "Kobe";
+            $user->openid = "FAKE-openid-kbMrB-T0ZGEjGZBIX21";
             $user->cellphone = "18368841168";
             $user->sex = 1;
             $user->headimgurl =

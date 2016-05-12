@@ -1,7 +1,7 @@
 @extends('mobile')
 @section('title','主题民宿')
 @section('head')
-    <link rel="stylesheet" href="/assets/css/mobileTheme.css">
+    <link rel="stylesheet" href="/assets/css/mobiletheme.css">
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
 @endsection

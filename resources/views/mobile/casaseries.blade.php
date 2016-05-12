@@ -1,7 +1,7 @@
 @extends('mobile')
 @section('title',$serie->name)
 @section('head')
-    <link rel="stylesheet" href="/assets/css/mobileCasaseries.css">
+    <link rel="stylesheet" href="/assets/css/mobilecasaseries.css">
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
 @endsection

@@ -13,8 +13,12 @@
         <p>姓名：{{$wxUser->realname}}</p>
         <p>手机号码：{{$wxUser->cellphone}}</p>
         <p id="notice">点击右上方电话按钮进行预约</p>
-        <a href="#" id="order"><p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
-                <span class="glyphicon glyphicon-triangle-right"></span><span class="glyphicon glyphicon-triangle-bottom"></span></p></a>
+        <a href="#" id="order">
+            <p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
+                <span class="glyphicon glyphicon-minus"></span>
+                <span class="glyphicon glyphicon-plus"></span>
+            </p>
+        </a>
         <!--<div class="tabtable">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#already" data-target="#already" data-toggle="tab" aria-expanded="false">
@@ -27,13 +31,20 @@
         <div class="tab-content">
             <div class="tab-pane active" id="already">
                 @foreach($orders as $order)
+                    @if ($order->pay_status == 0)
+                    <a href="/wx/pay/wxorder/{{$order->id}}">
+                    @else
                     <a href="/wx/order/detail/{{$order->id}}">
+                    @endif
                         <div class="case clear">
                             <div class="top clear">
                                 <div class="images">
-                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png"
-                                            alt="">
-                                    <p>{{$order->wxCasa->getName()}}</p>
+                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png" alt="">
+                                    @if (empty($order->wxCasa->name))
+                                    <p>该民宿已下架</p>
+                                    @else
+                                    <p>{{$order->wxCasa->name}}</p>
+                                    @endif
                                 </div>
                                 <div class="info">
                                     <p>订单号</p>
@@ -77,8 +88,10 @@
                                 </div>
                             </div>
                             <div class="date">
+                                @if ($order->reserve_status == 1)
                                 <p>预约日期:</p>
-                                <p>2016年5月10号</p>
+                                <p>{{$order->reserve_time}}</p>
+                                @endif
                             </div>
                         </div>
                     </a>
@@ -90,12 +103,13 @@
     </div>
     <script>
         $(function ($) {
-           $('#order').click(function () {
-               $('.glyphicon-triangle-right').toggle();
-               $('.glyphicon-triangle-bottom').toggle();
-               $('.case').toggle();
-               $(this).children('p').toggleClass('divider');
-           });
+            $('.glyphicon-plus').hide();
+            $('#order').click(function () {
+                $('.glyphicon-plus').toggle();
+                $('.glyphicon-minus').toggle();
+                $('.case').toggle();
+                $(this).children('p').toggleClass('divider');
+            });
         });
     </script>
 @stop
