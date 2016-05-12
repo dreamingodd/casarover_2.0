@@ -102,7 +102,7 @@
     <script src="/assets/js/home.js" type="text/javascript"></script>
     {{--vue的模板--}}
     <template id="card">
-        <div class="casa-card"  transition="expand" block>
+        <div class="casa-card"  transition="expand" v-cloak>
             <div class="card-b">
                 <a href="@{{ casa.src }}" target="_blank">
                     <img :src="casa.pic" height="100%">

@@ -2,11 +2,9 @@
 @section('title',"探庐者-$area->value")
 @section('head')
     <link rel="stylesheet" href="/assets/css/mobileArea.css">
-    <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
-    <script src="http://webapi.amap.com/maps?v=1.3&key=6490a159a96f22a0436c5b87e0f71672"></script>
-@endsection
-@section('body')
-        <!-- 民宿大图  -->
+    @endsection
+    @section('body')
+            <!-- 民宿大图  -->
     <div class="banner">
         <div class="cover-photo">
             @if(!empty($area->contents[1]->attachments[0]))
@@ -28,7 +26,9 @@
         </section>
         <div class="line"></div>
         {{--地图显示位置--}}
-        <div id="mapContainer"></div>
+        <div id="mapContainer">
+            <img src="http://restapi.amap.com/v3/staticmap?location={{ $area->position }}&zoom=14&size=450*300&markers=mid,,A:{{ $area->position }}&key=2886eb6e218fcd008bbdb478c16756dc" alt="">
+        </div>
         <!-- 附近景点 -->
         <section>
             <div class="article-nav">附近景点</div>
@@ -53,61 +53,26 @@
         <!-- 附近民宿 -->
         <section>
             <div class="article-nav">附近民宿</div>
-            @foreach($casas as $casa)
-                <div class="casa-card">
-                    <div class="card-b">
-                        <a href="/mobile/casa/{{ $casa->id }}" target="_blank">
-                            <img src="{{ config('casarover.photo_folder').$casa->attachment->filepath }}" height="100%">
-                            <div class="card">
-                                <h3>{{ $casa->name }}</h3>
-                            </div>
-                            <div class="info">
-                                <div class="middle">
+            <div class="near-casa">
+                @foreach($casas as $casa)
+                    <div class="casa-card">
+                        <div class="card-b">
+                            <a href="/mobile/casa/{{ $casa->id }}" target="_blank">
+                                <img src="{{ config('casarover.photo_folder').$casa->attachment->filepath }}" height="100%">
+                                <div class="card">
                                     <h3>{{ $casa->name }}</h3>
-                                    <p>{{ $casa->contents[0]->text }}</p>
                                 </div>
-                            </div>
-                        </a>
+                                {{--<div class="info">--}}
+                                {{--<div class="middle">--}}
+                                {{--<h3>{{ $casa->name }}</h3>--}}
+                                {{--<p>{{ $casa->contents[0]->text }}</p>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                            </a>
+                        </div>
                     </div>
-                </div>
-            @endforeach
-
-            {{--因为民宿的首图被去除所以不同的显示效果不能实现--}}
-            {{--@for($i=0;$i<count($casas);$i++)--}}
-            {{--<div class="casa-card">--}}
-            {{--<div class="card-c">--}}
-            {{--<a href="/casa/{{ $casas[$i]->id }}">--}}
-            {{--<img src="{{ config('casarover.photo_folder').$casas[$i]->attachment->filepath }}" height="100%">--}}
-            {{--<div class="card">--}}
-            {{--<h3>{{ $casas[$i]->name }}</h3>--}}
-            {{--</div>--}}
-            {{--<div class="info">--}}
-            {{--<div class="middle">--}}
-            {{--<h3>{{ $casas[$i]->name }}</h3>--}}
-            {{--<p>{{ $casas[$i]->contents[0]->text }}</p>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</a>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--@endfor--}}
+                @endforeach
+            </div>
         </section>
     </div>
-    <script>
-        var map = new AMap.Map('mapContainer', {
-            center: [{{ $area->position }}],
-            lang:'zh_en',
-            zoom:{{ $area->tier }},
-            zoomEnable:false,
-            dragEnable:false
-        });
-    </script>
-    <script>
-        //        底部民宿卡片添加多种显示方式
-        $(".card-c").each(function(i){
-            if(i ==1 || i ==2 ){
-                $(this).addClass('card-d');
-            }
-        })
-    </script>
 @stop
