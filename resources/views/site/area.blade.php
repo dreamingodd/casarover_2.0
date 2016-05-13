@@ -2,7 +2,6 @@
 @section('title',$area->value)
 @section('head')
     <link rel="stylesheet" href="/assets/css/area.css">
-    <script src="http://webapi.amap.com/maps?v=1.3&key=6490a159a96f22a0436c5b87e0f71672"></script>
     @endsection
     @section('body')
             <!-- 民宿大图  -->
@@ -26,7 +25,9 @@
         </section>
         <div class="line"></div>
         {{--地图显示位置--}}
-        <div id="mapContainer"></div>
+        <div id="mapContainer">
+            <img src="http://restapi.amap.com/v3/staticmap?location={{ $area->position }}&zoom=14&size=1280*400&markers=mid,,A:{{ $area->position }}&key=2886eb6e218fcd008bbdb478c16756dc" alt="">
+        </div>
         <!-- 附近景点 -->
         <section>
             <div class="article-nav">附近景点</div>
@@ -91,21 +92,12 @@
             {{--@endfor--}}
         </section>
     </div>
-    <script>
-        var map = new AMap.Map('mapContainer', {
-            center: [{{ $area->position }}],
-            lang:'zh_en',
-            zoom:{{ $area->tier }},
-            zoomEnable:false,
-            dragEnable:false
-        });
-    </script>
-    <script>
-        //        底部民宿卡片添加多种显示方式
-        $(".card-c").each(function(i){
-            if(i ==1 || i ==2 ){
-                $(this).addClass('card-d');
-            }
-        })
-    </script>
+    {{--<script>--}}
+        {{--//        底部民宿卡片添加多种显示方式--}}
+        {{--$(".card-c").each(function(i){--}}
+            {{--if(i ==1 || i ==2 ){--}}
+                {{--$(this).addClass('card-d');--}}
+            {{--}--}}
+        {{--})--}}
+    {{--</script>--}}
 @endsection

@@ -54,8 +54,9 @@ class WechatController extends Controller
             if($article->type==1){
                 $fname='探庐系列';
                 $fid = 1;
-                $sname=WechatSeries::find($article->series)->name;
-                $seriesID=WechatSeries::find($article->series)->id;
+                //解决系列名字删除不能正常显示的问题
+                $sname= WechatSeries::find($article->series) == null? '暂无':WechatSeries::find($article->series)->name;
+                $seriesID=WechatSeries::find($article->series) == null? 0:WechatSeries::find($article->series)->id;
             }
             else if($article->type==2){
                 $fname='民宿推荐';

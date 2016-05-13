@@ -30,19 +30,25 @@
             </div>
             <div class="right">
                 <h2>其他主题</h2>
-                <div class="flexslider">
-                    <ul class="slides">
-                        @foreach($others as $theme)
-                            <li style="background:url({{ $theme->pic }}) ; background-size:100% 100%;">
-                                <a href="{{ $theme->id }}" target="_blank" class="slide-a">
-                                    <div class="slide-mess">
-                                        {{$theme->name }}
-                                    </div>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
+                @foreach($others as $theme)
+                    <div class="line"></div>
+                    <a href="/mobile/theme/{{ $theme->id }}">
+                        <p>{{ $theme->name }}</p>
+                    </a>
+                @endforeach
+                {{--<div class="flexslider">--}}
+                    {{--<ul class="slides">--}}
+                        {{--@foreach($others as $theme)--}}
+                            {{--<li style="background:url({{ $theme->pic }}) ; background-size:100% 100%;">--}}
+                                {{--<a href="{{ $theme->id }}" target="_blank" class="slide-a">--}}
+                                    {{--<div class="slide-mess">--}}
+                                        {{--{{$theme->name }}--}}
+                                    {{--</div>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                        {{--@endforeach--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
             </div>
         </div>
     </div>

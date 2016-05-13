@@ -9,11 +9,15 @@
 @section('body')
     <div id="app">
         <div class="city clear" >
-            <b id="close">完成</b>
-            <h3>当前选择</h3>
+            <div class="left">
+                <h3>当前选择</h3>
+            </div>
+            <div class="right">
+                <h3 id="close">完成</h3>
+            </div>
             <div class="line"></div>
             <span id="city_checked"></span>
-            <span id="area_checked">白乐桥</span>
+            <span id="area_checked"></span>
             <h3>选择城市</h3>
             <div class="line"></div>
             <ul class="casa clear">
@@ -30,7 +34,7 @@
             <ul class="area">
                 <template v-for="area in areas">
                     <li >
-                        <a v-on:click="selarea(this)">@{{ area.value }}</a>
+                        <a onclick="selarea(this)" v-on:click="selarea(this)">@{{ area.value }}</a>
                     </li>
                 </template>
             </ul>
@@ -41,7 +45,7 @@
                     @foreach($areas as $area)
                         @if(!empty($area->contents[1]->attachments[0]))
                             <li style="background:url({{ config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath }}); background-size:100% 100%;">
-                                <a href="/area/{{ $area->id }}" target="_blank" class="slide-a">
+                                <a href="/mobile/area/{{ $area->id }}"  class="slide-a">
                                 </a>
                             </li>
                         @endif
@@ -53,10 +57,9 @@
                 <section id="casa-list">
                     <template v-for="casa in casas" block transition="expand">
                         <div class="card">
-                            <a href="/casa/@{{ casa.id }}" target="_blank">
+                            <a href="/mobile/casa/@{{ casa.id }}">
                                 <img :src="casa.pic" width="100%" alt="@{{ casa.pic }}">
                                 <h3>@{{ casa.name }}</h3>
-                                {{--<p>地址：西湖区灵隐支路白乐桥246号</p>--}}
                                 <p>标签：
                                     <span class="tip">@{{ casa.tip }}</span>
                                 </p>
@@ -78,23 +81,32 @@
                 </section>
             </div>
         </div>
-
-
     </div>
     <script>
+        function selarea(obj){
+            var selareaStr = obj.text;
+            $('#area_checked').html(selareaStr);
+            $('.main').show();
+            $('.navbartop').show();
+            $('footer').show();
+            $('.city').hide();
+        }
         $(function($){
             $('#city_checked').html($('#active').html());
             $('.casa a').click(function () {
+                $('#area_checked').css('display','none');
                 $('.casa a').removeAttr('id');
                 $(this).attr('id','active');
                 $('#city_checked').html($('#active').html());
+                $('#area_checked').html('');
             });
-            $('.area a').click(function () {
-                $('.area a').removeAttr('id');
-                $(this).attr('id','actived');
-                $('#area_checked').html($('#actived').html());
-            });
+
             $('#tm').click(function () {
+                $('#area_checked').css('display','none');
+                var pandun = $('#area_checked').text();
+                if(pandun !== ''){
+                    $('#area_checked').css('display','inline-block');
+                }
                 $('.main').hide();
                 $('.navbartop').hide();
                 $('footer').hide();
@@ -107,6 +119,5 @@
                 $('.city').hide();
             });
         });
-    </script>
     </script>
 @stop

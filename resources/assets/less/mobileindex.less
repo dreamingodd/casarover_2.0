@@ -1,16 +1,16 @@
 @a-hover:#ff8c00;
+@base-color:#ff8c00;
 @import "block/slider";
 .slides{
-  li{
-    height: 13rem;
-  }
+  //li{
+  //  height: 13rem;
+  //}
+}
+a:hover{
+  color: #333333;
 }
 .clear:after{content:"\20";display:block;height:0;clear:both}/*清浮动*/
 @import "block/load";
-a{
-  text-decoration:none;
-  color: black;
-}
 u{
   text-decoration: none
 }
@@ -18,11 +18,6 @@ ul,li,ol{
   list-style: none;
   margin: 0;
   padding: 0;
-}
-body{
-  margin: 0 auto;
-  font-family: "微软雅黑";
-  background: #f8f8f8;
 }
 i{
   font-style:none
@@ -34,65 +29,76 @@ input::-webkit-inner-spin-button{
 }
 input[type="number"]{-moz-appearance:textfield;}
 html{
-  background: #f8f8f8;
+  background: #EEEEEE;
   font-size: 62.5%;
 }
 .navbartop{
   height: 5rem;
   width: 100%;
-  margin: 0 auto;
-  background: #222225;
+  background: @base-color;
   text-align: center;
-  margin-bottom: 0.5rem;
   img {
     height: 60%;
     margin-top: 1rem  ;
   }
 }
+.container{
+  clear: both;
+  width: 100%;
+}
+section{
+  width: 100%;
+  overflow: hidden;
+}
+.title{
+  position: relative;
+}
+.nav-card{
+  width: 48%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 1rem;
+  height: 3rem;
+  line-height: 3rem;
+  float: left;
+  background: #c1e2b3;
+}
 .navcon{
   text-align: center;
   a{
-    margin-top: 2rem;
-    display: inline-block;
-    padding: 0 2rem;
+    display: block;
     font-size: 16px;
-    color: #666;
+    color: #fff;
     cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid black;
-    margin-left: 2rem;
+    background: #5cb85c;
   }
-  margin-left: -2rem;
 }
-.container{
-  padding: 0 1rem;
-}
-section{
-  overflow: hidden;
-}
+
 h2{
-  font-size: 2rem;
+  font-size: 1.8rem;
+  text-align: center;
+  color: #333;
+}
+h3{
+  font-size: 1.3rem;
+  padding-left:2rem;
+  line-height: 3rem;
 }
 .line{
   background: #E4E4E4;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 5px auto;
   height: 1px;
 }
-.city-list{
-  margin: 2rem 2rem;
-  text-align: center;
-  a{
-    padding: 0 1.5rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
+#more-casa{
+  position: absolute;
+  right:2rem;
+  bottom: 0;
 }
-.loader{
-  text-align: center;
-}
-.casa-card{
-  border-bottom: 1px solid #CFCFCF ;
+.m-casa-card{
+  background: #FFFFFF;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
+  //border-bottom: 1px solid #CFCFCF ;
   margin-bottom: 1rem;
   .cardcon{
     margin: 0 auto;
@@ -102,27 +108,30 @@ h2{
   }
 }
 footer{
-  background: black ;
+  clear: both;
+  background: #333333;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   color: #fff;
-  padding: 1rem;
-  .message{
+  padding-top: 1rem;
+  .about{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
     text-align: center;
-    ul{
-      margin-left: 3rem;
-      li{
-      margin-right: 3rem;
+    li{
+      width: 50%;
       display: inline-block;
-      }
-    a{
       float: left;
-      color: #fff;
-      font-size: 1.2rem;
-    }
+      a{
+        color: #FFFFFF;
+        font-size: 1.2rem;
+      }
     }
   }
   p{
-    margin: 0 auto;
-    width: 16rem;
+    display: block;
     text-align: center;
   }
 }
@@ -131,4 +140,57 @@ footer{
 }
 #active{
   color: #ff8c00;
+}
+
+//手机主题
+.theme-card{
+  margin-top: 1rem;
+  height: 144px;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
+  width: 100%;
+  overflow: hidden;
+  .head-img{
+    width: 50%;
+    height: 150px;
+    background: #FFFFFF;
+    float: left;
+    overflow: hidden;
+    img{
+      height: 150px;
+      width: 200px;
+    }
+  }
+  .message{
+    width: 50%;
+    float: left;
+    p{
+      padding: 1.5rem;
+      height: 80px;
+      word-break:break-all;
+      overflow: hidden;
+      display: block;
+    }
+  }
+}
+
+.series-card{
+  position: relative;
+  img{
+    height: 280px;
+  }
+  .info{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    overflow: hidden;
+    text-align: center;
+    h3{
+      line-height: 280px;
+      height: 280px;
+      font-size: 32px;
+    }
+  }
 }

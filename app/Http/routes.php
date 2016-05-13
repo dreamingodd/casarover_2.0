@@ -92,11 +92,11 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/wechat/change/', 'Api\WechatController@setchange');
     Route::get('theme/article/{id}', 'Api\ThemeController@getThemeArticle');
     //民宿大全
-    Route::get('areas/{id?}', 'Api\AllCasaController@getAreasByCityId');
-    Route::get('casas/city/{id?}/areas/{areas?}', 'Api\AllCasaController@getCasas');
+    Route::get('areas/{id?}','Api\AllCasaController@getAreasByCityId');
+    Route::get('casas/city/{id?}/areas/{areas?}','Api\AllCasaController@getCasas');
     // api需要做拆分 有些是要做验证的
-    Route::get('wxorder/list/{type?}', 'Wx\WxOrderController@orderlist');
-    Route::post('/wxorder/del/', 'Wx\WxOrderController@del');
+    Route::get('wxorder/list/{page?}/{type?}','Wx\WxOrderController@orderlist');
+    Route::post('/wxorder/del/','Wx\WxOrderController@del');
     // Route::get('wxorder/changetype/{orderId}/{type?}','Wx\WxOrderController@editStatus');
 });
 

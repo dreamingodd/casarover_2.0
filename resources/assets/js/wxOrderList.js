@@ -10,15 +10,26 @@ $(document).ready(function(){
             orders: null,
             type:0,
             message:null,
+            pages:null
         },
         created: function () {
             this.getOrder();
         },
         methods:{
-            getOrder(){
-                $.getJSON('/api/wxorder/list/', (data)=> {
-                    this.orders = data.data;
+            getOrder(page){
+                $('.pagination li').removeClass('active');
+                $('.pagination li:eq('+(page-1)+')').addClass('active');
+                $.getJSON('/api/wxorder/list/?page='+page, (data)=> {
+                    this.orders = data.data.data;
+                    this.pageArr(data.data.last_page);
                 });
+            },
+            pageArr(page){
+                var allpages = [];
+                for(var i=1; i<=page;i++){
+                    allpages.push(i);
+                }
+                this.pages = allpages;
             },
             del(orderId){
                 $.ajax('/api/wxorder/del', {

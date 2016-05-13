@@ -106,7 +106,6 @@ window.onload=function() {
                 var areas = vmcasas.checkareas.toString();
                 $.getJSON('/api/casas/city/'+vmcasas.city+'/areas/'+areas,function (data) {
                     vmcasas.casas = data.data;
-                    console.log(data.data);
                     $(".loader").css('display','none');
                     $("#casa-list").css('display','block');
                 }.bind(vmcasas));

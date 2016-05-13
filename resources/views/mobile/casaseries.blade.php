@@ -10,7 +10,7 @@
         <section class='tanlu'>
             <div class='tanlutop' style="background: url({{ config('casarover.image_folder').$serie->attachment->filepath }});background-repeat:no-repeat;background-size:cover;-moz-background-size:cover;-webkit-background-size:cover;">
                 <div class="guide-mess">
-                    <h2>{{ $serie->name }}</h2>
+                    <h2 style="color: #FFFFFF">{{ $serie->name }}</h2>
                     <p>{{ $serie->brief }}</p>
                 </div>
             </div>
