@@ -10,7 +10,13 @@
         <img  src="/assets/images/logow.png" />
     @stop
     <div class="main clear">
-        <h2>{{$order->wxCasa->getName()}}</h2>
+        <h2>
+            @if (empty($order->wxCasa->name))
+                该民宿已下架
+            @else
+                {{$order->wxCasa->name}}
+            @endif
+        </h2>
         <h3>订单编号：{{$order->order_id}}</h3>
         <table class="table table-hover">
             <tr>
@@ -29,4 +35,9 @@
         <h4>订单总额：<i>{{$order->total}}元</i></h4>
         <h5 style="float:left;">下单时间：<span>{{$order->created_at}}</span></h5>
     </div>
+    <br/>
+    @if ($order->consume_status == 0 && $order->pay_status == 1)
+        <p>消费时展示此二维码</p>
+        <img src="{{$qcPath}}" style="width:60%;"/>
+    @endif
 @stop

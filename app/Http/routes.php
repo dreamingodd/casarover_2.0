@@ -81,25 +81,23 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
 /**
  * api route ，use for Vue，
 **/
-Route::group(['prefix' => 'api'],function () {
-    Route::get('home/recom/{id?}','Api\HomeController@getCasasByCityId');
-    Route::get('home/series/','Api\HomeController@getSeries');
-    Route::get('home/themes/','Api\HomeController@getThemes');
-    Route::get('casa/recom/{id?}','Api\CasaController@getCasasById');
+Route::group(['prefix' => 'api'], function () {
+    Route::get('home/recom/{id?}', 'Api\HomeController@getCasasByCityId');
+    Route::get('home/series/', 'Api\HomeController@getSeries');
+    Route::get('home/themes/', 'Api\HomeController@getThemes');
+    Route::get('casa/recom/{id?}', 'Api\CasaController@getCasasById');
     Route::get('casa/slim/all', 'Api\CasaController@getSlimCasas');
-    Route::post('/recom/save/','Api\CasaController@save');
-    Route::post('/theme/change/','Api\ThemeController@setchange');
-    Route::post('/wechat/change/','Api\WechatController@setchange');
-    Route::get('theme/article/{id}','Api\ThemeController@getThemeArticle');
+    Route::post('/recom/save/', 'Api\CasaController@save');
+    Route::post('/theme/change/', 'Api\ThemeController@setchange');
+    Route::post('/wechat/change/', 'Api\WechatController@setchange');
+    Route::get('theme/article/{id}', 'Api\ThemeController@getThemeArticle');
     //民宿大全
-    Route::get('areas/{id?}','Api\AllCasaController@getAreasByCityId');
-    Route::get('casas/city/{id?}/areas/{areas?}','Api\AllCasaController@getCasas');
-//    api需要做拆分 有些是要做验证的
-    Route::get('wxorder/list/{type?}','Wx\WxOrderController@orderlist');
-    Route::post('/wxorder/del/','Wx\WxOrderController@del');
-//    Route::get('wxorder/changetype/{orderId}/{type?}','Wx\WxOrderController@editStatus');
-
-
+    Route::get('areas/{id?}', 'Api\AllCasaController@getAreasByCityId');
+    Route::get('casas/city/{id?}/areas/{areas?}', 'Api\AllCasaController@getCasas');
+    // api需要做拆分 有些是要做验证的
+    Route::get('wxorder/list/{type?}', 'Wx\WxOrderController@orderlist');
+    Route::post('/wxorder/del/', 'Wx\WxOrderController@del');
+    // Route::get('wxorder/changetype/{orderId}/{type?}','Wx\WxOrderController@editStatus');
 });
 
 /**
@@ -122,8 +120,8 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     // Merchnat entry
     Route::get('/bind', 'Wx\WxBindController@index');
     Route::post('/bind/apply', 'Wx\WxBindController@apply');
-    Route::get('/consume/{id}', 'Wx\WxBindController@consume');
-    Route::get('/consume_cancel/{id}', 'Wx\WxBindController@cancelConsume');
+    Route::get('/consume/{id}', 'Wx\WxOrderController@consume');
+    Route::get('/consume_cancel/{id}', 'Wx\WxOrderController@cancelConsume');
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
