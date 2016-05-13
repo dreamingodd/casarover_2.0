@@ -9,7 +9,7 @@
 @stop
     <div>
         <br/><br/><br/>
-        <h4>订单列表</h4>
+        <h4>{{$wxCasa->name}}&nbsp;订单列表</h4>
         <table class="table" style="font-size: 11px;">
             <tr>
                 <th>订单信息</th>
