@@ -85,7 +85,7 @@ class WxOrderController extends Controller
 
     public function orderlist($page=1,$type=0)
     {
-        $orderlist = WxOrder::orderBy('id', 'desc')->paginate(2);
+        $orderlist = WxOrder::orderBy('id', 'desc')->paginate(20);
         foreach($orderlist as $order)
         {
             $order->time = $order->created_at->format('Y-m-d H:i');
@@ -172,27 +172,6 @@ class WxOrderController extends Controller
         return redirect('/wx/bind');
     }
 
-    // 付款状态的修改
-    private function payStatus($orderId,$status)
-    {
-        $order = WxOrder::find($orderId);
-        $order->consume_status = $status;
-        $order->save();
-    }
-    // 预约状态的修改
-    private function reserveStatus($orderId,$status)
-    {
-        $order = WxOrder::find($orderId);
-        $order->consume_status = $status;
-        $order->save();
-    }
-    // 消费状态的修改
-    private function consumeStatus($orderId,$status)
-    {
-        $order = WxOrder::find($orderId);
-        $order->consume_status = $status;
-        $order->save();
-    }
     private function allstatus()
     {
         $allstatus = [
