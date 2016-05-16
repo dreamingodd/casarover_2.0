@@ -28,9 +28,9 @@ class WxAuth
             if (env('ENV') == 'PROD') {
                 $appid = Config::get("casarover.wx_appid");
                 $appsecret = Config::get("casarover.wx_appsecret");
-                $subPath = $request->pathInfo;
+                $url = $request->url();
                 if (!isset($request->all()['code'])) {
-                    return redirect(WxTools::getUserInfoScopeUrl($appid, $subPath));
+                    return redirect(WxTools::getUserInfoScopeUrl($appid, $url));
                 } else {
                     $wxCode = $request->all()['code'];
                     $baseJson = WxTools::getOpenidAndAccessToken($appid, $appsecret, $wxCode);

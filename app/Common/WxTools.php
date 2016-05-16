@@ -8,17 +8,17 @@ use App\Entity\Wx\WxUser;
 trait WxTools
 {
 
-        public static function getBaseScopeUrl($appid, $subPath = '')
+        public static function getBaseScopeUrl($appid, $url = '')
         {
             return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" . $appid
-                    . "&redirect_uri=http%3A%2F%2Fwww.casarover.com" + $subPath + "&response_type=code"
+                    . "&redirect_uri=" + $url + "&response_type=code"
                     . "&scope=snsapi_base&state=STATE#wechat_redirect";
         }
 
-        public static function getUserInfoScopeUrl($appid, $subPath = '')
+        public static function getUserInfoScopeUrl($appid, $url = '')
         {
             return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" . $appid
-                    . "&redirect_uri=http%3A%2F%2Fwww.casarover.com" + $subPath + "&response_type=code"
+                    . "&redirect_uri=" + $url + "&response_type=code"
                     . "&scope=snsapi_userinfo&state=STATE#wechat_redirect";
         }
 
