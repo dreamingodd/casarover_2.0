@@ -5,7 +5,7 @@
         <ul class="nav nav-pills nav-justified">
             <li role="presentation" class="dropdown home">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="true" aria-expanded="false">首页管理<span class="caret"></span>
+                   aria-haspopup="true" aria-expanded="false">首页管理<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="/back/slide">轮播图</a></li>
@@ -15,14 +15,20 @@
                 </ul>
             </li>
             <li role="presentation" class="area">
-                <a href="/back/areas">区域管理</a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                   aria-haspopup="true" aria-expanded="false">区域管理<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/back/areas">区域管理</a></li>
+                    <li><a href="/back/areaslide">轮播图</a></li>
+                </ul>
             </li>
             <li role="presentation" class="casa">
                 <a href="/back/casaList">民宿管理</a>
             </li>
             <li role="presentation" class="dropdown wechat">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="true" aria-expanded="false">微信文章<span class="caret"></span>
+                   aria-haspopup="true" aria-expanded="false">微信文章<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="/back/wechatSeriesList">系列编辑</a></li>
@@ -33,7 +39,7 @@
             </li>
             <li role="presentation" class="dropdown reserve">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="true" aria-expanded="false">预订平台<span class="caret"></span>
+                   aria-haspopup="true" aria-expanded="false">预订平台<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="/back/wx/">微信民宿</a></li>

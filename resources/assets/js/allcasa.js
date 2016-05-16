@@ -57,12 +57,18 @@ window.onload=function() {
         data: {
             city:7,
             areas:[],
-            checkareas:[],
+            checkareas:null,
             casas:[],
             //用来对新追加的进行转换
             casa:null,
             page:1,
-            loading: false
+            loading: false,
+            areapic:null,
+            banner:{
+                pic:null,
+                title:null,
+                mess:null
+            }
         },
         ready:function(){
             this.getareas();
@@ -77,15 +83,24 @@ window.onload=function() {
             selarea:function(obj){
                 var clickId = obj.area.id;
                 var domId = obj.$index;
-                $(".area li:eq("+domId+") a").toggleClass("active");
+                $(".area li a").removeClass("active");
+                $(".area li:eq("+domId+") a").addClass("active");
+                vm.banner.id = vm.areas[domId].id;
+                vm.banner.pic = vm.areas[domId].pic;
+                vm.banner.title = vm.areas[domId].value;
+                vm.banner.mess = vm.areas[domId].mess;
+
+                this.checkareas = clickId;
+
+                //改为单选之后不需要了
                 //选中加入数组
                 //如果已经选中过，再次点击从数组中删除
-                var areaToggle = this.checkareas.indexOf(clickId);
-                if(areaToggle == -1){
-                    this.checkareas.push(clickId);
-                }else{
-                    this.checkareas.splice(areaToggle,1);
-                }
+                //var areaToggle = this.checkareas.indexOf(clickId);
+                //if(areaToggle == -1){
+                //    this.checkareas.push(clickId);
+                //}else{
+                //    this.checkareas.splice(areaToggle,1);
+                //}
                 this.getCasas();
             },
             //获取区域信息产生联动
@@ -93,6 +108,7 @@ window.onload=function() {
                 //清空上一次城市时点击的区域
                 this.checkareas=[];
                 vm = this;
+                vm.banner.pic = '';
                 $.getJSON('/api/areas/'+vm.city,function (data) {
                     vm.areas = data;
                     this.getCasas();

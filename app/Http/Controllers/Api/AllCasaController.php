@@ -14,6 +14,17 @@ class AllCasaController extends Controller
     public function getAreasByCityId($id)
     {
         $areas = Area::where('parentid',$id)->get();
+        foreach($areas as $area)
+        {
+            if(!empty($area->contents[1]))
+            {
+                if(!empty($area->contents[1]->attachments[0]))
+                {
+                    $area->mess = $area->contents[1]->text;
+                    $area->pic = config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath;
+                }
+            }
+        }
         return response()->json($areas);
     }
     //默认城市是7代表杭州
