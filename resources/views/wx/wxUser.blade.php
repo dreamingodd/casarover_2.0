@@ -32,7 +32,11 @@
             <div class="tab-pane active" id="already">
                 @foreach($orders as $order)
                     @if ($order->pay_status == 0)
-                    <a href="/wx/pay/wxorder/{{$order->id}}">
+                        @if (empty($order->wxCasa->name))
+                            <a href="#" onclick="javascript:alert('民宿已下架，不再提供付款！')">
+                        @else
+                            <a href="/wx/pay/wxorder/{{$order->id}}">
+                        @endif
                     @else
                     <a href="/wx/order/detail/{{$order->id}}">
                     @endif
