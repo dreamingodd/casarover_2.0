@@ -22,14 +22,15 @@ class WxAuth
      */
     public function handle($request, Closure $next)
     {
-        if (Session::has('openid')) {
+        if (Session::has('wx_user_id')) {
             return $next($request);
         } else {
             if (env('ENV') == 'PROD') {
                 $appid = Config::get("casarover.wx_appid");
                 $appsecret = Config::get("casarover.wx_appsecret");
+                $subPath = $request->pathInfo;
                 if (!isset($request->all()['code'])) {
-                    return redirect(WxTools::getUserInfoScopeUrl($appid));
+                    return redirect(WxTools::getUserInfoScopeUrl($appid, $subPath));
                 } else {
                     $wxCode = $request->all()['code'];
                     $baseJson = WxTools::getOpenidAndAccessToken($appid, $appsecret, $wxCode);
