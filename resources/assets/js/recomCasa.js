@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    Vue.component('casalist',{   //这里就是注册的内容
+        template : '#casa-list',
+        props : ['casas']
+    });
     new Vue({
         el: '#main',
         data: {
@@ -10,15 +14,13 @@ $(document).ready(function(){
             this.getcasa(2);
         },
         methods:{
-            getcasa:function(){
-                vm = this;
-                $.getJSON('/api/casa/recom/'+vm.selected,function (data) {
-                    vm.casas = data;
-                    vm.sel();
-                }.bind(vm));
+            getcasa(){
+                $.getJSON('/api/casa/recom/'+this.selected, (data) => {
+                    this.casas = data;
+                    this.sel();
+                });
             },
-            save:function(){
-                vm = this;
+            save(){
                 $.ajax('/api/recom/save', {
                     type: 'post',
                     data: {
@@ -26,21 +28,20 @@ $(document).ready(function(){
                         casa:vm.checkedNames
                     },
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                    success: function(data){
+                    success: (data)=>{
                         if(data.msg){
                             $('.alert').css('display','block');
                             $('.alert').delay("slow").slideUp(500);
-                            vm.sel();
+                            this.sel();
                         }
                     }
                 });
-                vm.checkedNames=[];
+                this.checkedNames=[];
             },
-            sel:function(){
-                vm = this;
-                $.getJSON('/api/home/recom/'+vm.selected,function (data) {
+            sel(){
+                $.getJSON('/api/home/recom/'+this.selected, (data) =>{
                     for(var k=0; k < data.length; k++){
-                        vm.checkedNames.push(data[k].id.toString());
+                        this.checkedNames.push(data[k].id.toString());
                     }
                 });
             }

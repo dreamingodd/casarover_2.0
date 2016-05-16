@@ -4,7 +4,7 @@
     <link href="/assets/css/wxConfirm.css" rel="stylesheet"/>
 @stop
 @section('nav')
-    <a href="/wx/order/1" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a href="/wx/order/{{$casaroverOrder->wxCasa->id}}" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
     <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a>
     <img  src="/assets/images/logow.png" />
 @stop

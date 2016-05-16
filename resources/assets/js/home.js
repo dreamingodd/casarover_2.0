@@ -3,18 +3,19 @@ $(document).ready(function(){
         directionNav: true,
         pauseOnAction: false
     });
-    $('.search-input input').click(function(){
+    $('.search-input input').click(()=>{
         $('.search-place').css('display','block');
     });
-    $('.search-input input').blur(function(){
+    $('.search-input input').blur(()=>{
         $('.search-place').css('display','none');
     });
-
-
-
+    Vue.component('card',{   //这里就是注册的内容
+        template : '#card',
+        props : ['casa']
+    });
     //scroll 是记录是否已经进行了滚动操作，
     //为了防止在重新进行turn的时候再次执行scrollTo
-    var vm = new Vue({
+    new Vue({
         el: '#app',
         data: function () {
             return {
@@ -26,36 +27,33 @@ $(document).ready(function(){
             };
         },
         ready:function(){
-          this.turn(7);
+            this.turn(7);
         },
         methods: {
-            turn: function (event){
-                vm = this;
-                vm.city = event;
+            turn (event){
                 $(".loader").css('display','block');
-                $.getJSON('/api/home/recom/'+event,function (data) {
-                    vm.casas = data;
+                this.city = event;
+                $.getJSON('/api/home/recom/'+event, (data) => {
+                    this.casas = data;
                     $(".loader").css('display','none');
                     this.setActive(event);
                     this.getthemes();
-                }.bind(vm));
+                })
             },
-            getthemes: function (){
-                vm = this;
-                $.getJSON('/api/home/themes/',function (data) {
-                    vm.themes = data;
+            getthemes(){
+                $.getJSON('/api/home/themes/', (data) => {
+                    this.themes = data;
                     this.getseries();
-                }.bind(vm));
+                })
             },
-            getseries: function (){
-                vm = this;
-                $.getJSON('/api/home/series/',function (data) {
-                    vm.series = data;
+            getseries(){
+                $.getJSON('/api/home/series/', (data) => {
+                    this.series = data;
                     this.scrollTo();
                     this.changeBr();
-                }.bind(vm));
+                })
             },
-            scrollTo:function(){
+            scrollTo(){
                 if(this.scroll){
                     return;
                 }
@@ -65,12 +63,13 @@ $(document).ready(function(){
                     this.scroll = 1;
                 }
             },
-            setActive:function(event){
+            setActive(event){
                 $('.city-list a').each(function(){
                     var clickdom = $(this).attr("value");
                     $(this).removeClass('active');
                     if(clickdom == event){
                         $(this).addClass('active');
+
                     }
                 });
             },

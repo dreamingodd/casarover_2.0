@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "02c77f1f384f187fa92b932b9308a07e",
-    "content-hash": "d993b22de41a2a85c9c2c1827875dd0f",
+    "hash": "231c63226d34e1aabcd89f2d2e08f436",
+    "content-hash": "6b37a56b1cec08ff5b8d01981fd4e759",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -625,6 +625,39 @@
                 "parser"
             ],
             "time": "2014-09-09 13:34:57"
+        },
+        {
+            "name": "draguo/dayusms",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/draguo/dayusms.git",
+                "reference": "ff38f54cc0fa20f7beb2f3e54bb182fb988ec580"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/draguo/dayusms/ff38f54cc0fa20f7beb2f3e54bb182fb988ec580.zip",
+                "reference": "ff38f54cc0fa20f7beb2f3e54bb182fb988ec580",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Draguo\\Dayusms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "'draguo'",
+                    "email": "dragon2590@qq.com"
+                }
+            ],
+            "description": "阿里大鱼短信发送",
+            "time": "2016-05-03 12:31:08"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1880,7 +1913,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "url": "https://packagist.phpcomposer.com/files/swiftmailer/swiftmailer/0697e6aa65c83edf97bb0f23d8763f94e3f11421.zip",
                 "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
                 "shasum": ""
             },
@@ -2821,7 +2854,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/9caf304153dc2288e4970caec6f1f3b3bc205412",
+                "url": "https://packagist.phpcomposer.com/files/vlucas/phpdotenv/9caf304153dc2288e4970caec6f1f3b3bc205412.zip",
                 "reference": "9caf304153dc2288e4970caec6f1f3b3bc205412",
                 "shasum": ""
             },
@@ -2928,7 +2961,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/d0190b156bcca848d401fb80f31f504f37141c8d",
+                "url": "https://packagist.phpcomposer.com/files/fzaninotto/Faker/d0190b156bcca848d401fb80f31f504f37141c8d.zip",
                 "reference": "d0190b156bcca848d401fb80f31f504f37141c8d",
                 "shasum": ""
             },
@@ -4337,7 +4370,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "draguo/dayusms": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

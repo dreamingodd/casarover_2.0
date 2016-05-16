@@ -10,7 +10,8 @@
         "illuminate/html": "^5.0",
         "doctrine/dbal": "^2.5",
         "overtrue/laravel-wechat": "~3.0",
-        "barryvdh/laravel-ide-helper":"^2.1"
+        "barryvdh/laravel-ide-helper":"^2.1",
+        "draguo/dayusms": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

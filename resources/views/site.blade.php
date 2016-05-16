@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="keywords" content="民宿,杭州,周末,去哪玩">
-    <meta name="description" content="找到好民宿">
+    <meta name="description" content="探庐者民宿让你找到好民宿">
     <title>探庐者-@yield('title')</title>
     <link rel="stylesheet" href="/assets/css/common.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/component.css" />

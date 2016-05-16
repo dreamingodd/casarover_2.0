@@ -1,7 +1,7 @@
 @extends('mobile')
 @section('title','主题民宿')
 @section('head')
-    <link rel="stylesheet" href="/assets/css/mobileTheme.css">
+    <link rel="stylesheet" href="/assets/css/mobiletheme.css">
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
 @endsection
@@ -30,19 +30,25 @@
             </div>
             <div class="right">
                 <h2>其他主题</h2>
-                <div class="flexslider">
-                    <ul class="slides">
-                        @foreach($others as $theme)
-                            <li style="background:url({{ $theme->pic }}) ; background-size:100% 100%;">
-                                <a href="{{ $theme->id }}" target="_blank" class="slide-a">
-                                    <div class="slide-mess">
-                                        {{$theme->name }}
-                                    </div>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
+                @foreach($others as $theme)
+                    <div class="line"></div>
+                    <a href="/mobile/theme/{{ $theme->id }}">
+                        <p>{{ $theme->name }}</p>
+                    </a>
+                @endforeach
+                {{--<div class="flexslider">--}}
+                    {{--<ul class="slides">--}}
+                        {{--@foreach($others as $theme)--}}
+                            {{--<li style="background:url({{ $theme->pic }}) ; background-size:100% 100%;">--}}
+                                {{--<a href="{{ $theme->id }}" target="_blank" class="slide-a">--}}
+                                    {{--<div class="slide-mess">--}}
+                                        {{--{{$theme->name }}--}}
+                                    {{--</div>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                        {{--@endforeach--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
             </div>
         </div>
     </div>

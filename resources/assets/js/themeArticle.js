@@ -8,13 +8,13 @@ $(document).ready(function(){
         created: function () {
             this.selected = $("#sel option:last").val();
             this.getArticle(this.selected);
+
         },
         methods:{
-            getArticle:function(){
-                vm = this;
-                $.getJSON('/api/theme/article/'+vm.selected,function (data) {
-                    vm.articles = data;
-                }.bind(vm));
+            getArticle(){
+                $.getJSON('/api/theme/article/'+this.selected, (data)=> {
+                    this.articles = data;
+                });
             }
         }
     })

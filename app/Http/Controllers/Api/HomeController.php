@@ -40,6 +40,7 @@ class HomeController extends Controller
         {
             $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
             $casa->brief = $casa->contents[0]->text;
+            $casa->src = '/casa/'.$casa->id;
         }
         return response()->json($casas);
     }
@@ -50,6 +51,7 @@ class HomeController extends Controller
         foreach($themes as $theme)
         {
             $theme->pic = config('casarover.image_folder').$theme->attachment->filepath;
+            $theme->src = '/theme/'.$theme->id;
         }
         return response()->json($themes);
     }
@@ -60,6 +62,7 @@ class HomeController extends Controller
         foreach($series as $serie)
         {
             $serie->pic = config('casarover.image_folder').$serie->thumbnail->filepath;
+            $serie->src = '/casaseries/'.$serie->type.'/'.$serie->id;
         }
         return response()->json($series);
     }

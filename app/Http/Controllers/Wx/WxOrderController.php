@@ -17,6 +17,11 @@ use App\Entity\Wx\WxRoom;
 
 class WxOrderController extends Controller
 {
+    public function show($id) {
+        $order = WxOrder::find($id);
+        return view('wx.wxOrderDetail', compact('order'));
+    }
+
     public function create(Request $request) {
 
         DB::beginTransaction();
@@ -61,5 +66,99 @@ class WxOrderController extends Controller
             Log::critical($ex);
             return $ex;
         }
+    }
+
+    public function index()
+    {
+        $allstatus = $this->allstatus();
+        return view('backstage.wxOrderList',compact('allstatus'));
+    }
+
+    public function orderlist($page=1,$type=0)
+    {
+        $orderlist = WxOrder::orderBy('id', 'desc')->paginate(2);
+        foreach($orderlist as $order)
+        {
+            $order->time = $order->created_at->format('Y-m-d H:i');
+            $order->paystatus = $this->orderstatus(0,$order->pay_status);
+            $order->reserveStatus = $this->orderstatus(1,$order->reserve_status);
+            $order->consumeStatus = $this->orderstatus(2,$order->consume_status);
+            $order->goods = $order->wxOrderItems;
+            foreach($order->goods as $good)
+            {
+                $good->name = WxRoom::find($good->wx_room_id)->name;
+            }
+            $order->username = $order->wxUser->realname;
+            $order->userphone = $order->wxUser->cellphone;
+            $order->nickname = $order->wxUser->nickname;
+            if (empty($order->wxCasa->name)) {
+                $order->casaname = '该民宿已下架';
+            } else {
+                $order->casaname = $order->wxCasa->name;
+            }
+        }
+        $data = $this->jsondata('200','获取成功',$orderlist);
+        return response()->json($data);
+    }
+    protected function orderstatus($type,$code)
+    {
+        $allstatus = $this->allstatus();
+        return $allstatus[$type][$code];
+    }
+//    手动确定预订时间
+    public function editStatus(Request $request)
+    {
+        $order = WxOrder::find($request->orderid);
+        $order->reserve_time = $request->message;
+        if (empty($request->message)) {
+            $order->reserve_status = 0;
+        } else {
+            $order->reserve_status = 1;
+        }
+        $order->save();
+        $this->sendOrderSms(123);
+        return redirect('back/wx/order/list');
+    }
+//    发送预约成功的短信
+    private function sendOrderSms($orderId)
+    {
+        $sms = app('sms');
+        $message = "{\"name\":\"yunlong\",\"thing\":\"这个是活动\",\"time\":\"2016.1.3\"}";
+        $phone = '18958142694';
+        $sms->send('活动验证','SMS_8550710',$message,$phone);
+    }
+
+    public function del(Request $request)
+    {
+        $order = WxOrder::find($request->id);
+        $order->delete();
+    }
+
+    private function allstatus()
+    {
+        $allstatus = [
+            [
+                '未付款',
+                '已付款',
+                '申请退款',
+                '已退款'
+            ],
+            [
+                '未预约',
+                '已预约',
+                '预约失败'
+            ],
+            [
+                '未消费',
+                '已消费',
+                '过期'
+            ]
+        ];
+        return $allstatus;
+    }
+
+    public function jsondata($code=0,$msg='成功',$data)
+    {
+        return ['code'=>$code,'msg'=>$msg,'data'=>$data];
     }
 }

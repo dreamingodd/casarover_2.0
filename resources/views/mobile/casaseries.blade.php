@@ -1,7 +1,7 @@
 @extends('mobile')
 @section('title',$serie->name)
 @section('head')
-    <link rel="stylesheet" href="/assets/css/mobileCasaseries.css">
+    <link rel="stylesheet" href="/assets/css/mobilecasaseries.css">
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
 @endsection
@@ -10,7 +10,7 @@
         <section class='tanlu'>
             <div class='tanlutop' style="background: url({{ config('casarover.image_folder').$serie->attachment->filepath }});background-repeat:no-repeat;background-size:cover;-moz-background-size:cover;-webkit-background-size:cover;">
                 <div class="guide-mess">
-                    <h2>{{ $serie->name }}</h2>
+                    <h2 style="color: #FFFFFF">{{ $serie->name }}</h2>
                     <p>{{ $serie->brief }}</p>
                 </div>
             </div>
