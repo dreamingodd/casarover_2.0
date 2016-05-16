@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wx;
 
+use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxUser;
 use Illuminate\Http\Request;
 use Exception;
@@ -43,6 +44,7 @@ class WxOrderController extends Controller
             }
             $wxOrder->wx_user_id = $userId;
             $wxOrder->wx_casa_id = $request->input('wxCasaId');
+            $wxOrder->casa_name = WxCasa::find($wxOrder->wx_casa_id)->name;
             $wxOrder->save();
             $total = 0;
             foreach ($reservedRooms as $reservedRoom) {
@@ -91,11 +93,6 @@ class WxOrderController extends Controller
             $order->username = $order->wxUser->realname;
             $order->userphone = $order->wxUser->cellphone;
             $order->nickname = $order->wxUser->nickname;
-            if (empty($order->wxCasa->name)) {
-                $order->casaname = '该民宿已下架';
-            } else {
-                $order->casaname = $order->wxCasa->name;
-            }
         }
         $data = $this->jsondata('200','获取成功',$orderlist);
         return response()->json($data);

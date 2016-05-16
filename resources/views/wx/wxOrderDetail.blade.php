@@ -11,11 +11,7 @@
     @stop
     <div class="main clear">
         <h2>
-            @if (empty($order->wxCasa->name))
-                该民宿已下架
-            @else
-                {{$order->wxCasa->name}}
-            @endif
+            {{$order->casa_name}}
         </h2>
         <h3>订单编号：{{$order->order_id}}</h3>
         <table class="table table-hover">
@@ -38,6 +34,6 @@
     <br/>
     @if ($order->consume_status == 0 && $order->pay_status == 1)
         <p>消费时展示此二维码</p>
-        <img src="{{$qcPath}}" style="width:60%;"/>
+        <img src="{{$qrPath}}" style="width:60%;"/>
     @endif
 @stop
