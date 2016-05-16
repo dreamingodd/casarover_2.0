@@ -22,12 +22,12 @@ class WxOrderController extends Controller
 {
     public function show($id) {
         $order = WxOrder::find($id);
-        $qcFile = public_path() . "/assets/phpqrcode/temp/order" . $order->id . ".png";
-        $qcPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order" . $order->id . ".png";
-        if (!file_exists($qcFile)) {
-            QrImageGenerator::generate(env('ROOT_URL') . '/wx/consume/' . $order->id, $qcFile);
+        $qrFile = public_path() . "/assets/phpqrcode/temp/order" . $order->id . ".png";
+        $qrPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order" . $order->id . ".png";
+        if (!file_exists($qrFile)) {
+            QrImageGenerator::generate(env('ROOT_URL') . '/wx/consume/' . $order->id, $qrFile);
         }
-        return view('wx.wxOrderDetail', compact('order', 'qcPath'));
+        return view('wx.wxOrderDetail', compact('order', 'qrPath'));
     }
 
     public function create(Request $request) {
