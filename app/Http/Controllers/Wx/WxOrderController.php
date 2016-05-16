@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers\Wx;
 
+use App\Common\QrImageGenerator;
 use App\Entity\Wx\WxCasa;
+use App\Entity\Wx\WxBind;
+use App\Entity\Wx\WxOrder;
+use App\Entity\Wx\WxOrderItem;
+use App\Entity\Wx\WxRoom;
 use App\Entity\Wx\WxUser;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use Exception;
 use DB;
@@ -11,16 +18,16 @@ use Log;
 use Config;
 use Session;
 
-use App\Http\Controllers\Controller;
-use App\Entity\Wx\WxOrder;
-use App\Entity\Wx\WxOrderItem;
-use App\Entity\Wx\WxRoom;
-
 class WxOrderController extends Controller
 {
     public function show($id) {
         $order = WxOrder::find($id);
-        return view('wx.wxOrderDetail', compact('order'));
+        $qcFile = public_path() . "/assets/phpqrcode/temp/order" . $order->id . ".png";
+        $qcPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order" . $order->id . ".png";
+        if (!file_exists($qcFile)) {
+            QrImageGenerator::generate(env('ROOT_URL') . '/wx/consume/' . $order->id, $qcFile);
+        }
+        return view('wx.wxOrderDetail', compact('order', 'qcPath'));
     }
 
     public function create(Request $request) {
@@ -102,7 +109,7 @@ class WxOrderController extends Controller
         $allstatus = $this->allstatus();
         return $allstatus[$type][$code];
     }
-//    手动确定预订时间
+    // 手动确定预订时间
     public function editStatus(Request $request)
     {
         $order = WxOrder::find($request->orderid);
@@ -116,7 +123,7 @@ class WxOrderController extends Controller
         $this->sendOrderSms(123);
         return redirect('back/wx/order/list');
     }
-//    发送预约成功的短信
+    // 发送预约成功的短信
     private function sendOrderSms($orderId)
     {
         $sms = app('sms');
@@ -131,6 +138,61 @@ class WxOrderController extends Controller
         $order->delete();
     }
 
+    public function consume($orderId) {
+        $isMerchant = false;
+        $order = WxOrder::findOrFail($orderId);
+        if ($order->pay_status != WxOrder::PAY_STATUS_YES) {
+            return '<p style="font-size:40px;">此订单未付款！</p>';
+        }
+        $userId = Session::get('wx_user_id');
+        $wxBinds = WxBind::where('wx_user_id', $userId)->get();
+        foreach ($wxBinds as $bind) {
+            if ($bind->wx_casa_id == $order->wx_casa_id) {
+                $isMerchant = true;
+                break;
+            }
+        }
+        if ($isMerchant) {
+            if ($order->consume_status == WxOrder::CONSUME_STATUS_YES) {
+                return '<p style="font-size:40px;">此订单已消费过！</p>';
+            } else {
+                $order->consume_status = WxOrder::CONSUME_STATUS_YES;
+                $order->save();
+                return view('wx.success');
+            }
+        } else {
+            return '<p style="font-size:40px;">抱歉！您的微信号并没有注册成为这家民宿的管理者。</p>';
+        }
+    }
+
+    public function cancelConsume($orderId) {
+        $order = WxOrder::findOrFail($orderId);
+        $order->consume_status = WxOrder::CONSUME_STATUS_NO;
+        $order->save();
+        return redirect('/wx/bind');
+    }
+
+    // 付款状态的修改
+    private function payStatus($orderId,$status)
+    {
+        $order = WxOrder::find($orderId);
+        $order->consume_status = $status;
+        $order->save();
+    }
+    // 预约状态的修改
+    private function reserveStatus($orderId,$status)
+    {
+        $order = WxOrder::find($orderId);
+        $order->consume_status = $status;
+        $order->save();
+    }
+    // 消费状态的修改
+    private function consumeStatus($orderId,$status)
+    {
+        $order = WxOrder::find($orderId);
+        $order->consume_status = $status;
+        $order->save();
+    }
     private function allstatus()
     {
         $allstatus = [
