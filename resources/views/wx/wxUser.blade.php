@@ -39,7 +39,11 @@
                         <div class="case clear">
                             <div class="top clear">
                                 <div class="images">
-                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png" alt="">
+                                    @if (empty($order->wxCasa->name))
+                                    <p>该民宿已下架</p>
+                                    @else
+                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$order->wxCasa->attachment->filepath}}"/>
+                                    @endif
                                     <p>{{$order->casa_name}}</p>
                                 </div>
                                 <div class="info">
