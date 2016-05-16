@@ -38,7 +38,7 @@
                             <p>下单时间：@{{ order.time }}</p>
                             <goodlist :goods="order.goods"></goodlist>
                         </th>
-                        <td>@{{ order.casaname }}</td>
+                        <td>@{{ order.casa_name }}</td>
                         <td>@{{ order.username }} <br>
                             <p>@{{ order.nickname }}</p>
                             电话：@{{ order.userphone }}</td>
