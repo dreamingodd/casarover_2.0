@@ -1,5 +1,5 @@
 @extends('wxBase')
-@section('title','探庐者－民宿详情')
+@section('title', '探庐者 - ' . $wxCasa->name)
 @section('head')
     <link href="/assets/css/wxDetails.css" rel="stylesheet"/>
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>

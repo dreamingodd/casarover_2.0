@@ -10,6 +10,10 @@ trait WxTools
 
         public static function getBaseScopeUrl($appid, $url = '')
         {
+            if (empty($url)) {
+                $url = "http%3A%2F%2Fwww.casarover.com%2Fwx";
+            }
+            $url = str_replace("/", "%2F", $url);
             return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" . $appid
                     . "&redirect_uri=" + $url + "&response_type=code"
                     . "&scope=snsapi_base&state=STATE#wechat_redirect";
@@ -17,6 +21,10 @@ trait WxTools
 
         public static function getUserInfoScopeUrl($appid, $url = '')
         {
+            if (empty($url)) {
+                $url = "http%3A%2F%2Fwww.casarover.com%2Fwx";
+            }
+            $url = str_replace("/", "%2F", $url);
             return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" . $appid
                     . "&redirect_uri=" + $url + "&response_type=code"
                     . "&scope=snsapi_userinfo&state=STATE#wechat_redirect";
