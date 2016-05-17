@@ -46,7 +46,8 @@ class WxCasa extends Model
      *  Get thumbnail from WxCasa or Casa
      */
     public function thumbnail() {
-        if (empty($this->attchment->filepath)) {
+//        dd($this->attchment);
+        if (empty($this->attachment->filepath)) {
             return $this->casa->attachment->filepath;
         } else {
             return $this->attachment->filepath;

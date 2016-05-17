@@ -75,20 +75,20 @@ window.onload=function() {
         },
         methods:{
             //城市选择
-            selcity:function(cityid){
+            selcity(cityid){
                 this.city = cityid;
                 this.getareas();
             },
             //区域选择
-            selarea:function(obj){
-                var clickId = obj.area.id;
-                var domId = obj.$index;
+            selarea(obj){
+                let clickId = obj.area.id;
+                let domId = obj.$index;
                 $(".area li a").removeClass("active");
                 $(".area li:eq("+domId+") a").addClass("active");
-                vm.banner.id = vm.areas[domId].id;
-                vm.banner.pic = vm.areas[domId].pic;
-                vm.banner.title = vm.areas[domId].value;
-                vm.banner.mess = vm.areas[domId].mess;
+                this.banner.id = this.areas[domId].id;
+                this.banner.pic = this.areas[domId].pic;
+                this.banner.title = this.areas[domId].value;
+                this.banner.mess = this.areas[domId].mess;
 
                 this.checkareas = clickId;
 
