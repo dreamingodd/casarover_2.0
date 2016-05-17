@@ -40,19 +40,32 @@
             </ul>
         </div>
         <div class="main clear" >
-            <div class="flexslider">
-                <ul class="slides">
-                    @foreach($slides as $casa)
-                        <li style="background:url({{ $casa->pic }}) ; background-size:100% 100%;">
-                            <a href="casa/{{ $casa->casa_id }}"  class="slide-a">
-                                <div class="slide-mess">
-                                    {{ $casa->title }}
-                                </div>
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
+            {{--<div class="flexslider">--}}
+                {{--<ul class="slides">--}}
+                    {{--@foreach($slides as $casa)--}}
+                        {{--<li style="background:url({{ $casa->pic }}) ; background-size:100% 100%;">--}}
+                            {{--<a href="casa/{{ $casa->casa_id }}"  class="slide-a">--}}
+                                {{--<div class="slide-mess">--}}
+                                    {{--{{ $casa->title }}--}}
+                                {{--</div>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                    {{--@endforeach--}}
+                {{--</ul>--}}
+            {{--</div>--}}
+            <template v-if="banner.pic" v-cloak>
+                <a href="/mobile/area/@{{ banner.id }}">
+                    <div class="banner">
+                        <div class="cover-photo">
+                            <img :src="banner.pic" width="100%" alt="">
+                        </div>
+                        <div class="guide-mess">
+                            <h1>@{{ banner.title }}</h1>
+                            <p>@{{ banner.mess }}</p>
+                        </div>
+                    </div>
+                </a>
+            </template>
             <div class="content">
                 <label id="tm">选择城市</label>
                 <section id="casa-list">
