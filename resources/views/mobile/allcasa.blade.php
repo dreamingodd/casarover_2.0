@@ -42,13 +42,14 @@
         <div class="main clear" >
             <div class="flexslider">
                 <ul class="slides">
-                    @foreach($areas as $area)
-                        @if(!empty($area->contents[1]->attachments[0]))
-                            <li style="background:url({{ config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath }}); background-size:100% 100%;">
-                                <a href="/mobile/area/{{ $area->id }}"  class="slide-a">
-                                </a>
-                            </li>
-                        @endif
+                    @foreach($slides as $casa)
+                        <li style="background:url({{ $casa->pic }}) ; background-size:100% 100%;">
+                            <a href="casa/{{ $casa->casa_id }}"  class="slide-a">
+                                <div class="slide-mess">
+                                    {{ $casa->title }}
+                                </div>
+                            </a>
+                        </li>
                     @endforeach
                 </ul>
             </div>

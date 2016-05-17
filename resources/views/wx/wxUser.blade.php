@@ -32,19 +32,23 @@
             <div class="tab-pane active" id="already">
                 @foreach($orders as $order)
                     @if ($order->pay_status == 0)
-                    <a href="/wx/pay/wxorder/{{$order->id}}">
+                        @if (empty($order->wxCasa->name))
+                            <a href="#" onclick="javascript:alert('民宿已下架，不再提供付款！')">
+                        @else
+                            <a href="/wx/pay/wxorder/{{$order->id}}">
+                        @endif
                     @else
                     <a href="/wx/order/detail/{{$order->id}}">
                     @endif
                         <div class="case clear">
                             <div class="top clear">
                                 <div class="images">
-                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_201512101852512659.png" alt="">
                                     @if (empty($order->wxCasa->name))
                                     <p>该民宿已下架</p>
                                     @else
-                                    <p>{{$order->wxCasa->name}}</p>
+                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$order->wxCasa->attachment->filepath}}"/>
                                     @endif
+                                    <p>{{$order->casa_name}}</p>
                                 </div>
                                 <div class="info">
                                     <p>订单号</p>

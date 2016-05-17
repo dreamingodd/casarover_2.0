@@ -39,7 +39,7 @@
 <footer clear>
     <div class="about">
         <ul>
-            <li><a href="#">用户反馈</a></li>
+            <li><a href="/mobile/about#contact">用户反馈</a></li>
             <li><a href="/mobile/about#about-us">关于我们</a></li>
         </ul>
     </div>

@@ -84,7 +84,7 @@
                     <div class="line"></div>
                     <div class="series-card" v-for="serie in series">
                         <div class="cardcon">
-                            <a href="/mobile/casaseries/@{{ serie.type }}/@{{ serie.id }}" target="_blank">
+                            <a href="/mobile/casaseries/@{{ serie.type }}/@{{ serie.id }}" >
                                 <img :src="serie.pic" width="100%">
                                 <div class="info">
                                         <h3>@{{ serie.name }}</h3>

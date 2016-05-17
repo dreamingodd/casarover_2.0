@@ -9,14 +9,14 @@
 @section('body')
     <div class="flexslider">
         <ul class="slides">
-            @foreach($areas as $area)
-                @if(!empty($area->contents[1]->attachments[0]))
-                <li style="background:url({{ config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath }}); background-size:100% 100%;">
-                    <a href="/area/{{ $area->id }}" target="_blank" class="slide-a">
-                        {{--<div class="slide-mess">{{ $area->value }}</div>--}}
+            @foreach($slides as $casa)
+                <li style="background:url({{ $casa->pic }}) ; background-size:100% 100%;">
+                    <a href="casa/{{ $casa->casa_id }}" target="_blank" class="slide-a">
+                        <div class="slide-mess">
+                            {{ $casa->title }}
+                        </div>
                     </a>
                 </li>
-                @endif
             @endforeach
         </ul>
     </div>
@@ -59,6 +59,20 @@
                         </ul>
                     </div>
                 </div>
+                <template v-if="banner.pic" v-cloak>
+                    <a href="/area/@{{ banner.id }}">
+                        <div class="banner">
+                            <div class="cover-photo">
+                                <img :src="banner.pic" width="100%" alt="">
+                            </div>
+                            <div class="guide-mess">
+                                <h1>@{{ banner.title }}</h1>
+                                <p>@{{ banner.mess }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </template>
+
             </div>
         </div>
         {{--民宿显示列表--}}

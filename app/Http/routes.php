@@ -45,7 +45,7 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:badmin']], functi
     Route::post('casaEdit', 'CasaController@edit');
     Route::resource('areas','AreaController');
     Route::get('slide','SiteController@slide');
-    Route::get('slide/add','SiteController@create');
+    Route::get('slide/add/{type}','SiteController@create');
     Route::get('slide/edit/{id}','SiteController@edit');
     Route::post('slidedel','SiteController@del');
     Route::post('slide/store','SiteController@store');
@@ -76,6 +76,7 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:badmin']], functi
     Route::post('theme/article/del/','ThemeController@articleDel');
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
+    Route::get('areaslide','SiteController@areaSlide');
 });
 
 /**

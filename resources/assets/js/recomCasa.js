@@ -1,8 +1,4 @@
 $(document).ready(function(){
-    Vue.component('casalist',{   //这里就是注册的内容
-        template : '#casa-list',
-        props : ['casas']
-    });
     new Vue({
         el: '#main',
         data: {
@@ -24,8 +20,8 @@ $(document).ready(function(){
                 $.ajax('/api/recom/save', {
                     type: 'post',
                     data: {
-                        city:vm.selected,
-                        casa:vm.checkedNames
+                        city:this.selected,
+                        casa:this.checkedNames
                     },
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     success: (data)=>{

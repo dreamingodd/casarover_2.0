@@ -16,6 +16,7 @@ use App\Tag;
 use App\Content;
 use App\Attachment;
 use App\Common\CommonTools;
+use App\Option;
 
 class CasaController extends BaseController
 {
@@ -177,13 +178,19 @@ class CasaController extends BaseController
    {
        $citys = Area::where('level','3')->whereNotIn('value', ['朱家角','黄浦区','其他'])->orwhere('value','上海')->get();
        //应该是指定三个，后面应该是相互联系的
-       $areas = Area::where('level','4')->whereIn('id',[8,10,19])->get();
+       $slides = Option::where('type',2)->get();
+       foreach($slides as $slide)
+       {
+           $slide->pic = config('casarover.photo_folder').$slide->attachment->filepath;
+       }
        //默认被选中的city 为杭州
        $sel = $cityId;
        if(strpos($request->url(), 'mobile'))
-           return  view('mobile.allcasa',compact('citys','areas','sel'));
+           return  view('mobile.allcasa',compact('citys','slides','sel'));
        else
-       return view('site.allcasa',compact('citys','areas','sel'));
+       {
+           return view('site.allcasa',compact('citys','slides','sel'));
+       }
    }
 
     private function updateSimpleCasa($casa, $casaData) {
