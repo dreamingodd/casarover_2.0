@@ -41,4 +41,15 @@ class WxCasa extends Model
             return $this->name;
         }
     }
+
+    /**
+     *  Get thumbnail from WxCasa or Casa
+     */
+    public function thumbnail() {
+        if (empty($this->attchment->filepath)) {
+            return $this->casa->attachment->filepath;
+        } else {
+            return $this->attachment->filepath;
+        }
+    }
 }

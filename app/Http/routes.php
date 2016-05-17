@@ -36,7 +36,7 @@ Route::group(['middleware' => ['web']], function () {
     });
 });
 
-Route::group(['prefix' => 'back','middleware' => ['web', 'auth:badmin']], function () {
+Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], function () {
 
     Route::get('/', 'SiteController@slide');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
