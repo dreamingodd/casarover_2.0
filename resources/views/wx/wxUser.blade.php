@@ -42,7 +42,6 @@
         @endif
     </div>
     <div class="main">
-        {{--<p id="notice">点击右上方电话按钮进行预约</p>--}}
         <div  id="rules" class="maincon">
             <p class="divider"><em class="glyphicon glyphicon-bell"></em>积分规则
                 <span class="glyphicon glyphicon-minus"></span>
@@ -145,9 +144,8 @@
                             @endforeach
             </div>
         </div>
-        {{--<p><a href="#"><em class="glyphicon glyphicon-piggy-bank"></em>我的优惠券--}}
-        {{--<span  class="glyphicon glyphicon-triangle-right"></span></a></p>--}}
     </div>
+    <p id="notice">Tip:点击右上方电话按钮进行预约</p>
     <script>
         $(function ($) {
             $('.glyphicon-minus').hide();
