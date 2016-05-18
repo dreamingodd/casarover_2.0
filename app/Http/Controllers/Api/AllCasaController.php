@@ -20,7 +20,7 @@ class AllCasaController extends Controller
             {
                 if(!empty($area->contents[1]->attachments[0]))
                 {
-                    $area->mess = $area->contents[1]->text;
+                    $area->mess = $area->contents[0]->text;
                     $area->pic = config('casarover.oss_external').'/area/'.$area->contents[1]->attachments[0]->filepath;
                 }
             }
