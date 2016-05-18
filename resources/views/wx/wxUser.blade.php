@@ -46,7 +46,7 @@
                                     @if (empty($order->wxCasa->name))
                                     <p>该民宿已下架</p>
                                     @else
-                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$order->wxCasa->attachment->filepath}}"/>
+                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$order->wxCasa->thumbnail()}}"/>
                                     @endif
                                     <p>{{$order->casa_name}}</p>
                                 </div>
