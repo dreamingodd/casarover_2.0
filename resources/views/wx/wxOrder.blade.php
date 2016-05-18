@@ -37,7 +37,23 @@
             </div>
         </div>
     @endforeach
-    <p id="total">总价：<i id="totalPayment">0</i>元</p>
+    <div id="caculate">
+        <div id="scoreConsume">
+            <span><em></em></span>
+            <u>使用积分抵扣</u>
+        </div>
+        <p id="total">总价：<i id="totalPayment">0</i>元</p>
+        <div id="scoreDiv">
+            @if (empty($wxUser->wxMembership->wx_user_id))
+                您还不是探庐者会员，无法使用积分。
+                <a href="/wx/user"><button>去申请成为会员</button></a>
+            @else
+                <input type="number" id="score" name="score" placeholder="输入积分"/>&nbsp;&nbsp;
+                可用积分：<i id="usableScore">{{$wxUser->wxMembership->score}}</i>
+                <p class="scoreDesc">100积分可抵10元，最多可抵房价的{{Config::get('casarover.wx_max_discount')}}%。</p>
+            @endif
+        </div>
+    </div>
     <input type="hidden" id="csrf_token" name="_token" value="{{csrf_token()}}"/>
     <input type="hidden" id="wxCasaId" value="{{$wxCasa->id}}"/>
     <p class="title">

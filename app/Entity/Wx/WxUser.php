@@ -24,4 +24,7 @@ class WxUser extends Model
     public function wxBinds() {
         return $this->hasMany('App\Entity\Wx\WxBind');
     }
+    public function wxMembership() {
+        return $this->hasOne('App\Entity\Wx\WxMembership');
+    }
 }

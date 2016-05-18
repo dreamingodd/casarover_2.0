@@ -43,7 +43,7 @@ class WxOrderController extends Controller
             $user->realname = $request->input('realname');
             $user->cellphone = $request->input('cellphone');
             $user->save();
-            // reserved rooms editing.
+            // process reserved rooms data.
             $reservedRooms = $request->input('reservedRooms');
             $wxOrder = new WxOrder();
             if (empty($reservedRooms)) {
@@ -63,6 +63,17 @@ class WxOrderController extends Controller
                 $wxOrderItem->save();
                 $total += $wxOrderItem->price * $wxOrderItem->quantity;
             }
+            // check score.
+            // Invalid situation 1 - larger than user's current score,
+            // invalid situation 2 - larger than 30% of the payment.
+            $score = $request->input('score');
+            $userScore = $user->wxMembership->score;
+            if ($score > $userScore) {
+                return "您输入的积分超过当前可用的积分！";
+            }
+            if ($score > $total * Config::get('casarover.wx_max_discount') / 10) {
+                return "您输入的积分超过了房价的30%！";
+            }
 
             // update order info
             $wxOrder->order_id = Config::get("casarover.wx_shopid") . '-' . $wxOrder->id;
@@ -73,7 +84,7 @@ class WxOrderController extends Controller
         } catch (Exception $ex) {
             DB::rollback();
             Log::critical($ex);
-            return $ex;
+            return "探庐君处理您的订单时晕倒了！";
         }
     }
 
