@@ -9,6 +9,14 @@
     <img  src="/assets/images/logow.png" />
 @stop
 @section('body')
+<<<<<<< HEAD
+=======
+    @section('nav')
+        <a href="/wx/user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+        <a href="tel:{{Config::get('casarover.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
+        <img  src="/assets/images/logow.png" />
+    @stop
+>>>>>>> 4f3d1554c6ba63c6f1299a47fb98b2925b18e7dd
     <div class="main clear">
         <h2>
             {{$order->casa_name}}
