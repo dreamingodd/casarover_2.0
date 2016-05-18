@@ -9,6 +9,7 @@ use App\Entity\Wx\WxUser;
 use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxOrder;
+use App\Entity\Wx\WxMembership;
 
 class WxSiteController extends Controller
 {
@@ -43,9 +44,57 @@ class WxSiteController extends Controller
         return view('wx.wxOrder', compact('wxCasa', 'wxUser'));
     }
 
+    //积分详情页面
+    public function scoreVariation()
+    {
+        $userid = Session::get('wx_user_id');
+        return view('wx.scoreVariation',compact('userid'));
+    }
+
+    //积分详情的json数据
+    public function scoreVariationJson($wx_user_id)
+    {
+        $user = WxUser::find($wx_user_id);
+        $scores = $user->WxscoreVariation()->simplePaginate(15);
+        foreach($scores as $score)
+        {
+            $score->money = $score->score;
+            $score->time = $score->created_at;
+//            $score->time = $score->created_at->format('Y-m-d H:i');
+        }
+        return response()->json($scores);
+    }
+
     /**
-    * A casa for user to view on wechat index page should have the least price and thumnail.
-    */
+     * 注册成为会员
+     * */
+    public function registerMember()
+    {
+//        $wxMember = WxMembership::where('wx_user_id',Session::get('wx_user_id'))->get();
+//        dd(isset($wxMember->wx_user_id));
+//        if(!isset($wxMember))
+//        {
+//            return '已经是会员了';
+//        };
+//        return WxMembership::create([
+//            'wx_user_id' => Session::get('wx_user_id'),
+//            'level' => 1,
+//            'score' => 0,
+//            'accumulated_score' => 0
+//        ]);
+    }
+    /**
+     * 扫名片获得积分
+     * 如果是第二次扫的提示已经扫过了
+     * */
+    public function creditScore()
+    {
+        $this->registerMember();
+    }
+
+    /**
+     * A casa for user to view on wechat index page should have the least price and thumnail.
+     */
     private function convertToViewCasa(WxCasa $casa)
     {
         $casa->cheapestPrice = DB::table('wx_room')->where('wx_casa_id', $casa->id)->min('price');

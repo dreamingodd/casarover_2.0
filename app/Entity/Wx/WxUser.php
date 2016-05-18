@@ -24,4 +24,9 @@ class WxUser extends Model
     public function wxBinds() {
         return $this->hasMany('App\Entity\Wx\WxBind');
     }
+
+    public function WxscoreVariation()
+    {
+        return $this->hasManyThrough('App\Entity\Wx\WxScoreVariation', 'App\Entity\Wx\WxMembership');
+    }
 }

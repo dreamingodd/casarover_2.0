@@ -3,9 +3,10 @@
 @section('head')
     <link rel="stylesheet" href="/assets/css/point.css">
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
-    <script src="/assets/js/test.js"></script>
+    <script src="/assets/js/scoreVariation.js"></script>
 @stop
 @section('body')
+    <input type="hidden" id="id" value="{{ $userid or null }}">
     <div id="app">
         <div class="main">
             <div class="list">
@@ -14,15 +15,15 @@
                         {{--事件的名字--}}
                         <div class="title">
                             <div class="name">@{{ point.name }}</div>
-                            <div class="time">05-17</div>
+                            <div class="time">@{{ point.time }}</div>
                         </div>
                         <div class="money">
-                            <span>￥123</span>
+                            <span>@{{ point.money }}</span>
                         </div>
                     </div>
                 </template>
                 <template v-if="more">
-                    <div class="more">更多</div>
+                    <div class="more" v-on:click="getlist(page)">更多</div>
                 </template>
             </div>
         </div>
