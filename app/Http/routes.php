@@ -118,11 +118,17 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/order/detail/{id}', 'Wx\WxOrderController@show');
     Route::post('/order/create', 'Wx\WxOrderController@create');
     Route::get('/pay/wxorder/{id}', 'Wx\WxPayController@prepare');
-    // Merchnat entry
+    // Merchant entry
     Route::get('/bind', 'Wx\WxBindController@index');
     Route::post('/bind/apply', 'Wx\WxBindController@apply');
     Route::get('/consume/{id}', 'Wx\WxOrderController@consume');
     Route::get('/consume_cancel/{id}', 'Wx\WxOrderController@cancelConsume');
+    // vote activity
+});
+Route::group(['prefix' => 'activity'],function () {
+    Route::get('/', function(){
+        return view('activity.index');
+    });
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
