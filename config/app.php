@@ -157,13 +157,14 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        /** Casarover project relavants. */
         App\Providers\AreaServiceProvider::class,
         App\Providers\CasaServiceProvider::class,
-        /**wechat*/
+        /** Wechat */
         Overtrue\LaravelWechat\ServiceProvider::class,
-        /**LaravelIdeHelper*/
+        /** LaravelIdeHelper */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        /**sms**/
+        /** sms */
         Draguo\Dayusms\ServiceProvider::class,
 
 

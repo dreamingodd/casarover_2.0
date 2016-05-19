@@ -2,6 +2,7 @@
 
 namespace App\Entity\Wx;
 
+use Config;
 use Illuminate\Database\Eloquent\Model;
 
 class WxMembership extends Model
@@ -14,9 +15,8 @@ class WxMembership extends Model
     {
         return $this->belongsTo('App\Entity\Wx\WxUser');
     }
-
-    public function Wxscore()
+    public static function getLevelDetail($level)
     {
-        return $this->hasMany('App\Entity\Wx\WxScoreVariation');
+        return Config::get('casarover.wx_membership_detail')[$level];
     }
 }

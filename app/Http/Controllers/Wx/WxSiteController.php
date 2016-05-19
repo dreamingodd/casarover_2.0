@@ -37,17 +37,14 @@ class WxSiteController extends Controller
     {
         $wxUser = WxUser::find(Session::get('wx_user_id'));
         $orders = WxOrder::where('wx_user_id', Session::get('wx_user_id'))->orderBy('id', 'desc')->get();
-        $levelstr='';
-        if(isset($wxUser->WxMembership->level)) {
-            $level = $wxUser->WxMembership->level;
-            if ($level == 1)
-                $levelstr = '普通会员';
-            else if ($level == 2)
-                $levelstr = '黄金会员';
-            else if ($level == 3)
-                $levelstr = '白金会员';
+        $percent = 0;
+        if (!empty($wxUser->wxMembership->id)) {
+            $accumulatedScore = $wxUser->wxMembership->accumulated_score;
+            $percent = $accumulatedScore
+                    / WxMembership::getLevelDetail($wxUser->wxMembership->level + 1)['score']
+                    * 100;
         }
-        return view('wx.wxUser', compact('orders', 'wxUser','levelstr'));
+        return view('wx.wxUser', compact('orders', 'wxUser','percent'));
     }
 
     public function order($id)
