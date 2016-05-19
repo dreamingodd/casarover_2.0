@@ -20,14 +20,19 @@
                 <p>房间数量:<span>{{$item->quantity}}</span></p>
             @endforeach
             <p id="total">总价：<i>元</i><i>{{$casaroverOrder->total or ''}}</i></p>
+            <p id="reserveButton" style="text-align: center; display: none;">
+                <a href="tel:{{Config::get('casarover.help_telephone')}}">
+                    <button style="">电话预约<button>
+                </a>
+            </p>
         </div>
         {{--<div class="person">--}}
             {{--<h2>用户信息</h2>--}}
         {{--</div>--}}
     </div>
-    <a class="checkout" onclick="WXPayment()" href="#">确认支付</a>
+    <a class="checkout" onclick="WxPayment()" href="#">确认支付</a>
 <script type="text/javascript">
-    var WXPayment = function() {
+    var WxPayment = function() {
         if( typeof WeixinJSBridge === 'undefined' ) {
             alert('请在微信中在打开页面！');
             return false;
@@ -39,10 +44,12 @@
                             alert('您已取消支付！订单已创建，可以到右上角个人中心查看！');
                             break;
                         case 'get_brand_wcpay_request:fail':
-                            alert('支付失败！（'+res.err_desc+'）');
+                            alert('支付失败！（' + res.err_desc + '）');
                             break;
                         case 'get_brand_wcpay_request:ok':
-                            alert('支付成功！请点击右上角到个人中心进行电话预约！');
+                            alert('支付成功！请点击电话预约！');
+                            var reserveButton = document.getElementById('reserveButton');
+                            reserveButton.style.display = 'block';
                             break;
                         default:
                             alert(JSON.stringify(res));

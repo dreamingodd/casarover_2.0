@@ -4,19 +4,11 @@
     <link href="/assets/css/wxOrderDetail.css" rel="stylesheet"/>
 @stop
 @section('nav')
-    <a href="/wx/user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
-    <a href="tel:15868102935" id="navright" class="glyphicon glyphicon-earphone"></a>
-    <img  src="/assets/images/logow.png" />
+<a href="/wx/user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+<a href="tel:{{Config::get('casarover.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
+<img  src="/assets/images/logow.png" />
 @stop
 @section('body')
-<<<<<<< HEAD
-=======
-    @section('nav')
-        <a href="/wx/user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
-        <a href="tel:{{Config::get('casarover.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
-        <img  src="/assets/images/logow.png" />
-    @stop
->>>>>>> 4f3d1554c6ba63c6f1299a47fb98b2925b18e7dd
     <div class="main clear">
         <h2>
             {{$order->casa_name}}
@@ -36,8 +28,19 @@
             </tr>
             @endforeach
         </table>
-        <h4>订单总额：<i>{{$order->total}}元</i></h4>
-        <h5 style="float:left;">下单时间：<span>{{$order->created_at}}</span></h5>
+        @if (!empty($order->wxScoreVariation->score))
+            <p style="text-align: right;">
+                订单总额：{{$order->total - ($order->wxScoreVariation->score * 0.1)}}元<br/>
+                积分抵扣：{{$order->wxScoreVariation->score * 0.1}}元
+            </p>
+        @endif
+        <p style="width: 99%; text-align: right;">订单实付：<i style="font-size: 3rem; color: #800;">{{$order->total}}元</i></p>
+        <p>下单时间：{{$order->created_at}}</p>
+        @if (empty($order->reserve_time))
+            <p style="color:red;">点击右上角电话预约</p>
+        @else
+            <p>预约信息：{{$order->reserve_time}}</p>
+        @endif
     </div>
     <br/>
     @if ($order->consume_status == 0 && $order->pay_status == 1)

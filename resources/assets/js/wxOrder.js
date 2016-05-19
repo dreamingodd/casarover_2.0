@@ -70,7 +70,7 @@ $(function() {
                 console.log('order create successfully!');
                 // 4.Order create successfully, then pay...
                 console.log(data);
-                // location.href = "/wx/pay/wxorder/" + data.orderId;
+                location.href = "/wx/pay/wxorder/" + data.orderId;
                 // location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxeafd79d8fcbd74ee" +
                 //         // redirect uri to make a order
                 //         //"&redirect_uri=http%3A%2F%2Fwww.casarover.com%2FWxpayAPI%2Fexample%2Fjsapi.php?id=" +
