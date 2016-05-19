@@ -75,7 +75,7 @@ $(function() {
     </table>
 
     <!-- Modal for WxCasa Selector. -->
-    @if (!$bind->trashed())
+    @if (!empty($bind) && !$bind->trashed())
     <div class="modal fade" id="casaSelectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">

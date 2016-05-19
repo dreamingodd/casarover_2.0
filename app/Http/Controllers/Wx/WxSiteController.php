@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Wx;
 
 
+use App\Entity\Wx\WxScoreActivity;
+use App\Entity\Wx\WxScoreVariation;
 use DB;
+use Illuminate\Http\Request;
 use Session;
 use App\Entity\Wx\WxUser;
 use App\Http\Controllers\Controller;
@@ -34,7 +37,17 @@ class WxSiteController extends Controller
     {
         $wxUser = WxUser::find(Session::get('wx_user_id'));
         $orders = WxOrder::where('wx_user_id', Session::get('wx_user_id'))->orderBy('id', 'desc')->get();
-        return view('wx.wxUser', compact('orders', 'wxUser'));
+        $levelstr='';
+        if(isset($wxUser->WxMembership->level)) {
+            $level = $wxUser->WxMembership->level;
+            if ($level == 1)
+                $levelstr = '普通会员';
+            else if ($level == 2)
+                $levelstr = '黄金会员';
+            else if ($level == 3)
+                $levelstr = '白金会员';
+        }
+        return view('wx.wxUser', compact('orders', 'wxUser','levelstr'));
     }
 
     public function order($id)
@@ -70,26 +83,53 @@ class WxSiteController extends Controller
      * */
     public function registerMember()
     {
-//        $wxMember = WxMembership::where('wx_user_id',Session::get('wx_user_id'))->get();
-//        dd(isset($wxMember->wx_user_id));
-//        if(!isset($wxMember))
-//        {
-//            return '已经是会员了';
-//        };
-//        return WxMembership::create([
-//            'wx_user_id' => Session::get('wx_user_id'),
-//            'level' => 1,
-//            'score' => 0,
-//            'accumulated_score' => 0
-//        ]);
+        $wxMember = WxUser::find(Session::get('wx_user_id'))->WxMembership;
+        if($wxMember)
+        {
+            return response()->json(['msg'=>0]);
+        };
+        WxMembership::create([
+            'wx_user_id' => Session::get('wx_user_id'),
+            'level' => 1,
+            'score' => 0,
+            'accumulated_score' => 0
+        ]);
+        return response()->json(['msg'=>1]);
     }
     /**
      * 扫名片获得积分
      * 如果是第二次扫的提示已经扫过了
      * */
-    public function creditScore()
+    public function creditScore(Request $request)
     {
+        $activId = 1;
         $this->registerMember();
+        $user = WxUser::find(Session::get('wx_user_id'));
+        $hasscan = WxScoreVariation::where('wx_score_activity_id',$activId)->get();
+        if(count($hasscan))
+        {
+            $request->session()->flash('tips', '已经领取过了');
+            return redirect('/wx/user');
+        };
+        $activ = WxScoreActivity::find($activId);
+        WxScoreVariation::create([
+            'wx_membership_id' => $user->WxMembership->id,
+            'wx_score_activity_id' => $activId,
+            'name' => $activ->name,
+            'type' => WxScoreVariation::TYPE_ACTIVITY,
+            'score' => $activ->score
+        ]);
+        $this->changeWxMembershipScore($activ->score);
+        $request->session()->flash('tips', '领取成功');
+        return redirect('/wx/user');
+    }
+
+    private function changeWxMembershipScore($score)
+    {
+        $user = WxUser::find(Session::get('wx_user_id'));
+        $user->WxMembership->score = $user->WxMembership->score+$score;
+        $user->WxMembership->accumulated_score = $user->WxMembership->accumulated_score+abs($score);
+        $user->WxMembership->save();
     }
 
     /**

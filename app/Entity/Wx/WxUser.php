@@ -14,19 +14,29 @@ class WxUser extends Model
      * For now, one user could be binded merely to one wx casa.
      * @2016-05-09
      */
-    public function wxBind() {
+    public function wxBind()
+    {
         return $this->hasMany('App\Entity\Wx\WxBind')->first();
     }
 
-    public function casas() {
+    public function casas()
+    {
         return $this->belongsToMany('App\Entity\Wx\WxCasa', 'wx_bind');
     }
-    public function wxBinds() {
+
+    public function wxBinds()
+    {
         return $this->hasMany('App\Entity\Wx\WxBind');
+    }
+
+    public function WxMembership()
+    {
+        return $this->hasOne('App\Entity\Wx\WxMembership');
     }
 
     public function WxscoreVariation()
     {
         return $this->hasManyThrough('App\Entity\Wx\WxScoreVariation', 'App\Entity\Wx\WxMembership');
+
     }
 }
