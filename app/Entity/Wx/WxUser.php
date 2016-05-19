@@ -28,15 +28,12 @@ class WxUser extends Model
     {
         return $this->hasMany('App\Entity\Wx\WxBind');
     }
-
-    public function WxMembership()
-    {
+    public function wxMembership() {
         return $this->hasOne('App\Entity\Wx\WxMembership');
     }
 
-    public function WxscoreVariation()
+    public function wxScoreVariation()
     {
         return $this->hasManyThrough('App\Entity\Wx\WxScoreVariation', 'App\Entity\Wx\WxMembership');
-
     }
 }

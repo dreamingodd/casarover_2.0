@@ -115,7 +115,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/user', 'Wx\WxSiteController@user');
     Route::get('/scorevariation/','Wx\WxSiteController@scoreVariation');
     Route::get('/api/scorevariation/{id}/{page?}','Wx\WxSiteController@scoreVariationJson');
-    Route::get('/api/registerMember/','Wx\WxSiteController@registerMember');
+    Route::get('/registerMember/','Wx\WxSiteController@registerMember');
     Route::get('/orderdetails', 'Wx\WxSiteController@orderDetails');
     Route::get('/confirm', 'Wx\WxSiteController@confirm');
     Route::get('/bill', 'Wx\WxSiteController@bill');

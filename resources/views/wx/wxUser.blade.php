@@ -10,12 +10,14 @@
 @stop
 @section('body')
     <div class="split"></div>
-    <div class="tips">
-        <p>
-            {{ Session::get('tips') }}
-        </p>
-        <input type="text" class="btn btn-default know" value="知道了">
-    </div>
+    @if(Session::get('tips'))
+        <div class="tips">
+            <p>
+                {{ Session::get('tips') }}
+            </p>
+            <input type="text" class="btn btn-default know" onclick="know()" value="知道了">
+        </div>
+    @endif
     <div class="top">
         <img src="{{$wxUser->headimgurl}}" alt="">
         <h2>{{$wxUser->nickname}}</h2>
@@ -29,7 +31,9 @@
                 </div>
             </div>
         @else
-            <div class="be-vip" onclick="tovip()">成为会员</div>
+            <div class="be-vip" >
+                <a href="/wx/registerMember/">成为会员</a>
+            </div>
         @endif
         @if(!empty($wxUser->WxMembership->id))
             <div class="mask clear">
@@ -49,7 +53,6 @@
         @endif
     </div>
     <div class="main">
-        <p id="notice">点击右上方电话按钮进行预约</p>
         <div  id="rules" class="maincon">
             <p class="divider"><em class="glyphicon glyphicon-bell"></em>积分规则
                 <span class="glyphicon glyphicon-minus"></span>
@@ -152,9 +155,8 @@
                             @endforeach
             </div>
         </div>
-        <p><a href="#"><em class="glyphicon glyphicon-piggy-bank"></em>我的优惠券
-        <span  class="glyphicon glyphicon-triangle-right"></span></a></p>
     </div>
+    <p id="notice">Tip:点击右上方电话按钮进行预约</p>
     <script>
         $(function ($) {
             $('.glyphicon-minus').hide();
@@ -175,6 +177,10 @@
                     window.location.href="/wx/user";
                 }
             })
+        }
+
+        function know(){
+            $(".tips").css('display','none');
         }
     </script>
 @stop

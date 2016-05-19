@@ -26,10 +26,16 @@ class WxOrder extends Model
     {
         return $this->belongsTo('App\Entity\Wx\WxUser','wx_user_id','id');
     }
-    public function wxCasa() {
+    public function wxCasa()
+    {
         return $this->belongsTo('App\Entity\Wx\WxCasa');
     }
-    public function wxOrderItems() {
+    public function wxOrderItems()
+    {
         return $this->hasMany('App\Entity\Wx\WxOrderItem');
+    }
+    public function wxScoreVariation()
+    {
+        return $this->hasOne('App\Entity\Wx\WxScoreVariation');
     }
 }

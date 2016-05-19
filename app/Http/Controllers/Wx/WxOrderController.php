@@ -9,6 +9,7 @@ use App\Entity\Wx\WxOrder;
 use App\Entity\Wx\WxOrderItem;
 use App\Entity\Wx\WxRoom;
 use App\Entity\Wx\WxUser;
+use App\Entity\Wx\WxScoreVariation;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -30,8 +31,14 @@ class WxOrderController extends Controller
         return view('wx.wxOrderDetail', compact('order', 'qrPath'));
     }
 
-    public function create(Request $request) {
-
+    /**
+     * 1.Update user info.
+     * 2.Create a new order.
+     * 3.Create a ScoreVariation.
+     * 4.Update wx membership(score).
+     */
+    public function create(Request $request)
+    {
         DB::beginTransaction();
         try {
             // update user information.
@@ -39,11 +46,8 @@ class WxOrderController extends Controller
                 return "用户信息（ID）获取失败！";
             }
             $userId = Session::get('wx_user_id');
-            $user = WxUser::find($userId);
-            $user->realname = $request->input('realname');
-            $user->cellphone = $request->input('cellphone');
-            $user->save();
-            // reserved rooms editing.
+            $user = $this->updateUserInfo($userId, $request->input('realname'), $request->input('cellphone'));
+            // process reserved rooms data.
             $reservedRooms = $request->input('reservedRooms');
             $wxOrder = new WxOrder();
             if (empty($reservedRooms)) {
@@ -55,25 +59,43 @@ class WxOrderController extends Controller
             $wxOrder->save();
             $total = 0;
             foreach ($reservedRooms as $reservedRoom) {
-                $wxOrderItem = new WxOrderItem();
-                $wxOrderItem->wx_order_id = $wxOrder->id;
-                $wxOrderItem->wx_room_id = $reservedRoom['id'];
-                $wxOrderItem->price = WxRoom::find($reservedRoom['id'])->price;
-                $wxOrderItem->quantity = $reservedRoom['quantity'];
-                $wxOrderItem->save();
+                $wxOrderItem = $this->createWxOrderItem($wxOrder->id, $reservedRoom);
                 $total += $wxOrderItem->price * $wxOrderItem->quantity;
             }
-
             // update order info
             $wxOrder->order_id = Config::get("casarover.wx_shopid") . '-' . $wxOrder->id;
-            $wxOrder->total = $total;
             $wxOrder->save();
+
+            // Check score. 前后台均有检查。
+            $score = $request->input('score');
+            if ($score > 0) {
+                $userScore = $user->wxMembership->score;
+                // Invalid situation 1 - larger than user's current score,
+                if ($score > $userScore) {
+                    return "您输入的积分超过当前可用的积分！";
+                }
+                // invalid situation 2 - larger than 30% of the payment.
+                if ($score > $total * Config::get('casarover.wx_max_discount') / 10) {
+                    return "您输入的积分超过了房价的30%！";
+                }
+                $wsv = new WxScoreVariation();
+                $wsv->wx_membership_id = $user->wxMembership->id;
+                $wsv->wx_order_id = $wxOrder->id;
+                $wsv->type = WxScoreVariation::TYPE_ORDER;
+                $wsv->name = "积分抵扣 - " . $wxOrder->casa_name . " 的订单";
+                $wsv->score = - $score;
+                $wsv->save();
+                $user->wxMembership->score -= $score;
+                $user->wxMembership->save();
+                $wxOrder->total = $total - ($score * 0.1);
+                $wxOrder->save();
+            }
             DB::commit();
             return response()->json(['orderId' => $wxOrder->id]);
         } catch (Exception $ex) {
             DB::rollback();
             Log::critical($ex);
-            return $ex;
+            return "探庐君处理您的订单时晕倒了！";
         }
     }
 
@@ -138,7 +160,8 @@ class WxOrderController extends Controller
         $order->delete();
     }
 
-    public function consume($orderId) {
+    public function consume($orderId)
+    {
         $isMerchant = false;
         $order = WxOrder::findOrFail($orderId);
         if ($order->pay_status != WxOrder::PAY_STATUS_YES) {
@@ -165,7 +188,8 @@ class WxOrderController extends Controller
         }
     }
 
-    public function cancelConsume($orderId) {
+    public function cancelConsume($orderId)
+    {
         $order = WxOrder::findOrFail($orderId);
         $order->consume_status = WxOrder::CONSUME_STATUS_NO;
         $order->save();
@@ -195,8 +219,23 @@ class WxOrderController extends Controller
         return $allstatus;
     }
 
-    public function jsondata($code=0,$msg='成功',$data)
+    private function createWxOrderItem($wxOrderId, $reservedRoom)
     {
-        return ['code'=>$code,'msg'=>$msg,'data'=>$data];
+        $wxOrderItem = new WxOrderItem();
+        $wxOrderItem->wx_order_id = $wxOrderId;
+        $wxOrderItem->wx_room_id = $reservedRoom['id'];
+        $wxOrderItem->price = WxRoom::find($reservedRoom['id'])->price;
+        $wxOrderItem->quantity = $reservedRoom['quantity'];
+        $wxOrderItem->save();
+        return $wxOrderItem;
+    }
+
+    private function updateUserInfo($userId, $realname, $cellphone)
+    {
+        $user = WxUser::find($userId);
+        $user->realname = $realname;
+        $user->cellphone = $cellphone;
+        $user->save();
+        return $user;
     }
 }
