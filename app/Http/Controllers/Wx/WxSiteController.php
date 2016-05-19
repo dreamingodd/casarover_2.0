@@ -40,8 +40,9 @@ class WxSiteController extends Controller
             $percent = $accumulatedScore
                     / WxMembership::getLevelDetail($wxUser->wxMembership->level + 1)['score']
                     * 100;
+            $levelStr = WxMembership::getLevelDetail($wxUser->wxMembership->level)['name'];
         }
-        return view('wx.wxUser', compact('orders', 'wxUser','percent'));
+        return view('wx.wxUser', compact('orders', 'wxUser','percent', 'levelStr'));
     }
 
     public function order($id)
