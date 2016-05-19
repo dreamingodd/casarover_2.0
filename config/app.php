@@ -160,6 +160,7 @@ return [
         /** Casarover project relavants. */
         App\Providers\AreaServiceProvider::class,
         App\Providers\CasaServiceProvider::class,
+        App\Providers\MembershipProvider::class,
         /** Wechat */
         Overtrue\LaravelWechat\ServiceProvider::class,
         /** LaravelIdeHelper */
@@ -214,7 +215,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Form'      => Illuminate\Html\FormFacade::class,
-        /**wechat*/
+        /** wechat */
         'Wechat' => Overtrue\LaravelWechat\Facade::class,
 
     ],
