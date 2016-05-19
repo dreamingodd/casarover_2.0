@@ -14,10 +14,10 @@
         <h2>{{$wxUser->nickname}}</h2>
         @if(!empty($wxUser->WxMembership->id))
             <div class="vip">
-                <span>{{$levelstr}}</span>
+                <span>{{Config::get('casarover.wx_membership_detail')[$wxUser->WxMembership->level]['name']}}</span>
                 <div class="progress">
-                    <div class="progress-bar " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $wxUser->WxMembership->score/50}}%" >
-                        {{$wxUser->WxMembership->score}}/5000
+                    <div class="progress-bar " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percent }}%" >
+                        {{$wxUser->WxMembership->accumulated_score}}/{{Config::get('casarover.wx_membership_detail')[$wxUser->WxMembership->level + 1]['score']}}
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
             <div class="maincondetail">
                 <p>姓名：{{$wxUser->realname or null}}</p>
                 <p>手机号码：{{$wxUser->cellphone}}</p>
-                <p>会员等级：{{$levelstr}}</p>
+                <p>会员等级：{{Config::get('casarover.wx_membership_detail')[$wxUser->WxMembership->level]['name']}}</p>
             </div>
         </div>
         <div id="order" class="maincon">
