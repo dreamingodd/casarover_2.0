@@ -158,8 +158,7 @@ class WxOrderController extends Controller
 
     public function consume($orderId)
     {
-        $membershipService = app('MembershipService');
-        $membershipService->upgradeWxMembershipLevelIfNeeded(WxMembership::find(2));
+        app('MembershipService')->upgradeWxMembershipLevelIfNeeded(WxMembership::find(2));
         $isMerchant = false;
         $order = WxOrder::findOrFail($orderId);
         if ($order->pay_status != WxOrder::PAY_STATUS_YES) {
