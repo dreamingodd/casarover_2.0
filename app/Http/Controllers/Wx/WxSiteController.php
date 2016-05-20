@@ -70,7 +70,7 @@ class WxSiteController extends Controller
         {
             $score->money = $score->score;
             $score->time = $score->created_at;
-//            $score->time = $score->created_at->format('Y-m-d H:i');
+            // $score->time = $score->created_at->format('Y-m-d H:i');
         }
         return response()->json($scores);
     }
@@ -148,5 +148,11 @@ class WxSiteController extends Controller
                 $casa->thumbnail = $casa->casa->attachment->filepath;
             }
         }
+    }
+
+    public function logout() {
+        Session::forget('wx_user_id');
+        Session::forget('openid');
+        return redirect('/wx/user');
     }
 }
