@@ -134,6 +134,11 @@ class WxOrderController extends Controller
         return response()->json($data);
     }
 
+    public function jsondata($code=0,$msg='成功',$data)
+    {
+        return ['code'=>$code,'msg'=>$msg,'data'=>$data];
+    }
+
     // 手动确定预订时间
     public function editStatus(Request $request)
     {
@@ -145,8 +150,20 @@ class WxOrderController extends Controller
             $order->reserve_status = 1;
         }
         $order->save();
-        $this->sendOrderSms(123);
+        $this->sendOrderSms($request->orderid);
         return redirect('back/wx/order/list');
+    }
+    // 发送预约成功的短信
+    private function sendOrderSms($orderId)
+    {
+        $order = WxOrder::find($orderId);
+        $username = $order->wxUser->realname;
+        $casaName = $order->casa_name;
+        $time = $order->reserve_time;
+        $userphone = $order->wxUser->cellphone;
+        $sms = app('sms');
+        $message = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
+        $sms->send('探庐者','SMS_9720239',$message,$userphone);
     }
 
     public function del(Request $request)
@@ -260,15 +277,6 @@ class WxOrderController extends Controller
             ]
         ];
         return $allstatus;
-    }
-
-    // 发送预约成功的短信
-    private function sendOrderSms($orderId)
-    {
-        $sms = app('sms');
-        $message = "{\"name\":\"yunlong\",\"thing\":\"这个是活动\",\"time\":\"2016.1.3\"}";
-        $phone = '18958142694';
-        $sms->send('活动验证','SMS_8550710',$message,$phone);
     }
 
     // Create a new wx order item.

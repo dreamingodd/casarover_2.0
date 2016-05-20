@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'appkey' => '23320039',
-    'secretKey' => '3824e1fe3f224bb6a13ad39fe739976d',
+    'appkey' => '23369461',
+    'secretKey' => '78fe4c9954216a2236837af8dcbd36f2',
     'product' => '探庐者',
     /**
      * 短信模板list
      * 键的名字最好是和函数的名一致
      * */
     'templateCode' =>[
-        'regist' => '',
-        'reset' => ''
+        'regist' => 'SMS_9665361',
+        'reset' => 'SMS_9665359'
     ],
 ];
