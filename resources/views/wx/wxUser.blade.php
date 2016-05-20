@@ -9,6 +9,15 @@
     <img  src="/assets/images/logow.png" />
 @stop
 @section('body')
+    <div class="split"></div>
+    @if(Session::get('tips'))
+        <div class="tips">
+            <p>
+                {{ Session::get('tips') }}
+            </p>
+            <input type="text" class="btn btn-default know" onclick="know()" value="知道了">
+        </div>
+    @endif
     <div class="top">
         <img src="{{$wxUser->headimgurl}}" alt="">
         <h2>{{$wxUser->nickname}}</h2>
@@ -22,23 +31,25 @@
                 </div>
             </div>
         @else
-            <div class="be-vip">成为会员</div>
+            <div class="be-vip" >
+                <a href="/wx/registerMember/">申请会员</a>
+            </div>
         @endif
         @if(!empty($wxUser->WxMembership->id))
-        <div class="mask clear">
-            <div class="maskcon">
-                <p>{{$wxUser->WxMembership->accumulated_score}}</p>
-                <p>累计积分</p>
+            <div class="mask clear">
+                <div class="maskcon">
+                    <p>{{$wxUser->WxMembership->accumulated_score}}</p>
+                    <p>累计积分</p>
+                </div>
+                <div class="maskcon">
+                    <p>{{$wxUser->WxMembership->score}}</p>
+                    <p>可用积分</p>
+                </div>
+                <div class="maskcon">
+                    <p class="glyphicon glyphicon-star"></p>
+                    <p><a href="#">我的收藏</a></p>
+                </div>
             </div>
-            <div class="maskcon">
-                <p>{{$wxUser->WxMembership->score}}</p>
-                <p>可用积分</p>
-            </div>
-            <div class="maskcon">
-                <p class="glyphicon glyphicon-star"></p>
-                <p><a href="#">我的收藏</a></p>
-            </div>
-        </div>
         @endif
     </div>
     <div class="main">
@@ -48,11 +59,11 @@
                 <span class="glyphicon glyphicon-plus"></span>
             </p>
             <div class="maincondetail">
-                    <p>1.会员分普通会员（所有用户均为普通会员） 黄金会员（扫描名片后方二维码即可获得金卡会员身份）白金会员三种。</p>
-                    <p>2.会员上升方式普通会员累计2000积分可升级为黄金会员，黄金会员累计5000积分可升级为白金会员。</p>
-                    <p>3.普通会员积分累计比例为20%（消费1000元得200积分），黄金会员为40%（消费1000元得400积分），白金会员为50%（消费1000元得500积分）。</p>
-                    <p>4.每周二会员住宿日，周二入住可获得双倍积分累计，普通及金卡会员双倍积分累计，最高50%的积分累计（消费1000元得500积分）；白金会员获得免费升房一次（机会不可累积）</p>
-                    <p>5.特价房，折扣房可累计积分，但不可通过积分兑换</p>
+                <p>1.会员分普通会员（所有用户均为普通会员） 黄金会员（扫描名片后方二维码即可获得金卡会员身份）白金会员三种。</p>
+                <p>2.会员上升方式普通会员累计2000积分可升级为黄金会员，黄金会员累计5000积分可升级为白金会员。</p>
+                <p>3.普通会员积分累计比例为20%（消费1000元得200积分），黄金会员为40%（消费1000元得400积分），白金会员为50%（消费1000元得500积分）。</p>
+                <p>4.每周二会员住宿日，周二入住可获得双倍积分累计，普通及金卡会员双倍积分累计，最高50%的积分累计（消费1000元得500积分）；白金会员获得免费升房一次（机会不可累积）</p>
+                <p>5.特价房，折扣房可累计积分，但不可通过积分兑换</p>
             </div>
         </div>
         <div id='info' class="maincon">
@@ -77,9 +88,9 @@
                 @foreach($orders as $order)
                     @if ($order->pay_status == 0)
                         @if (empty($order->wxCasa->name))
-                            <a href="#" onclick="javascript:alert('民宿已下架，不再提供付款！')">
+                        <a href="#" onclick="javascript:alert('民宿已下架，不再提供付款！')">
                         @else
-                            <a href="/wx/pay/wxorder/{{$order->id}}">
+                        <a href="/wx/pay/wxorder/{{$order->id}}">
                         @endif
                     @else
                     <a href="/wx/order/detail/{{$order->id}}">
@@ -159,5 +170,19 @@
                 $(this).toggleClass('divider');
             });
         });
+
+        function tovip(){
+            $.getJSON('/wx/api/registerMember/',function(data) {
+                console.log(data);
+                if(data.msg){
+                    alert('成为会员啦');
+                    window.location.href="/wx/user";
+                }
+            })
+        }
+
+        function know(){
+            $(".tips").css('display','none');
+        }
     </script>
 @stop

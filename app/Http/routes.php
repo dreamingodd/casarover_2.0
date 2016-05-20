@@ -11,7 +11,9 @@
 |
 */
 
-
+Route::get('test',function(){
+//    return view('wx.a');
+});
 Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
@@ -108,9 +110,12 @@ Route::post('/wx/pay/notify', 'Wx\WxPayController@notify');
 Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () {
     Route::get('/', 'Wx\WxSiteController@index');
     // User scan the QR code on the back of the card.
-    Route::get('/credit_score', 'Wx\WxSiteController@index');
+    Route::get('/credit_score', 'Wx\WxSiteController@creditScore');
     Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
+    Route::get('/scorevariation/','Wx\WxSiteController@scoreVariation');
+    Route::get('/api/scorevariation/{id}/{page?}','Wx\WxSiteController@scoreVariationJson');
+    Route::get('/registerMember/','Wx\WxSiteController@registerMember');
     Route::get('/orderdetails', 'Wx\WxSiteController@orderDetails');
     Route::get('/confirm', 'Wx\WxSiteController@confirm');
     Route::get('/bill', 'Wx\WxSiteController@bill');
@@ -123,8 +128,8 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::post('/bind/apply', 'Wx\WxBindController@apply');
     Route::get('/consume/{id}', 'Wx\WxOrderController@consume');
     Route::get('/consume_cancel/{id}', 'Wx\WxOrderController@cancelConsume');
-    // vote activity
 });
+    // vote activity
 Route::group(['prefix' => 'activity'],function () {
     Route::get('/', function(){
         return view('activity.index');
