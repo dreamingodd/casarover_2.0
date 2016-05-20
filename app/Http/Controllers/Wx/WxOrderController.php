@@ -101,6 +101,7 @@ class WxOrderController extends Controller
 
     public function index()
     {
+//        $this->sendOrderSms(123);
         $allstatus = $this->allstatus();
         return view('backstage.wxOrderList',compact('allstatus'));
     }
@@ -126,6 +127,12 @@ class WxOrderController extends Controller
         $data = $this->jsondata('200','获取成功',$orderlist);
         return response()->json($data);
     }
+
+    public function jsondata($code=0,$msg='成功',$data)
+    {
+        return ['code'=>$code,'msg'=>$msg,'data'=>$data];
+    }
+
     protected function orderstatus($type,$code)
     {
         $allstatus = $this->allstatus();
@@ -142,16 +149,20 @@ class WxOrderController extends Controller
             $order->reserve_status = 1;
         }
         $order->save();
-        $this->sendOrderSms(123);
+        $this->sendOrderSms($request->orderid);
         return redirect('back/wx/order/list');
     }
     // 发送预约成功的短信
     private function sendOrderSms($orderId)
     {
+        $order = WxOrder::find($orderId);
+        $username = $order->wxUser->realname;
+        $casaName = $order->casa_name;
+        $time = $order->reserve_time;
+        $userphone = $order->wxUser->cellphone;
         $sms = app('sms');
-        $message = "{\"name\":\"yunlong\",\"thing\":\"这个是活动\",\"time\":\"2016.1.3\"}";
-        $phone = '18958142694';
-        $sms->send('活动验证','SMS_8550710',$message,$phone);
+        $message = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
+        $sms->send('探庐者','SMS_9720239',$message,$userphone);
     }
 
     public function del(Request $request)
