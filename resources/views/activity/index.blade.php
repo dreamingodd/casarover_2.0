@@ -36,4 +36,12 @@
             </div>
         </div>
     </div>
+    <footer>
+        <ul>
+            <li><a href="#"><span></span>活动首页</a></li>
+            <li><a href="#"><span></span>我要约</a></li>
+            <li><a href="#"><span></span>排行榜</a></li>
+            <li><a href="#"><span></span>原文链接</a></li>
+        </ul>
+    </footer>
 @stop
