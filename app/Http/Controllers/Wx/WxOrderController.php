@@ -63,6 +63,7 @@ class WxOrderController extends Controller
             $wxOrder->wx_user_id = $userId;
             $wxOrder->wx_casa_id = $request->input('wxCasaId');
             $wxOrder->casa_name = WxCasa::find($wxOrder->wx_casa_id)->name;
+            // Id is needed for wx order item creation
             $wxOrder->save();
             $total = 0;
             foreach ($reservedRooms as $reservedRoom) {
@@ -71,6 +72,7 @@ class WxOrderController extends Controller
             }
             // update order info
             $wxOrder->order_id = Config::get("casarover.wx_shopid") . '-' . $wxOrder->id;
+            $wxOrder->total = $total;
             $wxOrder->save();
 
             // Check score. 前后台均有检查。
@@ -89,7 +91,7 @@ class WxOrderController extends Controller
                 $wsv->wx_membership_id = $user->wxMembership->id;
                 $wsv->wx_order_id = $wxOrder->id;
                 $wsv->type = WxScoreVariation::TYPE_ORDER;
-                $wsv->name = self::ORDER_AWARD_PREFIX . $wxOrder->casa_name . self::ORDER_SUFFIX;
+                $wsv->name = self::ORDER_CONSUME_PREFIX . $wxOrder->casa_name . self::ORDER_SUFFIX . ' ' . $wxOrder->id;
                 $wsv->score = - $score;
                 $wsv->save();
                 $user->wxMembership->score -= $score;
@@ -198,16 +200,18 @@ class WxOrderController extends Controller
                 if ($order->consume_status == WxOrder::CONSUME_STATUS_YES) {
                     return '<p style="font-size:40px;">此订单已消费过！</p>';
                 } else {
-                    $order->consume_status = WxOrder::CONSUME_STATUS_YES;
-                    $order->save();
                     if ($wms) {
                         DB::beginTransaction();
                         try {
+                            $order->consume_status = WxOrder::CONSUME_STATUS_YES;
+                            $order->save();
                             $convertPercent = WxMembership::getLevelDetail($wms->level)['convert_percent'];
                             $total = $order->total;
-                            $score = round($total * $converPercent);
+                            $score = round($total * $convertPercent / 100);
                             $this->createWxScoreVariationByOrder($wms->id, $order->id,
-                            self::ORDER_AWARD_PREFIX . $order->casa_name . self::ORDER_SUFFIX, $score);
+                                    self::ORDER_AWARD_PREFIX . $order->casa_name
+                                        . self::ORDER_SUFFIX . ' ' . $order->id,
+                                    $score);
                             $this->updateMembership($wms, $score);
                             app('MembershipService')->upgradeWxMembershipLevelIfNeeded($wms);
                             DB::commit();
@@ -237,7 +241,7 @@ class WxOrderController extends Controller
             $order->save();
             $wms = WxMembership::where("wx_user_id", Session::get('wx_user_id'))->get()->first();
             if ($wms) {
-                $wsv = WxScoreVariation::where('order_id', $order->id)->where('score', '>', 0)->get()->first();
+                $wsv = WxScoreVariation::where('wx_order_id', $order->id)->where('score', '>', 0)->get()->first();
                 $this->updateMembership($wms, - $wsv->score);
                 $wsv->delete();
             }
@@ -309,7 +313,7 @@ class WxOrderController extends Controller
     {
         $wsv = new WxScoreVariation();
         $wsv->wx_membership_id = $memberId;
-        $wsv->wx_order_ie = $orderId;
+        $wsv->wx_order_id = $orderId;
         $wsv->type = WxScoreVariation::TYPE_ORDER;
         $wsv->name = $name;
         $wsv->score = $score;

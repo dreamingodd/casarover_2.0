@@ -9,7 +9,7 @@ class MembershipService {
         $levelDetails = Config::get('casarover.wx_membership_detail');
         $nextLevelLeastScore = $levelDetails[$level + 1]['score'];
         // Membership upgrade.
-        if ($score >= $nextLevelLeastScore || $score < $levelDetails['score']) {
+        if ($score >= $nextLevelLeastScore || $score < $levelDetails[$wxMembership->level]['score']) {
             // Determine which level user will upgrade to.
             for ($i = count($levelDetails) - 1; $i >= 0; $i--) {
                 $levelDetail = $levelDetails[$i];
