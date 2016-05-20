@@ -9,6 +9,7 @@ use App\Entity\Wx\WxOrder;
 use App\Entity\Wx\WxOrderItem;
 use App\Entity\Wx\WxRoom;
 use App\Entity\Wx\WxUser;
+use App\Entity\Wx\WxMembership;
 use App\Entity\Wx\WxScoreVariation;
 use App\Http\Controllers\Controller;
 
@@ -21,7 +22,8 @@ use Session;
 
 class WxOrderController extends Controller
 {
-    public function show($id) {
+    public function show($id)
+    {
         $order = WxOrder::find($id);
         $qrFile = public_path() . "/assets/phpqrcode/temp/order" . $order->id . ".png";
         $qrPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order" . $order->id . ".png";
@@ -101,7 +103,6 @@ class WxOrderController extends Controller
 
     public function index()
     {
-//        $this->sendOrderSms(123);
         $allstatus = $this->allstatus();
         return view('backstage.wxOrderList',compact('allstatus'));
     }
@@ -138,6 +139,7 @@ class WxOrderController extends Controller
         $allstatus = $this->allstatus();
         return $allstatus[$type][$code];
     }
+
     // 手动确定预订时间
     public function editStatus(Request $request)
     {
@@ -173,6 +175,7 @@ class WxOrderController extends Controller
 
     public function consume($orderId)
     {
+        app('MembershipService')->upgradeWxMembershipLevelIfNeeded(WxMembership::find(2));
         $isMerchant = false;
         $order = WxOrder::findOrFail($orderId);
         if ($order->pay_status != WxOrder::PAY_STATUS_YES) {
@@ -229,7 +232,7 @@ class WxOrderController extends Controller
         ];
         return $allstatus;
     }
-
+    
     private function createWxOrderItem($wxOrderId, $reservedRoom)
     {
         $wxOrderItem = new WxOrderItem();
