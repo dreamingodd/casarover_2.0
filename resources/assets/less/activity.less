@@ -6,7 +6,7 @@ nav{
 }
 .main{
   margin: 1rem 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 15%;
 }
 .case{
   margin:1rem 1%;
@@ -43,20 +43,75 @@ nav{
     color: #ff9c00;
   }
 }
+.detail{
+  display: none;
+  position: fixed;
+  width: 80%;
+  height: 80%;
+  top: 8%;
+  overflow: auto;
+  left: 10%;
+  background: #f0f0f0;
+  img{
+    width: 100%;
+  }
+  .md-close{
+    position: absolute;
+    top: 0.5rem;
+    right: 0;
+    img{
+      float: right;
+      width: 60%;
+    }
+  }
+
+  .divide{
+    width: 81%;
+    margin-left: 12.2%;
+    border-left:1px solid #dcdddd ;
+    margin-bottom: 1rem;
+  }
+  .detailcon{
+    float: right;
+    width: 93%;
+    background: #fff;
+    padding: 1rem;
+    padding-top: 0;
+  }
+}
+.button{
+  margin: 0 auto;
+  text-align: center;
+  width: 40%;
+  padding: 0.5rem 1rem;
+  background: #87d3eb;
+  border: 1px solid #000;
+  border-radius:20px ;
+  margin-bottom: 1rem;
+}
 footer{
   position: fixed;
   bottom: 0;
-  height: 3rem;
+  left: 0;
   width: 100%;
-  background: #CFCFCF;
+  height: 8%;
+  background: url('/assets/images/activity/footer.png') no-repeat;
+  background-size:100% 100% ;
+  ul{
+    height: 100%;
+  }
   ul li{
     width: 24%;
+    height: 100%;
     text-align: center;
     display: inline-block;
-    border-right:1px solid black ;
     a{
-      color: #fff;
-      line-height: 3rem;
+      display: block;
+      width: 100%;
+      height: 100%;
     }
   }
+}
+.blur {
+  -webkit-filter: blur(3px);
 }
