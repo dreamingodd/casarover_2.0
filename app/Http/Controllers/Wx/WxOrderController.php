@@ -232,7 +232,7 @@ class WxOrderController extends Controller
         ];
         return $allstatus;
     }
-    
+
     private function createWxOrderItem($wxOrderId, $reservedRoom)
     {
         $wxOrderItem = new WxOrderItem();

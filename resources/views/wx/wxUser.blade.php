@@ -10,10 +10,10 @@
 @stop
 @section('body')
     <div class="split"></div>
-    @if(Session::get('tips'))
+    @if($tips)
         <div class="tips">
             <p>
-                {{ Session::get('tips') }}
+                {!! $tips !!}
             </p>
             <input type="text" class="btn btn-default know" onclick="know()" value="知道了">
         </div>
