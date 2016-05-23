@@ -180,4 +180,10 @@ class WxSiteController extends Controller
             }
         }
     }
+
+    public function logout() {
+        Session::forget('wx_user_id');
+        Session::forget('openid');
+        return redirect('/wx/user');
+    }
 }
