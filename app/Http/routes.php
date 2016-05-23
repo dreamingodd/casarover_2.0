@@ -128,6 +128,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::post('/bind/apply', 'Wx\WxBindController@apply');
     Route::get('/consume/{id}', 'Wx\WxOrderController@consume');
     Route::get('/consume_cancel/{id}', 'Wx\WxOrderController@cancelConsume');
+    Route::get('/logout', 'Wx\WxSiteController@logout');
 });
     // vote activity
 Route::group(['prefix' => 'activity'],function () {

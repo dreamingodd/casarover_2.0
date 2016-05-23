@@ -107,20 +107,20 @@
         <div class="button">约睡</div>
     </div>
     <script>
-        $(function () {
-            $('.case').each(function(i){
-            $(this).click(function () {
-                $('.detail').eq(i).show();
-                $('.bg').addClass('blur');
-                $('body').css('overflow','hidden');
-                });
-            });
-            $('.md-close').click(function () {
-                $(this).parent().hide();
-                $('.bg').removeClass('blur');
-                $('body').css('overflow','auto');
-                    }
-            )
-        });
+//        $(function () {
+//            $('.case').each(function(i){
+//            $(this).click(function () {
+//                $('.detail').eq(i).show();
+//                $('.bg').addClass('blur');
+//                $('body').css('overflow','hidden');
+//                });
+//            });
+//            $('.md-close').click(function () {
+//                $(this).parent().hide();
+//                $('.bg').removeClass('blur');
+//                $('body').css('overflow','auto');
+//                    }
+//            )
+//        });
     </script>
 @stop
