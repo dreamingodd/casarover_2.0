@@ -95,4 +95,26 @@ class WxCasaController extends BaseController
         WxCasa::onlyTrashed()->find($id)->restore();
         return redirect('/back/wx/trash/1');
     }
+
+    public function testModeChange($id, $test) {
+        $casa = WxCasa::find($id);
+        $casa->test = $test;
+        $casa->save();
+        return redirect('/back/wx');
+    }
+
+    public function setTest($id) {
+        $casa = WxCasa::find($id);
+        $casa->test = 1;
+        $casa->save();
+        return redirect('/back/wx');
+    }
+
+    public function unsetTest($id) {
+        $casa = WxCasa::find($id);
+        $casa->test = 0;
+        $casa->save();
+        return redirect('/back/wx');
+    }
+
 }

@@ -47,8 +47,13 @@
                     <li><a href="/back/wx/bind">商家管理</a></li>
                 </ul>
             </li>
-            <li role="presentation" class="system not_completed">
-                <a href="website/backstage/system.php">系统功能</a>
+            <li role="presentation" class="system">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                   aria-haspopup="true" aria-expanded="false">系统功能<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/back/system/wx/user">微信用户</a></li>
+                </ul>
             </li>
             <li role="presentation" class="logout">
                 <a href="/admin/logout">退出</a>
