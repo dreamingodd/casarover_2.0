@@ -95,4 +95,10 @@ class SiteController extends Controller
         $backurl = $type == 1? '/back/slide':'/back/areaslide';
         return redirect($backurl);
     }
+    
+    //关于我们页面
+    public function about()
+    {
+        return view('site.about');
+    }
 }

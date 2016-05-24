@@ -4,17 +4,6 @@
     <link rel="stylesheet" href="/assets/css/casa.css">
     @endsection
     @section('body')
-            <!-- 民宿大图  -->
-    {{--<div class="banner">--}}
-    {{--<div class="cover-photo">--}}
-    {{--<img src="{{ $casa->headImg }}" width="100%" alt="">--}}
-    {{--</div>--}}
-    {{--<div class="show-mess">--}}
-    {{--<!-- <div class="mark">浏览233</div> -->--}}
-    {{--<h1>{{ $casa->name }}</h1>--}}
-    {{--</div>--}}
-
-    {{--</div>--}}
             <!-- 民宿介绍内容 -->
     <div class="navtop">
         <h1>{{ $casa->name }}</h1>
@@ -23,11 +12,11 @@
     <article class="casa-article">
         <div class="article-main">
             @foreach($casa->contents as $content)
+                <h2>{{ $content->name }}</h2>
+                <p>{!! $content->text !!}</p>
                 @foreach($content->attachments as $photo)
                     <img src="{{ config('casarover.photo_folder').$photo->filepath }}" alt="" width="100%">
                 @endforeach
-                <h2>{{ $content->name }}</h2>
-                <p>{!! $content->text !!}</p>
             @endforeach
         </div>
     </article>
@@ -36,7 +25,7 @@
             <img src="{{ config('casarover.photo_folder').$casa->attachment->filepath }}" alt="{{ $casa->name }}"  width="100%" >
             <p>标签：
                 @foreach($casa->tags as $tag)
-                    <a href="">{{ $tag->name }}</a>
+                    <span>{{ $tag->name }}</span>
                 @endforeach
             </p>
         </div>
@@ -50,7 +39,11 @@
                         <img src="{{ config('casarover.photo_folder').$casa->attachment->filepath }}" width="100%" alt="{{ $casa->name }}">
                         <h3>{{ $casa->name }}</h3>
                         <p>标签：
-                            <span class="tip">{{ $casa->tip }}</span>
+                            @foreach($casa->tags as $key=>$tag)
+                                @if($key<3)
+                                    <span class="tip">{{ $tag->name }}</span>
+                                @endif
+                            @endforeach
                         </p>
                     </a>
                 </div>
@@ -58,8 +51,8 @@
         </section>
     </div>
     {{--<div class="casa-map">--}}
-        {{--<!-- 地图api显示位置 -->--}}
-        {{--<div id="allmap"></div>--}}
+    {{--<!-- 地图api显示位置 -->--}}
+    {{--<div id="allmap"></div>--}}
     {{--</div>--}}
     <script>
         //BR首行缩进

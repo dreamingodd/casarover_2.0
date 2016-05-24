@@ -19,7 +19,7 @@ $(document).ready(function(){
             getOrder(page){
                 $('.pagination li').removeClass('active');
                 $('.pagination li:eq('+(page-1)+')').addClass('active');
-                $.getJSON('/api/wxorder/list/?page='+page, (data)=> {
+                $.getJSON('/back/api/wxorder/list/?page='+page, (data)=> {
                     this.orders = data.data.data;
                     this.pageArr(data.data.last_page);
                 });
@@ -32,7 +32,7 @@ $(document).ready(function(){
                 this.pages = allpages;
             },
             del(orderId){
-                $.ajax('/api/wxorder/del', {
+                $.ajax('/back/api/wxorder/del', {
                     type: 'post',
                     data: {
                         id:orderId

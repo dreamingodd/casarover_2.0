@@ -47,8 +47,9 @@
                     <li><a href="/back/wx/bind">商家管理</a></li>
                 </ul>
             </li>
-            <li role="presentation" class="system not_completed">
-                <a href="website/backstage/system.php">系统功能</a>
+            <li role="presentation" class="shareactiv">
+<!--                <a href="website/backstage/system.php">系统功能</a>-->
+                <a href="/back/shareactiv">活动</a>
             </li>
             <li role="presentation" class="logout">
                 <a href="/admin/logout">退出</a>

@@ -13,7 +13,7 @@ class AreaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return page
      */
     public function index()
     {
@@ -22,10 +22,10 @@ class AreaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the area message by area id.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return page
      */
     public function show(Request $request,$id)
     {
@@ -75,7 +75,7 @@ class AreaController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return redirect page
      * 区域的简介是没有图片的所以先进行存储
      * 之后的攻略和head-img进行绑定
      * 下面的景点介绍是一张图片一个content相应的进行绑定
@@ -112,7 +112,7 @@ class AreaController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return the index page
      */
     public function destroy($id)
     {

@@ -84,7 +84,11 @@
                         <h3>@{{ casa.name }}</h3>
                         {{--<p>地址：西湖区灵隐支路白乐桥246号</p>--}}
                         <p>标签：
-                            <span class="tip">@{{ casa.tip }}</span>
+                            <template v-for="tag in casa.tags" v-cloak>
+                                <template v-if="$index < 3">
+                                    <span class="tip">@{{ tag.name }}</span>
+                                </template>
+                            </template>
                         </p>
                     </a>
                 </div>
