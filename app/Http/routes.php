@@ -78,6 +78,9 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('shareactiv','ActivityController@selcasas');
     Route::get('api/eighteen/add/{id}','ActivityController@add');
     Route::get('api/eighteen/del/{id}','ActivityController@del');
+    Route::get('system/wx/user','Wx\WxUserController@showList');
+    Route::get('system/wx/user/test/register/{id}','Wx\WxUserController@registerTester');
+    Route::get('system/wx/user/test/unregister/{id}','Wx\WxUserController@unregisterTester');
 });
 
 /**
@@ -120,12 +123,30 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/order/detail/{id}', 'Wx\WxOrderController@show');
     Route::post('/order/create', 'Wx\WxOrderController@create');
     Route::get('/pay/wxorder/{id}', 'Wx\WxPayController@prepare');
-    // Merchnat entry
+    // Merchant entry
     Route::get('/bind', 'Wx\WxBindController@index');
     Route::post('/bind/apply', 'Wx\WxBindController@apply');
     Route::get('/consume/{id}', 'Wx\WxOrderController@consume');
     Route::get('/consume_cancel/{id}', 'Wx\WxOrderController@cancelConsume');
     Route::get('/logout', 'Wx\WxSiteController@logout');
+});
+    // vote activity
+Route::group(['prefix' => 'activity'],function () {
+    Route::get('/', function(){
+        return view('activity.index');
+    });
+    Route::get('/casa', function(){
+        return view('activity.casa');
+    });
+    Route::get('/person', function(){
+        return view('activity.person');
+    });
+    Route::get('/rank', function(){
+        return view('activity.rank');
+    });
+    Route::get('/datesleep', function(){
+        return view('activity.datesleep');
+    });
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
@@ -145,6 +166,8 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],funct
     Route::get('bind/delete/{id}', 'Wx\WxBindController@delete');
     Route::get('bind/restore/{id}', 'Wx\WxBindController@restore');
     Route::get('bind/{bindId}/{casaId}', 'Wx\WxBindController@bind');
+    Route::get('casa/test/set/{id}', 'Wx\WxCasaController@setTest');
+    Route::get('casa/test/unset/{id}', 'Wx\WxCasaController@unsetTest');
 });
 
 /** Routes for mobile phone. */

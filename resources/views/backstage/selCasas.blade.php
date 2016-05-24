@@ -4,7 +4,6 @@
     <script src="/assets/js/eighteen.js"></script>
 @stop
 @section('body')
-    <input type="hidden" id="page" value="shareactiv">
     <div class="col-md-4" style="margin: 10px">
         <input type="text" id="select-casa" class="form-control disabled" data-toggle="modal"
                data-target="#casaSelectModal" readonly value="选择民宿">
