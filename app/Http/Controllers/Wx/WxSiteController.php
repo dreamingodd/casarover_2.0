@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Wx;
 use App\Entity\Wx\WxScoreActivity;
 use App\Entity\Wx\WxScoreVariation;
 use DB;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Mockery\CountValidator\Exception;
 use Session;
@@ -66,7 +67,11 @@ class WxSiteController extends Controller
     {
         $wxCasa = WxCasa::find($id);
         $wxUser = WxUser::find(Session::get('wx_user_id'));
-        return view('wx.wxOrder', compact('wxCasa', 'wxUser'));
+        $date = new Carbon();
+        // 下个月末
+        $date->setDate($date->year, $date->month + 2, 0);
+        $endDate = $date->format("Y年m月d日");
+        return view('wx.wxOrder', compact('wxCasa', 'wxUser', 'endDate'));
     }
 
     //积分详情页面
