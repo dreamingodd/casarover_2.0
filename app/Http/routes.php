@@ -79,6 +79,9 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
     Route::get('areaslide','SiteController@areaSlide');
+    Route::get('system/wx/user','Wx\WxUserController@showList');
+    Route::get('system/wx/user/test/register/{id}','Wx\WxUserController@registerTester');
+    Route::get('system/wx/user/test/unregister/{id}','Wx\WxUserController@unregisterTester');
 });
 
 /**
@@ -166,6 +169,8 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],funct
     Route::get('bind/delete/{id}', 'Wx\WxBindController@delete');
     Route::get('bind/restore/{id}', 'Wx\WxBindController@restore');
     Route::get('bind/{bindId}/{casaId}', 'Wx\WxBindController@bind');
+    Route::get('casa/test/set/{id}', 'Wx\WxCasaController@setTest');
+    Route::get('casa/test/unset/{id}', 'Wx\WxCasaController@unsetTest');
 });
 
 /** Routes for mobile phone. */

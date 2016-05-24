@@ -18,13 +18,25 @@ use Log;
 
 class WxSiteController extends Controller
 {
+    /**
+     * Collect normal casas and test casas.
+     * Will show test casas if the user is a test user.
+     */
     public function index()
     {
-        $wxCasas = WxCasa::orderBy('id', 'desc')->get();
+        $wxCasas = WxCasa::where('test', 0)->orderBy('id', 'desc')->get();
         foreach ($wxCasas as $casa) {
             $this->convertToViewCasa($casa);
         }
-        return view('wx.wxIndex', compact('wxCasas'));
+        $user = WxUser::find(Session::get('wx_user_id'));
+        $testWxCasas = array();
+        if ($user->test) {
+            $testWxCasas = WxCasa::where('test', 1)->orderBy('id', 'desc')->get();
+            foreach ($testWxCasas as $casa) {
+                $this->convertToViewCasa($casa);
+            }
+        }
+        return view('wx.wxIndex', compact('wxCasas', 'testWxCasas'));
     }
 
     public function casa($id)

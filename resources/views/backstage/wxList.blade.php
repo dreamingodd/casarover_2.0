@@ -63,6 +63,15 @@ $(function(){
                         <a href='/back/wx/room/{{$casa->id}}'>
                             <button type="button" class="btn btn-xs btn-info">编辑房间</button>
                         </a>
+                        @if ($casa->test)
+                            <a href='/back/wx/casa/test/unset/{{$casa->id}}'>
+                                <button type="button" class="btn btn-xs btn-warning">恢复</button>
+                            </a>
+                        @else
+                            <a href='/back/wx/casa/test/set/{{$casa->id}}'>
+                                <button type="button" class="btn btn-xs btn-info">测试</button>
+                            </a>
+                        @endif
                         <a href='/back/wx/casa/del/{{$casa->id}}'>
                             <button type="button" class="btn btn-xs btn-danger">删除</button>
                         </a>

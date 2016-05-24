@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class WxUser extends Model
 {
+    const TEST_USER_NO = 0;
+    const TEST_USER_YES = 1;
     const MALE = 1;
     const FEMALE = 2;
     protected $table = "wx_user";

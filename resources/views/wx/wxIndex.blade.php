@@ -29,6 +29,21 @@
         -->
         <div class="tab-content">
             <div class="tab-pane active" id="hot">
+                @foreach($testWxCasas as $casa)
+                    @if (count($casa->wxRooms) > 0 && !empty($casa->thumbnail))
+                        <div class="case">
+                            <div class="image">
+                                <a href="/wx/casa/{{$casa->id}}">
+                                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}"
+                                            alt="">
+                                </a>
+                                <span>¥{{$casa->cheapestPrice}}元起</span>
+                            </div>
+                            <p>{{$casa->name or ""}}</p>
+                            <em>{{$casa->brief or ""}}</em>
+                        </div>
+                    @endif
+                @endforeach
                 @foreach($wxCasas as $casa)
                     @if (count($casa->wxRooms) > 0 && !empty($casa->thumbnail))
                         <div class="case">
