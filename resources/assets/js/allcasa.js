@@ -25,11 +25,12 @@ $(function ($)
     });
 });
 window.onload=function() {
+    $("#toTop").hide();
     $(window).scroll(function() {
-        if($(this).scrollTop()<=100){
+        if($(this).scrollTop()<=200){
             $("#toTop").hide();
         }
-        if($(this).scrollTop()!=0){
+        else{
             $("#toTop").show();
         }
         var screenT = $(window).scrollTop();

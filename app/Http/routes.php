@@ -135,6 +135,18 @@ Route::group(['prefix' => 'activity'],function () {
     Route::get('/', function(){
         return view('activity.index');
     });
+    Route::get('/casa', function(){
+        return view('activity.casa');
+    });
+    Route::get('/person', function(){
+        return view('activity.person');
+    });
+    Route::get('/rank', function(){
+        return view('activity.rank');
+    });
+    Route::get('/datesleep', function(){
+        return view('activity.datesleep');
+    });
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');
