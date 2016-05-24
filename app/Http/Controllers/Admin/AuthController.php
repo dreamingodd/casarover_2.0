@@ -73,4 +73,9 @@ class AuthController extends Controller
         return redirect('/admin/wait');
     }
 
+    public function wait()
+    {
+        return view('admin.wait');
+    }
+
 }

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('test',function(){
-//    return view('wx.a');
-});
+
 Route::get('/', 'SiteController@index');
 Route::get('/area/{id}' , 'AreaController@show');
 Route::get('/casa/{id}' , 'CasaController@casaInfo');
@@ -22,10 +20,9 @@ Route::get('/allcasa/{id?}','CasaController@allcasa');
 Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
 Route::get('/oss/signature', 'OssController@execute');
 Route::get('/theme/{id}','ThemeController@show');
-Route::get('/about', function(){
-    return view('site.about');
-});
+Route::get('/about','SiteController@about');
 
+//admin user
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
     Route::get('admin/login', 'Admin\AuthController@getLogin');
@@ -33,13 +30,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('admin/logout','Admin\AuthController@logout');
     Route::get('admin/register', 'Admin\AuthController@getRegister');
     Route::post('admin/register', 'Admin\AuthController@postRegister');
-    Route::get('admin/wait',function(){
-        return view('admin.wait');
-    });
+    Route::get('admin/wait','Admin\AuthController@wait');
 });
 
 Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], function () {
-
     Route::get('/', 'SiteController@slide');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
@@ -79,6 +73,11 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
     Route::get('areaslide','SiteController@areaSlide');
+    Route::get('api/wxorder/list/{page?}/{type?}','Wx\WxOrderController@orderlist');
+    Route::post('api/wxorder/del/','Wx\WxOrderController@del');
+    Route::get('shareactiv','ActivityController@selcasas');
+    Route::get('api/eighteen/add/{id}','ActivityController@add');
+    Route::get('api/eighteen/del/{id}','ActivityController@del');
     Route::get('system/wx/user','Wx\WxUserController@showList');
     Route::get('system/wx/user/test/register/{id}','Wx\WxUserController@registerTester');
     Route::get('system/wx/user/test/unregister/{id}','Wx\WxUserController@unregisterTester');
@@ -100,10 +99,8 @@ Route::group(['prefix' => 'api'], function () {
     //民宿大全
     Route::get('areas/{id?}','Api\AllCasaController@getAreasByCityId');
     Route::get('casas/city/{id?}/areas/{areas?}','Api\AllCasaController@getCasas');
-    // api需要做拆分 有些是要做验证的
-    Route::get('wxorder/list/{page?}/{type?}','Wx\WxOrderController@orderlist');
-    Route::post('/wxorder/del/','Wx\WxOrderController@del');
-    // Route::get('wxorder/changetype/{orderId}/{type?}','Wx\WxOrderController@editStatus');
+    //民宿分享活动
+    Route::get('/eighteen/','ActivityController@index');
 });
 
 /**
@@ -185,3 +182,4 @@ Route::group(['prefix' => 'mobile'],function () {
     Route::get('/allcasa/{id?}','CasaController@allcasa');
     Route::get('/theme/{id}','ThemeController@show');
 });
+
