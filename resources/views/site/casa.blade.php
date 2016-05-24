@@ -2,8 +2,8 @@
 @section('title',$casa->name)
 @section('head')
     <link rel="stylesheet" href="/assets/css/casa.css">
-    @endsection
-    @section('body')
+@endsection
+@section('body')
             <!-- 民宿大图  -->
     {{--<div class="banner">--}}
     {{--<div class="cover-photo">--}}

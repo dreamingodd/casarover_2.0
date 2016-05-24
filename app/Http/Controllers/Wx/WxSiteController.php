@@ -43,18 +43,11 @@ class WxSiteController extends Controller
         if (!empty($wxUser->wxMembership->id)) {
             $accumulatedScore = $wxUser->wxMembership->accumulated_score;
             $percent = $accumulatedScore
-<<<<<<< HEAD
                     / WxMembership::getLevelDetail($wxUser->wxMembership->level + 1)['score']
                     * 100;
             $levelStr = WxMembership::getLevelDetail($wxUser->wxMembership->level)['name'];
         }
-        return view('wx.wxUser', compact('orders', 'wxUser','percent', 'levelStr'));
-=======
-                / WxMembership::getLevelDetail($wxUser->wxMembership->level + 1)['score']
-                * 100;
-        }
-        return view('wx.wxUser', compact('orders', 'wxUser','percent','tips'));
->>>>>>> d97d917671f9eb765a3f333df6b0e12a08a97d05
+        return view('wx.wxUser', compact('orders', 'wxUser','percent', 'levelStr','tips'));
     }
 
     public function order($id)
