@@ -3,10 +3,11 @@ $(document).ready(function(){
         el: '#app',
         data: function () {
             return {
-                points:null,
+                points:[],
                 userid:null,
                 page:1,
-                more:null
+                more:null,
+                point:null
             };
         },
         ready:function(){
@@ -18,9 +19,23 @@ $(document).ready(function(){
             getlist (page){
                 $.getJSON('/wx/api/scorevariation/'+this.userid+'?page='+page, (data) => {
                     this.points = data.data;
-                    if(data.prev_page_url){
+                    if(data.next_page_url){
                         this.more = 1;
                         this.page = 2;
+                    }
+                })
+            },
+            nextpage(page){
+                $.getJSON('/wx/api/scorevariation/'+this.userid+'?page='+page, (data) => {
+                    for(var i=0; i<data.data.length;i++ ){
+                        this.point = data.data[i];
+                        this.points.push(this.point);
+                        this.point = null;
+                    }
+                    if(data.next_page_url){
+                        this.page ++;
+                    }else{
+                        this.more = null;
                     }
                 })
             }

@@ -1,0 +1,1 @@
+$(document).ready(function(){new Vue({el:"#area-form",data:function(){return{casas:null}},created:function(){},methods:{sed:function(n){var t=($(".head-img input").val(),"");$(".oss_hidden_input input").each(function(){t+=$(this).val()+";"}),$("#photos").val(t)}}})});

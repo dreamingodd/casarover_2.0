@@ -2,9 +2,8 @@
 @section('title',$casa->name)
 @section('head')
     <link rel="stylesheet" href="/assets/css/casa.css">
-    @endsection
-    @section('body')
-            <!-- 民宿介绍内容 -->
+@endsection
+@section('body')
     <div class="navtop">
         <h1>{{ $casa->name }}</h1>
         <p><a href="/">首页</a> > <a href="/allcasa/{{ $city->id }}">{{ $city->value }}</a> > <a href=""><span>{{ $casa->name }}</span></a></p>
@@ -30,6 +29,7 @@
             </p>
         </div>
     </div>
+
     <div class="casa-mess" id="others">
         <section>
             <h2>猜你喜欢</h2>
@@ -50,10 +50,6 @@
             @endforeach
         </section>
     </div>
-    {{--<div class="casa-map">--}}
-    {{--<!-- 地图api显示位置 -->--}}
-    {{--<div id="allmap"></div>--}}
-    {{--</div>--}}
     <script>
         //BR首行缩进
         $(function ($) {

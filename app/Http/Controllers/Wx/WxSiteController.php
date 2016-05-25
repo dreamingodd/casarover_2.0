@@ -55,8 +55,8 @@ class WxSiteController extends Controller
         if (!empty($wxUser->wxMembership->id)) {
             $accumulatedScore = $wxUser->wxMembership->accumulated_score;
             $percent = $accumulatedScore
-                    / WxMembership::getLevelDetail($wxUser->wxMembership->level + 1)['score']
-                    * 100;
+                / WxMembership::getLevelDetail($wxUser->wxMembership->level + 1)['score']
+                * 100;
             $levelStr = WxMembership::getLevelDetail($wxUser->wxMembership->level)['name'];
         }
         return view('wx.wxUser', compact('orders', 'wxUser','percent', 'levelStr','tips'));
@@ -80,7 +80,7 @@ class WxSiteController extends Controller
     public function scoreVariationJson($wx_user_id)
     {
         $user = WxUser::find($wx_user_id);
-        $scores = $user->wxScoreVariation()->simplePaginate(15);
+        $scores = $user->wxScoreVariation()->orderBy('id','desc')->simplePaginate(15);
         foreach($scores as $score)
         {
             $score->money = $score->score;
@@ -120,26 +120,19 @@ class WxSiteController extends Controller
         $wxMember = WxUser::find(Session::get('wx_user_id'))->wxMembership;
         if(!$wxMember)
         {
-            DB::beginTransaction();
-            try {
-                $user =WxMembership::create([
-                    'wx_user_id' => Session::get('wx_user_id'),
-                    'level' => 0,
-                    'score' => 0,
-                    'accumulated_score' => 0
-                ]);
-                $this->createWxScoreVariation($user->id,0,'注册',WxScoreVariation::TYPE_ACTIVITY,200);
-                $this->changeWxMembershipScore(200);
-                DB::commit();
-            } catch (Exception $e) {
-                DB::rollBack();
-                Log::error($e);
-                return '我也不知道为什么，就是出错了';
-            }
+            $user =WxMembership::create([
+                'wx_user_id' => Session::get('wx_user_id'),
+                'level' => 0,
+                'score' => 0,
+                'accumulated_score' => 0
+            ]);
+            $this->createWxScoreVariation($user->id,0,'注册',WxScoreVariation::TYPE_ACTIVITY,200);
+            $this->changeWxMembershipScore(200);
 
         }
         $activId = 1;
-        $hasscan = WxScoreVariation::where('wx_score_activity_id', $activId)->get()->first();
+        $user = WxUser::find(Session::get('wx_user_id'));
+        $hasscan = $user->wxScoreVariation()->where('wx_score_activity_id', $activId)->get()->first();
         if(!$hasscan)
         {
             $activ = WxScoreActivity::find($activId);

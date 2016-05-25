@@ -1,0 +1,1 @@
+$(document).ready(function(){new Vue({el:"#app",data:function(){return{points:null,userid:null,page:1,more:null}},ready:function(){var t=$("#id").val();this.userid=t,this.getlist(1)},methods:{getlist:function(t){var e=this;$.getJSON("/wx/api/scorevariation/"+this.userid+"?page="+t,function(t){e.points=t.data,t.next_page_url&&(e.more=1,e.page=2)})}}})});

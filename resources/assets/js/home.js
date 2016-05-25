@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
     $('.flexslider').flexslider({
         directionNav: true,
         pauseOnAction: false
@@ -9,7 +10,7 @@ $(document).ready(function(){
     $('.search-input input').blur(()=>{
         $('.search-place').css('display','none');
     });
-    Vue.component('card',{   //这里就是注册的内容
+    Vue.component('card',{
         template : '#card',
         props : ['casa']
     });
@@ -69,7 +70,6 @@ $(document).ready(function(){
                     $(this).removeClass('active');
                     if(clickdom == event){
                         $(this).addClass('active');
-
                     }
                 });
             },
