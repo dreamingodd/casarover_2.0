@@ -24,6 +24,6 @@
                     等，同时临安山核桃也久负盛名。</p>
             </div>
         </div>
-        <div class="button"><a href="">约睡</a></div>
+        <div class="button"><a href="datesleep">约睡</a></div>
     </div>
 @stop
