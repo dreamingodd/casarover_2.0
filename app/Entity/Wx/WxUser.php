@@ -30,7 +30,8 @@ class WxUser extends Model
     {
         return $this->hasMany('App\Entity\Wx\WxBind');
     }
-    public function wxMembership() {
+    public function wxMembership()
+    {
         return $this->hasOne('App\Entity\Wx\WxMembership');
     }
 
