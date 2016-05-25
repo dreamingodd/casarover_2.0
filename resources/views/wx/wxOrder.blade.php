@@ -25,7 +25,7 @@
                     <a class="add glyphicon glyphicon-plus"></a>
                 </div>
                 <p>
-                    入住时间截止6月30日
+                    入住时间截止{{$endDate}}
                     <!-- {{-- @if($room->wxRoomDates!='[]')
                     可入住时间：
                         @foreach ($room->wxRoomDates as $date)

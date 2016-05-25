@@ -182,4 +182,3 @@ Route::group(['prefix' => 'mobile'],function () {
     Route::get('/allcasa/{id?}','CasaController@allcasa');
     Route::get('/theme/{id}','ThemeController@show');
 });
-

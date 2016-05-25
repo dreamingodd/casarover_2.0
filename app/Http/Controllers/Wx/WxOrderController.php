@@ -241,7 +241,7 @@ class WxOrderController extends Controller
             $order->save();
             $wms = WxMembership::where("wx_user_id", Session::get('wx_user_id'))->get()->first();
             if ($wms) {
-                $wsv = WxScoreVariation::where('wx_order_id', $order->id)->where('score', '>', 0)->get()->first();
+                $wsv = WxScoreVariation::where('wx_order_id', $order->id)->where('score', '>=', 0)->get()->first();
                 $this->updateMembership($wms, - $wsv->score);
                 $wsv->delete();
             }

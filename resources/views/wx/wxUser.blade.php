@@ -66,8 +66,10 @@
                 <p>1.会员分普通会员（所有用户均为普通会员） 黄金会员（扫描名片后方二维码即可获得金卡会员身份）白金会员三种。</p>
                 <p>2.会员上升方式普通会员累计2000积分可升级为黄金会员，黄金会员累计5000积分可升级为白金会员。</p>
                 <p>3.普通会员积分累计比例为20%（消费1000元得200积分），黄金会员为40%（消费1000元得400积分），白金会员为50%（消费1000元得500积分）。</p>
+                <!--
                 <p>4.每周二会员住宿日，周二入住可获得双倍积分累计，普通及金卡会员双倍积分累计，最高50%的积分累计（消费1000元得500积分）；白金会员获得免费升房一次（机会不可累积）</p>
                 <p>5.特价房，折扣房可累计积分，但不可通过积分兑换</p>
+                -->
             </div>
         </div>
         <div id='info' class="maincon">
@@ -93,72 +95,72 @@
                     @if ($order->pay_status == 0)
                         @if (empty($order->wxCasa->name))
                             <a href="#" onclick="javascript:alert('民宿已下架，不再提供付款！')">
-                                @else
-                                    <a href="/wx/pay/wxorder/{{$order->id}}">
-                                        @endif
-                                        @else
-                                            <a href="/wx/order/detail/{{$order->id}}">
-                                                @endif
-                                                <div class="case clear">
-                                                    <div class="casecon clear">
-                                                        <div class="images">
-                                                            @if (empty($order->wxCasa->name))
-                                                                <p>该民宿已下架</p>
-                                                            @else
-                                                                <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$order->wxCasa->thumbnail()}}"/>
-                                                            @endif
-                                                            <p>{{$order->casa_name}}</p>
-                                                        </div>
-                                                        <div class="info">
-                                                            <p>订单号</p>
-                                                            <p id="orange">{{$order->order_id}}</p>
-                                                            <p>下单时间</p>
-                                                            <p id="orange">{{$order->created_at}}</p>
-                                                        </div>
-                                                        <div class="bill">
-                                                            <p>价格</p>
-                                                            <p id="orange">{{$order->total}}元</p>
-                                                        </div>
-                                                        <div class="state">
-                                                            <p>状态</p>
-                                                            @if ($order->pay_status == 0)
-                                                                <p>未付款</p>
-                                                            @elseif ($order->pay_status == 1)
-                                                                <p>已付款</p>
-                                                            @elseif ($order->pay_status == 2)
-                                                                <p>正在退款</p>
-                                                            @elseif ($order->pay_status == 3)
-                                                                <p>已退款</p>
-                                                            @else
-                                                                <p>未确认</p>
-                                                            @endif
+        @else
+            <a href="/wx/pay/wxorder/{{$order->id}}">
+                @endif
+                @else
+                    <a href="/wx/order/detail/{{$order->id}}">
+                        @endif
+                        <div class="case clear">
+                            <div class="casecon clear">
+                                <div class="images">
+                                    @if (empty($order->wxCasa->name))
+                                        <p>该民宿已下架</p>
+                                    @else
+                                        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$order->wxCasa->thumbnail()}}"/>
+                                    @endif
+                                    <p>{{$order->casa_name}}</p>
+                                </div>
+                                <div class="info">
+                                    <p>订单号</p>
+                                    <p id="orange">{{$order->order_id}}</p>
+                                    <p>下单时间</p>
+                                    <p id="orange">{{$order->created_at}}</p>
+                                </div>
+                                <div class="bill">
+                                    <p>价格</p>
+                                    <p id="orange">{{$order->total}}元</p>
+                                </div>
+                                <div class="state">
+                                    <p>状态</p>
+                                    @if ($order->pay_status == 0)
+                                        <p>未付款</p>
+                                    @elseif ($order->pay_status == 1)
+                                        <p>已付款</p>
+                                    @elseif ($order->pay_status == 2)
+                                        <p>正在退款</p>
+                                    @elseif ($order->pay_status == 3)
+                                        <p>已退款</p>
+                                    @else
+                                        <p>未确认</p>
+                                    @endif
 
-                                                            @if ($order->reserve_status == 0)
-                                                                <p>未预约</p>
-                                                            @elseif ($order->reserve_status == 1)
-                                                                <p>已预约</p>
-                                                            @elseif ($order->reserve_status == 1)
-                                                                <p>预约失败</p>
-                                                            @endif
+                                    @if ($order->reserve_status == 0)
+                                        <p>未预约</p>
+                                    @elseif ($order->reserve_status == 1)
+                                        <p>已预约</p>
+                                    @elseif ($order->reserve_status == 1)
+                                        <p>预约失败</p>
+                                    @endif
 
-                                                            @if ($order->consume_status == 0)
-                                                                <p>未消费</p>
-                                                            @elseif ($order->consume_status == 1)
-                                                                <p>已完成</p>
-                                                            @elseif ($order->consume_status == 2)
-                                                                <p>已过期</p>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                    <div class="date">
-                                                        @if ($order->reserve_status == 1)
-                                                            <p>预约日期:</p>
-                                                            <p>{{$order->reserve_time}}</p>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </a>
-                            @endforeach
+                                    @if ($order->consume_status == 0)
+                                        <p>未消费</p>
+                                    @elseif ($order->consume_status == 1)
+                                        <p>已完成</p>
+                                    @elseif ($order->consume_status == 2)
+                                        <p>已过期</p>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="date">
+                                @if ($order->reserve_status == 1)
+                                    <p>预约日期:</p>
+                                    <p>{{$order->reserve_time}}</p>
+                                @endif
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
             </div>
         </div>
     </div>

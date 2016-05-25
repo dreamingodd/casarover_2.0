@@ -1,0 +1,1 @@
+$(function(){$("#submitBtn").click(function(){var e=$("#personName").val(),l=$("#cellphone").val(),a=$("#casaName").val();return e?isCellphoneNumber(l)?a?void $("#bindApplyForm").submit():void alert("请输入民宿名称！"):void alert("请输入正确的手机号码！"):void alert("请输入姓名！")})});

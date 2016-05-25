@@ -14,12 +14,11 @@
         if($ua != '' && preg_match($uachar, $ua)){
             echo 'location.href="/mobile/home";';
         }
-
         ?>
     </script>
-    @endsection
-    @section('body')
-            <!-- slider -->
+@endsection
+@section('body')
+    <!-- slider -->
     <div class="flexslider">
         <ul class="slides">
             @foreach($casas as $casa)
@@ -54,7 +53,7 @@
     {{--<!-- end 搜索框 -->--}}
     <div class="container" id="app">
         @if(config('casarover.toggle_recom'))
-                <!-- 民宿推荐 -->
+        <!-- 民宿推荐 -->
         <section id="recom">
             <h2>民宿推荐</h2>
             <div class="line"></div>
@@ -78,7 +77,7 @@
             <a href="/allcasa/@{{ city }}" class="city-casa">更多»</a>
         </section>
         @endif
-                <!-- 精选主题 -->
+        <!-- 精选主题 -->
         @if(config('casarover.toggle_theme'))
             <section id="theme" >
                 <h2>精选主题</h2>
@@ -87,17 +86,17 @@
                     <card :casa="theme"></card>
                 </template>
             </section>
-            @endif
-                    <!-- 探庐系列 -->
-            @if(config('casarover.toggle_series'))
-                <section id="series">
-                    <h2>探庐系列</h2>
-                    <div class="line"></div>
-                    <template v-for="serie in series">
-                        <card :casa="serie"></card>
-                    </template>
-                </section>
-            @endif
+        @endif
+        <!-- 探庐系列 -->
+        @if(config('casarover.toggle_series'))
+            <section id="series">
+                <h2>探庐系列</h2>
+                <div class="line"></div>
+                <template v-for="serie in series">
+                    <card :casa="serie"></card>
+                </template>
+            </section>
+        @endif
     </div>
     <script src="/assets/js/home.js" type="text/javascript"></script>
     {{--vue的模板--}}
