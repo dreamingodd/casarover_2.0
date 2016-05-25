@@ -60,6 +60,33 @@ trait WxTools
             return $jsonObj;
         }
 
+        public static function getBaseAccessToken($appid, $appsecret) {
+            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
+                    . "$appid&secret=$appsecret";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+            $res = curl_exec($ch);
+            curl_close($ch);
+            $jsonObj = json_decode($res, true);
+            return $jsonObj;
+        }
+
+        public static function getSubscribeInfo($baseToken, $openid) {
+            $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$baseToken&openid=$openid";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+            $res = curl_exec($ch);
+            curl_close($ch);
+            $jsonObj = json_decode($res, true);
+            return $jsonObj;
+        }
+
         public static function getUser()
         {
             $openid = Session::get('openid');
