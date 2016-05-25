@@ -201,7 +201,7 @@ class WxOrderController extends Controller
                     return '<p style="font-size:40px;">此订单已消费过！</p>';
                 } else {
                     // Consumer's membership.
-                    $wms = WxUser::find($order->wx_user_id)->wxMembership();
+                    $wms = WxUser::find($order->wx_user_id)->wxMembership;
                     if ($wms) {
                         DB::beginTransaction();
                         try {
