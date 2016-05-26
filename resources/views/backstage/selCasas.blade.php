@@ -32,7 +32,7 @@
                             @{{ wxcasa.name }}
                         </th>
                         <th>
-                            <button class="btn btn-danger" v-on:click="del(wxcasa.id)">删除</button>
+                            <button class="btn btn-xs btn-danger" v-on:click="del(wxcasa.id)">删除</button>
                         </th>
                     </tr>
                 </template>

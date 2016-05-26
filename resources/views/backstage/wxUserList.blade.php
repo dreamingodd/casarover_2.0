@@ -15,6 +15,7 @@
     </div>
     <table class="table table-hover">
         <tr>
+            <th>序号</th>
             <th>头像</th>
             <th>真实姓名</th>
             <th>微信名</th>
@@ -28,6 +29,7 @@
         @foreach ($users as $user)
             <tr>
                 <td>{{$number++}}</td>
+                <td><img src="{{$user->headimgurl}}" style="height:25px;"/></td>
                 <td>{{$user->realname}}</td>
                 <td>{{$user->nickname}}</td>
                 <td>{{$user->cellphone}}</td>
