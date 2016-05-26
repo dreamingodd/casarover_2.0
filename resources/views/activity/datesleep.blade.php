@@ -26,7 +26,7 @@
         </div>
         <div class="button">
             <a class="helpsleep">帮他约睡</a>
-            <a href="\activity">我也约</a>
+            <a href="\date">我也约</a>
             <a href="rank">排行</a>
         </div>
     </div>
@@ -35,7 +35,7 @@
             <img src="\assets\images\activity\user.jpg" alt="">
             <p>已成功帮助XXX向XXX
                 发起约睡。</p>
-            <a href="\activity">我也约</a>
+            <a href="\date">我也约</a>
         </div>
         <img src="\assets\images\activity\close.png" alt="" class="md-close">
     </div>
