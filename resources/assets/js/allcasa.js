@@ -8,7 +8,7 @@ $(function ($)
     //收起显示切换
     $('.show').click (function ()
     {
-        var value = $(this).find('a').html()=='显示全部'? '收起':'显示全部';
+        let value = $(this).find('a').html()=='显示全部'? '收起':'显示全部';
         $(this).find('a').html(value);
         $(this).prev().toggleClass('extend');
     });
@@ -105,47 +105,40 @@ window.onload=function() {
                 this.getCasas();
             },
             //获取区域信息产生联动
-            getareas:function(){
+            getareas(){
                 //清空上一次城市时点击的区域
                 this.checkareas=[];
-                vm = this;
-                vm.banner.pic = '';
-                $.getJSON('/api/areas/'+vm.city,function (data) {
-                    vm.areas = data;
+                this.banner.pic = '';
+                $.getJSON('/api/areas/'+this.city, (data)=> {
+                    this.areas = data;
                     this.getCasas();
-                }.bind(vm));
+                });
             },
-            getCasas:function(){
-                var vmcasas = this;
+            getCasas(){
                 $("#casa-list").css('display','none');
                 $(".no-more").css('display','none');
                 $(".loader").css('display','block');
-                var areas = vmcasas.checkareas.toString();
-                $.getJSON('/api/casas/city/'+vmcasas.city+'/areas/'+areas,function (data) {
-                    vmcasas.casas = data.data;
+                let areas = this.checkareas.toString();
+                $.getJSON('/api/casas/city/'+this.city+'/areas/'+areas, (data)=> {
+                    this.casas = data.data;
                     $(".loader").css('display','none');
                     $("#casa-list").css('display','block');
-                }.bind(vmcasas));
+                });
             },
-            nextpage:function(){
+            nextpage(){
                 if (!this.loading) {
-                    var vmcasa = this;
                     $(".loader").css('display','block');
-                    var areas = vmcasa.checkareas.toString();
-                    vmcasa.page++;
-                    $.getJSON('/api/casas/city/'+vmcasa.city+'/areas/'+areas+'?page='+vmcasa.page,function (data) {
+                    let areas = this.checkareas.toString();
+                    this.page++;
+                    $.getJSON('/api/casas/city/'+this.city+'/areas/'+areas+'?page='+this.page, (data)=> {
                         if(data.data.length == 0){
                             $(".no-more").css('display','block');
                         }
-                        for(var i=0; i<data.data.length;i++ ){
-                            vmcasa.casa = data.data[i];
-                            vmcasa.casas.push(vmcasa.casa);
-                            vmcasa.casa = null;
-                        }
+                        this.casas = [...this.casas,...data.data];
                         $(".loader").css('display','none');
-                        vmcasa.loading = false;
-                    }.bind(vmcasa));
-                    vmcasa.loading = true;
+                        this.loading = false;
+                    });
+                    this.loading = true;
                 }
             }
         }

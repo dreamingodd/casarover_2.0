@@ -150,7 +150,9 @@ class CasaController extends BaseController
             {
                 array_push($areaIds,$area->id);
             }
-            $casas = Casa::whereIn('dictionary_id',$areaIds)->get()->random(4);
+            $numbers = Casa::whereIn('dictionary_id',$areaIds)->where('deleted',0)->get();
+            $num = count($numbers) > 4? 4:count($numbers);
+            $casas = $num ==1?$numbers:$numbers->random($num);
             foreach($casas as $casa)
             {
                 if($casa->attachment)

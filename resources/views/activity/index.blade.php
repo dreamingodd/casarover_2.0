@@ -1,93 +1,43 @@
 @extends('activity')
-@section('title','活动主页')
+@section('title','约睡')
 @section('head')
     <link rel="stylesheet" href="/assets/css/activity.css">
 @stop
 @section('body')
-        <div class="banner">
-            <img src="/assets/images/activity/banner.png" alt="">
-        </div>
-        <div class="main clear">
-            <a href="activity/casa">
+    <div class="banner">
+        <img src="/assets/images/activity/banner.png" alt="">
+    </div>
+    <div class="main clear">
+        @foreach($data as $key=>$casa)
+            <a href="/wx/date/casa/{{ $casa->id }}">
                 <div class="case">
-                    <img src="/assets/images/cs.png" alt="">
-                    <span>1</span>
+                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}"
+                         alt="">
+                    <span>{{ $key+1 }}</span>
                     <img src="/assets/images/activity/mask.png" alt="" class="mask">
                     <div class="article">
-                        <h3>竹林之声-无界</h3>
+                        <h3>{{ $casa->name }}</h3>
                         <h4>想睡：1000人</h4>
                     </div>
                 </div>
             </a>
-            <div class="case">
-                <img src="/assets/images/cs.png" alt="">
-                <span>1</span>
-                <img src="/assets/images/activity/mask.png" alt="" class="mask">
-                <div class="article">
-                    <h3>竹林之声-无界</h3>
-                    <h4>想睡：1000人</h4>
-                </div>
-            </div>
-            <div class="case">
-                <img src="/assets/images/cs.png" alt="">
-                <span>1</span>
-                <img src="/assets/images/activity/mask.png" alt="" class="mask">
-                <div class="article">
-                    <h3>竹林之声-无界</h3>
-                    <h4>想睡：1000人</h4>
-                </div>
-            </div>
-            <div class="case">
-                <img src="/assets/images/cs.png" alt="">
-                <span>1</span>
-                <img src="/assets/images/activity/mask.png" alt="" class="mask">
-                <div class="article">
-                    <h3>竹林之声-无界</h3>
-                    <h4>想睡：1000人</h4>
-                </div>
-            </div>
-            <div class="case">
-                <img src="/assets/images/cs.png" alt="">
-                <span>1</span>
-                <img src="/assets/images/activity/mask.png" alt="" class="mask">
-                <div class="article">
-                    <h3>竹林之声-无界</h3>
-                    <h4>想睡：1000人</h4>
-                </div>
-            </div>
-            <div class="case">
-                <img src="/assets/images/cs.png" alt="">
-                <span>1</span>
-                <img src="/assets/images/activity/mask.png" alt="" class="mask">
-                <div class="article">
-                    <h3>竹林之声-无界</h3>
-                    <h4>想睡：1000人</h4>
-                </div>
-            </div><div class="case">
-                <img src="/assets/images/cs.png" alt="">
-                <span>1</span>
-                <img src="/assets/images/activity/mask.png" alt="" class="mask">
-                <div class="article">
-                    <h3>竹林之声-无界</h3>
-                    <h4>想睡：1000人</h4>
-                </div>
-            </div>
-        </div>
+        @endforeach
+    </div>
     <script>
-//        $(function () {
-//            $('.case').each(function(i){
-//            $(this).click(function () {
-//                $('.detail').eq(i).show();
-//                $('.bg').addClass('blur');
-//                $('body').css('overflow','hidden');
-//                });
-//            });
-//            $('.md-close').click(function () {
-//                $(this).parent().hide();
-//                $('.bg').removeClass('blur');
-//                $('body').css('overflow','auto');
-//                    }
-//            )
-//        });
+        //        $(function () {
+        //            $('.case').each(function(i){
+        //            $(this).click(function () {
+        //                $('.detail').eq(i).show();
+        //                $('.bg').addClass('blur');
+        //                $('body').css('overflow','hidden');
+        //                });
+        //            });
+        //            $('.md-close').click(function () {
+        //                $(this).parent().hide();
+        //                $('.bg').removeClass('blur');
+        //                $('body').css('overflow','auto');
+        //                    }
+        //            )
+        //        });
     </script>
 @stop
