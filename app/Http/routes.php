@@ -132,21 +132,11 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
 });
     // vote activity
 Route::group(['prefix' => 'activity'],function () {
-    Route::get('/', function(){
-        return view('activity.index');
-    });
-    Route::get('/casa', function(){
-        return view('activity.casa');
-    });
-    Route::get('/person', function(){
-        return view('activity.person');
-    });
-    Route::get('/rank', function(){
-        return view('activity.rank');
-    });
-    Route::get('/datesleep', function(){
-        return view('activity.datesleep');
-    });
+    Route::get('/', 'ActivityController@site');
+    Route::get('/casa/{id}', 'ActivityController@show');
+    Route::get('/person', 'ActivityController@person');
+    Route::get('/rank/{id?}', 'ActivityController@rank');
+    Route::get('/datesleep', 'ActivityController@datesleep');
 });
 Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],function () {
     Route::get('/', 'Wx\WxCasaController@showList');

@@ -15,9 +15,9 @@
 @yield('body')
 <footer>
     <ul>
-        <li><a href="#" ></a></li>
-        <li><a href="#" ></a></li>
-        <li><a href="#" ></a></li>
+        <li><a href="/activity" ></a></li>
+        <li><a href="/activity/person" ></a></li>
+        <li><a href="/activity/rank" ></a></li>
         <li><a href="#" ></a></li>
     </ul>
 </footer>

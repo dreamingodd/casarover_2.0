@@ -41,7 +41,7 @@ class AllCasaController extends Controller
                 {
                     array_push($areaIds,$area->id);
                 }
-                $casas = Casa::whereIn('dictionary_id',$areaIds)->simplePaginate(6);
+                $casas = Casa::whereIn('dictionary_id',$areaIds)->where('deleted',0)->simplePaginate(6);
                 $casas = $this->addField($casas);
             }
         }
@@ -49,7 +49,7 @@ class AllCasaController extends Controller
         {
             //if selected area show result by area id
             $areaIds = explode(',',$areas);
-            $casas = Casa::whereIn('dictionary_id',$areaIds)->simplePaginate(6);
+            $casas = Casa::whereIn('dictionary_id',$areaIds)->where('deleted',0)->simplePaginate(6);
             $casas = $this->addField($casas);
         }
         return response()->json($casas);
