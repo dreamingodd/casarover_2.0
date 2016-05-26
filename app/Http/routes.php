@@ -130,6 +130,12 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/consume_cancel/{id}', 'Wx\WxOrderController@cancelConsume');
     Route::get('/logout', 'Wx\WxSiteController@logout');
 });
+
+Route::group(['prefix' => 'wx/date', 'middleware' => ['web', 'wx.auth']],function () {
+    Route::get('/', function(){
+        return view('activity.index');
+    });
+});
     // vote activity
 Route::group(['prefix' => 'activity'],function () {
     Route::get('/', function(){
