@@ -9,7 +9,7 @@
     </div>
     <div class="main clear">
         @foreach($data as $key=>$casa)
-            <a href="/activity/casa/{{ $casa->id }}">
+            <a href="/wx/date/casa/{{ $casa->id }}">
                 <div class="case">
                     <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}"
                          alt="">

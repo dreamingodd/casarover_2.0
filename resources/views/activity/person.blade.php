@@ -1,7 +1,7 @@
 @extends('activity')
 @section('title','民宿信息')
 @section('head')
-    <link rel="stylesheet" href="/assets/css/activitydate.css">
+    <link rel="stylesheet" href="/assets/css/activityPerson.css">
 @stop
 @section('body')
     <div class="banner">

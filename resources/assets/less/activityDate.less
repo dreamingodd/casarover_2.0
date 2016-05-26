@@ -55,7 +55,7 @@ html,body{
   }
 }
 .button {
-  margin-top: 10rem;
+  margin-top: 6rem;
   text-align: center;
   a{
     margin: 1rem;
@@ -66,4 +66,47 @@ html,body{
     color: #000;
     border: 1px solid #000;
   }
+}
+.detail{
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top:0;
+  background: rgba(0,0,0,0.5);
+  .md-close{
+    position: absolute;
+    left: 50%;
+    margin-left: -5%;
+    width: 10%;
+    bottom: 12%;
+  }
+  .detailcon{
+    position: absolute;
+    width: 60%;
+    top: 20%;
+    left: 50%;
+    margin-left: -30%;
+    border-radius: 9rem 9rem 0 0;
+    background: #f0f0f0;
+    padding: 1rem;
+    padding-bottom: 3rem;
+    text-align: center;
+  }
+  img{
+    width: 80%;
+    border-radius:50% ;
+    margin-bottom: 2rem;
+  }
+  a{
+    margin: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+  }
+}
+.blur {
+  -webkit-filter: blur(3px);
 }

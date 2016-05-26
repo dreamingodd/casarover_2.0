@@ -2,11 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
-use Session;
-use Config;
-use App\Entity\Wx\WxUser;
 use App\Common\WxTools;
+use App\Entity\Wx\WxUser;
+use Closure;
+use Config;
+use Log;
+use Session;
 
 class WxAuth
 {
@@ -46,11 +47,9 @@ class WxAuth
                     $accessToken = $baseJson['access_token'];
                     $openid = $baseJson['openid'];
                     $user = WxUser::where('openid', $openid)->get()->first();
-                    if (empty($user)) {
-                        // The very first login.
-                        $userInfoJson = WxTools::getUserInfo($accessToken, $openid);
-                        $user = $this->saveWxUser($userInfoJson);
-                    }
+                    $userInfoJson = WxTools::getUserInfo($accessToken, $openid);
+                    Log::info($userInfoJson);
+                    $user = $this->saveWxUser($userInfoJson, $user);
                     Session::put('openid', $openid);
                     Session::put('wx_user_id', $user->id);
                     Session::save();
@@ -66,9 +65,12 @@ class WxAuth
         }
     }
 
-    private function saveWxUser($jsonUser)
+    private function saveWxUser($jsonUser, $user = null)
     {
-        $user = new WxUser();
+        if (empty($user)) {
+            // The very first login.
+            $user = new WxUser();
+        }
         $user->openid = $jsonUser['openid'];
         $user->nickname = $jsonUser['nickname'];
         $user->sex = $jsonUser['sex'];

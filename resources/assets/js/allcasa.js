@@ -134,11 +134,7 @@ window.onload=function() {
                         if(data.data.length == 0){
                             $(".no-more").css('display','block');
                         }
-                        for(var i=0; i<data.data.length;i++ ){
-                            this.casa = data.data[i];
-                            this.casas.push(this.casa);
-                            this.casa = null;
-                        }
+                        this.casas = [...this.casas,...data.data];
                         $(".loader").css('display','none');
                         this.loading = false;
                     });

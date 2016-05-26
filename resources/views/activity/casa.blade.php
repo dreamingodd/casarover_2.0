@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="button">
-            <a href="/activity/datesleep">约睡</a>
+            <a href="/wx/date/datesleep">约睡</a>
         </div>
     </div>
 @stop

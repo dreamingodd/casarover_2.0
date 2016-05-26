@@ -182,8 +182,8 @@ class WxOrderController extends Controller
     public function consume($orderId)
     {
             $userId = Session::get('wx_user_id');
+            // Merchant
             $user = WxUser::find($userId);
-            $wms = $user->wxMembership;
             $order = WxOrder::findOrFail($orderId);
             $isMerchant = false;
             if ($order->pay_status != WxOrder::PAY_STATUS_YES) {
@@ -200,6 +200,8 @@ class WxOrderController extends Controller
                 if ($order->consume_status == WxOrder::CONSUME_STATUS_YES) {
                     return '<p style="font-size:40px;">此订单已消费过！</p>';
                 } else {
+                    // Consumer's membership.
+                    $wms = WxUser::find($order->wx_user_id)->wxMembership;
                     if ($wms) {
                         DB::beginTransaction();
                         try {
@@ -241,7 +243,7 @@ class WxOrderController extends Controller
             $order->save();
             $wms = WxMembership::where("wx_user_id", Session::get('wx_user_id'))->get()->first();
             if ($wms) {
-                $wsv = WxScoreVariation::where('wx_order_id', $order->id)->where('score', '>', 0)->get()->first();
+                $wsv = WxScoreVariation::where('wx_order_id', $order->id)->where('score', '>=', 0)->get()->first();
                 $this->updateMembership($wms, - $wsv->score);
                 $wsv->delete();
             }
