@@ -12,7 +12,7 @@
             <a href="/wx/date/casa/{{ $casa->id }}">
                 <div class="case">
                     <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}"
-                         alt="">
+                         alt="" class="casecon">
                     <span>{{ $key+1 }}</span>
                     <img src="/assets/images/activity/mask.png" alt="" class="mask">
                     <div class="article">

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxCasa;
+use App\Entity\Wx\WxUser;
+use App\Entity\Wx\WxActivityCasa;
+use App\Entity\Wx\WxVote;
 use DB;
 
 class ActivityController extends Controller
@@ -41,9 +44,19 @@ class ActivityController extends Controller
         return view('activity.casa',compact('wxCasa'));
     }
 
-    public function person()
+    public function person($id=0)
     {
-        return view('activity.person');
+        if($id==0){
+            $casas = WxCasa::where('activ',1)->get();
+            foreach ($casas as $casa) {
+                $this->convertToViewCasa($casa);
+            }
+        }
+        else {
+            $casas = WxActivityCasa::where('wx_user_id', $id)->get();
+        }
+        $user=WxUser::find($id);
+        return view('activity.person',compact('casas','user'));
     }
 
     public function rank($id=0)

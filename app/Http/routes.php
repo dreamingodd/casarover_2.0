@@ -133,7 +133,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::group(['prefix' => 'date'],function () {
         Route::get('/', 'Wx\ActivityController@index');
         Route::get('/casa/{id}', 'Wx\ActivityController@show');
-        Route::get('/person', 'Wx\ActivityController@person');
+        Route::get('/person/{id?}', 'Wx\ActivityController@person');
         Route::get('/rank/{id?}', 'Wx\ActivityController@rank');
         Route::get('/datesleep', 'Wx\ActivityController@datesleep');
     });

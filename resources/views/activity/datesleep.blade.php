@@ -25,15 +25,10 @@
             </div>
         </div>
         <div class="button">
-<<<<<<< HEAD
-            {{--<a class="helpsleep">帮他约睡</a>--}}
-            {{--<a href="/activity">我也约</a>--}}
             <a class="invite">邀请好友帮我约</a>
             <a  class="date">我要约</a>
-=======
-            <a class="helpsleep">帮他约睡</a>
-            <a href="\date">我也约</a>
->>>>>>> 290e08b3e9fa8dfdb04a8918443065ad12e26773
+            {{--<a class="helpsleep">帮他约睡</a>--}}
+            {{--<a href="\date">我也约</a>--}}
             <a href="rank">排行</a>
         </div>
     </div>
@@ -42,11 +37,7 @@
             <img src="/assets/images/activity/user.jpg" alt="">
             <p>已成功帮助XXX向XXX
                 发起约睡。</p>
-<<<<<<< HEAD
-            <a href="/activity">我也约</a>
-=======
             <a href="\date">我也约</a>
->>>>>>> 290e08b3e9fa8dfdb04a8918443065ad12e26773
         </div>
         <img src="/assets/images/activity/close.png" alt="" class="md-close">
     </div>
