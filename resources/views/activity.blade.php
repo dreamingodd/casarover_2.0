@@ -17,7 +17,7 @@
     <ul>
         <li><a href="/wx/date" ></a></li>
         <li><a href="/wx/date/person" ></a></li>
-        <li><a href="/wx/date/rank" ></a></li>
+        <li><a href="/wx/date/person" ></a></li>
         <li><a href="#" ></a></li>
     </ul>
 </footer>

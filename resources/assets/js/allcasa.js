@@ -1,6 +1,5 @@
 $(function ($)
 {
-
     //slider
     $('.flexslider').flexslider({
         directionNav: true,

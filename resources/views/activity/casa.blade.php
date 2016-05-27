@@ -28,8 +28,11 @@
             </div>
         </div>
         <div class="button">
-            <a href="/wx/date/datesleep/{{ $wxCasa->id }}">约睡</a>
-            {{--<a href="/wx/date/datesleep/{{ $wxCasa->id }}">排行榜</a>--}}
+            @if($hassleep)
+                <a href="/wx/date/rank/{{ $wxCasa->id }}">排行榜</a>
+            @else
+                <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('wx_user_id') }}">约睡</a>
+            @endif
         </div>
     </div>
 @stop
