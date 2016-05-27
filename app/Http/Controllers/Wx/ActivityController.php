@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Wx;
 
+use Config;
+use Log;
+use App\Common\WxTools;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -14,6 +17,8 @@ use DB;
 
 class ActivityController extends Controller
 {
+    use WxTools;
+
     public function index()
     {
         $data = WxCasa::where('activ',1)->get();
@@ -100,4 +105,10 @@ class ActivityController extends Controller
         return response()->json($data);
     }
 
+    public function subscribeTest()
+    {
+        $user = WxUser::get(Session::get('wx_user_id'));
+        $json = WxTools::getBaseAccessToken(Config::get('casarover.wx_appid'), Config::get('casarover.wx_appsecret'));
+        Log::info(json_decode($json));
+    }
 }
