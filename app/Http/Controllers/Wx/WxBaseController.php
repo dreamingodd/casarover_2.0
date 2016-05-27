@@ -35,7 +35,6 @@ class WxBaseController extends Controller
 
     protected function getSubscribe($openid) {
         $token = $this->getBaseAccessTokenFromCache();
-        dd($token);
         if (env('ENV') == 'DEV') return 1;
         else return WxTools::getSubscribeInfo($token, $openid)['subscribe'];
     }
