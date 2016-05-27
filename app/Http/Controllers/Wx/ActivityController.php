@@ -14,7 +14,6 @@ use App\Entity\Wx\WxUser;
 use App\Entity\Wx\WxActivityCasa;
 use App\Entity\Wx\WxVote;
 use DB;
-use Session;
 
 class ActivityController extends WxBaseController
 {
