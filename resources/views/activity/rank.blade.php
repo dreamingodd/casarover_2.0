@@ -5,45 +5,35 @@
 @stop
 @section('body')
     <div class="banner">
-        <img src="/assets/images/cs.png" alt="">
+        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}" alt="">
         <div class="bannertext">
-            <h2>无界</h2>
-            <p>等你来睡</p>
-            <a href="#">查看详情</a>
+            <h2>{{$casa->name}}</h2>
+            <p>{{$casa->brief}}</p>
+            <a href="/wx/date/casa/{{$casa->id}}">查看详情</a>
         </div>
     </div>
     <div class="person clear">
-        <img src="/assets/images/activity/user.jpg" alt="">
+        <img src="{{$user->headimgurl}}" alt="">
         <div class="personinfo">
-            <p>小王</p>
+            <p>{{$user->nickname}}</p>
             <span>当前排名：10</span>
         </div>
         <div class="number">
-            970<span>人帮约</span>
+            {{$user->vote}}<span>人帮约</span>
         </div>
     </div>
     <div class="main">
+        @foreach($users as $key=>$person)
         <div class="person clear">
-            <div class="rank">1</div>
-            <img src="/assets/images/activity/user.jpg" alt="">
+            <div class="rank">{{$key+1}}</div>
+            <img src="{{$person->wxUser->headimgurl}}" alt="">
             <div class="personinfo">
-                <p>小王</p>
-                <span>当前排名：10</span>
+                <p>{{$person->wxUser->nickname}}</p>
             </div>
             <div class="number">
-                970<span>人帮约</span>
+                {{$person->vote}}<span>人帮约</span>
             </div>
         </div>
-        <div class="person clear">
-            <div class="rank">2</div>
-            <img src="/assets/images/activity/user.jpg" alt="">
-            <div class="personinfo">
-                <p>小王</p>
-                <span>当前排名：10</span>
-            </div>
-            <div class="number">
-                970<span>人帮约</span>
-            </div>
-        </div>
+        @endforeach
     </div>
 @stop

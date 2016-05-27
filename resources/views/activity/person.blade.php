@@ -5,24 +5,28 @@
 @stop
 @section('body')
     <div class="banner">
-        <img src="/assets/images/activity/personbanner.png" alt="">
-        <div class="user">
-            {{--<img src="{{$user->headimgurl}}" alt="">--}}
-            {{--<p>{{$user->nickname}}</p>--}}
-        </div>
-        {{--总排行榜banner--}}
-        {{--<img src="/assets/images/activity/banner.png" alt="">--}}
+        @if(!empty($user))
+            <img src="/assets/images/activity/personbanner.png" alt="">
+            <div class="user">
+                <img src="{{$user->headimgurl}}" alt="">
+                <p>{{$user->nickname}}</p>
+            </div>
+        @else
+            <img src="/assets/images/activity/banner.png" alt="">
+        @endif
     </div>
     <div class="main">
         @foreach( $casas as $casa)
-                    <a class="case clear" href="rank">
+                    <a class="case clear" href="/wx/date/rank/{{$casa->id}}">
                         <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}" alt="">
                         <div class="article">
                             <h2>{{$casa->name}}</h2>
                             <p>{{$casa->brief}}</p>
-                    <span>排名：90名</span>
-                </div>
-            </a>
+                            @if($id!=0)
+                                <span>排名：{{$casa->vote}}名</span>
+                            @endif
+                        </div>
+                    </a>
         @endforeach
     </div>
 @stop
