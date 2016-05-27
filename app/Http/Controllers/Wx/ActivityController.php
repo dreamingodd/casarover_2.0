@@ -46,7 +46,8 @@ class ActivityController extends WxBaseController
         $wxCasa = WxCasa::find($id);
         $this->convertToViewCasa($wxCasa);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
-        return view('activity.casa',compact('wxCasa'));
+        $check = $this->checkSubscription();
+        return view('activity.casa',compact('wxCasa', 'check'));
     }
 
     public function person($id=0)
@@ -102,7 +103,8 @@ class ActivityController extends WxBaseController
 
     public function datesleep()
     {
-        return view('activity.datesleep');
+        $check = $this->checkSubscription();
+        return view('activity.datesleep',compact('check'));
     }
 
     //后台活动index

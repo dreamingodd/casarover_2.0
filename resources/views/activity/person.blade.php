@@ -16,6 +16,9 @@
         @endif
     </div>
     <div class="main">
+        @if(empty($casas))
+            <div class="no">您还没有参加活动哦,赶紧挑选喜爱的民宿来约吧！</div>
+        @endif
         @foreach( $casas as $casa)
                     <a class="case clear" href="/wx/date/rank/{{$casa->id}}">
                         <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}" alt="">
@@ -29,8 +32,4 @@
                     </a>
         @endforeach
     </div>
-    {{--@if(empty($casas))--}}
-        {{--<em>您还没有参加活动哦,赶紧挑选喜爱的民宿来约吧！</em>--}}
-    {{--@endif--}}
-        {{--<em>您还没有参加活动哦,赶紧挑选喜爱的民宿来约吧！</em>--}}
 @stop

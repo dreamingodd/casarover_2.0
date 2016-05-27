@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/assets/css/activityDate.css">
 @stop
 @section('body')
+    <input type="hidden" value="{{$check}}" id="check">
 <div class="bg">
     <div class="banner">
         <img src="/assets/images/activity/datebanner.png" alt="">
@@ -25,9 +26,9 @@
             </div>
         </div>
         <div class="button">
+            {{--<a class="helpsleep">帮他约睡</a>--}}
             <a class="invite">邀请好友帮我约</a>
             <a  class="date">我要约</a>
-            {{--<a class="helpsleep">帮他约睡</a>--}}
             {{--<a href="\date">我也约</a>--}}
             <a href="rank">排行</a>
         </div>
@@ -50,12 +51,26 @@
     </div>
     <img src="/assets/images/activity/close.png" alt="" class="md-close">
 </div>
+<div class="qrcode">
+    <div class="qrcodecon">
+        <img src="/assets/images/activity/qrcode.png" alt="">
+    </div>
+    <img src="/assets/images/activity/close.png" alt="" class="md-close">
+</div>
     <script>
         $(function () {
-            $('.helpsleep').click(function () {
-                $('.bg').addClass('blur');
-                $('.detail').show();
-            });
+                if($('#check').val()==0) {
+                    $('.helpsleep').click(function () {
+                        $('.bg').addClass('blur');
+                        $('.qrcode').show();
+                    });
+                }
+            else {
+                    $('.helpsleep').click(function () {
+                        $('.bg').addClass('blur');
+                        $('.detail').show();
+                    });
+                }
             $('.invite').click(function () {
                 $('.bg').addClass('blur');
                 $('.invitecon').show();
@@ -63,6 +78,7 @@
             $('.md-close').click(function () {
                 $('.bg').removeClass('blur');
                 $('.detail').hide();
+                $('.qrcode').hide();
                 $('.invitecon').hide();
             });
         });
