@@ -15,10 +15,10 @@
                 </div>
                 <div class="right">
                     <div class="righttop">
-                            <h2><span>小明</span>向<span>无界</span>发起约睡</h2>
+                            <h2><span>{{ $user->nickname }}</span>向<span>{{ $wxCasa->name }}</span>发起约睡</h2>
                     </div>
                     <div class="rightbottom">
-                            <p>小明仰慕无界已久，今天终于找到机
+                            <p>{{ $user->nickname }}仰慕{{ $wxCasa->name }}已久，今天终于找到机
                                 会可以约一觉。各位看官有手的点个赞。</p>
                     </div>
                 </div>
@@ -26,8 +26,8 @@
         </div>
         <div class="button">
             <a class="helpsleep">帮他约睡</a>
-            <a href="\date">我也约</a>
-            <a href="rank">排行</a>
+            <a href="/wx/date">我也约</a>
+            <a href="/wx/date/rank/{{ $wxCasa->id }}">排行</a>
         </div>
     </div>
     <div class="detail">

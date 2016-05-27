@@ -29,7 +29,7 @@
                 </div>
             </template>
             <template v-if="more">
-                <div class="more" v-on:click="nextpage(page)">更多</div>
+                <div class="more" v-on:click="getlist(page)">更多</div>
             </template>
         </div>
     </div>

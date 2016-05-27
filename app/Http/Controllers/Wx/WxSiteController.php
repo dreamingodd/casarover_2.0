@@ -15,7 +15,6 @@ use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxOrder;
 use App\Entity\Wx\WxMembership;
-use Log;
 
 class WxSiteController extends Controller
 {

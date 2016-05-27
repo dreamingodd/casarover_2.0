@@ -1,12 +1,11 @@
 @extends('activity')
-@section('title','民宿详情')
+@section('title',$wxCasa->name)
 @section('head')
     <link rel="stylesheet" href="/assets/css/activityCasa.css">
 @stop
 @section('body')
     <div class="detail">
-        <img src="/assets/images/activity/detail1.png" alt="">
-        {{--<img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$wxCasa->thumbnail}}" alt="">--}}
+        <img src="{{ $wxCasa->banner }}" alt="">
         <div class="divide clear">
             <div class="detailcon">
                 @if (empty($wxCasa->casa_id))
@@ -29,7 +28,8 @@
             </div>
         </div>
         <div class="button">
-            <a href="/wx/date/datesleep">约睡</a>
+            <a href="/wx/date/datesleep/{{ $wxCasa->id }}">约睡</a>
+            {{--<a href="/wx/date/datesleep/{{ $wxCasa->id }}">排行榜</a>--}}
         </div>
     </div>
 @stop

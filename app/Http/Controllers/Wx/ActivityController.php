@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Wx;
 
+use App\Entity\Wx\WxUser;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxCasa;
 use DB;
+use Session;
 
 class ActivityController extends Controller
 {
@@ -36,9 +38,23 @@ class ActivityController extends Controller
     public function show($id)
     {
         $wxCasa = WxCasa::find($id);
+        $wxCasa->banner = $this->banner($id);
         $this->convertToViewCasa($wxCasa);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         return view('activity.casa',compact('wxCasa'));
+    }
+    /**
+     * banner config
+     * key => value
+     * key is wxcasa_id
+     **/
+    private function banner($id)
+    {
+        $bannerlist = [
+            '4' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160525-161502-26r5097.jpg',
+            '5' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160525-161502-26r5097.jpg',
+        ];
+        return $bannerlist[$id];
     }
 
     public function person()
@@ -51,9 +67,16 @@ class ActivityController extends Controller
         return view('activity.rank');
     }
 
-    public function datesleep()
+    public function datesleep($casa_id)
     {
-        return view('activity.datesleep');
+//        dd($casa_id);
+//        dd(Session::get('wx_user_id'));
+        //存储信息
+
+
+        $wxCasa = WxCasa::find($casa_id);
+        $user = WxUser::find(Session::get('wx_user_id'));
+        return view('activity.datesleep',compact('wxCasa','user'));
     }
 
     //后台活动index

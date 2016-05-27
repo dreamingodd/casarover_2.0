@@ -8,7 +8,6 @@ $(document).ready(function(){
         created: function () {
             this.selected = $("#sel option:last").val();
             this.getArticle(this.selected);
-
         },
         methods:{
             getArticle(){
