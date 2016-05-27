@@ -13,8 +13,8 @@ class WxBaseController extends Controller
     use WxTools;
 
     protected function getBaseAccessTokenFromWx() {
-        $appid = Config::get('casarover.appid');
-        $secret = Config::get('casarover.appsecret');
+        $appid = Config::get('casarover.wx_appid');
+        $secret = Config::get('casarover.wx_appsecret');
         $json = WxTools::getBaseAccessToken($appid, $secret);
         return $json['access_token'];
     }
@@ -28,7 +28,7 @@ class WxBaseController extends Controller
                 $token = $this->getBaseAccessTokenFromWx();
             }
             Log::info('Wx Token Refreshed - ' . $token);
-            Cache::put('access_token', $token, 1);
+            Cache::put('access_token', $token, 20);
         }
         return $token;
     }
