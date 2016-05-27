@@ -129,6 +129,8 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/consume/{id}', 'Wx\WxOrderController@consume');
     Route::get('/consume_cancel/{id}', 'Wx\WxOrderController@cancelConsume');
     Route::get('/logout', 'Wx\WxSiteController@logout');
+    // Check whether user subscribe us.
+    Route::get('subscribe', 'Wx\ActivityController@checkSubscription');
     // vote activity
     Route::group(['prefix' => 'date'],function () {
         Route::get('/', 'Wx\ActivityController@index');

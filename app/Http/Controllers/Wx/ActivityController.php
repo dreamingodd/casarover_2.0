@@ -5,18 +5,18 @@ namespace App\Http\Controllers\Wx;
 use App\Entity\Wx\WxUser;
 use Config;
 use Log;
+use Session;
 use App\Common\WxTools;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxActivityCasa;
 use App\Entity\Wx\WxVote;
 use DB;
 use Session;
 
-class ActivityController extends Controller
+class ActivityController extends WxBaseController
 {
     use WxTools;
 
@@ -70,6 +70,7 @@ class ActivityController extends Controller
 
     public function person($id=0)
     {
+        $userId=Session::get('wx_user_id');
         if($id==0){
             $casas = WxCasa::where('activ',1)->get();
             foreach ($casas as $casa) {
@@ -77,15 +78,26 @@ class ActivityController extends Controller
             }
         }
         else {
-            $casas = WxActivityCasa::where('wx_user_id', $id)->get();
+            $casas18 = WxActivityCasa::where('wx_user_id', $userId)->get();
+            $casas=array();
+            foreach ($casas18 as $key=>$casa) {
+                $casas[$key]=$casa->wxCasa;
+                $casas[$key]->vote=$casa->vote;
+                $this->convertToViewCasa($casas[$key]);
+            }
+        $user=WxUser::find($userId);
         }
-        $user=WxUser::find($id);
-        return view('activity.person',compact('casas','user'));
+        return view('activity.person',compact('casas','user','id'));
     }
-
     public function rank($id=0)
     {
-        return view('activity.rank');
+        $userId=Session::get('wx_user_id');
+        $users = WxActivityCasa::where('wx_casa_id', $id)->orderBy('vote', 'DESC')->get();
+        $user=WxUser::find($userId);
+        $user->vote=WxActivityCasa::where('wx_user_id', $userId)->value('vote');
+        $casa = WxCasa::find($id);
+        $this->convertToViewCasa($casa);
+        return view('activity.rank',compact('users','user','casa'));
     }
 
     public function datesleep($casa_id,$user_id)
@@ -180,10 +192,8 @@ class ActivityController extends Controller
         return response()->json($data);
     }
 
-    public function subscribeTest()
-    {
-        $user = WxUser::get(Session::get('wx_user_id'));
-        $json = WxTools::getBaseAccessToken(Config::get('casarover.wx_appid'), Config::get('casarover.wx_appsecret'));
-        Log::info(json_decode($json));
+    public function checkSubscription() {
+        $user = WxUser::find(Session::get('wx_user_id'));
+        return $this->getSubscribe($user->openid);
     }
 }
