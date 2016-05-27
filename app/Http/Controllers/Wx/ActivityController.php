@@ -4,19 +4,18 @@ namespace App\Http\Controllers\Wx;
 
 use Config;
 use Log;
+use Session;
 use App\Common\WxTools;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxUser;
 use App\Entity\Wx\WxActivityCasa;
 use App\Entity\Wx\WxVote;
 use DB;
-use Session;
 
-class ActivityController extends Controller
+class ActivityController extends WxBaseController
 {
     use WxTools;
 
@@ -137,10 +136,8 @@ class ActivityController extends Controller
         return response()->json($data);
     }
 
-    public function subscribeTest()
-    {
-        $user = WxUser::get(Session::get('wx_user_id'));
-        $json = WxTools::getBaseAccessToken(Config::get('casarover.wx_appid'), Config::get('casarover.wx_appsecret'));
-        Log::info(json_decode($json));
+    public function checkSubscription() {
+        $user = WxUser::find(Session::get('wx_user_id'));
+        return $this->getSubscribe($user->openid);
     }
 }
