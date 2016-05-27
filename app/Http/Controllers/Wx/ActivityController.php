@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Wx;
 use App\Entity\Wx\WxUser;
 use Config;
 use Log;
+use DB;
 use Session;
 use App\Common\WxTools;
 use Illuminate\Http\Request;
@@ -13,8 +14,6 @@ use App\Http\Requests;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxActivityCasa;
 use App\Entity\Wx\WxVote;
-use DB;
-use Session;
 
 class ActivityController extends WxBaseController
 {
