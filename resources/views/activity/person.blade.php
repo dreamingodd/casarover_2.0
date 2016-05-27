@@ -23,10 +23,14 @@
                             <h2>{{$casa->name}}</h2>
                             <p>{{$casa->brief}}</p>
                             @if($id!=0)
-                                <span>排名：{{$casa->vote}}名</span>
+                                <span>排名：第{{$casa->rank}}名</span>
                             @endif
                         </div>
                     </a>
         @endforeach
     </div>
+    {{--@if(empty($casas))--}}
+        {{--<em>您还没有参加活动哦,赶紧挑选喜爱的民宿来约吧！</em>--}}
+    {{--@endif--}}
+        {{--<em>您还没有参加活动哦,赶紧挑选喜爱的民宿来约吧！</em>--}}
 @stop

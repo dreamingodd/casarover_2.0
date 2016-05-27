@@ -64,7 +64,17 @@ class ActivityController extends Controller
             $casas=array();
             foreach ($casas18 as $key=>$casa) {
                 $casas[$key]=$casa->wxCasa;
-                $casas[$key]->vote=$casa->vote;
+
+                //此处需改用数据库查排名
+                $samecasas=WxActivityCasa::where('wx_casa_id',$casa->wxCasa->id)->orderBy('vote', 'DESC')->get();
+                foreach($samecasas as $keys=>$somecasa){
+                  if($somecasa->wx_user_id==$userId) {
+                      $casas[$key]->rank = $keys + 1;
+                      break;
+                  }
+                }
+                //
+
                 $this->convertToViewCasa($casas[$key]);
             }
         $user=WxUser::find($userId);
@@ -74,12 +84,21 @@ class ActivityController extends Controller
     public function rank($id=0)
     {
         $userId=Session::get('wx_user_id');
-        $users = WxActivityCasa::where('wx_casa_id', $id)->orderBy('vote', 'DESC')->get();
+        $check=WxActivityCasa::where('wx_casa_id', $id)->where('wx_user_id', $userId)->first();
         $user=WxUser::find($userId);
         $user->vote=WxActivityCasa::where('wx_user_id', $userId)->value('vote');
+        $users = WxActivityCasa::where('wx_casa_id', $id)->orderBy('vote', 'DESC')->get();
+        //此处需改用数据库查排名
+        foreach($users as $key=>$person){
+            if($person->wx_user_id==$userId) {
+                $user->rank = $key + 1;
+                break;
+            }
+        }
+        //
         $casa = WxCasa::find($id);
         $this->convertToViewCasa($casa);
-        return view('activity.rank',compact('users','user','casa'));
+        return view('activity.rank',compact('users','user','casa','check'));
     }
 
     public function datesleep()
