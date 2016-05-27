@@ -1,8 +1,7 @@
 @extends('back')
 @section('head')
-    <script src="{{ asset('assets/js/integration/vue.js') }}" type="text/javascript"></script>
     <script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js"></script>
-    <script src="{{ asset('assets/js/areaedit.js') }}" type="text/javascript"></script>
+    <script src="/assets/js/areaedit.js" type="text/javascript"></script>
 @endsection
 @section('body')
     <input type="hidden" id="page" value="area"/>
@@ -78,7 +77,7 @@
         @endfor
 
         <div class="sub">
-            <button v-on:click="sed()" type="submit" class="btn btn-primary">保存</button>
+            <button onclick="sed()" type="submit" class="btn btn-primary">保存</button>
     </form>
     {{--<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">--}}
     {{--<i class="fa fa-times-circle"></i>--}}
