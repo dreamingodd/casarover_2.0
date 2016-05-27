@@ -137,7 +137,9 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
         Route::get('/casa/{id}', 'Wx\ActivityController@show');
         Route::get('/person/{id?}', 'Wx\ActivityController@person');
         Route::get('/rank/{id?}', 'Wx\ActivityController@rank');
-        Route::get('/datesleep', 'Wx\ActivityController@datesleep');
+        Route::get('/datesleep/{id}/{user_id}', 'Wx\ActivityController@datesleep');
+        Route::get('/poll/{id}/{user_id}','Wx\ActivityController@poll');
+        Route::get('subscribe/test', 'Wx\ActivityController@subscribeTest');
     });
 });
 

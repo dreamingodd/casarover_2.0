@@ -26,7 +26,7 @@ class CasaController extends Controller
                 {
                     array_push($areaIds,$area->id);
                 }
-                $casas = Casa::whereIn('dictionary_id',$areaIds)->get();
+                $casas = Casa::whereIn('dictionary_id',$areaIds)->where('deleted',0)->get();
             }
         }
         return response()->json($casas);

@@ -1,6 +1,6 @@
 $(function ($)
 {
-    //轮播
+    //slider
     $('.flexslider').flexslider({
         directionNav: true,
         pauseOnAction: false
@@ -37,7 +37,7 @@ window.onload=function() {
         var doc = $(document).height();
         var win = $(window).height();
         if(doc - win - screenT < 170) {
-            vm.nextpage();
+            vm.getCasas();
             $(".scroll-back").addClass('top');
         }
         else {
@@ -60,8 +60,6 @@ window.onload=function() {
             areas:[],
             checkareas:null,
             casas:[],
-            //用来对新追加的进行转换
-            casa:null,
             page:1,
             loading: false,
             areapic:null,
@@ -75,12 +73,12 @@ window.onload=function() {
             this.getareas();
         },
         methods:{
-            //城市选择
             selcity(cityid){
                 this.city = cityid;
+                this.casas = [];
+                this.page = 1;
                 this.getareas();
             },
-            //区域选择
             selarea(obj){
                 let clickId = obj.area.id;
                 let domId = obj.$index;
@@ -93,20 +91,13 @@ window.onload=function() {
 
                 this.checkareas = clickId;
 
-                //改为单选之后不需要了
-                //选中加入数组
-                //如果已经选中过，再次点击从数组中删除
-                //var areaToggle = this.checkareas.indexOf(clickId);
-                //if(areaToggle == -1){
-                //    this.checkareas.push(clickId);
-                //}else{
-                //    this.checkareas.splice(areaToggle,1);
-                //}
+                this.page = 1;
+                this.casas = [];
                 this.getCasas();
             },
-            //获取区域信息产生联动
+            //get area message by city
             getareas(){
-                //清空上一次城市时点击的区域
+                //clear selected last time
                 this.checkareas=[];
                 this.banner.pic = '';
                 $.getJSON('/api/areas/'+this.city, (data)=> {
@@ -115,21 +106,10 @@ window.onload=function() {
                 });
             },
             getCasas(){
-                $("#casa-list").css('display','none');
-                $(".no-more").css('display','none');
-                $(".loader").css('display','block');
-                let areas = this.checkareas.toString();
-                $.getJSON('/api/casas/city/'+this.city+'/areas/'+areas, (data)=> {
-                    this.casas = data.data;
-                    $(".loader").css('display','none');
-                    $("#casa-list").css('display','block');
-                });
-            },
-            nextpage(){
                 if (!this.loading) {
+                    $(".no-more").css('display','none');
                     $(".loader").css('display','block');
                     let areas = this.checkareas.toString();
-                    this.page++;
                     $.getJSON('/api/casas/city/'+this.city+'/areas/'+areas+'?page='+this.page, (data)=> {
                         if(data.data.length == 0){
                             $(".no-more").css('display','block');
@@ -139,8 +119,9 @@ window.onload=function() {
                         this.loading = false;
                     });
                     this.loading = true;
+                    this.page++;
                 }
-            }
+            },
         }
     })
 }

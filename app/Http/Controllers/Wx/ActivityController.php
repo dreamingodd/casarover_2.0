@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wx;
 
+use App\Entity\Wx\WxUser;
 use Config;
 use Log;
 use Session;
@@ -10,7 +11,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Entity\Wx\WxCasa;
-use App\Entity\Wx\WxUser;
 use App\Entity\Wx\WxActivityCasa;
 use App\Entity\Wx\WxVote;
 use DB;
@@ -24,6 +24,7 @@ class ActivityController extends WxBaseController
         $data = WxCasa::where('activ',1)->get();
         foreach ($data as $casa) {
             $this->convertToViewCasa($casa);
+            $casa->totalVotes = WxActivityCasa::where('wx_casa_id',$casa->id)->get();
         }
         return view('activity.index',compact('data'));
     }
@@ -44,10 +45,27 @@ class ActivityController extends WxBaseController
     public function show($id)
     {
         $wxCasa = WxCasa::find($id);
+        $wxCasa->banner = $this->banner($id);
         $this->convertToViewCasa($wxCasa);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         $check = $this->checkSubscription();
-        return view('activity.casa',compact('wxCasa', 'check'));
+        //检查是否已经约过了
+        $hassleep = WxActivityCasa::where('wx_user_id',Session::get('wx_user_id'))->where('wx_casa_id',$id)->first();
+        return view('activity.casa',compact('wxCasa','hassleep','check'));
+    }
+    /**
+     * banner config
+     * key => value
+     * key is wxcasa_id
+     **/
+    private function banner($id)
+    {
+        $bannerlist = [
+            '4' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160525-161502-26r5097.jpg',
+            '5' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160525-161502-26r5097.jpg',
+            '8' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160525-161502-26r5097.jpg',
+        ];
+        return $bannerlist[$id];
     }
 
     public function person($id=0)
@@ -101,10 +119,64 @@ class ActivityController extends WxBaseController
         return view('activity.rank',compact('users','user','casa','check'));
     }
 
-    public function datesleep()
+    public function datesleep($casa_id,$user_id)
     {
+        //存储信息
+        $hassleep = WxActivityCasa::where('wx_user_id',$user_id)->where('wx_casa_id',$casa_id)->first();
+        if(!$hassleep) {
+            DB::beginTransaction();
+            try {
+                $sleep = new WxActivityCasa();
+                $sleep->wx_user_id = Session::get('wx_user_id');
+                $sleep->wx_casa_id = $casa_id;
+                $sleep->vote = 1;
+                $sleep->save();
+                DB::commit();
+            } catch(\Exception $e) {
+                DB::rollback();
+                Log::error($e);
+                //出错应该到错误页面不应该是404
+                abort(404);
+            }
+        }
+        $wxCasa = WxCasa::find($casa_id);
+        $user = WxUser::find($user_id);
+        $isme = Session::get('wx_user_id') == $user_id?1:0;
+//        $isme = 0;
         $check = $this->checkSubscription();
-        return view('activity.datesleep',compact('check'));
+        return view('activity.datesleep',compact('wxCasa','user','isme','check'));
+    }
+
+    public function poll($casa_id,$user_id)
+    {
+
+        /**
+         * code
+         * 0 投票成功
+         * 1 投票时间不允许
+         * */
+        $activitycasa = WxActivityCasa::where('wx_casa_id',$casa_id)->where('wx_user_id',$user_id)->first();
+        //时间判定
+        $lastpoll = WxVote::where('wx_user_id',Session::get('wx_user_id'))->where('18_id',$activitycasa->id)->get()->last();
+        if($lastpoll)
+        {
+            //今天零点的时间戳
+            $today = strtotime(date('Y-m-d'));
+            //最后一次投票的时间戳
+            $lastpollTime = strtotime($lastpoll->created_at);
+            if($lastpollTime > $today)
+            {
+                return response()->json(['code'=>'1']);
+            }
+        }
+
+        WxVote::create([
+            '18_id' => $activitycasa->id,
+            'wx_user_id' => Session::get('wx_user_id')
+        ]);
+
+        return response()->json(['code'=>'0']);
+
     }
 
     //后台活动index

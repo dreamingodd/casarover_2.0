@@ -1,13 +1,13 @@
 @extends('activity')
-@section('title','民宿详情')
+@section('title',$wxCasa->name)
 @section('head')
     <link rel="stylesheet" href="/assets/css/activityCasa.css">
 @stop
 @section('body')
+    <input type="hidden" value="{{$check}}" id="check">
     <div class="bg">
-        <div class="detail">
-        <img src="/assets/images/activity/detail1.png" alt="">
-        <input type="hidden" value="{{$check}}" id="check">
+    <div class="detail">
+        <img src="{{ $wxCasa->banner }}" alt="">
         <div class="divide clear">
             <div class="detailcon">
                 @if (empty($wxCasa->casa_id))
@@ -30,7 +30,11 @@
             </div>
         </div>
         <div class="button">
-            <a href = "/wx/date/datesleep" id="datesleep">约睡</a>
+            @if($hassleep)
+                <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('wx_user_id') }}" class="datesleep">我的约睡</a>
+            @else
+                <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('wx_user_id') }} " class="datesleep">约睡</a>
+            @endif
         </div>
     </div>
     </div>
@@ -43,8 +47,8 @@
     <script>
         $(function () {
             if($('#check').val()==0) {
-                $('#datesleep').removeAttr('href');
-                $('#datesleep').click(function () {
+                $('.datesleep').removeAttr('href');
+                $('.datesleep').click(function () {
                     $('.bg').addClass('blur');
                     $('.qrcode').show();
                 });

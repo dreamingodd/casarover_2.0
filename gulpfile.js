@@ -43,13 +43,15 @@ gulp.task('dev-less',function() {
         .pipe(reload({stream: true}));
 });
 // 压缩js
-gulp.task('uglify',function () {
-    gulp.src('resources/assets/js/*.js')
+gulp.task('js',function () {
+    return gulp.src('resources/assets/js/*.js')
+        .pipe(changed('public/assets/js/*'))
         .pipe(babel())
         .pipe(uglify())
         .pipe(gulp.dest('public/assets/js/'))
-        .pipe(reload({stream: true}));
+        .on("end",reload);
 });
+
 // 压缩js源码包
 gulp.task('uglify_integration',function () {
     gulp.src('resources/assets/js/integration/*.js')
@@ -92,7 +94,6 @@ gulp.task('replace',['less'], function() {     //说明replace 是依赖于less�
         .pipe(gulp.dest('resources/views/'));                     //- 替换后的文件输出的目录
 });
 
-
 gulp.task('deploy',['replace','less','clean']);
 
 
@@ -102,7 +103,7 @@ gulp.task('default',function() {
         port:"80"
     });
     gulp.watch(lessDir,['dev-less']);
-    gulp.watch(jsDir,['uglify']);
+    gulp.watch('resources/assets/js/*.js',['js']);
     gulp.watch('resources/assets/js/integration/*js',['uglify_integration']);
     gulp.watch(reloadDir).on('change',reload);
 });
