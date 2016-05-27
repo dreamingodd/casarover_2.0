@@ -29,7 +29,7 @@
         </div>
         <div class="button">
             @if($hassleep)
-                <a href="/wx/date/rank/{{ $wxCasa->id }}">排行榜</a>
+                <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('wx_user_id') }}">我的约睡</a>
             @else
                 <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('wx_user_id') }}">约睡</a>
             @endif

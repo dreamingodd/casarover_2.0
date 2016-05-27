@@ -14,7 +14,6 @@ use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxActivityCasa;
 use App\Entity\Wx\WxVote;
 use DB;
-use Session;
 
 class ActivityController extends WxBaseController
 {
@@ -112,10 +111,6 @@ class ActivityController extends WxBaseController
                 $sleep->wx_casa_id = $casa_id;
                 $sleep->vote = 1;
                 $sleep->save();
-                WxVote::create([
-                    '18_id' => $sleep->id,
-                    'wx_user_id' => Session::get('wx_user_id')
-                ]);
                 DB::commit();
             } catch(\Exception $e) {
                 DB::rollback();
@@ -141,10 +136,11 @@ class ActivityController extends WxBaseController
         $activitycasa = WxActivityCasa::where('wx_casa_id',$casa_id)->where('wx_user_id',$user_id)->first();
         //时间判定
         $lastpoll = WxVote::where('wx_user_id',Session::get('wx_user_id'))->where('18_id',$activitycasa->id)->get()->last();
-        //今天零点的时间戳
         if($lastpoll)
         {
+            //今天零点的时间戳
             $today = strtotime(date('Y-m-d'));
+            //最后一次投票的时间戳
             $lastpollTime = strtotime($lastpoll->created_at);
             if($lastpollTime > $today)
             {
