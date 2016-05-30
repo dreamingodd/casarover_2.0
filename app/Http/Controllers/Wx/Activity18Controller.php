@@ -74,7 +74,7 @@ class Activity18Controller extends WxBaseController
             $this->convertToViewCasa($casa);
             array_push($casas, $casa);
         }
-        return view('activity.person',compact('casas','user','id'));
+        return view('activity.rankEntry',compact('casas','user','id'));
     }
 
     /**
@@ -110,7 +110,7 @@ class Activity18Controller extends WxBaseController
         return view('activity.rank',compact('wx18s','myRawWx18','casa'));
     }
 
-    /**
+    /** 约睡
      * @param int $casa_id
      * @param int $user_id
      */

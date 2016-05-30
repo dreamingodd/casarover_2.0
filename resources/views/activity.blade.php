@@ -16,9 +16,9 @@
 <footer>
     <ul>
         <li><a href="/wx/date" ></a></li>
-        <li><a href="/wx/date/person/1" ></a></li>
-        <li><a href="/wx/date/person" ></a></li>
-        <li><a href="#" ></a></li>
+        <li><a href="/wx/date/rank/entry/1" ></a></li>
+        <li><a href="/wx/date/rank/entry" ></a></li>
+        <li><a href="{{Config::get('config.wx_18_link')}}" ></a></li>
     </ul>
 </footer>
 </body>
