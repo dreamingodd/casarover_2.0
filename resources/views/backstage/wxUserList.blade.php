@@ -9,7 +9,7 @@
 
 @section('body')
 
-    <input type="hidden" id="page" value="reserve"/>
+    <input type="hidden" id="page" value="system"/>
 
     <div class="options vertical5">
     </div>
