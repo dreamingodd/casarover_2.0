@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="/assets/css/activityCasa.css">
 @stop
 @section('body')
+    <input type="hidden" value="{{$check}}" id="check">
+    <div class="bg">
     <div class="detail">
         <img src="{{ $wxCasa->banner }}" alt="">
         <div class="divide clear">
@@ -29,10 +31,32 @@
         </div>
         <div class="button">
             @if($hassleep)
-                <a href="/wx/date/rank/{{ $wxCasa->id }}">排行榜</a>
+                <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('wx_user_id') }}" class="datesleep">我的约睡</a>
             @else
-                <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('wx_user_id') }}">约睡</a>
+                <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('wx_user_id') }} " class="datesleep">约睡</a>
             @endif
         </div>
     </div>
+    </div>
+    <div class="qrcode">
+        <div class="qrcodecon">
+            <img src="/assets/images/activity/qrcode.png" alt="">
+        </div>
+        <img src="/assets/images/activity/close.png" alt="" class="md-close">
+    </div>
+    <script>
+        $(function () {
+            if($('#check').val()==0) {
+                $('.datesleep').removeAttr('href');
+                $('.datesleep').click(function () {
+                    $('.bg').addClass('blur');
+                    $('.qrcode').show();
+                });
+            }
+            $('.md-close').click(function () {
+                $('.bg').removeClass('blur');
+                $('.qrcode').hide();
+            });
+            });
+    </script>
 @stop

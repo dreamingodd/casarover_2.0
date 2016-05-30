@@ -4,10 +4,11 @@
     <link rel="stylesheet" href="/assets/css/activityDate.css">
 @stop
 @section('body')
-    <div class="bg">
-        <div class="banner">
-            <img src="/assets/images/activity/datebanner.png" alt="">
-        </div>
+    <input type="hidden" value="{{$check}}" id="check">
+<div class="bg">
+    <div class="banner">
+        <img src="/assets/images/activity/datebanner.png" alt="">
+    </div>
         <div class="main">
             <div class="maincon clear">
                 <div class="left">
@@ -56,8 +57,26 @@
         </div>
         <img src="/assets/images/activity/close.png" alt="" class="md-close">
     </div>
+<div class="qrcode">
+    <div class="qrcodecon">
+        <img src="/assets/images/activity/qrcode.png" alt="">
+    </div>
+    <img src="/assets/images/activity/close.png" alt="" class="md-close">
+</div>
     <script>
         $(function () {
+                if($('#check').val()==0) {
+                    $('.helpsleep').click(function () {
+                        $('.bg').addClass('blur');
+                        $('.qrcode').show();
+                    });
+                }
+            else {
+                    $('.helpsleep').click(function () {
+                        $('.bg').addClass('blur');
+                        $('.detail').show();
+                    });
+                }
             $('.invite').click(function () {
                 $('.bg').addClass('blur');
                 $('.invitecon').show();
@@ -65,6 +84,7 @@
             $('.md-close').click(function () {
                 $('.bg').removeClass('blur');
                 $('.detail').hide();
+                $('.qrcode').hide();
                 $('.invitecon').hide();
             });
         });
