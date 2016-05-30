@@ -3,12 +3,12 @@
 @section('head')
     <link href="/assets/css/wxBill.css" rel="stylesheet"/>
 @stop
-@section('body')
 @section('nav')
     <a href="/wx/confirm" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop
+@section('body')
     <div class="main">
         <div class="total">
             <h2>交易金额：</h2>

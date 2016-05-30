@@ -95,7 +95,7 @@ class Activity18Controller extends WxBaseController
         $userId=Session::get('wx_user_id');
         $check=WxActivityCasa::where('wx_casa_id', $id)->where('wx_user_id', $userId)->first();
         $user=WxUser::find($userId);
-        $user->vote=WxActivityCasa::where('wx_user_id', $userId)->value('vote');
+        $user->vote=WxActivityCasa::where('wx_user_id', $userId)->where('wx_casa_id', $id)->value('vote');
         $users = WxActivityCasa::where('wx_casa_id', $id)->orderBy('vote', 'DESC')->get();
         //此处需改用数据库查排名
         foreach($users as $key=>$person){

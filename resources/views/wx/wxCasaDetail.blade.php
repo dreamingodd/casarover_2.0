@@ -24,6 +24,10 @@
         </div>
         <div class="brief">
             <p>{!!$wxCasa->desc!!}</p>
+            <div class="collection">
+                <span class="glyphicon glyphicon-star-empty"></span>
+                收藏
+            </div>
         </div>
         <div class="tabtable">
             <ul class="nav nav-tabs">

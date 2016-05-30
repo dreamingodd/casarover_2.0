@@ -4,10 +4,10 @@
 <script src="/assets/js/back.js"></script>
 <script src="/assets/js/bindApply.js"></script>
 @stop
-@section('body')
 @section('nav')
     <img  src="/assets/images/logow.png" />
 @stop
+@section('body')
     <div style="margin: 0 auto; width:300px;">
         <br/><br/><br/><br/>
         <form id="bindApplyForm" action="/wx/bind/apply" method="post">

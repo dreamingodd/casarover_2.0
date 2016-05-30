@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Wx;
 
 
+use App\Entity\Wx\WxRoom;
 use App\Entity\Wx\WxScoreActivity;
 use App\Entity\Wx\WxScoreVariation;
 use Carbon\Carbon;
@@ -12,6 +13,7 @@ use App\Entity\Wx\WxUser;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxOrder;
 use App\Entity\Wx\WxMembership;
+use App\Entity\Wx\WxCollection;
 
 class WxSiteController extends WxBaseController
 {
@@ -175,5 +177,14 @@ class WxSiteController extends WxBaseController
         Session::forget('wx_user_id');
         Session::forget('openid');
         return redirect('/wx/user');
+    }
+    public function collection() {
+        $userId = Session::get('wx_user_id');
+        $casas=WxCollection::where('wx_user_id',$userId)->where
+        ('collection',1)->get();
+        foreach ($casas as $casa) {
+            $this->convertToViewCasa($casa->wxCasa);
+        }
+        return view('wx.collection',compact('casas'));
     }
 }
