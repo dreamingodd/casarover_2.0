@@ -21,5 +21,6 @@ return [
     // wx 18 pics
     'wx_18_pics' => [
         '梅皋坞山居【感恩粉丝回馈中】' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/4%E6%A2%85%E7%9A%8B%E5%9D%9E%E5%B1%B1%E5%B1%85.jpg',
+        '莫干山居图' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/17%E4%BA%91%E8%B5%B7%E7%90%9A.jpg',
     ],
 ];

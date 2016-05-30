@@ -5,7 +5,7 @@
 @stop
 @section('body')
     <div class="banner">
-        @if(!empty($user))
+        @if($id)
             <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/personbanner.png" alt="">
             <div class="user">
                 <img src="{{$user->headimgurl}}" alt="">
@@ -25,7 +25,9 @@
                         <div class="article">
                             <h2>{{$casa->name}}</h2>
                             <p>{{$casa->brief}}</p>
+                            @if ($id)
                             <span>排名：第{{$casa->rank}}名</span>
+                            @endif
                         </div>
                     </a>
         @endforeach

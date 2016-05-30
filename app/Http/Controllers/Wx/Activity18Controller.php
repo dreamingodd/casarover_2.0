@@ -58,13 +58,17 @@ class Activity18Controller extends WxBaseController
         }
     }
 
-    public function person($id = 0)
+    public function rankEntry($id = 0)
     {
         $user = WxUser::find(Session::get('wx_user_id'));
-        $casas18 = Wx18::where('wx_user_id', $user->id)->get();
+        if ($id == 0) {
+            $casas18 = WxCasa::where('activ', 1)->get();
+        } else {
+            $casas18 = Wx18::where('wx_user_id', $user->id)->get();
+        }
         $casas = array();
         foreach ($casas18 as $key => $casa18) {
-            $casa = $casa18->wxCasa;
+            $casa = $casa18->wxCasa == null ? $casa18 : $casa18->wxCasa;
             $result = DB::select(
                 "SELECT * FROM ("
                     ." SELECT @rownum := @rownum + 1 rank, u.id, u.headimgurl, u.nickname, wx18.vote"
@@ -73,7 +77,9 @@ class Activity18Controller extends WxBaseController
                     ." ORDER BY wx18.vote DESC"
                 ." ) all_rank WHERE all_rank.id = $user->id"
             );
-            $casa->rank = $result[0]->rank;
+            if (count($result) > 0) {
+                $casa->rank = $result[0]->rank;
+            }
             $this->convertToViewCasa($casa);
             array_push($casas, $casa);
         }
