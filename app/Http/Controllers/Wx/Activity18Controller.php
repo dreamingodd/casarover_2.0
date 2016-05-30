@@ -42,7 +42,6 @@ class Activity18Controller extends WxBaseController
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         $check = $this->checkSubscription();
         //检查是否已经约过了
-        return view('activity.casa',compact('wxCasa','hassleep','check'));
         $hassleep = Wx18::where('wx_user_id', Session::get('wx_user_id'))->where('wx_casa_id', $id)->first();
         return view('activity.casa', compact('wxCasa','hassleep','check'));
     }
