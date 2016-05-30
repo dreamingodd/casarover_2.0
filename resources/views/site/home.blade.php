@@ -52,7 +52,7 @@
     {{--</div>--}}
     {{--<!-- end 搜索框 -->--}}
     <div class="container" id="app">
-        @if(config('casarover.toggle_recom'))
+        @if(config('config.toggle_recom'))
         <!-- 民宿推荐 -->
         <section id="recom">
             <h2>民宿推荐</h2>
@@ -78,7 +78,7 @@
         </section>
         @endif
         <!-- 精选主题 -->
-        @if(config('casarover.toggle_theme'))
+        @if(config('config.toggle_theme'))
             <section id="theme" >
                 <h2>精选主题</h2>
                 <div class="line"></div>
@@ -88,7 +88,7 @@
             </section>
         @endif
         <!-- 探庐系列 -->
-        @if(config('casarover.toggle_series'))
+        @if(config('config.toggle_series'))
             <section id="series">
                 <h2>探庐系列</h2>
                 <div class="line"></div>

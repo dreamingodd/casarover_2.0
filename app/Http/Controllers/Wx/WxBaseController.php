@@ -4,22 +4,26 @@ namespace App\Http\Controllers\Wx;
 
 use Cache;
 use Config;
+use DB;
 use Log;
 use App\Common\WxTools;
+use App\Entity\Wx\WxCasa;
 use App\Http\Controllers\Controller;
 
 class WxBaseController extends Controller
 {
     use WxTools;
 
-    protected function getBaseAccessTokenFromWx() {
+    protected function getBaseAccessTokenFromWx()
+    {
         $appid = Config::get('casarover.wx_appid');
         $secret = Config::get('casarover.wx_appsecret');
         $json = WxTools::getBaseAccessToken($appid, $secret);
         return $json['access_token'];
     }
 
-    protected function getBaseAccessTokenFromCache() {
+    protected function getBaseAccessTokenFromCache()
+    {
         $token = Cache::get('access_token');
         if (!$token) {
             if (env('ENV') == 'DEV') {
@@ -33,9 +37,25 @@ class WxBaseController extends Controller
         return $token;
     }
 
-    protected function getSubscribe($openid) {
+    protected function getSubscribe($openid)
+    {
         $token = $this->getBaseAccessTokenFromCache();
         if (env('ENV') == 'DEV') return 1;
         else return WxTools::getSubscribeInfo($token, $openid)['subscribe'];
     }
+
+    protected function convertToViewCasa(WxCasa $casa)
+    {
+        $casa->cheapestPrice = DB::table('wx_room')->where('wx_casa_id', $casa->id)->min('price');
+        if (empty($casa->casa_id)) {
+            if (!empty($casa->attachment->filepath)) {
+                $casa->thumbnail = $casa->attachment->filepath;
+            }
+        } else {
+            if (!empty($casa->casa->attachment->filepath)) {
+                $casa->thumbnail = $casa->casa->attachment->filepath;
+            }
+        }
+    }
+
 }

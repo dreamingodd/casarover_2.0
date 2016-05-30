@@ -6,13 +6,13 @@
 @section('body')
     <div class="banner">
         @if(!empty($user))
-            <img src="/assets/images/activity/personbanner.png" alt="">
+            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/personbanner.png" alt="">
             <div class="user">
                 <img src="{{$user->headimgurl}}" alt="">
                 <p>{{$user->nickname}}</p>
             </div>
         @else
-            <img src="/assets/images/activity/banner.png" alt="">
+            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.png" alt="">
         @endif
     </div>
     <div class="main">

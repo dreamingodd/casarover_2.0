@@ -75,9 +75,9 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('areaslide','SiteController@areaSlide');
     Route::get('api/wxorder/list/{page?}/{type?}','Wx\WxOrderController@orderlist');
     Route::post('api/wxorder/del/','Wx\WxOrderController@del');
-    Route::get('shareactiv','Wx\ActivityController@selcasas');
-    Route::get('api/eighteen/add/{id}','Wx\ActivityController@add');
-    Route::get('api/eighteen/del/{id}','Wx\ActivityController@del');
+    Route::get('shareactiv','Wx\Activity18Controller@selcasas');
+    Route::get('api/eighteen/add/{id}','Wx\Activity18Controller@add');
+    Route::get('api/eighteen/del/{id}','Wx\Activity18Controller@del');
     Route::get('system/wx/user','Wx\WxUserController@showList');
     Route::get('system/wx/user/test/register/{id}','Wx\WxUserController@registerTester');
     Route::get('system/wx/user/test/unregister/{id}','Wx\WxUserController@unregisterTester');
@@ -100,7 +100,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('areas/{id?}','Api\AllCasaController@getAreasByCityId');
     Route::get('casas/city/{id?}/areas/{areas?}','Api\AllCasaController@getCasas');
     //民宿分享活动
-    Route::get('/eighteen/','Wx\ActivityController@sellist');
+    Route::get('/eighteen/','Wx\Activity18Controller@sellist');
 });
 
 /**
@@ -130,16 +130,16 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/consume_cancel/{id}', 'Wx\WxOrderController@cancelConsume');
     Route::get('/logout', 'Wx\WxSiteController@logout');
     // Check whether user subscribe us.
-    Route::get('subscribe', 'Wx\ActivityController@checkSubscription');
+    Route::get('subscribe', 'Wx\Activity18Controller@checkSubscription');
     // vote activity
     Route::group(['prefix' => 'date'],function () {
-        Route::get('/', 'Wx\ActivityController@index');
-        Route::get('/casa/{id}', 'Wx\ActivityController@show');
-        Route::get('/person/{id?}', 'Wx\ActivityController@person');
-        Route::get('/rank/{id?}', 'Wx\ActivityController@rank');
-        Route::get('/datesleep/{id}/{user_id}', 'Wx\ActivityController@datesleep');
-        Route::get('/poll/{id}/{user_id}','Wx\ActivityController@poll');
-        Route::get('subscribe/test', 'Wx\ActivityController@subscribeTest');
+        Route::get('/', 'Wx\Activity18Controller@index');
+        Route::get('/casa/{id}', 'Wx\Activity18Controller@show');
+        Route::get('/person/{id?}', 'Wx\Activity18Controller@person');
+        Route::get('/rank/{id?}', 'Wx\Activity18Controller@rank');
+        Route::get('/datesleep/{id}/{user_id}', 'Wx\Activity18Controller@datesleep');
+        Route::get('/poll/{id}/{user_id}','Wx\Activity18Controller@poll');
+        Route::get('subscribe/test', 'Wx\Activity18Controller@subscribeTest');
     });
 });
 

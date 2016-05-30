@@ -28,7 +28,7 @@
                 <input type="text" id="casaName" name="casaName" value="" placeholder="民宿名称">
             </div>
             <button id="submitBtn" type="button">提交</button>
-            <a href="tel:{{Config::get('casarover.help_telephone')}}" class="glyphicon glyphicon-earphone" style="margin-left: 80px;">电话咨询</a>
+            <a href="tel:{{Config::get('config.help_telephone')}}" class="glyphicon glyphicon-earphone" style="margin-left: 80px;">电话咨询</a>
         </form>
     </div>
 @stop

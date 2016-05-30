@@ -7,7 +7,7 @@
     <input type="hidden" value="{{$check}}" id="check">
 <div class="bg">
     <div class="banner">
-        <img src="/assets/images/activity/datebanner.png" alt="">
+        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/datebanner.png" alt="">
     </div>
         <div class="main">
             <div class="maincon clear">
@@ -46,22 +46,22 @@
                 <a href="/wx/date">我也约</a>
             @endif
         </div>
-        <img src="/assets/images/activity/close.png" alt="" class="md-close">
+        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/close.png" alt="" class="md-close">
     </div>
     <div class="invitecon">
         <div class="share">
-            <img src="/assets/images/activity/wxshare.png" alt="">
+            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/wxshare.png" alt="">
         </div>
         <div class="arrow">
-            <img src="/assets/images/activity/arrow.png" alt="">
+            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/arrow.png" alt="">
         </div>
-        <img src="/assets/images/activity/close.png" alt="" class="md-close">
+        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/close.png" alt="" class="md-close">
     </div>
 <div class="qrcode">
     <div class="qrcodecon">
-        <img src="/assets/images/activity/qrcode.png" alt="">
+        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/qrcode.png" alt="">
     </div>
-    <img src="/assets/images/activity/close.png" alt="" class="md-close">
+    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/close.png" alt="" class="md-close">
 </div>
     <script>
         $(function () {

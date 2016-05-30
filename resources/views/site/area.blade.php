@@ -56,7 +56,7 @@
             <div class="casa-card">
                 <div class="card-b">
                     <a href="/casa/{{ $casa->id }}" target="_blank">
-                        <img src="{{ config('casarover.photo_folder').$casa->attachment->filepath }}" height="100%">
+                        <img src="{{ config('config.photo_folder').$casa->attachment->filepath }}" height="100%">
                         <div class="card">
                             <h3>{{ $casa->name }}</h3>
                         </div>
@@ -76,7 +76,7 @@
                 {{--<div class="casa-card">--}}
                     {{--<div class="card-c">--}}
                         {{--<a href="/casa/{{ $casas[$i]->id }}">--}}
-                            {{--<img src="{{ config('casarover.photo_folder').$casas[$i]->attachment->filepath }}" height="100%">--}}
+                            {{--<img src="{{ config('config.photo_folder').$casas[$i]->attachment->filepath }}" height="100%">--}}
                             {{--<div class="card">--}}
                                 {{--<h3>{{ $casas[$i]->name }}</h3>--}}
                             {{--</div>--}}

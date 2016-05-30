@@ -5,7 +5,7 @@
 @stop
 @section('nav')
     <a href="/wx" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
-    <a href="tel:{{Config::get('casarover.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
+    <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop
 @section('body')
@@ -26,7 +26,7 @@
                 <span>{{$levelStr}}</span>
                 <div class="progress">
                     <div class="progress-bar " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percent }}%" >
-                        {{$wxUser->WxMembership->accumulated_score}}/{{Config::get('casarover.wx_membership_detail')[$wxUser->WxMembership->level + 1]['score']}}
+                        {{$wxUser->WxMembership->accumulated_score}}/{{Config::get('config.wx_membership_detail')[$wxUser->WxMembership->level + 1]['score']}}
                     </div>
                 </div>
             </div>

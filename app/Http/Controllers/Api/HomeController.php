@@ -38,7 +38,7 @@ class HomeController extends Controller
         }
         foreach($casas as $casa)
         {
-            $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
+            $casa->pic = config('config.photo_folder').$casa->attachment->filepath;
             $casa->brief = $casa->contents[0]->text;
             $casa->src = '/casa/'.$casa->id;
         }
@@ -50,7 +50,7 @@ class HomeController extends Controller
         $themes = Theme::where('status',1)->take(6)->get();
         foreach($themes as $theme)
         {
-            $theme->pic = config('casarover.image_folder').$theme->attachment->filepath;
+            $theme->pic = config('config.image_folder').$theme->attachment->filepath;
             $theme->src = '/theme/'.$theme->id;
         }
         return response()->json($themes);
@@ -61,7 +61,7 @@ class HomeController extends Controller
         $series = WechatSeries::where('status',1)->take(6)->get();
         foreach($series as $serie)
         {
-            $serie->pic = config('casarover.image_folder').$serie->thumbnail->filepath;
+            $serie->pic = config('config.image_folder').$serie->thumbnail->filepath;
             $serie->src = '/casaseries/'.$serie->type.'/'.$serie->id;
         }
         return response()->json($series);

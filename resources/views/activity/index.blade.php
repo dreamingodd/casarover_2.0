@@ -5,7 +5,7 @@
 @stop
 @section('body')
     <div class="banner">
-        <img src="/assets/images/activity/banner.png" alt="">
+        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.png" alt="">
     </div>
     <div class="main clear">
         @foreach($data as $key=>$casa)
@@ -14,7 +14,7 @@
                     <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}"
                          alt="{{$casa->thumbnail}}" class="casecon">
                     <span>{{ $key+1 }}</span>
-                    <img src="/assets/images/activity/mask.png" alt="mask" class="mask">
+                    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/mask.png" alt="mask" class="mask">
                     <div class="article">
                         <h3>{{ $casa->name }}</h3>
                         <h4>想睡：{{ count($casa->totalVotes) }}人</h4>

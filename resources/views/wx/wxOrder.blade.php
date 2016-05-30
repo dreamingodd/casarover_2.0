@@ -50,7 +50,7 @@
             @else
                 <input type="number" id="score" name="score" placeholder="输入积分"/>&nbsp;&nbsp;
                 可用积分：<i id="usableScore">{{$wxUser->wxMembership->score}}</i>
-                <p class="scoreDesc">100积分可抵10元，最多可抵房价的{{Config::get('casarover.wx_max_discount')}}%。</p>
+                <p class="scoreDesc">100积分可抵10元，最多可抵房价的{{Config::get('config.wx_max_discount')}}%。</p>
             @endif
         </div>
     </div>

@@ -5,18 +5,15 @@ namespace App\Http\Controllers\Wx;
 
 use App\Entity\Wx\WxScoreActivity;
 use App\Entity\Wx\WxScoreVariation;
-use DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Mockery\CountValidator\Exception;
 use Session;
 use App\Entity\Wx\WxUser;
-use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxOrder;
 use App\Entity\Wx\WxMembership;
 
-class WxSiteController extends Controller
+class WxSiteController extends WxBaseController
 {
     /**
      * Collect normal casas and test casas.
@@ -172,23 +169,6 @@ class WxSiteController extends Controller
         $user->wxMembership->accumulated_score = $user->wxMembership->accumulated_score+$score;
         $user->wxMembership->save();
         app('MembershipService')->upgradeWxMembershipLevelIfNeeded($user->wxMembership);
-    }
-
-    /**
-     * A casa for user to view on wechat index page should have the least price and thumnail.
-     */
-    private function convertToViewCasa(WxCasa $casa)
-    {
-        $casa->cheapestPrice = DB::table('wx_room')->where('wx_casa_id', $casa->id)->min('price');
-        if (empty($casa->casa_id)) {
-            if (!empty($casa->attachment->filepath)) {
-                $casa->thumbnail = $casa->attachment->filepath;
-            }
-        } else {
-            if (!empty($casa->casa->attachment->filepath)) {
-                $casa->thumbnail = $casa->casa->attachment->filepath;
-            }
-        }
     }
 
     public function logout() {

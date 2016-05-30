@@ -84,7 +84,7 @@ class WxOrderController extends Controller
                     return "您输入的积分超过当前可用的积分！";
                 }
                 // invalid situation 2 - larger than 30% of the payment.
-                if ($score > $total * Config::get('casarover.wx_max_discount') / 10) {
+                if ($score > $total * Config::get('config.wx_max_discount') / 10) {
                     return "您输入的积分超过了房价的30%！";
                 }
                 $wsv = new WxScoreVariation();

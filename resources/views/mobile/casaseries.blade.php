@@ -8,7 +8,7 @@
 @section('body')
     <div class="main">
         <section class='tanlu'>
-            <div class='tanlutop' style="background: url({{ config('casarover.image_folder').$serie->attachment->filepath }});background-repeat:no-repeat;background-size:cover;-moz-background-size:cover;-webkit-background-size:cover;">
+            <div class='tanlutop' style="background: url({{ config('config.image_folder').$serie->attachment->filepath }});background-repeat:no-repeat;background-size:cover;-moz-background-size:cover;-webkit-background-size:cover;">
                 <div class="guide-mess">
                     <h2 style="color: #FFFFFF">{{ $serie->name }}</h2>
                     <p>{{ $serie->brief }}</p>
@@ -19,7 +19,7 @@
                     <a href="{{$article->address}}" >
                         <div class="articles">
                             <div class="left">
-                                <img src="{{config('casarover.photo_folder').$article->attachment->filepath}}"/>
+                                <img src="{{config('config.photo_folder').$article->attachment->filepath}}"/>
                             </div>
                             <div class="right">
                                 <span class="title">{{$article->title}}</span>

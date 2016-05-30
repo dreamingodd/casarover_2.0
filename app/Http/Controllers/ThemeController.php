@@ -24,7 +24,7 @@ class ThemeController extends Controller
         $contents = $theme->contents()->orderBy('display_order','asc')->get();
         foreach($others as $otherTheme)
         {
-            $otherTheme->pic = config('casarover.image_folder').$otherTheme->attachment->filepath;
+            $otherTheme->pic = config('config.image_folder').$otherTheme->attachment->filepath;
         }
         if(strpos($request->url(), 'mobile'))
             return  view('mobile.theme',compact('theme','contents','others'));

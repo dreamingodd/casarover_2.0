@@ -40,9 +40,9 @@
     </div>
     <div class="qrcode">
         <div class="qrcodecon">
-            <img src="/assets/images/activity/qrcode.png" alt="">
+            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/qrcode.png" alt="">
         </div>
-        <img src="/assets/images/activity/close.png" alt="" class="md-close">
+        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/close.png" alt="" class="md-close">
     </div>
     <script>
         $(function () {

@@ -16,7 +16,7 @@ class SiteController extends Controller
         $casas = Option::where('type',1)->get();
         foreach($casas as $casa)
         {
-            $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
+            $casa->pic = config('config.photo_folder').$casa->attachment->filepath;
         }
         $citys = Area::where('status',1)->get();
         if(strpos($request->url(), 'mobile'))

@@ -35,7 +35,7 @@
             </a>
         </div>
         <div class="nav-middle">
-            @if(config('casarover.toggle_allcasa'))
+            @if(config('config.toggle_allcasa'))
             <a href="/allcasa">民宿大全</a>
             @endif
             <a href="/#recom">民宿推荐</a>

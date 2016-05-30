@@ -157,7 +157,7 @@ class CasaController extends BaseController
             {
                 if($casa->attachment)
                 {
-                    $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
+                    $casa->pic = config('config.photo_folder').$casa->attachment->filepath;
                 }
                 if(isset($casa->tags[0]))
                 {
@@ -183,7 +183,7 @@ class CasaController extends BaseController
        $slides = Option::where('type',2)->get();
        foreach($slides as $slide)
        {
-           $slide->pic = config('casarover.photo_folder').$slide->attachment->filepath;
+           $slide->pic = config('config.photo_folder').$slide->attachment->filepath;
        }
        //默认被选中的city 为杭州
        $sel = $cityId;

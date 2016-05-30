@@ -6,7 +6,7 @@ class MembershipService {
     public function upgradeWxMembershipLevelIfNeeded($wxMembership) {
         $level = $wxMembership->level;
         $score = $wxMembership->accumulated_score;
-        $levelDetails = Config::get('casarover.wx_membership_detail');
+        $levelDetails = Config::get('config.wx_membership_detail');
         $nextLevelLeastScore = $levelDetails[$level + 1]['score'];
         // Membership upgrade.
         if ($score >= $nextLevelLeastScore || $score < $levelDetails[$wxMembership->level]['score']) {

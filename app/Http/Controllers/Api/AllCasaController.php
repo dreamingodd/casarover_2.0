@@ -61,7 +61,7 @@ class AllCasaController extends Controller
         {
             if($casa->attachment)
             {
-                $casa->pic = config('casarover.photo_folder').$casa->attachment->filepath;
+                $casa->pic = config('config.photo_folder').$casa->attachment->filepath;
             }
             $casa->tags;
         }

@@ -15,7 +15,7 @@
                 >
                     <div class="case">
                         @if(count($article->attachments))
-                            <img src="{{ config('casarover.image_folder').$article->attachments[0]->filepath }}" alt="">
+                            <img src="{{ config('config.image_folder').$article->attachments[0]->filepath }}" alt="">
                         @endif
                         <div class="articles">
                             <h2>{{ $article->name }}</h2>

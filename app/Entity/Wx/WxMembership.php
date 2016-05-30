@@ -17,6 +17,6 @@ class WxMembership extends Model
     }
     public static function getLevelDetail($level)
     {
-        return Config::get('casarover.wx_membership_detail')[$level];
+        return Config::get('config.wx_membership_detail')[$level];
     }
 }

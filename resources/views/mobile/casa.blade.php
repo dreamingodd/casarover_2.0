@@ -24,7 +24,7 @@
                     <h2>{{ $content->name }}</h2>
                     <p>{!! $content->text !!}</p>
                     @foreach($content->attachments as $photo)
-                        <img src="{{ config('casarover.photo_folder').$photo->filepath }}" alt="" width="100%">
+                        <img src="{{ config('config.photo_folder').$photo->filepath }}" alt="" width="100%">
                     @endforeach
                 @endforeach
             </div>
@@ -42,7 +42,7 @@
                 <div class="m-casa-guess">
                     <a href="{{ $casa->id }}" class="slide-a">
                         <div class="head-img">
-                            <img src="{{ config('casarover.photo_folder').$casa->attachment->filepath }}" width="100%" alt="casaheadimg">
+                            <img src="{{ config('config.photo_folder').$casa->attachment->filepath }}" width="100%" alt="casaheadimg">
                         </div>
                         <div class="title">
                             <p>

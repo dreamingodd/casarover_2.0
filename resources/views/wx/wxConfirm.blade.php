@@ -21,7 +21,7 @@
             @endforeach
             <p id="total">总价：<i>元</i><i>{{$casaroverOrder->total or ''}}</i></p>
             <p id="reserveButton" style="text-align: center; display: none;">
-                <a href="tel:{{Config::get('casarover.help_telephone')}}">
+                <a href="tel:{{Config::get('config.help_telephone')}}">
                     <button style="">电话预约</button>
                 </a>
             </p>

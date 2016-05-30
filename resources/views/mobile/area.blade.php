@@ -58,7 +58,7 @@
                     <div class="casa-card">
                         <div class="card-b">
                             <a href="/mobile/casa/{{ $casa->id }}" target="_blank">
-                                <img src="{{ config('casarover.photo_folder').$casa->attachment->filepath }}" height="100%">
+                                <img src="{{ config('config.photo_folder').$casa->attachment->filepath }}" height="100%">
                                 <div class="card">
                                     <h3>{{ $casa->name }}</h3>
                                 </div>

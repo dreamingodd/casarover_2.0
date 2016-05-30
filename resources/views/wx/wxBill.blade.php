@@ -6,7 +6,7 @@
 @section('body')
 @section('nav')
     <a href="/wx/confirm" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
-    <a href="tel:{{Config::get('casarover.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
+    <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop
     <div class="main">

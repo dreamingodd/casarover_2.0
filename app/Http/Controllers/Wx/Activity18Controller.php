@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wx;
 
+use Exception;
 use App\Entity\Wx\WxUser;
 use Config;
 use Log;
@@ -15,7 +16,7 @@ use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxActivityCasa;
 use App\Entity\Wx\WxVote;
 
-class ActivityController extends WxBaseController
+class Activity18Controller extends WxBaseController
 {
     use WxTools;
 
@@ -27,19 +28,6 @@ class ActivityController extends WxBaseController
             $casa->totalVotes = WxActivityCasa::where('wx_casa_id',$casa->id)->get();
         }
         return view('activity.index',compact('data'));
-    }
-    private function convertToViewCasa(WxCasa $casa)
-    {
-        $casa->cheapestPrice = DB::table('wx_room')->where('wx_casa_id', $casa->id)->min('price');
-        if (empty($casa->casa_id)) {
-            if (!empty($casa->attachment->filepath)) {
-                $casa->thumbnail = $casa->attachment->filepath;
-            }
-        } else {
-            if (!empty($casa->casa->attachment->filepath)) {
-                $casa->thumbnail = $casa->casa->attachment->filepath;
-            }
-        }
     }
 
     public function show($id)
@@ -53,6 +41,7 @@ class ActivityController extends WxBaseController
         $hassleep = WxActivityCasa::where('wx_user_id',Session::get('wx_user_id'))->where('wx_casa_id',$id)->first();
         return view('activity.casa',compact('wxCasa','hassleep','check'));
     }
+
     /**
      * banner config
      * key => value
@@ -60,12 +49,13 @@ class ActivityController extends WxBaseController
      **/
     private function banner($id)
     {
-        $bannerlist = [
-            '4' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160525-161502-26r5097.jpg',
-            '5' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160525-161502-26r5097.jpg',
-            '8' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160525-161502-26r5097.jpg',
-        ];
-        return $bannerlist[$id];
+        try {
+            // 民宿图片
+            return Config::get('config.wx_18_pics')[$id];
+        } catch (Exception $e) {
+            // 默认图片
+            return 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.png';
+        }
     }
 
     public function person($id=0)
@@ -99,6 +89,7 @@ class ActivityController extends WxBaseController
         }
         return view('activity.person',compact('casas','user','id'));
     }
+
     public function rank($id=0)
     {
         $userId=Session::get('wx_user_id');
@@ -119,7 +110,7 @@ class ActivityController extends WxBaseController
         return view('activity.rank',compact('users','user','casa','check'));
     }
 
-    public function datesleep($casa_id,$user_id)
+    public function datesleep($casa_id, $user_id)
     {
         //存储信息
         $hassleep = WxActivityCasa::where('wx_user_id',$user_id)->where('wx_casa_id',$casa_id)->first();
@@ -142,12 +133,12 @@ class ActivityController extends WxBaseController
         $wxCasa = WxCasa::find($casa_id);
         $user = WxUser::find($user_id);
         $isme = Session::get('wx_user_id') == $user_id?1:0;
-//        $isme = 0;
+        //  $isme = 0;
         $check = $this->checkSubscription();
         return view('activity.datesleep',compact('wxCasa','user','isme','check'));
     }
 
-    public function poll($casa_id,$user_id)
+    public function poll($casa_id, $user_id)
     {
 
         /**
@@ -179,19 +170,19 @@ class ActivityController extends WxBaseController
 
     }
 
-    //后台活动index
+    // 后台活动index
     public function selcasas()
     {
         $casas = WxCasa::all();
         return view('backstage.selCasas',compact('casas'));
     }
-    //已选择列表
+    // 已选择列表
     public function sellist()
     {
         $data = WxCasa::where('activ',1)->get();
         return response()->json($data);
     }
-    //后台添加
+    // 后台添加
     public function add($id)
     {
         $wxCasa = WxCasa::find($id);
@@ -200,7 +191,7 @@ class ActivityController extends WxBaseController
         $data = ['msg','ok'];
         return response()->json($data);
     }
-    //后台删除
+    // 后台删除
     public function del($id)
     {
         $wxCasa = WxCasa::find($id);
@@ -210,7 +201,8 @@ class ActivityController extends WxBaseController
         return response()->json($data);
     }
 
-    public function checkSubscription() {
+    public function checkSubscription()
+    {
         $user = WxUser::find(Session::get('wx_user_id'));
         return $this->getSubscribe($user->openid);
     }
