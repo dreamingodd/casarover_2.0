@@ -55,6 +55,6 @@ class WxCasa extends Model
 //    //18家活动每家民宿总票数
 //    public function totalVotes()
 //    {
-//        return $this->hasManyThrough('App\Entity\Wx\WxVote','App\Entity\Wx\WxActivityCasa','wx_casa_id','18_id');
+//        return $this->hasManyThrough('App\Entity\Wx\WxVote','App\Entity\Wx\Wx18','wx_casa_id','18_id');
 //    }
 }

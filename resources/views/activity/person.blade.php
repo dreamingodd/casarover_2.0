@@ -25,9 +25,7 @@
                         <div class="article">
                             <h2>{{$casa->name}}</h2>
                             <p>{{$casa->brief}}</p>
-                            @if($id!=0)
-                                <span>排名：第{{$casa->rank}}名</span>
-                            @endif
+                            <span>排名：第{{$casa->rank}}名</span>
                         </div>
                     </a>
         @endforeach

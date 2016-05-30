@@ -12,20 +12,20 @@
             <a href="/wx/date/casa/{{$casa->id}}">查看详情</a>
         </div>
     </div>
-    @if(!empty($check))
+    @if($myRawWx18)
         <div class="person clear">
-            <img src="{{$user->headimgurl}}" alt="">
+            <img src="{{$myRawWx18->headimgurl}}" alt="">
             <div class="personinfo">
-                <p>{{$user->nickname}}</p>
-                <span>当前排名：{{$user->rank}}</span>
+                <p>{{$myRawWx18->nickname}}</p>
+                <span>当前排名：{{$myRawWx18->rank}}</span>
             </div>
             <div class="number">
-                {{$user->vote}}<span>人帮约</span>
+                {{$myRawWx18->vote}}<span>人帮约</span>
             </div>
         </div>
     @endif
     <div class="main">
-        @foreach($users as $key=>$person)
+        @foreach($wx18s as $key=>$person)
         <div class="person clear">
             <div class="rank">{{$key+1}}</div>
             <img src="{{$person->wxUser->headimgurl}}" alt="">

@@ -27,8 +27,8 @@
         </div>
         <div class="button">
             @if($isme)
+                <a class="helpsleep" onclick="poll({{ $wxCasa->id }},{{ $user->id }})">帮自己约</a>
                 <a class="invite">邀请好友帮我约</a>
-                <a class="helpsleep" onclick="poll({{ $wxCasa->id }},{{ $user->id }})">约约约</a>
                 <a href="/wx/date/rank/{{ $wxCasa->id }}">排行</a>
             @else
                 <a class="helpsleep" onclick="poll({{ $wxCasa->id }},{{ $user->id }})">帮他约睡</a>
@@ -90,7 +90,7 @@
         });
 
         function poll(casa,user){
-            $.getJSON('/wx/date/poll/'+casa+'/'+user,function(data){
+            $.getJSON('/wx/date/vote/'+casa+'/'+user,function(data){
                 console.log(data);
                 if(data.code == 0){
                     $('.bg').addClass('blur');
