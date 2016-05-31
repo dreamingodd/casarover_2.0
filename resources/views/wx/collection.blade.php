@@ -15,7 +15,6 @@
             <h2>我的收藏</h2>
             <span class="edit">编辑</span>
             <span class="finished">完成</span>
-            input value="3"
             @foreach( $casas as $casa)
                 <div class="case clear">
                     <div class="check clear">

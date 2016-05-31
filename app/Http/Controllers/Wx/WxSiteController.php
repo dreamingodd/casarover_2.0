@@ -192,10 +192,6 @@ class WxSiteController extends WxBaseController
     }
     public function collectionDel(Request $request) {
         $saves=$request->all();
-        dd($saves['casa']);
-        foreach ($saves->casa[] as $casa){
-
-        }
     }
 
 }
