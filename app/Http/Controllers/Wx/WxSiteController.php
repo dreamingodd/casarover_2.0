@@ -40,10 +40,13 @@ class WxSiteController extends WxBaseController
 
     public function casa($id)
     {
+        $userId = Session::get('wx_user_id');
         $wxCasa = WxCasa::find($id);
         $this->convertToViewCasa($wxCasa);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
-        return view('wx.wxCasaDetail', compact('wxCasa'));
+        $casas=WxCollection::where('wx_user_id',$userId)->
+        where('wx_casa_id',$id)->where('collection',1)->first();
+        return view('wx.wxCasaDetail', compact('wxCasa','casas'));
     }
 
     public function user($tips=null)
@@ -187,4 +190,12 @@ class WxSiteController extends WxBaseController
         }
         return view('wx.collection',compact('casas'));
     }
+    public function collectionDel(Request $request) {
+        $saves=$request->all();
+        dd($saves['casa']);
+        foreach ($saves->casa[] as $casa){
+
+        }
+    }
+
 }

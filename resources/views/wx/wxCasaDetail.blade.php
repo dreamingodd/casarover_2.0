@@ -24,10 +24,15 @@
         </div>
         <div class="brief">
             <p>{!!$wxCasa->desc!!}</p>
-            <div class="collection">
-                <span class="glyphicon glyphicon-star-empty"></span>
-                收藏
-            </div>
+            {{--<div class="collection">--}}
+                {{--@if(empty($casas))--}}
+                    {{--<span class="glyphicon glyphicon-star-empty"></span>--}}
+                    {{--收藏--}}
+                {{--@else--}}
+                    {{--<span class="glyphicon glyphicon-star"></span>--}}
+                    {{--已收藏--}}
+                {{--@endif--}}
+            {{--</div>--}}
         </div>
         <div class="tabtable">
             <ul class="nav nav-tabs">

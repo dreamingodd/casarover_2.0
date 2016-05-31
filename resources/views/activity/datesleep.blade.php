@@ -32,7 +32,7 @@
                 <a href="/wx/date/rank/{{ $wxCasa->id }}">排行</a>
             @else
                 <a class="helpsleep" onclick="poll({{ $wxCasa->id }},{{ $user->id }})">帮他约睡</a>
-                <a href="/date">我也约</a>
+                <a href="/wx/date">我也约</a>
                 <a href="/wx/date/rank/{{ $wxCasa->id }}">排行</a>
             @endif
         </div>

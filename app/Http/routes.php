@@ -124,6 +124,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::post('/order/create', 'Wx\WxOrderController@create');
     Route::get('/pay/wxorder/{id}', 'Wx\WxPayController@prepare');
     Route::get('/collection', 'Wx\WxSiteController@collection');
+    Route::post('/collection', 'Wx\WxSiteController@collectionDel');
     // Merchant entry
     Route::get('/bind', 'Wx\WxBindController@index');
     Route::post('/bind/apply', 'Wx\WxBindController@apply');

@@ -1,20 +1,88 @@
 .main{
-  border-top:6rem solid transparent ;
+  border-top:5rem solid transparent ;
   position: relative;
+  margin-bottom: 1rem;
   h2{
     font-size: 2rem;
     text-align: center;
     margin: 0;
+    padding: 1rem 0;
+    border-bottom:1px solid #CFCFCF ;
   }
-  .edit{
+  .edit,.finished{
     position: absolute;
     top:0;
-    right: 1rem;
+    right: 0;
+    padding: 1rem;
+    border-left:1px solid #CFCFCF ;
+  }
+  .finished{
+    display: none;
   }
   .case{
-    padding: 0 1rem;
+    padding:1rem;
+    background: #fff;
+    border-bottom:1px solid #CFCFCF ;
+    .check{
+      display: none;
+      float: left;
+      width: 10%;
+      height: 8rem;
+      background: #fff;
+      position: relative;
+      .circle{
+        position: absolute;
+        top: 40%;
+        left: 0;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background: #fff;
+        border: 1px solid #000;
+        .glyphicon-ok{
+          padding: 0.5rem;
+          font-size: 1rem;
+          color: #fff;
+        }
+      }
+      .circleclick{
+        background: #ff7e00;
+        border: none;
+      }
+    }
+    .casecon{
+      float: left;
+      width: 90%;
+    }
     img{
       width: 40%;
+      float: left;
+    }
+    .article{
+      width:55%;
+      float: right;
+      h3{
+        font-size: 2rem;
+        margin: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      p{
+        margin: 0.5rem 0 ;
+      }
+      span{
+        color: #ff7e00;
+        font-size: 1.5rem;
+      }
     }
   }
+}
+.delete{
+  display: none;
+  width: 80%;
+  margin:1rem 0 1rem 10%;
+  padding: 1rem 2rem;
+  background: #fff;
+  text-align: center;
 }

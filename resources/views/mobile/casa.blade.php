@@ -1,7 +1,7 @@
 @extends('mobile')
 @section('title','民宿推荐')
 @section('head')
-    <link rel="stylesheet" href="/assets/css/mobilecasa.css">
+    <link rel="stylesheet" href="/assets/css/mobileCasa.css">
 @endsection
 @section('body')
     <div class="main">
