@@ -4,7 +4,7 @@ namespace App\Entity\Wx;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WxActivityCasa extends Model
+class Wx18 extends Model
 {
     protected $table = "wx_user_casa_18";
     public function wxCasa() {
