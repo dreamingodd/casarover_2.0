@@ -3,7 +3,7 @@
     <script src="//requirejs.org/docs/release/2.1.11/comments/require.js" data-main="/assets/js/OssPhotoUploader.js"></script>
 @endsection
 @section('body')
-    {{--<input type="hidden" id="page" value="home"/>--}}
+    <input type="hidden" id="page" value="home"/>
     <form action="/back/slide/store" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <input type="hidden" name="id" value="{{ $slide->id or '' }}">

@@ -1,6 +1,10 @@
 @extends('back')
 @section('body')
-    {{--<input type="hidden" id="page" value="home"/>--}}
+@if ($type == 1)
+    <input type="hidden" id="page" value="home"/>
+@else
+    <input type="hidden" id="page" value="area"/>
+@endif
     <div class="options vertical5">
         <a href="/back/slide/add/{{ $type }}">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加

@@ -136,8 +136,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::group(['prefix' => 'date'],function () {
         Route::get('/', 'Wx\Activity18Controller@index');
         Route::get('/casa/{id}', 'Wx\Activity18Controller@show');
-        Route::get('rank/entry', 'Wx\Activity18Controller@rankEntry');
-        Route::get('/person/{id?}', 'Wx\Activity18Controller@rankEntry');
+        Route::get('rank/entry/{id?}', 'Wx\Activity18Controller@rankEntry');
         Route::get('/rank/{id?}', 'Wx\Activity18Controller@rank');
         Route::get('/datesleep/{id}/{user_id}', 'Wx\Activity18Controller@datesleep');
         Route::get('/vote/{id}/{user_id}','Wx\Activity18Controller@vote');

@@ -19,8 +19,8 @@
                    aria-haspopup="true" aria-expanded="false">区域管理<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/back/areas">区域管理</a></li>
                     <li><a href="/back/areaslide">轮播图</a></li>
+                    <li><a href="/back/areas">区域管理</a></li>
                 </ul>
             </li>
             <li role="presentation" class="casa">
@@ -42,7 +42,7 @@
                    aria-haspopup="true" aria-expanded="false">预订平台<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/back/shareactiv">活动</a></li>
+                    <li><a href="/back/shareactiv">18家活动</a></li>
                     <li><a href="/back/wx/">微信民宿</a></li>
                     <li><a href="/back/wx/order/list">订单管理</a></li>
                     <li><a href="/back/wx/bind">商家管理</a></li>

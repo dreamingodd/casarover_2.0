@@ -21,6 +21,10 @@ return [
     // wx 18 pics
     'wx_18_pics' => [
         '梅皋坞山居【感恩粉丝回馈中】' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/4%E6%A2%85%E7%9A%8B%E5%9D%9E%E5%B1%B1%E5%B1%85.jpg',
-        '莫干山居图' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/17%E4%BA%91%E8%B5%B7%E7%90%9A.jpg',
+        '莫干山居图' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/5%E8%8E%AB%E5%B9%B2%E5%B1%B1%E5%B1%85%E5%9B%BE.jpg',
+        '福雅集【感恩粉丝回馈中】' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/1%E7%A6%8F%E9%9B%85%E9%9B%86.jpg',
+        '小木森森【感恩粉丝回馈中】' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/15%E5%B0%8F%E6%9C%A8%E6%A3%AE%E6%A3%AE.jpg',
+        '田园曼居' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/13%E7%94%B0%E5%9B%AD%E6%9B%BC%E5%B1%85.jpg',
     ],
+    'wx_18_link' => 'http://www.casarover.com',
 ];

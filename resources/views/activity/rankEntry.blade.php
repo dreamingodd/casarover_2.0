@@ -1,5 +1,9 @@
 @extends('activity')
-@section('title','民宿信息')
+@if($id)
+    @section('title','个人中心')
+@else
+    @section('title','排行榜')
+@endif
 @section('head')
     <link rel="stylesheet" href="/assets/css/activityPerson.css">
 @stop
@@ -32,4 +36,5 @@
                     </a>
         @endforeach
     </div>
+    <br/><br/><br/>
 @stop

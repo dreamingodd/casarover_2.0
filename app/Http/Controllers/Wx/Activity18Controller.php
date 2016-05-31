@@ -9,17 +9,18 @@ use Log;
 use DB;
 use Session;
 use App\Common\WxTools;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\Wx18;
 use App\Entity\Wx\WxVote;
 
+/**
+ * Controller for 18家民宿约睡活动.
+ */
 class Activity18Controller extends WxBaseController
 {
     use WxTools;
 
+    /** 首页 */
     public function index()
     {
         $data = WxCasa::where('activ',1)->get();
@@ -30,6 +31,9 @@ class Activity18Controller extends WxBaseController
         return view('activity.index',compact('data'));
     }
 
+    /** 民宿页.
+     * @param int $id WxCasa's id
+     */
     public function show($id)
     {
         $wxCasa = WxCasa::find($id);
@@ -38,26 +42,13 @@ class Activity18Controller extends WxBaseController
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         $check = $this->checkSubscription();
         //检查是否已经约过了
-        $hassleep = Wx18::where('wx_user_id',Session::get('wx_user_id'))->where('wx_casa_id',$id)->first();
-        return view('activity.casa',compact('wxCasa','hassleep','check'));
+        $hassleep = Wx18::where('wx_user_id', Session::get('wx_user_id'))->where('wx_casa_id', $id)->first();
+        return view('activity.casa', compact('wxCasa','hassleep','check'));
     }
 
     /**
-     * banner config
-     * key => value
-     * key is wxcasa_id
-     **/
-    private function banner($name)
-    {
-        try {
-            // 民宿图片
-            return Config::get('config.wx_18_pics')[$name];
-        } catch (Exception $e) {
-            // 默认图片
-            return 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.png';
-        }
-    }
-
+     * @param int $id WxUser's id
+     */
     public function rankEntry($id = 0)
     {
         $user = WxUser::find(Session::get('wx_user_id'));
@@ -83,9 +74,12 @@ class Activity18Controller extends WxBaseController
             $this->convertToViewCasa($casa);
             array_push($casas, $casa);
         }
-        return view('activity.person',compact('casas','user','id'));
+        return view('activity.rankEntry',compact('casas','user','id'));
     }
 
+    /**
+     * @param int $casaId WxCasa's id
+     */
     public function rank($casaId = 0)
     {
         $userId = Session::get('wx_user_id');
@@ -116,6 +110,10 @@ class Activity18Controller extends WxBaseController
         return view('activity.rank',compact('wx18s','myRawWx18','casa'));
     }
 
+    /** 约睡
+     * @param int $casa_id
+     * @param int $user_id
+     */
     public function datesleep($casa_id, $user_id)
     {
         //存储信息
@@ -144,15 +142,13 @@ class Activity18Controller extends WxBaseController
         return view('activity.datesleep',compact('wxCasa', 'user', 'isme', 'check'));
     }
 
+    /**
+     * @param int $casa_id
+     * @param int $user_id
+     * @return 0 投票成功, 1 投票时间不允许, TODO 2 未关注
+     * */
     public function vote($casa_id, $user_id)
     {
-
-        /**
-         * code
-         * 0 投票成功
-         * 1 投票时间不允许
-         * TODO 2 未关注
-         * */
         $activitycasa = Wx18::where('wx_casa_id',$casa_id)->where('wx_user_id',$user_id)->first();
         //时间判定
         $lastpoll = WxVote::where('wx_user_id',Session::get('wx_user_id'))
@@ -216,4 +212,21 @@ class Activity18Controller extends WxBaseController
         $user = WxUser::find(Session::get('wx_user_id'));
         return $this->getSubscribe($user->openid);
     }
+
+    /**
+     * banner config
+     * key is wxcasa->name
+     * @param string $name WxCasa's name
+     **/
+    private function banner($name)
+    {
+        try {
+            // 民宿图片
+            return Config::get('config.wx_18_pics')[$name];
+        } catch (Exception $e) {
+            // 默认图片
+            return 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.png';
+        }
+    }
+
 }
