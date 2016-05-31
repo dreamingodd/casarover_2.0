@@ -90,17 +90,19 @@
         });
 
         function poll(casa,user){
-            $.getJSON('/wx/date/vote/'+casa+'/'+user,function(data){
-                console.log(data);
-                if(data.code == 0){
-                    $('.bg').addClass('blur');
-                    $('.detail').show();
-                }else if(data.code == 1){
-                    alert('明天再来投票吧');
-                }else{
-                    alert('something is wrong');
-                }
-            })
+            if ($('#check').val() && $('#check').val() != "0") {
+                $.getJSON('/wx/date/vote/'+casa+'/'+user,function(data){
+                    console.log(data);
+                    if(data.code == 0){
+                        $('.bg').addClass('blur');
+                        $('.detail').show();
+                    }else if(data.code == 1){
+                        alert('明天再来投票吧');
+                    }else{
+                        alert('something is wrong');
+                    }
+                });
+            }
         }
     </script>
 @stop
