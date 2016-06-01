@@ -1,5 +1,5 @@
 @extends('activity')
-@section('title','约睡详情')
+@section('title',$user->nickname."邀请你帮他约")
 @section('head')
     <link rel="stylesheet" href="/assets/css/activityDate.css">
 @stop

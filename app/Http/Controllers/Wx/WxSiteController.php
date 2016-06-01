@@ -45,7 +45,7 @@ class WxSiteController extends WxBaseController
         $this->convertToViewCasa($wxCasa);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         $casas=WxCollection::where('wx_user_id',$userId)->
-        where('wx_casa_id',$id)->where('collection',1)->first();
+        where('wx_casa_id',$id)->first();
         return view('wx.wxCasaDetail', compact('wxCasa','casas'));
     }
 
@@ -183,15 +183,22 @@ class WxSiteController extends WxBaseController
     }
     public function collection() {
         $userId = Session::get('wx_user_id');
-        $casas=WxCollection::where('wx_user_id',$userId)->where
-        ('collection',1)->get();
+        $casas=WxCollection::where('wx_user_id',$userId)->get();
         foreach ($casas as $casa) {
             $this->convertToViewCasa($casa->wxCasa);
         }
         return view('wx.collection',compact('casas'));
     }
     public function collectionDel(Request $request) {
+        $userId = Session::get('wx_user_id');
         $saves=$request->all();
+        foreach($saves['casa'] as $key=>$casa){
+            if($casa==1){
+                WxCollection::where('wx_user_id',$userId)->
+                where('wx_casa_id',$key)->delete();
+            }
+        }
+        return redirect('wx/collection');
     }
 
 }

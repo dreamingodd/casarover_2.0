@@ -4,7 +4,7 @@
     <link href="/assets/css/wxCollection.css" rel="stylesheet"/>
 @stop
 @section('nav')
-    <a href="/wx" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a href="user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop
@@ -64,7 +64,6 @@
                 $('.case').click(function () {
                         $(this).find('.circle').toggleClass('circleclick');
                         count();
-                        console.log($(this).find('.isdeleted').val());
                 });
             });
         </script>
