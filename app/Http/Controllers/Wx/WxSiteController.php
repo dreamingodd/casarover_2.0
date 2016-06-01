@@ -38,7 +38,7 @@ class WxSiteController extends WxBaseController
         return view('wx.wxIndex', compact('wxCasas', 'testWxCasas'));
     }
 
-    public function casa($id)
+    public function casa($id,$collection=0)
     {
         $userId = Session::get('wx_user_id');
         $wxCasa = WxCasa::find($id);
@@ -46,6 +46,13 @@ class WxSiteController extends WxBaseController
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         $casas=WxCollection::where('wx_user_id',$userId)->
         where('wx_casa_id',$id)->first();
+        if($collection==1 && empty($casas)){
+            $wxcollection=new WxCollection;
+            $wxcollection->wx_user_id=$userId;
+            $wxcollection->wx_casa_id=$id;
+            $wxcollection->save();
+            $casas=1;
+        }
         return view('wx.wxCasaDetail', compact('wxCasa','casas'));
     }
 
@@ -200,5 +207,4 @@ class WxSiteController extends WxBaseController
         }
         return redirect('wx/collection');
     }
-
 }

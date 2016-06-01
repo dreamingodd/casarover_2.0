@@ -24,14 +24,16 @@
         </div>
         <div class="brief">
             <p>{!!$wxCasa->desc!!}</p>
-            {{--<div class="collection">--}}
-                {{--@if(empty($casas))--}}
-                    {{--<span class="glyphicon glyphicon-star-empty"></span>--}}
-                    {{--收藏--}}
-                {{--@else--}}
-                    {{--<span class="glyphicon glyphicon-star"></span>--}}
-                    {{--已收藏--}}
-                {{--@endif--}}
+            {{--<div class="collection" onclick="poll({{$wxCasa->id}})">--}}
+                    {{--<input type="hidden" value="{{empty($casas)}}" id="iscollection">--}}
+                    {{--<div class="uncollected">--}}
+                        {{--<span class="glyphicon glyphicon-star-empty"></span>--}}
+                        {{--收藏--}}
+                    {{--</div>--}}
+                    {{--<div class="collected" style="display: none">--}}
+                        {{--<span class="glyphicon glyphicon-star"></span>--}}
+                        {{--已收藏--}}
+                    {{--</div>--}}
             {{--</div>--}}
         </div>
         <div class="tabtable">
@@ -72,11 +74,28 @@
             </div>
         </div>
     </div>
+    <input type="hidden" value="{{$wxCasa->id}}" id="casaId">
     <a href="/wx/order/{{$wxCasa->id}}" class="btn">立即购买</a>
     <script>
         $('.flexslider').flexslider({
             directionNav: true,
             pauseOnAction: false
         });
+        function iscollection() {
+            if($('#iscollection').val()==1){
+                $('.collected').hide();
+                $('.uncollected').show();
+            }
+            else{
+                $('.collected').show();
+                $('.uncollected').hide();
+            }
+        }
+        function poll(casa){
+                        $.getJSON('/wx/casa/'+casa+'/1');
+                        $('.collected').show();
+                        $('.uncollected').hide();
+                }
+        iscollection();
     </script>
 @stop

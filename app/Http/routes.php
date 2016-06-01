@@ -111,7 +111,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/', 'Wx\WxSiteController@index');
     // User scan the QR code on the back of the card.
     Route::get('/credit_score', 'Wx\WxSiteController@creditScore');
-    Route::get('/casa/{id}', 'Wx\WxSiteController@casa');
+    Route::get('/casa/{id}/{collection?}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
     Route::get('/scorevariation/','Wx\WxSiteController@scoreVariation');
     Route::get('/api/scorevariation/{id}/{page?}','Wx\WxSiteController@scoreVariationJson');

@@ -16,7 +16,7 @@
             <span class="edit">编辑</span>
             <span class="finished">完成</span>
             @foreach( $casas as $casa)
-                <div class="case clear">
+                <div class="case clear"  onclick="document.location='casa/{{$casa->wxCasa->id}}'">
                     <div class="check clear">
                         <div class="circle">
                             <div class="glyphicon glyphicon-ok"></div>
@@ -54,6 +54,7 @@
                     $('.finished').show();
                     $('.check').show();
                     $('.delete').show();
+//                    $('.case').attr("onclick","");
                 });
                 $('.finished').click(function () {
                     $(this).hide();
