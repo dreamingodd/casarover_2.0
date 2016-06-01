@@ -15,6 +15,8 @@ class AddCard extends Migration
         Schema::create('wx_vacation_card', function(Blueprint $t) {
             $t->increments('id')->unsighed();
             $t->string('name', 64);
+            $t->integer('price');
+            $t->string('brief', 512);
             $t->softDeletes();
             $t->timestamps();
         });
