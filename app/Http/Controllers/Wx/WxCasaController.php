@@ -117,4 +117,8 @@ class WxCasaController extends BaseController
         return redirect('/back/wx');
     }
 
+    public function vocation() {
+        $casas = WxCasa::all();
+        return view('backstage.wxVocation',compact('casas'));
+    }
 }
