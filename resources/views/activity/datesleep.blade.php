@@ -66,6 +66,17 @@
 </div>
     <script>
         $(function () {
+            $('.helpsleep').click(function () {
+                if($('#check').val()==0) {
+                    $('.bg').addClass('blur');
+                    $('.qrcode').show();
+                }
+                else {
+                    $('.bg').addClass('blur');
+                    $('.detail').show();
+                }
+            })
+
             $('.invite').click(function () {
                 $('.bg').addClass('blur');
                 $('.invitecon').show();
@@ -81,15 +92,9 @@
         function poll(casa,user){
             if ($('#check').val() && $('#check').val() != "0") {
                 $.getJSON('/wx/date/vote/'+casa+'/'+user,function(data){
+                    console.log(data.code);
                     if(data.code == 0){
-                        if($('#check').val()==0) {
-                            $('.bg').addClass('blur');
-                            $('.qrcode').show();
-                        }
-                        else {
-                            $('.bg').addClass('blur');
-                            $('.detail').show();
-                        }
+
                     }else if(data.code == 1){
                         alert('明天再来投票吧');
                     }else{
