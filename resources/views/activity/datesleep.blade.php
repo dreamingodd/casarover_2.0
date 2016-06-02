@@ -26,7 +26,8 @@
             </div>
         </div>
         <div class="button">
-            <input type="hidden" value="0" id="date">
+            {{--<input type="hidden" value="{{ $wxCasa->id }}" id="casaId">--}}
+            {{--<input type="hidden" value="{{ $user->id }}" id="userId">--}}
             @if($isme)
                 <a class="helpsleep" onclick="poll({{ $wxCasa->id }},{{ $user->id }})">帮自己约</a>
                 <a class="invite">邀请好友帮我约</a>
@@ -94,7 +95,6 @@
                 $.getJSON('/wx/date/vote/'+casa+'/'+user,function(data){
                     console.log(data.code);
                     if(data.code == 0){
-
                     }else if(data.code == 1){
                         alert('明天再来投票吧');
                     }else{

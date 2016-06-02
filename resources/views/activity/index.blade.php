@@ -5,7 +5,7 @@
 @stop
 @section('body')
     <div class="banner">
-        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.png" alt="">
+        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.jpg" alt="">
     </div>
     <div class="main clear">
         @foreach($data as $key=>$casa)
