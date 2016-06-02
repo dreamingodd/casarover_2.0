@@ -179,3 +179,11 @@ Route::group(['prefix' => 'mobile'],function () {
     Route::get('/allcasa/{id?}','CasaController@allcasa');
     Route::get('/theme/{id}','ThemeController@show');
 });
+//Route::get('user/{id}', function ($id) {
+//        Route::get('/$id',function (
+//         return view('site.home');
+//     ));
+//});
+Route::get('user/profile', ['as' => 'profile', function () {
+    dd(1);
+}]);

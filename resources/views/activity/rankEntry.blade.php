@@ -24,12 +24,16 @@
             <div class="no">您还没有参加活动哦,赶紧挑选喜爱的民宿来约吧！</div>
         @endif
         @foreach( $casas as $casa)
+                @if($id)
+                    <a class="case clear" href="/wx/date/datesleep/{{$casa->id}}/{{$user->id}}">
+                @else
                     <a class="case clear" href="/wx/date/rank/{{$casa->id}}">
+                @endif
                         <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}" alt="">
                         <div class="article">
                             <h2>{{$casa->name}}</h2>
                             <p>{{$casa->brief}}</p>
-                            @if ($id)
+                            @if ($casa->rank)
                             <span>排名：第{{$casa->rank}}名</span>
                             @endif
                         </div>

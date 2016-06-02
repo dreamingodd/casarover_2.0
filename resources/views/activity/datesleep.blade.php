@@ -26,6 +26,7 @@
             </div>
         </div>
         <div class="button">
+            <input type="hidden" value="0" id="date">
             @if($isme)
                 <a class="helpsleep" onclick="poll({{ $wxCasa->id }},{{ $user->id }})">帮自己约</a>
                 <a class="invite">邀请好友帮我约</a>
@@ -65,18 +66,6 @@
 </div>
     <script>
         $(function () {
-                if($('#check').val()==0) {
-                    $('.helpsleep').click(function () {
-                        $('.bg').addClass('blur');
-                        $('.qrcode').show();
-                    });
-                }
-            else {
-                    $('.helpsleep').click(function () {
-                        $('.bg').addClass('blur');
-                        $('.detail').show();
-                    });
-                }
             $('.invite').click(function () {
                 $('.bg').addClass('blur');
                 $('.invitecon').show();
@@ -92,10 +81,15 @@
         function poll(casa,user){
             if ($('#check').val() && $('#check').val() != "0") {
                 $.getJSON('/wx/date/vote/'+casa+'/'+user,function(data){
-                    console.log(data);
                     if(data.code == 0){
-                        $('.bg').addClass('blur');
-                        $('.detail').show();
+                        if($('#check').val()==0) {
+                            $('.bg').addClass('blur');
+                            $('.qrcode').show();
+                        }
+                        else {
+                            $('.bg').addClass('blur');
+                            $('.detail').show();
+                        }
                     }else if(data.code == 1){
                         alert('明天再来投票吧');
                     }else{
