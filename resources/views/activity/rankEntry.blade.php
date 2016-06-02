@@ -2,7 +2,7 @@
 @if($id)
     @section('title','个人中心')
 @else
-    @section('title','排行榜')
+    @section('title','排行榜入口')
 @endif
 @section('head')
     <link rel="stylesheet" href="/assets/css/activityPerson.css">

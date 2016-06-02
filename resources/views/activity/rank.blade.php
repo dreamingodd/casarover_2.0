@@ -1,5 +1,5 @@
 @extends('activity')
-@section('title','排行榜入口')
+@section('title','排行榜')
 @section('head')
     <link rel="stylesheet" href="/assets/css/activityRank.css">
 @stop
