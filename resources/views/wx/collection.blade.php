@@ -16,7 +16,8 @@
             <span class="edit">编辑</span>
             <span class="finished">完成</span>
             @foreach( $casas as $casa)
-                <div class="case clear"  onclick="document.location='casa/{{$casa->wxCasa->id}}'">
+                <div class="case clear" >
+                    <input type="hidden" value="{{$casa->wxCasa->id}}" class="casaId">
                     <div class="check clear">
                         <div class="circle">
                             <div class="glyphicon glyphicon-ok"></div>
@@ -29,6 +30,9 @@
                             <h3>{{$casa->wxCasa->name}}</h3>
                             <p>{{$casa->wxCasa->brief}}</p>
                             <span>￥{{$casa->wxCasa->cheapestPrice}}起</span>
+                            <div class="click" onclick="document.location='casa/{{$casa->wxCasa->id}}'">
+                                进入民宿
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -54,7 +58,6 @@
                     $('.finished').show();
                     $('.check').show();
                     $('.delete').show();
-//                    $('.case').attr("onclick","");
                 });
                 $('.finished').click(function () {
                     $(this).hide();

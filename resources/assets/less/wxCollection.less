@@ -23,6 +23,19 @@
     padding:1rem;
     background: #fff;
     border-bottom:1px solid #CFCFCF ;
+    color: #000;
+    position: relative;
+    .click{
+      position: absolute;
+      bottom: 0.5rem;
+      right: 0.5rem;
+      padding: 0.5rem;
+      background: #fff;
+      color: #de6d00;
+      border-radius: 5px;
+      border: 1px solid #de6d00;
+      text-align: center;
+    }
     .check{
       display: none;
       float: left;
@@ -70,6 +83,12 @@
       }
       p{
         margin: 0.5rem 0 ;
+        word-break: break-word;
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
       span{
         color: #ff7e00;

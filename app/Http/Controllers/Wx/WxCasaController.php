@@ -123,4 +123,30 @@ class WxCasaController extends BaseController
         $cards = WxCard::all();
         return view('backstage.wxVacation',compact('cards'));
     }
+    public function vacationEdit($id=0){
+        $casas=WxCasa::all();
+        if($id==0){
+            return view('backstage.vacationEdit',compact('casas','id'));
+        }
+        else{
+            $card = WxCard::find($id);
+            $wxcasas= WxCardCasa::where('wx_vacation_card_id',$id)->get();
+            return view('backstage.vacationEdit',compact('card','casas','wxcasas','id'));
+        }
+    }
+    public function vacationEdited(Request $request,$id=0){
+        $save=$request->all();
+            if($id == 0)
+                $wxcard=new WxCard();
+            else
+                $wxcard=WxCard::find($id);
+            $wxcard->name=$save['name'];
+            $wxcard->brief=$save['brief'];
+            $wxcard->save();
+        return redirect("back/vacation");
+    }
+    public function vacationDel($id){
+        WxCard::find($id)->delete();
+        return redirect("back/vacation");
+    }
 }
