@@ -5,12 +5,15 @@
 @stop
 @section('body')
     <input type="hidden" id="page" value="reserve"/>
-    <div class="col-md-4" style="margin: 10px">
-        <input type="text" id="select-casa" class="form-control disabled" data-toggle="modal"
-               data-target="#casaSelectModal" readonly value="选择民宿">
-        <p class="text-danger">ps:如果选择中没有请新建</p>
-        <a href="/back/wx/casa">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新建
+    <div class="options vertical5">
+        <a href="/back/wx/vocation/edit">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </a>
+        <a href="/back/vocation">
+            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>列表
+        </a>
+        <a href="/back/wx/vocation/1">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>回收站
         </a>
     </div>
     <div id="app">
@@ -18,8 +21,7 @@
             <thead>
             <tr>
                 <th>序号</th>
-                <th>民宿信息</th>
-                {{--<th>用户信息</th>--}}
+                <th>度假卡</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -33,7 +35,15 @@
                         @{{ wxcasa.name }}
                     </th>
                     <th>
-                        <button class="btn btn-xs btn-danger" v-on:click="del(wxcasa.id)">删除</button>
+                        <a href='/back/wx/vocation/edit'>
+                            <button type="button" class="btn btn-xs btn-info">编辑</button>
+                        </a>
+                        <a href='/back/wx/vocation/del/0'>
+                            <button type="button" class="btn btn-xs btn-warning">还原</button>
+                        </a>
+                        <a href='/back/wx/vocation/del/1'>
+                            <button class="btn btn-xs btn-danger" >删除</button>
+                        </a>
                     </th>
                 </tr>
             </template>
@@ -55,10 +65,10 @@
                             <button class="glyphicon glyphicon-repeat" type="button" id="reset"></button>
                         </div>
                         <table class="table table-hover">
-                            @foreach($casas as $casa)
+                            @foreach($cards as $card)
                                 <tr>
-                                    <td>{{ $casa->code }}</td>
-                                    <td>{{ $casa->name }}</td>
+                                    <td>{{ $card->id }}</td>
+                                    <td>{{ $card->name }}</td>
                                     <td><button type="button" class="btn btn-info btn-sm" data-dismiss="modal" v-on:click="add({{ $casa->id }})" >添加</button></td>
                                 </tr>
                             @endforeach

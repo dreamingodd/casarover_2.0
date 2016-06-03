@@ -82,7 +82,8 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('system/wx/user/test/register/{id}','Wx\WxUserController@registerTester');
     Route::get('system/wx/user/test/unregister/{id}','Wx\WxUserController@unregisterTester');
 
-    Route::get('vocation', 'Wx\WxCasaController@vocation');
+    Route::get('vacation', 'Wx\WxCasaController@vacation');
+    Route::get('vacation/edit/{id}', 'Wx\WxCasaController@vacationEdit');
 });
 
 /**

@@ -26,8 +26,6 @@
             </div>
         </div>
         <div class="button">
-            {{--<input type="hidden" value="{{ $wxCasa->id }}" id="casaId">--}}
-            {{--<input type="hidden" value="{{ $user->id }}" id="userId">--}}
             @if($isme)
                 <a class="helpsleep" onclick="poll({{ $wxCasa->id }},{{ $user->id }})">帮自己约</a>
                 <a class="invite">邀请好友帮我约</a>

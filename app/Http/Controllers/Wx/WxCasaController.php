@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use DB;
 use App\Entity\Wx\WxCasa;
+use App\Entity\Wx\WxCard;
+use App\Entity\Wx\WxCardCasa;
 use App\Http\Controllers\BaseController;
 
 class WxCasaController extends BaseController
@@ -117,8 +119,8 @@ class WxCasaController extends BaseController
         return redirect('/back/wx');
     }
 
-    public function vocation() {
-        $casas = WxCasa::all();
-        return view('backstage.wxVocation',compact('casas'));
+    public function vacation() {
+        $cards = WxCard::all();
+        return view('backstage.wxVacation',compact('cards'));
     }
 }
