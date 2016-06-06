@@ -24,6 +24,6 @@ class DropCollectionOnWxCollection extends Migration
      */
     public function down()
     {
-        //
+        $t->integer('collection');
     }
 }
