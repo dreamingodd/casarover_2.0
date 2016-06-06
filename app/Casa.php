@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Casa extends Model
 {
     const DELETED_AT = 'updated_at';
-	const UPDATED_AT = 'updated_at';
-	const CREATED_AT = 'updated_at';
+    const UPDATED_AT = 'updated_at';
+    const CREATED_AT = 'updated_at';
     protected $table = "casa";
     protected $hidden = ['contents','attachment','updated_at','updated_by'];
     public function area()
