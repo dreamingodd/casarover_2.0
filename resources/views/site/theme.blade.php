@@ -1,7 +1,7 @@
 @extends('site')
 @section('title',$theme->name)
 @section('head')
-    <link rel="stylesheet" href="/assets/css/themereCommend.css">
+    <link rel="stylesheet" href="/assets/css/themeRecommend.css">
 @endsection
 @section('body')
     <div class="main">
