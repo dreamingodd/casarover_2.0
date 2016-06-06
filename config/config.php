@@ -38,5 +38,6 @@ return [
         '沐心坊'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/7%E6%B2%90%E5%BF%83%E5%9D%8A.jpg',
         '栖食號'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/8%E6%A0%96%E9%A3%9F%E8%99%9F.jpg',
         '山瑶铃'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/9%E5%B1%B1%E7%91%B6%E9%93%83.jpg',
-        'wx_18_link' => 'http://www.casarover.com',],
+    ],
+    'wx_18_link' => 'http://www.casarover.com',
 ];
