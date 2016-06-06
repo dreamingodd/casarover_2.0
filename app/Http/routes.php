@@ -86,8 +86,8 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('vacation/del/{id}', 'Wx\WxCasaController@vacationDel');
     Route::get('vacation/edit/{id?}', 'Wx\WxCasaController@vacationEdit');
     Route::post('vacation/edit/{id?}', 'Wx\WxCasaController@vacationEdited');
-    Route::get('vacation/casaAdd/{id?}', 'Wx\WxCasaController@vacationCasaAdd');
-    Route::get('vacation/casaDel/{id?}', 'Wx\WxCasaController@vacationCasaDel');
+    Route::get('vacation/casaAdd/{id}/{casa}', 'Wx\WxCasaController@vacationCasaAdd');
+    Route::get('vacation/casaDel/{id}/{casa}', 'Wx\WxCasaController@vacationCasaDel');
 });
 
 /**

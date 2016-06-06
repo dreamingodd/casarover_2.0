@@ -149,4 +149,18 @@ class WxCasaController extends BaseController
         WxCard::find($id)->delete();
         return redirect("back/vacation");
     }
+    public function vacationCasaDel($id,$casa){
+        WxCardCasa::where('wx_vacation_card_id',$id)->where('wx_casa_id',$casa)->delete();
+        return redirect("back/vacation/edit/$id");
+    }
+    public function vacationCasaAdd($id,$casa){
+        $thiscasa=WxCardCasa::where('wx_vacation_card_id',$id)->where('wx_casa_id',$casa)->first();
+        if(!$thiscasa){
+            $vacationcasa= new WxCardCasa;
+            $vacationcasa->wx_vacation_card_id=$id;
+            $vacationcasa->wx_casa_id=$casa;
+            $vacationcasa->save();
+        }
+        return redirect("back/vacation/edit/$id");
+    }
 }

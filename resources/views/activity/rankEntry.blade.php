@@ -10,7 +10,7 @@
 @section('body')
     <div class="banner">
         @if($id)
-            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/personbanner.png" alt="">
+            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/personbanner.jpg" alt="">
             <div class="user">
                 <img src="{{$user->headimgurl}}" alt="">
                 <p>{{$user->nickname}}</p>

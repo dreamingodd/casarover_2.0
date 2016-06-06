@@ -59,6 +59,7 @@
     <div class="col-lg-11" style="margin-top: -15px">
         <h3>度假卡编辑</h3>
     </div>
+    <input type="hidden" value="{{$id}}" id="card_id">
     <div class="btn_div col-lg-11">
         <button class="btn btn-primary submit_btn">提交</button>
         <button type="button" class="btn btn-default goback">返回</button>
@@ -113,8 +114,8 @@
                             <a href='/back/wx/casa/{{$wxcasa->wxCasa->id}}'>
                                 <button type="button" class="btn btn-xs btn-info">编辑</button>
                             </a>
-                            <a href='/back/vacation/del'>
-                                <button class="btn btn-xs btn-danger" >删除</button>
+                            <a href='/back/vacation/casaDel/{{$id}}/{{$wxcasa->wxCasa->id}}'>
+                                <button type="button" class="btn btn-xs btn-danger" >删除</button>
                             </a>
                         </th>
                     </tr>
@@ -148,7 +149,7 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td class="casaname">{{ $casa->name }}</td>
-                                <td><button type="button" class="btn btn-info btn-sm addcasa" >添加</button></td>
+                                <td><button type="button" db_id="{{ $casa->id}}" class="btn btn-info btn-sm addcasa" >添加</button></td>
                             </tr>
                         @endforeach
                     </table>
@@ -162,6 +163,9 @@
             form.submit();
         });
         $('.addcasa').click(function () {
+            var cardId = $('#card_id').val();
+            var casaId = $(this).attr('db_id');
+            location.href = '/back/vacation/casaAdd/' + cardId + '/' + casaId;
         })
     </script>
 @stop
