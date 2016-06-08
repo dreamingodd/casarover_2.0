@@ -111,7 +111,7 @@
                 @endif
                         <div class="case clear">
                             <div class="number clear">
-                                <p id="orange">订单号:{{$order->order_id}}</p>
+                                <p>订单号:{{$order->order_id}}</p>
                             </div>
                             <div class="casecon clear">
                                 <div class="images">
@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="info">
                                     <p>下单时间</p>
-                                    <p id="orange">{{$order->created_at}}</p>
+                                    <p>{{$order->created_at}}</p>
                                 </div>
                                 <div class="bill">
                                     <p>价格</p>

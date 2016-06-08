@@ -44,9 +44,9 @@
                             电话：@{{ order.userphone }}</td>
                         <td>@{{ order.total }}</td>
                         <td>
-                            <button type="button" class="btn btn-default order-del" v-on:click="del(order.id)">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </button>
+                            {{--<button type="button" class="btn btn-default order-del" v-on:click="del(order.id)">--}}
+                                {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--}}
+                            {{--</button>--}}
                             <p>
                                 @{{ order.paystatus }} |
                                 @{{ order.reserveStatus }} |

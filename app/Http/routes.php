@@ -125,7 +125,9 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/registerMember/','Wx\WxSiteController@registerMember');
     Route::get('/orderdetails', 'Wx\WxSiteController@orderDetails');
     Route::get('/confirm', 'Wx\WxSiteController@confirm');
-    Route::get('/bill', 'Wx\WxSiteController@bill');
+    Route::get('/bill', function(){
+        return view('wx.wxBill');
+    });
     Route::get('/order/{id}', 'Wx\WxSiteController@order');
     Route::get('/order/detail/{id}', 'Wx\WxOrderController@show');
     Route::post('/order/create', 'Wx\WxOrderController@create');
@@ -140,6 +142,13 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/logout', 'Wx\WxSiteController@logout');
     // Check whether user subscribe us.
     Route::get('subscribe', 'Wx\Activity18Controller@checkSubscription');
+    // vacation card
+    Route::get('/user/card/{id?}', function(){
+        return view('wx.card');
+    });
+    Route::get('/user/card/bill', function(){
+        return view('wx.cardBill');
+    });
     // vote activity
     Route::group(['prefix' => 'date'],function () {
         Route::get('/', 'Wx\Activity18Controller@index');
