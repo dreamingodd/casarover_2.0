@@ -20,8 +20,8 @@
             <tr>
                 <td>
                     {{$order->order_id}}<br/>
-                    姓名：{{$order->wxUser->realname}}<br/>
-                    微信名：{{$order->wxUser->nickname}}<br/>
+                    姓名：{{$order->user->realname}}<br/>
+                    微信名：{{$order->user->nickname}}<br/>
                     价格：{{$order->total}}
                 </td>
                 <td>

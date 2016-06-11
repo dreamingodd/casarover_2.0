@@ -47,9 +47,9 @@ $(function() {
         @foreach ($wxBinds as $bind)
             <tr>
                 <td>{{$number++}}</td>
-                <td>{{$bind->wxUser->realname or ''}}</td>
-                <td>{{$bind->wxUser->nickname or ''}}</td>
-                <td>{{$bind->wxUser->cellphone or ''}}</td>
+                <td>{{$bind->user->realname or ''}}</td>
+                <td>{{$bind->user->nickname or ''}}</td>
+                <td>{{$bind->user->cellphone or ''}}</td>
                 <td>{{$bind->casa_name}}</td>
                 <td>
                     @if (!$bind->trashed())

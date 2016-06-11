@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Wx;
 
 
-use App\Entity\Wx\WxRoom;
 use App\Entity\Wx\WxScoreActivity;
 use App\Entity\Wx\WxScoreVariation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Session;
-use App\Entity\Wx\WxUser;
+use App\Entity\User;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxOrder;
 use App\Entity\Wx\WxMembership;
@@ -27,7 +26,7 @@ class WxSiteController extends WxBaseController
         foreach ($wxCasas as $casa) {
             $this->convertToViewCasa($casa);
         }
-        $user = WxUser::find(Session::get('wx_user_id'));
+        $user = User::find(Session::get('user_id'));
         $testWxCasas = array();
         if ($user->test) {
             $testWxCasas = WxCasa::where('test', 1)->orderBy('id', 'desc')->get();
@@ -40,15 +39,15 @@ class WxSiteController extends WxBaseController
 
     public function casa($id,$collection=0)
     {
-        $userId = Session::get('wx_user_id');
+        $userId = Session::get('user_id');
         $wxCasa = WxCasa::find($id);
         $this->convertToViewCasa($wxCasa);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
-        $casas=WxCollection::where('wx_user_id',$userId)->
+        $casas=WxCollection::where('user_id',$userId)->
         where('wx_casa_id',$id)->first();
         if($collection==1 && empty($casas)){
             $wxcollection=new WxCollection;
-            $wxcollection->wx_user_id=$userId;
+            $wxcollection->user_id=$userId;
             $wxcollection->wx_casa_id=$id;
             $wxcollection->save();
             $casas=1;
@@ -58,41 +57,41 @@ class WxSiteController extends WxBaseController
 
     public function user($tips=null)
     {
-        $wxUser = WxUser::find(Session::get('wx_user_id'));
-        $orders = WxOrder::where('wx_user_id', Session::get('wx_user_id'))->orderBy('id', 'desc')->get();
+        $user = User::find(Session::get('user_id'));
+        $orders = WxOrder::where('user_id', Session::get('user_id'))->orderBy('id', 'desc')->get();
         $percent = 0;
-        if (!empty($wxUser->wxMembership->id)) {
-            $accumulatedScore = $wxUser->wxMembership->accumulated_score;
+        if (!empty($user->wxMembership->id)) {
+            $accumulatedScore = $user->wxMembership->accumulated_score;
             $percent = $accumulatedScore
-                / WxMembership::getLevelDetail($wxUser->wxMembership->level + 1)['score']
+                / WxMembership::getLevelDetail($user->wxMembership->level + 1)['score']
                 * 100;
-            $levelStr = WxMembership::getLevelDetail($wxUser->wxMembership->level)['name'];
+            $levelStr = WxMembership::getLevelDetail($user->wxMembership->level)['name'];
         }
-        return view('wx.wxUser', compact('orders', 'wxUser','percent', 'levelStr','tips'));
+        return view('wx.wxUser', compact('orders', 'user','percent', 'levelStr','tips'));
     }
 
     public function order($id)
     {
         $wxCasa = WxCasa::find($id);
-        $wxUser = WxUser::find(Session::get('wx_user_id'));
+        $user = User::find(Session::get('user_id'));
         $date = new Carbon();
         // 下个月末
         $date->setDate($date->year, $date->month + 2, 0);
         $endDate = $date->format("Y年m月d日");
-        return view('wx.wxOrder', compact('wxCasa', 'wxUser', 'endDate'));
+        return view('wx.wxOrder', compact('wxCasa', 'user', 'endDate'));
     }
 
     //积分详情页面
     public function scoreVariation()
     {
-        $userid = Session::get('wx_user_id');
+        $userid = Session::get('user_id');
         return view('wx.scoreVariation',compact('userid'));
     }
 
     //积分详情的json数据
-    public function scoreVariationJson($wx_user_id)
+    public function scoreVariationJson($user_id)
     {
-        $user = WxUser::find($wx_user_id);
+        $user = User::find($user_id);
         $scores = $user->wxScoreVariation()->orderBy('id','desc')->simplePaginate(15);
         foreach($scores as $score)
         {
@@ -107,13 +106,13 @@ class WxSiteController extends WxBaseController
      * */
     public function registerMember(Request $request)
     {
-        $wxMember = WxUser::find(Session::get('wx_user_id'))->wxMembership;
+        $wxMember = User::find(Session::get('user_id'))->wxMembership;
         if($wxMember)
         {
             return redirect('/wx/user');
         };
         $user =WxMembership::create([
-            'wx_user_id' => Session::get('wx_user_id'),
+            'user_id' => Session::get('user_id'),
             'level' => 0,
             'score' => 0,
             'accumulated_score' => 0
@@ -130,11 +129,11 @@ class WxSiteController extends WxBaseController
     public function creditScore(Request $request)
     {
 
-        $wxMember = WxUser::find(Session::get('wx_user_id'))->wxMembership;
+        $wxMember = User::find(Session::get('user_id'))->wxMembership;
         if(!$wxMember)
         {
             $user =WxMembership::create([
-                'wx_user_id' => Session::get('wx_user_id'),
+                'user_id' => Session::get('user_id'),
                 'level' => 0,
                 'score' => 0,
                 'accumulated_score' => 0
@@ -144,12 +143,12 @@ class WxSiteController extends WxBaseController
 
         }
         $activId = 1;
-        $user = WxUser::find(Session::get('wx_user_id'));
+        $user = User::find(Session::get('user_id'));
         $hasscan = $user->wxScoreVariation()->where('wx_score_activity_id', $activId)->get()->first();
         if(!$hasscan)
         {
             $activ = WxScoreActivity::find($activId);
-            $user = WxUser::find(Session::get('wx_user_id'));
+            $user = User::find(Session::get('user_id'));
             $this->createWxScoreVariation($user->wxMembership->id,$activId,$activ->name,WxScoreVariation::TYPE_ACTIVITY,$activ->score);
             $this->changeWxMembershipScore($activ->score);
             $tips = '领取成功';
@@ -176,7 +175,7 @@ class WxSiteController extends WxBaseController
 
     private function changeWxMembershipScore($score)
     {
-        $user = WxUser::find(Session::get('wx_user_id'));
+        $user = User::find(Session::get('user_id'));
         $user->wxMembership->score = $user->wxMembership->score+$score;
         $user->wxMembership->accumulated_score = $user->wxMembership->accumulated_score+$score;
         $user->wxMembership->save();
@@ -184,24 +183,24 @@ class WxSiteController extends WxBaseController
     }
 
     public function logout() {
-        Session::forget('wx_user_id');
+        Session::forget('user_id');
         Session::forget('openid');
         return redirect('/wx/user');
     }
     public function collection() {
-        $userId = Session::get('wx_user_id');
-        $casas=WxCollection::where('wx_user_id',$userId)->get();
+        $userId = Session::get('user_id');
+        $casas=WxCollection::where('user_id',$userId)->get();
         foreach ($casas as $casa) {
             $this->convertToViewCasa($casa->wxCasa);
         }
         return view('wx.collection',compact('casas'));
     }
     public function collectionDel(Request $request) {
-        $userId = Session::get('wx_user_id');
+        $userId = Session::get('user_id');
         $saves=$request->all();
         foreach($saves['casa'] as $key=>$casa){
             if($casa==1){
-                WxCollection::where('wx_user_id',$userId)->
+                WxCollection::where('user_id',$userId)->
                 where('wx_casa_id',$key)->delete();
             }
         }

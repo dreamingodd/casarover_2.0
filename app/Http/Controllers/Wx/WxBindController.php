@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Wx;
 use Log;
 use Session;
 use Exception;
+use App\Entity\User;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxBind;
-use App\Entity\Wx\WxUser;
 use App\Entity\Wx\WxOrder;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -19,8 +19,8 @@ class WxBindController extends Controller
 {
 
     public function index() {
-        $userId = Session::get('wx_user_id');
-        $user = WxUser::find($userId);
+        $userId = Session::get('user_id');
+        $user = User::find($userId);
         $wxBind = $user->wxBind();
         if (empty($wxBind)) {
             // 未申请
@@ -49,13 +49,13 @@ class WxBindController extends Controller
         try {
             // update user.
             $userId = $request->input('userId');
-            $user = WxUser::find($userId);
+            $user = User::find($userId);
             $user->realname = $request->input('realname');
             $user->cellphone = $request->input('cellphone');
             $user->save();
             // insert a bind object.
             $wxBind = new WxBind();
-            $wxBind->wx_user_id = $userId;
+            $wxBind->user_id = $userId;
             $wxBind->casa_name = $request->input('casaName');
             $wxBind->status = WxBind::STATUS_APPLYING;
             $wxBind->save();

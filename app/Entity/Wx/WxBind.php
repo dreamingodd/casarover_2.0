@@ -14,8 +14,8 @@ class WxBind extends Model
 
     protected $table = "wx_bind";
 
-    public function wxUser() {
-        return $this->belongsTo('App\Entity\Wx\WxUser');
+    public function user() {
+        return $this->belongsTo('App\Entity\User');
     }
 
     public function wxCasa() {

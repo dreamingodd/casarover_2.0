@@ -19,14 +19,14 @@
         </div>
     @endif
     <div class="top">
-        <img src="{{$wxUser->headimgurl}}" alt="">
-        <h2>{{$wxUser->nickname}}</h2>
-        @if(!empty($wxUser->WxMembership->id))
+        <img src="{{$user->headimgurl}}" alt="">
+        <h2>{{$user->nickname}}</h2>
+        @if(!empty($user->WxMembership->id))
             <div class="vip">
                 <span>{{$levelStr}}</span>
                 <div class="progress">
                     <div class="progress-bar " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percent }}%" >
-                        {{$wxUser->WxMembership->accumulated_score}}/{{Config::get('config.wx_membership_detail')[$wxUser->WxMembership->level + 1]['score']}}
+                        {{$user->WxMembership->accumulated_score}}/{{Config::get('config.wx_membership_detail')[$user->WxMembership->level + 1]['score']}}
                     </div>
                 </div>
             </div>
@@ -35,17 +35,17 @@
                 <a href="/wx/registerMember/">申请会员</a>
             </div>
         @endif
-        @if(!empty($wxUser->WxMembership->id))
+        @if(!empty($user->WxMembership->id))
             <div class="mask clear">
                 <a href="/wx/scorevariation">
                     <div class="maskcon">
-                        <p>{{$wxUser->WxMembership->accumulated_score}}</p>
+                        <p>{{$user->WxMembership->accumulated_score}}</p>
                         <p>累计积分</p>
                     </div>
                 </a>
                 <a href="/wx/scorevariation">
                     <div class="maskcon">
-                        <p>{{$wxUser->WxMembership->score}}</p>
+                        <p>{{$user->WxMembership->score}}</p>
                         <p>可用积分</p>
                     </div>
                 </a>
@@ -74,9 +74,9 @@
                 <span class="glyphicon glyphicon-plus"></span>
             </p>
             <div class="maincondetail">
-                <p>姓名：{{$wxUser->realname or null}}</p>
-                <p>手机号码：{{$wxUser->cellphone}}</p>
-                @if (!empty($wxUser->wxMembership->id))
+                <p>姓名：{{$user->realname or null}}</p>
+                <p>手机号码：{{$user->cellphone}}</p>
+                @if (!empty($user->wxMembership->id))
                     <p>会员等级：{{$levelStr}}</p>
                 @endif
             </div>

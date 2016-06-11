@@ -28,9 +28,9 @@
         @foreach($wx18s as $key=>$person)
         <div class="person clear">
             <div class="rank">{{$key+1}}</div>
-            <img src="{{$person->wxUser->headimgurl}}" alt="">
+            <img src="{{$person->user->headimgurl}}" alt="">
             <div class="personinfo">
-                <p>{{$person->wxUser->nickname}}</p>
+                <p>{{$person->user->nickname}}</p>
             </div>
             <div class="number">
                 {{$person->vote}}<span>人帮约</span>

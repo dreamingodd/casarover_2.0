@@ -31,9 +31,9 @@
         </div>
         <div class="button">
             @if($hassleep)
-                <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('wx_user_id') }}" class="datesleep">我的约睡</a>
+                <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('user_id') }}" class="datesleep">我的约睡</a>
             @else
-                <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('wx_user_id') }} " class="datesleep">约睡</a>
+                <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('user_id') }} " class="datesleep">约睡</a>
             @endif
         </div>
     </div>
