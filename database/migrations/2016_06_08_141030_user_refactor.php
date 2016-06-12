@@ -36,6 +36,9 @@ class UserRefactor extends Migration
         Schema::table('wx_bind', function(Blueprint $t) {
             $t->renameColumn('wx_user_id', 'user_id');
         });
+        Schema::table('wx_collection', function(Blueprint $t) {
+            $t->renameColumn('wx_user_id', 'user_id');
+        });
     }
 
     /**
@@ -58,6 +61,9 @@ class UserRefactor extends Migration
             $t->renameColumn('user_id', 'wx_user_id');
         });
         Schema::table('wx_bind', function(Blueprint $t) {
+            $t->renameColumn('user_id', 'wx_user_id');
+        });
+        Schema::table('wx_collection', function(Blueprint $t) {
             $t->renameColumn('user_id', 'wx_user_id');
         });
         Schema::table('user', function (Blueprint $t) {

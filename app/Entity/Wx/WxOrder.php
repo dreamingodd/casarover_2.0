@@ -22,9 +22,9 @@ class WxOrder extends Model
     protected $table = "wx_order";
     protected $dates = ['deleted_at'];
 
-    public function wxUser()
+    public function user()
     {
-        return $this->belongsTo('App\Entity\Wx\WxUser','wx_user_id','id');
+        return $this->belongsTo('App\Entity\User','user_id','id');
     }
     public function wxCasa()
     {

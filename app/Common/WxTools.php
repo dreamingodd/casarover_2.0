@@ -3,7 +3,7 @@
 namespace App\Common;
 
 use Session;
-use App\Entity\Wx\WxUser;
+use App\Entity\User;
 
 trait WxTools
 {
@@ -93,7 +93,7 @@ trait WxTools
             if (empty($openid)) {
                 return null;
             } else {
-                $user = WxUser::where('openid', $openid)->distinct()->get();
+                $user = User::where('openid', $openid)->distinct()->get();
                 return $user;
             }
         }

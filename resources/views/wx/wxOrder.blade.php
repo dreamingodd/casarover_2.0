@@ -44,12 +44,12 @@
         </div>
         <p id="total">总价：<i id="totalPayment">0</i>元</p>
         <div id="scoreDiv">
-            @if (empty($wxUser->wxMembership->wx_user_id))
+            @if (empty($user->wxMembership->user_id))
                 您还不是探庐者会员，无法使用积分。
                 <a href="/wx/user"><button>去申请成为会员</button></a>
             @else
                 <input type="number" id="score" name="score" placeholder="输入积分"/>&nbsp;&nbsp;
-                可用积分：<i id="usableScore">{{$wxUser->wxMembership->score}}</i>
+                可用积分：<i id="usableScore">{{$user->wxMembership->score}}</i>
                 <p class="scoreDesc">100积分可抵10元，最多可抵房价的{{Config::get('config.wx_max_discount')}}%。</p>
             @endif
         </div>
@@ -62,11 +62,11 @@
     <div class="person">
         <div class="personName">
             <label for="personName">姓名：</label>
-            <input type="text" id="personName" value="{{$wxUser->realname}}" placeholder="请输入姓名" >
+            <input type="text" id="personName" value="{{$user->realname}}" placeholder="请输入姓名" >
         </div>
         <div class="cellphone">
             <label for="cellphone">手机：</label>
-            <input type="number" id="cellphone" value="{{$wxUser->cellphone}}" placeholder="请输入11位手机号">
+            <input type="number" id="cellphone" value="{{$user->cellphone}}" placeholder="请输入11位手机号">
         </div>
     </div>
     <input type="button" id="submitBtn" class="btn" value="立即预定" />

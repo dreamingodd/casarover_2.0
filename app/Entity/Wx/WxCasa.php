@@ -26,8 +26,8 @@ class WxCasa extends Model
     }
 
     // 民宿主人
-    public function wxUsers() {
-        return $this->belongsToMany('App\Entity\Wx\WxUser', 'wx_bind');
+    public function users() {
+        return $this->belongsToMany('App\Entity\User', 'wx_bind');
     }
     public function wxBinds() {
         return $this->hasMany('App\Entity\Wx\WxBind');

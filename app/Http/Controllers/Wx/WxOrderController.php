@@ -8,7 +8,7 @@ use App\Entity\Wx\WxBind;
 use App\Entity\Wx\WxOrder;
 use App\Entity\Wx\WxOrderItem;
 use App\Entity\Wx\WxRoom;
-use App\Entity\Wx\WxUser;
+use App\Entity\User;
 use App\Entity\Wx\WxMembership;
 use App\Entity\Wx\WxScoreVariation;
 use App\Http\Controllers\Controller;
@@ -49,10 +49,10 @@ class WxOrderController extends Controller
         DB::beginTransaction();
         try {
             // update user information.
-            if (empty(Session::get('wx_user_id'))) {
+            if (empty(Session::get('user_id'))) {
                 return "用户信息（ID）获取失败！";
             }
-            $userId = Session::get('wx_user_id');
+            $userId = Session::get('user_id');
             $user = $this->updateUserInfo($userId, $request->input('realname'), $request->input('cellphone'));
             // process reserved rooms data.
             $reservedRooms = $request->input('reservedRooms');
@@ -60,7 +60,7 @@ class WxOrderController extends Controller
             if (empty($reservedRooms)) {
                 return "没有选购商品！";
             }
-            $wxOrder->wx_user_id = $userId;
+            $wxOrder->user_id = $userId;
             $wxOrder->wx_casa_id = $request->input('wxCasaId');
             $wxOrder->casa_name = WxCasa::find($wxOrder->wx_casa_id)->name;
             // Id is needed for wx order item creation
@@ -128,9 +128,9 @@ class WxOrderController extends Controller
             {
                 $good->name = WxRoom::find($good->wx_room_id)->name;
             }
-            $order->username = $order->wxUser->realname;
-            $order->userphone = $order->wxUser->cellphone;
-            $order->nickname = $order->wxUser->nickname;
+            $order->username = $order->user->realname;
+            $order->userphone = $order->user->cellphone;
+            $order->nickname = $order->user->nickname;
         }
         $data = $this->jsondata('200','获取成功',$orderlist);
         return response()->json($data);
@@ -159,10 +159,10 @@ class WxOrderController extends Controller
     private function sendOrderSms($orderId)
     {
         $order = WxOrder::find($orderId);
-        $username = $order->wxUser->realname;
+        $username = $order->user->realname;
         $casaName = $order->casa_name;
         $time = $order->reserve_time;
-        $userphone = $order->wxUser->cellphone;
+        $userphone = $order->user->cellphone;
         $sms = app('sms');
         $message = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
         $sms->send('探庐者','SMS_9720239',$message,$userphone);
@@ -181,15 +181,15 @@ class WxOrderController extends Controller
      */
     public function consume($orderId)
     {
-            $userId = Session::get('wx_user_id');
+            $userId = Session::get('user_id');
             // Merchant
-            $user = WxUser::find($userId);
+            $user = User::find($userId);
             $order = WxOrder::findOrFail($orderId);
             $isMerchant = false;
             if ($order->pay_status != WxOrder::PAY_STATUS_YES) {
                 return '<p style="font-size:40px;">此订单未付款！</p>';
             }
-            $wxBinds = WxBind::where('wx_user_id', $userId)->get();
+            $wxBinds = WxBind::where('user_id', $userId)->get();
             foreach ($wxBinds as $bind) {
                 if ($bind->wx_casa_id == $order->wx_casa_id) {
                     $isMerchant = true;
@@ -201,7 +201,7 @@ class WxOrderController extends Controller
                     return '<p style="font-size:40px;">此订单已消费过！</p>';
                 } else {
                     // Consumer's membership.
-                    $wms = WxUser::find($order->wx_user_id)->wxMembership;
+                    $wms = User::find($order->user_id)->wxMembership;
                     if ($wms) {
                         DB::beginTransaction();
                         try {
@@ -241,7 +241,7 @@ class WxOrderController extends Controller
             $order = WxOrder::findOrFail($orderId);
             $order->consume_status = WxOrder::CONSUME_STATUS_NO;
             $order->save();
-            $wms = WxMembership::where("wx_user_id", Session::get('wx_user_id'))->get()->first();
+            $wms = WxMembership::where("user_id", Session::get('user_id'))->get()->first();
             if ($wms) {
                 $wsv = WxScoreVariation::where('wx_order_id', $order->id)->where('score', '>=', 0)->get()->first();
                 $this->updateMembership($wms, - $wsv->score);
@@ -300,7 +300,7 @@ class WxOrderController extends Controller
     // Update user table.
     private function updateUserInfo($userId, $realname, $cellphone)
     {
-        $user = WxUser::find($userId);
+        $user = User::find($userId);
         $user->realname = $realname;
         $user->cellphone = $cellphone;
         $user->save();
