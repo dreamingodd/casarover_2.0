@@ -81,18 +81,18 @@
                 @endif
             </div>
         </div>
-        {{--<div id='vip' class="maincon">--}}
-            {{--<p class="divider"><em class="glyphicon glyphicon-user"></em>我的度假卡--}}
-                {{--<span class="glyphicon glyphicon-minus"></span>--}}
-                {{--<span class="glyphicon glyphicon-plus"></span>--}}
-            {{--</p>--}}
-            {{--<div class="maincondetail">--}}
-                    {{--<div class="card">--}}
-                        {{--<img src="/assets/images/cs.png" alt="">--}}
-                    {{--</div>--}}
-                    {{--<p>十家度假卡套餐</p>--}}
-            {{--</div>--}}
-        {{--</div>--}}
+        <div id='vip' class="maincon">
+            <p class="divider"><em class="glyphicon glyphicon-credit-card"></em>我的度假卡
+                <span class="glyphicon glyphicon-minus"></span>
+                <span class="glyphicon glyphicon-plus"></span>
+            </p>
+            <div class="maincondetail">
+                    <div class="card">
+                        <img src="/assets/images/cs.png" alt="">
+                    </div>
+                    <p>十家度假卡套餐</p>
+            </div>
+        </div>
         <div id="order" class="maincon">
             <p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
                 <span class="glyphicon glyphicon-minus"></span>
