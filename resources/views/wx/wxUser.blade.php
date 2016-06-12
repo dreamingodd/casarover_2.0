@@ -51,7 +51,7 @@
                 </a>
                 <div class="maskcon">
                     <p class="glyphicon glyphicon-star"></p>
-                    <p><a href="#">我的收藏</a></p>
+                    <p><a href="collection">我的收藏</a></p>
                 </div>
             </div>
         @endif
@@ -81,18 +81,17 @@
                 @endif
             </div>
         </div>
-        {{--<div id='vip' class="maincon">--}}
-            {{--<p class="divider"><em class="glyphicon glyphicon-credit-card"></em>我的度假卡--}}
-                {{--<span class="glyphicon glyphicon-minus"></span>--}}
-                {{--<span class="glyphicon glyphicon-plus"></span>--}}
-            {{--</p>--}}
-            {{--<div class="maincondetail">--}}
-                    {{--<div class="card">--}}
-                        {{--<img src="/assets/images/cs.png" alt="">--}}
-                    {{--</div>--}}
-                    {{--<p>十家度假卡套餐</p>--}}
-            {{--</div>--}}
-        {{--</div>--}}
+        <div id='vacation' class="maincon">
+            <p class="divider"><em class="glyphicon glyphicon-credit-card"></em>度假卡
+                <span class="glyphicon glyphicon-minus"></span>
+                <span class="glyphicon glyphicon-plus"></span>
+            </p>
+            <div class="maincondetail">
+                <a href="user/card" style="border: none">我的度假卡</a>
+                <a href="#">使用他人度假卡</a>
+                <a href="#">申请记录<i>(1)</i></a>
+            </div>
+        </div>
         <div id="order" class="maincon">
             <p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
                 <span class="glyphicon glyphicon-minus"></span>

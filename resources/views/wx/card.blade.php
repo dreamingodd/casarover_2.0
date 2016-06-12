@@ -4,7 +4,7 @@
     <link href="/assets/css/vacationCard.css" rel="stylesheet"/>
 @stop
 @section('nav')
-    <a href="user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a href="/wx/user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop
@@ -22,7 +22,7 @@
                                 <div class="articlecon">
                                     <p>湖州-德州-莫干山镇</p>
                                     <p>截至日期:2017年6月1日</p>
-                                    <span>剩余天数：3天</span>
+                                    <span>我的剩余间数：3间</span>
                                     <div class="click" onclick="document.location='/wx/user/card/bill'">
                                         预订
                                     </div>
