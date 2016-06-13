@@ -6,7 +6,7 @@ $(document).ready(function(){
             selected:null
         },
         created: function () {
-            this.selected = $("#sel option:last").val();
+            this.selected = $("#sel option:first").val();
             this.getArticle(this.selected);
         },
         methods:{
@@ -14,6 +14,8 @@ $(document).ready(function(){
                 $.getJSON('/api/theme/article/'+this.selected, (data)=> {
                     this.articles = data;
                 });
+                const seltext = $('#sel').find("option:selected").text();
+                window.location.hash = seltext;
             }
         }
     })

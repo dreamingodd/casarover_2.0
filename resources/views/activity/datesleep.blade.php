@@ -5,10 +5,10 @@
 @stop
 @section('body')
     <input type="hidden" value="{{$check}}" id="check">
-<div class="bg">
-    <div class="banner">
-        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/datebanner.png" alt="">
-    </div>
+    <div class="bg">
+        <div class="banner">
+            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/datebanner.png" alt="">
+        </div>
         <div class="main">
             <div class="maincon clear">
                 <div class="left">
@@ -57,25 +57,14 @@
         </div>
         <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/close.png" alt="" class="md-close">
     </div>
-<div class="qrcode">
-    <div class="qrcodecon">
-        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/qrcode.png" alt="">
+    <div class="qrcode">
+        <div class="qrcodecon">
+            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/qrcode.png" alt="">
+        </div>
+        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/close.png" alt="" class="md-close">
     </div>
-    <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/close.png" alt="" class="md-close">
-</div>
     <script>
         $(function () {
-            $('.helpsleep').click(function () {
-                if($('#check').val()==0) {
-                    $('.bg').addClass('blur');
-                    $('.qrcode').show();
-                }
-                else {
-                    $('.bg').addClass('blur');
-                    $('.detail').show();
-                }
-            })
-
             $('.invite').click(function () {
                 $('.bg').addClass('blur');
                 $('.invitecon').show();
@@ -89,10 +78,14 @@
         });
 
         function poll(casa,user){
-            if ($('#check').val() && $('#check').val() != "0") {
+            if($('#check').val()==0) {
+                $('.bg').addClass('blur');
+                $('.qrcode').show();
+            }else{
                 $.getJSON('/wx/date/vote/'+casa+'/'+user,function(data){
-                    console.log(data.code);
                     if(data.code == 0){
+                        $('.bg').addClass('blur');
+                        $('.detail').show();
                     }else if(data.code == 1){
                         alert('明天再来投票吧');
                     }else{
