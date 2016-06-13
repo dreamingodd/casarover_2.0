@@ -11,17 +11,18 @@ use Exception;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Payment\Order;
 use App\Http\Controllers\Controller;
-use App\Entity\Wx\WxOrder;
 
+/**  */
 class WxPayController extends Controller
 {
     /**
      * Create an order and return to confirm page.
+     * @param int $orderId
      */
     public function prepare($orderId) {
-        $casaroverOrder = WxOrder::find($orderId);
+        $casaroverOrder = \App\Entity\Order::find($orderId);
         if (env('ENV') == 'DEV' && !empty($casaroverOrder)) {
-            return "订单已创建，订单信息：" . $casaroverOrder;
+            return "订单已创建，订单信息：" . $casaroverOrder . "<br/><br/><a href='/wx/user'>用户页面<a>";
         }
         $app = new Application($this->getOptions());
         $payment = $app->payment;
@@ -52,6 +53,7 @@ class WxPayController extends Controller
 
     /**
      * Callback method after the payment is confirmed by wechat.
+     * @param Request $request
      */
     public function notify(Request $request) {
         try {
@@ -63,11 +65,11 @@ class WxPayController extends Controller
                     Log::info("Order:" . $orderId . " has been notified!");
                     $transactionId = $notify->transaction_id;
                     $resultCode = $notify->result_code;
-                    $wxOrder = WxOrder::where("order_id", $orderId)->get()->first();
-                    if ($resultCode == 'SUCCESS' && !empty($wxOrder)) {
-                        $wxOrder->pay_status = 1;
-                        $wxOrder->wxpay_id = $transactionId;
-                        $wxOrder->save();
+                    $order = \App\Entity\Order::where("order_id", $orderId)->get()->first();
+                    if ($resultCode == 'SUCCESS' && !empty($order)) {
+                        $order->status = 1;
+                        $order->wxpay_id = $transactionId;
+                        $order->save();
                         Log::info("Order:" . $orderId . " payment is successful!");
                     }
                 }
@@ -87,6 +89,7 @@ class WxPayController extends Controller
 
     }
 
+    /**  */
     private function getOptions() {
         return [
             // 前面的appid什么的也得保留哦

@@ -11,7 +11,7 @@
         <span class="glyphicon glyphicon-th-list"></span>套餐／房间选择
         <a href="/wx/casa/{{$wxCasa->id}}"  class="glyphicon glyphicon-remove"></a>
     </p>
-    @foreach ($wxCasa->wxRooms as $room)
+    @foreach ($wxCasa->rooms as $room)
         <div class="room" db_id="{{$room->id}}">
             <div class="detail">
                 <span><em></em></span>

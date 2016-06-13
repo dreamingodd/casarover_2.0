@@ -11,10 +11,11 @@ use Session;
 use App\Entity\User;
 use App\Entity\Order;
 use App\Entity\Wx\WxCasa;
-use App\Entity\Wx\WxOrder;
+use App\Entity\Order;
 use App\Entity\Wx\WxMembership;
 use App\Entity\Wx\WxCollection;
 
+/**  */
 class WxSiteController extends WxBaseController
 {
     /**
@@ -38,17 +39,23 @@ class WxSiteController extends WxBaseController
         return view('wx.wxIndex', compact('wxCasas', 'testWxCasas'));
     }
 
-    public function casa($id,$collection=0)
+    /**
+     * Collect normal casas and test casas.
+     * Will show test casas if the user is a test user.
+     * @param int $id
+     * @param int $collection
+     */
+    public function casa($id, $collection = 0)
     {
         $userId = Session::get('user_id');
         $wxCasa = WxCasa::find($id);
         $this->convertToViewCasa($wxCasa);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
-        $casas=WxCollection::where('wx_user_id',$userId)->
-        where('wx_casa_id',$id)->first();
+        $casas=WxCollection::where('user_id',$userId)->
+        where('wx_casa_id', $id)->first();
         if($collection==1 && empty($casas)){
             $wxcollection=new WxCollection;
-            $wxcollection->wx_user_id=$userId;
+            $wxcollection->user_id=$userId;
             $wxcollection->wx_casa_id=$id;
             $wxcollection->save();
             $casas=1;
@@ -56,7 +63,8 @@ class WxSiteController extends WxBaseController
         return view('wx.wxCasaDetail', compact('wxCasa','casas'));
     }
 
-    public function user($tips=null)
+    /** @param string $tips */
+    public function user($tips = null)
     {
         $user = User::find(Session::get('user_id'));
         $orders = Order::where('user_id', Session::get('user_id'))->orderBy('id', 'desc')->get();
@@ -71,6 +79,7 @@ class WxSiteController extends WxBaseController
         return view('wx.wxUser', compact('orders', 'user','percent', 'levelStr','tips'));
     }
 
+    /** @param int $id */
     public function order($id)
     {
         $wxCasa = WxCasa::find($id);
@@ -79,17 +88,19 @@ class WxSiteController extends WxBaseController
         // 下个月末
         $date->setDate($date->year, $date->month + 2, 0);
         $endDate = $date->format("Y年m月d日");
-        return view('wx.wxOrder', compact('wxCasa', 'user', 'endDate'));
+        return view('wx.wxCasaPrepareOrder', compact('wxCasa', 'user', 'endDate'));
     }
 
-    //积分详情页面
+    /** 积分详情页面 */
     public function scoreVariation()
     {
         $userid = Session::get('user_id');
-        return view('wx.scoreVariation',compact('userid'));
+        return view('wx.scoreVariation', compact('userid'));
     }
 
-    //积分详情的json数据
+    /** 积分详情的json数据
+     *  @param int $user_id
+     */
     public function scoreVariationJson($user_id)
     {
         $user = User::find($user_id);
@@ -104,6 +115,7 @@ class WxSiteController extends WxBaseController
 
     /**
      * 注册成为会员
+     * @param Request $request
      * */
     public function registerMember(Request $request)
     {
@@ -126,6 +138,7 @@ class WxSiteController extends WxBaseController
     /**
      * 扫名片获得积分
      * 如果是第二次扫的提示已经扫过了
+     * @param Request $request
      * */
     public function creditScore(Request $request)
     {
@@ -162,8 +175,36 @@ class WxSiteController extends WxBaseController
         };
 
     }
+    /** */
+    public function collection() {
+        $userId = Session::get('user_id');
+        $casas = WxCollection::where('user_id',$userId)->get();
+        foreach ($casas as $casa) {
+            $this->convertToViewCasa($casa->wxCasa);
+        }
+        return view('wx.collection',compact('casas'));
+    }
+    /** @param Request $request */
+    public function collectionDel(Request $request) {
+        $userId = Session::get('user_id');
+        $saves=$request->all();
+        foreach($saves['casa'] as $key=>$casa){
+            if($casa==1){
+                WxCollection::where('user_id',$userId)->
+                where('wx_casa_id',$key)->delete();
+            }
+        }
+        return redirect('wx/collection');
+    }
 
-    public function createWxScoreVariation($memid,$activId,$name,$type,$score)
+    /** */
+    public function logout() {
+        Session::forget('user_id');
+        Session::forget('openid');
+        return redirect('/wx/user');
+    }
+
+    private function createWxScoreVariation($memid, $activId, $name, $type, $score)
     {
         WxScoreVariation::create([
             'wx_membership_id' => $memid,
@@ -181,30 +222,5 @@ class WxSiteController extends WxBaseController
         $user->wxMembership->accumulated_score = $user->wxMembership->accumulated_score+$score;
         $user->wxMembership->save();
         app('MembershipService')->upgradeWxMembershipLevelIfNeeded($user->wxMembership);
-    }
-
-    public function logout() {
-        Session::forget('user_id');
-        Session::forget('openid');
-        return redirect('/wx/user');
-    }
-    public function collection() {
-        $userId = Session::get('user_id');
-        $casas=WxCollection::where('wx_user_id',$userId)->get();
-        foreach ($casas as $casa) {
-            $this->convertToViewCasa($casa->wxCasa);
-        }
-        return view('wx.collection',compact('casas'));
-    }
-    public function collectionDel(Request $request) {
-        $userId = Session::get('user_id');
-        $saves=$request->all();
-        foreach($saves['casa'] as $key=>$casa){
-            if($casa==1){
-                WxCollection::where('wx_user_id',$userId)->
-                where('wx_casa_id',$key)->delete();
-            }
-        }
-        return redirect('wx/collection');
     }
 }
