@@ -43,11 +43,11 @@ class WxSiteController extends WxBaseController
         $wxCasa = WxCasa::find($id);
         $this->convertToViewCasa($wxCasa);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
-        $casas=WxCollection::where('user_id',$userId)->
+        $casas=WxCollection::where('wx_user_id',$userId)->
         where('wx_casa_id',$id)->first();
         if($collection==1 && empty($casas)){
             $wxcollection=new WxCollection;
-            $wxcollection->user_id=$userId;
+            $wxcollection->wx_user_id=$userId;
             $wxcollection->wx_casa_id=$id;
             $wxcollection->save();
             $casas=1;
@@ -189,7 +189,7 @@ class WxSiteController extends WxBaseController
     }
     public function collection() {
         $userId = Session::get('user_id');
-        $casas=WxCollection::where('user_id',$userId)->get();
+        $casas=WxCollection::where('wx_user_id',$userId)->get();
         foreach ($casas as $casa) {
             $this->convertToViewCasa($casa->wxCasa);
         }
@@ -200,7 +200,7 @@ class WxSiteController extends WxBaseController
         $saves=$request->all();
         foreach($saves['casa'] as $key=>$casa){
             if($casa==1){
-                WxCollection::where('user_id',$userId)->
+                WxCollection::where('wx_user_id',$userId)->
                 where('wx_casa_id',$key)->delete();
             }
         }
