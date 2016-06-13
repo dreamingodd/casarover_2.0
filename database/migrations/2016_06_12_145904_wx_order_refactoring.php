@@ -16,7 +16,8 @@ class WxOrderRefactoring extends Migration
      */
     public function up()
     {
-        // Make the wx_order, wx_order_item temperary which will be eventually destroyed.
+        // Make the wx_order, wx_order_item temporary tables which will eventually be destroyed.
+        // Including the object tables (WxOrder, WxOrderItem, WxRoom).
         Schema::rename('wx_order', 'wx_order_temp');
         Schema::rename('wx_order_item', 'wx_order_item_temp');
 
