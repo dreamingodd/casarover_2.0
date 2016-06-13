@@ -43,7 +43,7 @@
         @endif
     </div>
     <br/>
-    @if ($order->consume_status == 0 && $order->pay_status == 1)
+    @if ($order->reserve_status != \App\Entity\CasaOrder::RESERVE_STATUS_CONSUMED && $order->status == 1)
         <div style="width: 240px; margin: 0 auto;">
             <p>&nbsp;消费时展示此二维码</p>
             <img src="{{$qrPath}}" style="width:100%;"/>
