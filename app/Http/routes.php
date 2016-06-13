@@ -146,7 +146,13 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/user/card/{id?}', function(){
         return view('wx.card');
     });
-    Route::get('/user/card/bill', function(){
+    Route::get('/user/cardLogin', function(){
+        return view('wx.cardEntry');
+    });
+    Route::get('/user/cardApply/{id?}', function(){
+        return view('wx.cardApply');
+    });
+    Route::get('/user/cardBill', function(){
         return view('wx.cardBill');
     });
     // vote activity

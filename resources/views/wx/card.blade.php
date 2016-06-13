@@ -23,7 +23,7 @@
                                     <p>湖州-德州-莫干山镇</p>
                                     <p>截至日期:2017年6月1日</p>
                                     <span>我的剩余间数：3间</span>
-                                    <div class="click" onclick="document.location='/wx/user/card/bill'">
+                                    <div class="click" onclick="document.location='/wx/user/cardBill'">
                                         预订
                                     </div>
                             </div>

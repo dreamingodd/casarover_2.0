@@ -38,6 +38,9 @@ return [
         '沐心坊'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/7%E6%B2%90%E5%BF%83%E5%9D%8A.jpg',
         '栖食號'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/8%E6%A0%96%E9%A3%9F%E8%99%9F.jpg',
         '山瑶铃'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/9%E5%B1%B1%E7%91%B6%E9%93%83.jpg',
+        '蓝马书店'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/19%E8%93%9D%E9%A9%AC%E4%B9%A6%E5%BA%97.jpg',
+        '斐文·上客堂'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/20%E6%96%90%E6%96%87%E4%B8%8A%E5%AE%A2%E5%A0%82.jpg',
+        '号设'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/21%E5%8F%B7%E8%AE%BE.jpg',
     ],
     'wx_18_link' => 'http://www.casarover.com',
 ];

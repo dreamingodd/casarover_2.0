@@ -88,7 +88,7 @@
             </p>
             <div class="maincondetail">
                 <a href="user/card" style="border: none">我的度假卡</a>
-                <a href="#">使用他人度假卡</a>
+                <a href="user/cardLogin">使用他人度假卡</a>
                 <a href="#">申请记录<i>(1)</i></a>
             </div>
         </div>

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Session;
 use App\Entity\User;
+use App\Entity\Order;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxOrder;
 use App\Entity\Wx\WxMembership;
@@ -58,7 +59,7 @@ class WxSiteController extends WxBaseController
     public function user($tips=null)
     {
         $user = User::find(Session::get('user_id'));
-        $orders = WxOrder::where('user_id', Session::get('user_id'))->orderBy('id', 'desc')->get();
+        $orders = Order::where('user_id', Session::get('user_id'))->orderBy('id', 'desc')->get();
         $percent = 0;
         if (!empty($user->wxMembership->id)) {
             $accumulatedScore = $user->wxMembership->accumulated_score;
