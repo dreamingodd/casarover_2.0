@@ -8,7 +8,7 @@ use Exception;
 use App\Entity\User;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxBind;
-use App\Entity\Wx\WxOrder;
+use App\Entity\CasaOrder;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 class WxBindController extends Controller
 {
 
+    /** */
     public function index() {
         $userId = Session::get('user_id');
         $user = User::find($userId);
@@ -34,17 +35,20 @@ class WxBindController extends Controller
             // 民宿
             $wxCasa = WxCasa::find($wxCasaId);
             // Gets all payed orders.
-            $orders = WxOrder::where('wx_casa_id', $wxCasaId)
-                            ->where('pay_status', WxOrder::PAY_STATUS_YES)
-                            ->orderBy('id', 'desc')->get();
-            $reserveStatus = ['未预约', '已预约', '预约失败'];
-            $consumeStatus = ['未消费', '已消费', '已过期'];
-            return view('wx.merchant', compact('orders', 'wxCasa', 'reserveStatus', 'consumeStatus'));
+            $orders = CasaOrder::where('wx_casa_id', $wxCasaId)
+                            // Due to refactor, pay_status will be in order(table).
+                            //->where('pay_status', CasaOrder::STATUS_PAYED)
+                            ->orderBy('order_id', 'desc')->get();
+            $reserveStatus = ['未预约', '已预约', '预约失败', '已消费'];
+            return view('wx.merchant', compact('orders', 'wxCasa', 'reserveStatus'));
         }
         Log::error("Error: Unpredicted condition!");
         return "Error: Unpredicted condition!";
     }
 
+    /**
+     * @param Request $request
+     */
     public function apply(Request $request) {
         try {
             // update user.
@@ -66,7 +70,10 @@ class WxBindController extends Controller
         }
     }
 
-    /** The followings are backstage related. ********************************/
+    /**
+     * The followings are backstage related.
+     * @param int $deleted
+     */
     public function bindList($deleted = 0) {
         $wxBinds = array();
         if ($deleted) {
@@ -78,16 +85,29 @@ class WxBindController extends Controller
         return view('backstage.wxBindList', compact('wxBinds', 'wxCasas'));
     }
 
+    /**
+     * .
+     * @param int $id
+     */
     public function delete($id) {
         WxBind::find($id)->delete();
         return redirect('/back/wx/bind');
     }
 
+    /**
+     * .
+     * @param int $id
+     */
     public function restore($id) {
         WxBind::onlyTrashed()->find($id)->restore();
         return redirect('/back/wx/bind/trash/1');
     }
 
+    /**
+     * .
+     * @param int $bindId
+     * @param int $casaId
+     */
     public function bind($bindId, $casaId) {
         $wxBind = WxBind::find($bindId);
         $wxBind->wx_casa_id = $casaId;

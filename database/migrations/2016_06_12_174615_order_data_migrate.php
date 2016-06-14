@@ -8,7 +8,10 @@ use App\Entity\Wx\WxCasa;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- *
+ * Migrate data of wx_order, wx_order_item, wx_room to order, order_item, casa_order and product.
+ * To accommodate requirements of various orders or miscellaneous products.
+ * In addition, table: WxOrder, WxOrderItem, WxRoom
+ * will be destroyed as long as the functionalities are working properly.
  */
 class OrderDataMigrate extends Migration
 {
@@ -33,7 +36,7 @@ class OrderDataMigrate extends Migration
                 if ($wc) {
                     $orderName = '民宿订单-' . WxCasa::find($o->wx_casa_id)->name;
                     $orderPhotoPath = 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/'
-                    . WxCasa::find($o->wx_casa_id)->thumbnail();
+                            . WxCasa::find($o->wx_casa_id)->thumbnail();
                     // echo $orderName . '   ' . $orderPhotoPath . "\n";
                 }
                 Order::create([

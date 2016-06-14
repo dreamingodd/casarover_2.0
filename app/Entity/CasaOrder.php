@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Entity\Order;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * Shall extend Order, but seemingly not able in Laravel.
  */
-class CasaOrder extends Order
+class CasaOrder extends Model
 {
     /** @var int */
     const RESERVE_STATUS_NO = 0;
@@ -21,6 +21,7 @@ class CasaOrder extends Order
     const RESERVE_STATUS_EXPIRED = 4;
 
     protected $table = "casa_order";
+    protected $primaryKey = 'order_id';
     public $timestamps = false;
 
     /**
@@ -29,5 +30,21 @@ class CasaOrder extends Order
     public function order()
     {
         return $this->belongsTo('App\Entity\Order');
+    }
+
+    /**
+     * wxCasa.
+     */
+    public function wxCasa()
+    {
+        return $this->belongsTo('App\Entity\Wx\WxCasa');
+    }
+
+    /**
+     * Score - 完成订单送积分.
+     */
+    public function wxScoreVariation()
+    {
+        return $this->hasOne('App\Entity\Wx\WxScoreVariation');
     }
 }
