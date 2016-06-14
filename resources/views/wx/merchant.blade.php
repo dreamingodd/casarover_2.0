@@ -25,8 +25,7 @@
                 </td>
                 <td>
                     下单时间：<br/>
-                    {{--{{$order->created_at->format('Y-m-d')}}<br/>--}}
-                    {{$order->created_at}}<br/>
+                    {{$order->order->created_at->format('Y-m-d')}}<br/>
                     @foreach ($order->order->orderItems as $item)
                         {{$item->product->name}}*{{$item->quantity}}<br/>
                     @endforeach
