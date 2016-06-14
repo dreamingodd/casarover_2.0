@@ -34,6 +34,8 @@ class Order extends Model
     const STATUS_REFUNDING = 2;
     /** @var int 已退款 */
     const STATUS_REFUNDED = 3;
+    /** @var int 已完成 */
+    const STATUS_COMPLETED = 4;
 
     protected $table = "order";
     protected $fillable = array(

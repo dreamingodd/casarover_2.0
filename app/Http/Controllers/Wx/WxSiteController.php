@@ -11,7 +11,6 @@ use Session;
 use App\Entity\User;
 use App\Entity\Order;
 use App\Entity\Wx\WxCasa;
-use App\Entity\Order;
 use App\Entity\Wx\WxMembership;
 use App\Entity\Wx\WxCollection;
 
