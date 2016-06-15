@@ -179,11 +179,12 @@ class WxOrderController extends Controller
         $order->reserve_comment = $request->message;
         if (empty($request->message)) {
             $order->reserve_status = CasaOrder::RESERVE_STATUS_NO;
+            $order->save();
         } else {
             $order->reserve_status = CasaOrder::RESERVE_STATUS_YES;
+            $order->save();
             $this->sendOrderSms($request->orderid);
         }
-        $order->save();
         return redirect('back/wx/order/list');
     }
 
