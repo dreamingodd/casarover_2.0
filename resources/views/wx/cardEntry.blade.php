@@ -14,7 +14,7 @@
         <h2>度假卡</h2>
         <p>HOLIDAY CARD</p>
         <input type="number" value="" placeholder="卡号">
-        <div class="confirm">确定</div>
+        <div class="confirm" onclick="document.location='card'">确定</div>
     </div>
 
 @stop
