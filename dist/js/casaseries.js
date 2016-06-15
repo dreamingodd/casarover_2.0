@@ -1,1 +1,0 @@
-window.onload=function(){var n=(document.getElementsByTagName("nav")[0],$(".nav-middle li:eq(3)")),e=($("#asd"),$(".nav-middle dl"));n.mouseover(function(){e.show()}),n.mouseout(function(){e.hide()})};

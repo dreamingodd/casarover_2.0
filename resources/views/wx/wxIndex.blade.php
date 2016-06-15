@@ -30,7 +30,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="hot">
                 @foreach($testWxCasas as $casa)
-                    @if (count($casa->wxRooms) > 0 && !empty($casa->thumbnail))
+                    @if (count($casa->rooms) > 0 && !empty($casa->thumbnail))
                         <div class="case">
                             <div class="image">
                                 <a href="/wx/casa/{{$casa->id}}">
@@ -45,7 +45,7 @@
                     @endif
                 @endforeach
                 @foreach($wxCasas as $casa)
-                    @if (count($casa->wxRooms) > 0 && !empty($casa->thumbnail))
+                    @if (count($casa->rooms) > 0 && !empty($casa->thumbnail))
                         <div class="case">
                             <div class="image">
                                 <a href="/wx/casa/{{$casa->id}}">

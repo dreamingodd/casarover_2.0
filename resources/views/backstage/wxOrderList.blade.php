@@ -6,18 +6,24 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
     <script src="/assets/js/wxOrderList.js"></script>
+    <style type="text/css">
+    .list-group-item {
+        padding: 4px;
+        text-align: center;
+    }
+    .info-tr ul {
+        margin: 5px 0 0 20px;
+    }
+    </style>
 @stop
 
 @section('body')
     <input type="hidden" id="page" value="reserve"/>
     <div id="app">
         <table class="table">
-            <thead>
             <tr>
                 <th>订单信息</th>
-                <th>民宿信息</th>
-                <th>买家信息</th>
-                <th>付款金额</th>
+                <th>用户信息</th>
                 <th>
                     预约状态
                     {{--<select class="form-control" v-model="type" v-on:change="getOrder">--}}
@@ -27,44 +33,45 @@
                     {{--</select>--}}
                 </th>
             </tr>
-            </thead>
             <div id="order-list">
                 <tbody>
                 <template v-for="order in orders">
-                    <tr transition="expand">
-                        <th scope="row">
-                            <p>订单号：@{{ order.order_id }}</p>
-                            <p>微信订单号：@{{ order.wxpay_id }}</p>
-                            <p>下单时间：@{{ order.time }}</p>
+                    <tr transition="expand" class="info-tr">
+                        <td scope="row">
+                            <span style="font-weight:bold;">@{{ order.name }}</span> <br/>
+                            订单号：@{{ order.order_id }} &nbsp; | &nbsp;
+                            下单时间：@{{ order.time }}<br />
+                            微信支付订单号：@{{ order.pay_id }}<br />
                             <goodlist :goods="order.goods"></goodlist>
-                        </th>
-                        <td>@{{ order.casa_name }}</td>
-                        <td>@{{ order.username }} <br>
-                            <p>@{{ order.nickname }}</p>
-                            电话：@{{ order.userphone }}</td>
-                        <td>@{{ order.total }}</td>
+                        </td>
+                        <td>
+                            @{{ order.username }} &nbsp; | &nbsp; 微信名： @{{ order.nickname }} <br/>
+                            电话：@{{ order.userphone }} <br/>
+                            金额：<span style="font-weight:bold; font-size:18px; color:#FF0033">@{{ order.total }}元</span>
+                        </td>
                         <td>
                             {{--<button type="button" class="btn btn-default order-del" v-on:click="del(order.id)">--}}
                                 {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--}}
                             {{--</button>--}}
-                            <p>
-                                @{{ order.paystatus }} |
-                                @{{ order.reserveStatus }} |
-                                @{{ order.consumeStatus }}
-
-                            </p>
-                            <p>
-                                <template v-if="!order.reserve_time">
+                                <span v-if="order.paystatus == '已付款'" style="color:#33CC66; font-weight:bold;">@{{ order.paystatus }}</span>
+                                <span v-else>@{{ order.paystatus }}</span>
+                                |
+                                <span v-if="order.reserveStatus == '已预约'" style="color:#33CC66; font-weight:bold;">@{{ order.reserveStatus }}</span>
+                                <span v-else>@{{ order.reserveStatus }}</span>
+                            <br />
+                                <template v-if="!order.reserveComment">
                                     填写预约时间
+                                    <p class="text-danger">(时间格式是2016年5月6日)</p>
+                                </template>
+                                <template v-else>
+                                    预约时间:
                                 </template>
                                 <form action="/back/wx/changewxordertype"  method="POST">
                                     <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                                     <input type="hidden" name="orderid" value="@{{ order.id }}">
-                            <p class="text-danger">(时间格式是2016年5月6日)</p>
-                            <input type="text" class="form-control" id="order-time"  name="message" value="@{{ order.reserve_time }}">
-                            <button type="submit" class="btn btn-default" >保存</button>
-                            </form>
-                            </p>
+                                    <input type="text" class="" id="order-time"  name="message" value="@{{ order.reserveComment }}">
+                                    <button type="submit" class="btn btn-default btn-xs">保存</button>
+                                </form>
                         </td>
                     </tr>
                 </template>
@@ -85,7 +92,7 @@
     <template id="goodlist">
         <ul class="list-group">
             <template v-for="good in goods">
-                <li class="list-group-item">@{{ good.name }}--@{{ good.quantity }}--@{{ good.price }}</li>
+                <li class="">@{{ good.name }}--@{{ good.quantity }}--@{{ good.price }}</li>
             </template>
         </ul>
     </template>

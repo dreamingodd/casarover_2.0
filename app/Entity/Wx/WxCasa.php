@@ -5,6 +5,7 @@ namespace App\Entity\Wx;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**  */
 class WxCasa extends Model
 {
     use SoftDeletes;
@@ -21,13 +22,13 @@ class WxCasa extends Model
     public function contents() {
         return $this->belongsToMany('App\Content', 'wx_casa_content');
     }
-    public function wxRooms() {
-        return $this->hasMany('App\Entity\Wx\WxRoom');
+    public function rooms() {
+        return $this->hasMany('App\Entity\Product', 'parent_id', 'id');
     }
 
     // 民宿主人
-    public function wxUsers() {
-        return $this->belongsToMany('App\Entity\Wx\WxUser', 'wx_bind');
+    public function users() {
+        return $this->belongsToMany('App\Entity\User', 'wx_bind');
     }
     public function wxBinds() {
         return $this->hasMany('App\Entity\Wx\WxBind');

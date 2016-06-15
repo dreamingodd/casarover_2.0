@@ -19,14 +19,14 @@
         </div>
     @endif
     <div class="top">
-        <img src="{{$wxUser->headimgurl}}" alt="">
-        <h2>{{$wxUser->nickname}}</h2>
-        @if(!empty($wxUser->WxMembership->id))
+        <img src="{{$user->headimgurl}}" alt="">
+        <h2>{{$user->nickname}}</h2>
+        @if(!empty($user->WxMembership->id))
             <div class="vip">
                 <span>{{$levelStr}}</span>
                 <div class="progress">
                     <div class="progress-bar " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percent }}%" >
-                        {{$wxUser->WxMembership->accumulated_score}}/{{Config::get('config.wx_membership_detail')[$wxUser->WxMembership->level + 1]['score']}}
+                        {{$user->WxMembership->accumulated_score}}/{{Config::get('config.wx_membership_detail')[$user->WxMembership->level + 1]['score']}}
                     </div>
                 </div>
             </div>
@@ -35,23 +35,23 @@
                 <a href="/wx/registerMember/">申请会员</a>
             </div>
         @endif
-        @if(!empty($wxUser->WxMembership->id))
+        @if(!empty($user->WxMembership->id))
             <div class="mask clear">
                 <a href="/wx/scorevariation">
                     <div class="maskcon">
-                        <p>{{$wxUser->WxMembership->accumulated_score}}</p>
+                        <p>{{$user->WxMembership->accumulated_score}}</p>
                         <p>累计积分</p>
                     </div>
                 </a>
                 <a href="/wx/scorevariation">
                     <div class="maskcon">
-                        <p>{{$wxUser->WxMembership->score}}</p>
+                        <p>{{$user->WxMembership->score}}</p>
                         <p>可用积分</p>
                     </div>
                 </a>
                 <div class="maskcon">
                     <p class="glyphicon glyphicon-star"></p>
-                    <p><a href="#">我的收藏</a></p>
+                    <p><a href="collection">我的收藏</a></p>
                 </div>
             </div>
         @endif
@@ -74,25 +74,25 @@
                 <span class="glyphicon glyphicon-plus"></span>
             </p>
             <div class="maincondetail">
-                <p>姓名：{{$wxUser->realname or null}}</p>
-                <p>手机号码：{{$wxUser->cellphone}}</p>
-                @if (!empty($wxUser->wxMembership->id))
+                <p>姓名：{{$user->realname or null}}</p>
+                <p>手机号码：{{$user->cellphone}}</p>
+                @if (!empty($user->wxMembership->id))
                     <p>会员等级：{{$levelStr}}</p>
                 @endif
             </div>
         </div>
-        {{--<div id='vip' class="maincon">--}}
-            {{--<p class="divider"><em class="glyphicon glyphicon-user"></em>我的度假卡--}}
-                {{--<span class="glyphicon glyphicon-minus"></span>--}}
-                {{--<span class="glyphicon glyphicon-plus"></span>--}}
-            {{--</p>--}}
-            {{--<div class="maincondetail">--}}
-                    {{--<div class="card">--}}
-                        {{--<img src="/assets/images/cs.png" alt="">--}}
-                    {{--</div>--}}
-                    {{--<p>十家度假卡套餐</p>--}}
-            {{--</div>--}}
-        {{--</div>--}}
+        <div id='vacation' class="maincon">
+            <p class="divider"><em class="glyphicon glyphicon-credit-card"></em>度假卡
+                <span class="glyphicon glyphicon-minus"></span>
+                <span class="glyphicon glyphicon-plus"></span>
+            </p>
+            <div class="maincondetail">
+                <a href="user/card" style="border: none">我的度假卡</a>
+                <a href="user/cardEntry">使用他人度假卡</a>
+                <a href="user/cardApply">我的申请<i>(1)</i></a>
+                <a href="user/cardApply">他人的申请<i>(1)</i></a>
+            </div>
+        </div>
         <div id="order" class="maincon">
             <p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
                 <span class="glyphicon glyphicon-minus"></span>
@@ -100,27 +100,19 @@
             </p>
             <div class="maincondetail">
                 @foreach($orders as $order)
-                    @if ($order->pay_status == 0)
-                        @if (empty($order->wxCasa->name))
-                            <a href="#" onclick="javascript:alert('民宿已下架，不再提供付款！')">
-                        @else
-                            <a href="/wx/pay/wxorder/{{$order->id}}">
-                        @endif
-                @else
-                    <a href="/wx/order/detail/{{$order->id}}">
-                @endif
+                    @if ($order->status == 0)
+                        <a href="/wx/pay/wxorder/{{$order->id}}">
+                    @else
+                        <a href="/wx/order/detail/{{$order->id}}">
+                    @endif
                         <div class="case clear">
                             <div class="number clear">
                                 <p>订单号:{{$order->order_id}}</p>
                             </div>
                             <div class="casecon clear">
                                 <div class="images">
-                                    @if (empty($order->wxCasa->name))
-                                        <p>该民宿已下架</p>
-                                    @else
-                                        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$order->wxCasa->thumbnail()}}"/>
-                                    @endif
-                                    <p>{{$order->casa_name}}</p>
+                                    <img src="{{$order->photo_path}}"/>
+                                    <p>{{$order->name}}</p>
                                 </div>
                                 <div class="info">
                                     <p>下单时间</p>
@@ -132,39 +124,33 @@
                                 </div>
                                 <div class="state">
                                     <p>状态</p>
-                                    @if ($order->pay_status == 0)
+                                    @if ($order->status == 0)
                                         <p id="gray">未付款</p>
-                                    @elseif ($order->pay_status == 1)
+                                    @elseif ($order->status == 1)
                                         <p id="orange">已付款</p>
-                                    @elseif ($order->pay_status == 2)
+                                    @elseif ($order->status == 2)
                                         <p>正在退款</p>
-                                    @elseif ($order->pay_status == 3)
+                                    @elseif ($order->status == 3)
                                         <p id="gray">已退款</p>
                                     @else
                                         <p id="gray">未确认</p>
                                     @endif
 
-                                    @if ($order->reserve_status == 0)
+                                    @if ($order->casaOrder->reserve_status == 0)
                                         <p id="gray">未预约</p>
-                                    @elseif ($order->reserve_status == 1)
+                                    @elseif ($order->casaOrder->reserve_status == 1)
                                         <p id="orange">已预约</p>
-                                    @elseif ($order->reserve_status == 1)
+                                    @elseif ($order->casaOrder->reserve_status == 2)
                                         <p>预约失败</p>
-                                    @endif
-
-                                    @if ($order->consume_status == 0)
-                                        <p id="gray">未消费</p>
-                                    @elseif ($order->consume_status == 1)
+                                    @elseif ($order->casaOrder->reserve_status == 3)
                                         <p id="orange">已完成</p>
-                                    @elseif ($order->consume_status == 2)
-                                        <p id="gray">已过期</p>
                                     @endif
                                 </div>
                             </div>
                             <div class="date">
-                                @if ($order->reserve_status == 1)
-                                    <p>预约日期:</p>
-                                    <p>{{$order->reserve_time}}</p>
+                                @if ($order->casaOrder->reserve_status == 1)
+                                    <p>预约信息:</p>
+                                    <p>{{$order->casaOrder->reserve_comment}}</p>
                                 @endif
                             </div>
                         </div>

@@ -6,7 +6,7 @@ $(document).ready(function(){
                 wxcasas:null
             };
         },
-        ready:function(){
+        ready:function() {
             this.getlist();
         },
         methods: {
@@ -26,6 +26,21 @@ $(document).ready(function(){
                 $.getJSON('/back/api/eighteen/del/'+id, ()=> {
                     this.getlist();
                 })
+            },
+            
+            displayOrderEdit(e) {
+                // Clicked element.
+                var self = $(e.target);
+                self.parent().hide();
+                self.parent().siblings().show();
+            },
+            displayOrderSave(e) {
+                // Clicked element.
+                var self = $(e.target);
+                var casaId = self.attr('db_id');
+                var displayOrder = self.siblings().first().val();
+                location.href = '/back/wx/casa/display/order/' + casaId + '/' + displayOrder;
             }
-        }})
+        }
+    });
 })

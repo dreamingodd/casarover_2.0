@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Wx;
 
 use Exception;
-use App\Entity\Wx\WxUser;
+use App\Entity\User;
 use Config;
 use Log;
 use DB;
@@ -23,7 +23,7 @@ class Activity18Controller extends WxBaseController
     /** 首页 */
     public function index()
     {
-        $data = WxCasa::where('activ',1)->get();
+        $data = WxCasa::where('activ',1)->orderBy('display_order')->get();
         foreach ($data as $casa) {
             $this->convertToViewCasa($casa);
             $casa->totalVotes = Wx18::where('wx_casa_id',$casa->id)->get();
@@ -42,20 +42,20 @@ class Activity18Controller extends WxBaseController
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         $check = $this->checkSubscription();
         //检查是否已经约过了
-        $hassleep = Wx18::where('wx_user_id', Session::get('wx_user_id'))->where('wx_casa_id', $id)->first();
+        $hassleep = Wx18::where('user_id', Session::get('user_id'))->where('wx_casa_id', $id)->first();
         return view('activity.casa', compact('wxCasa','hassleep','check'));
     }
 
     /**
-     * @param int $id WxUser's id
+     * @param int $id User's id
      */
     public function rankEntry($id = 0)
     {
-        $user = WxUser::find(Session::get('wx_user_id'));
+        $user = User::find(Session::get('user_id'));
         if ($id == 0) {
             $casas18 = WxCasa::where('activ', 1)->get();
         } else {
-            $casas18 = Wx18::where('wx_user_id', $user->id)->get();
+            $casas18 = Wx18::where('user_id', $user->id)->get();
         }
         $casas = array();
         foreach ($casas18 as $key => $casa18) {
@@ -63,8 +63,8 @@ class Activity18Controller extends WxBaseController
             $result = DB::select(
                 "SELECT * FROM ("
                     ." SELECT @rownum := @rownum + 1 rank, u.id, u.headimgurl, u.nickname, wx18.vote"
-                    ." FROM wx_user_casa_18 wx18, wx_user u, (SELECT@rownum :=0) r"
-                    ." WHERE wx18.wx_user_id = u.id and wx_casa_id = $casa->id"
+                    ." FROM wx_user_casa_18 wx18, user u, (SELECT@rownum :=0) r"
+                    ." WHERE wx18.user_id = u.id and wx_casa_id = $casa->id"
                     ." ORDER BY wx18.vote DESC"
                 ." ) all_rank WHERE all_rank.id = $user->id"
             );
@@ -82,16 +82,16 @@ class Activity18Controller extends WxBaseController
      */
     public function rank($casaId = 0)
     {
-        $userId = Session::get('wx_user_id');
-        $user = WxUser::find($userId);
+        $userId = Session::get('user_id');
+        $user = User::find($userId);
         $casa = WxCasa::find($casaId);
         $wx18s = Wx18::where('wx_casa_id', $casaId)->orderBy('vote', 'DESC')->get();
         //此处需改用数据库查排名
         $result = DB::select(
             "SELECT * FROM ("
                 ." SELECT @rownum := @rownum + 1 rank, u.id, u.headimgurl, u.nickname, wx18.vote"
-                ." FROM wx_user_casa_18 wx18, wx_user u, (SELECT@rownum :=0) r"
-                ." WHERE wx18.wx_user_id = u.id and wx_casa_id = $casa->id"
+                ." FROM wx_user_casa_18 wx18, user u, (SELECT@rownum :=0) r"
+                ." WHERE wx18.user_id = u.id and wx_casa_id = $casa->id"
                 ." ORDER BY wx18.vote DESC"
             ." ) all_rank WHERE all_rank.id = $user->id"
         );
@@ -100,12 +100,12 @@ class Activity18Controller extends WxBaseController
             $myRawWx18 = $result[0];
         }
         foreach($wx18s as $key => $wx18){
-            if($wx18->wx_user_id == $userId) {
+            if($wx18->user_id == $userId) {
                 $user->rank = $key + 1;
                 break;
             }
         }
-        $myWx18 = Wx18::where('wx_user_id', $user->id)->first();
+        $myWx18 = Wx18::where('user_id', $user->id)->first();
         $this->convertToViewCasa($casa);
         return view('activity.rank',compact('wx18s','myRawWx18','casa'));
     }
@@ -117,12 +117,12 @@ class Activity18Controller extends WxBaseController
     public function datesleep($casa_id, $user_id)
     {
         //存储信息
-        $hassleep = Wx18::where('wx_user_id', $user_id)->where('wx_casa_id', $casa_id)->first();
+        $hassleep = Wx18::where('user_id', $user_id)->where('wx_casa_id', $casa_id)->first();
         if(!$hassleep) {
             DB::beginTransaction();
             try {
                 $sleep = new Wx18();
-                $sleep->wx_user_id = Session::get('wx_user_id');
+                $sleep->user_id = Session::get('user_id');
                 $sleep->wx_casa_id = $casa_id;
                 $sleep->vote = 0;
                 $sleep->save();
@@ -135,8 +135,8 @@ class Activity18Controller extends WxBaseController
             }
         }
         $wxCasa = WxCasa::find($casa_id);
-        $user = WxUser::find($user_id);
-        $isme = Session::get('wx_user_id') == $user_id ? 1 : 0;
+        $user = User::find($user_id);
+        $isme = Session::get('user_id') == $user_id ? 1 : 0;
         //  $isme = 0;
         $check = $this->checkSubscription();
         return view('activity.datesleep',compact('wxCasa', 'user', 'isme', 'check'));
@@ -149,9 +149,9 @@ class Activity18Controller extends WxBaseController
      * */
     public function vote($casa_id, $user_id)
     {
-        $activitycasa = Wx18::where('wx_casa_id',$casa_id)->where('wx_user_id',$user_id)->first();
+        $activitycasa = Wx18::where('wx_casa_id',$casa_id)->where('user_id',$user_id)->first();
         //时间判定
-        $lastpoll = WxVote::where('wx_user_id',Session::get('wx_user_id'))
+        $lastpoll = WxVote::where('user_id',Session::get('user_id'))
                 ->where('18_id',$activitycasa->id)->get()->last();
         if($lastpoll)
         {
@@ -167,7 +167,7 @@ class Activity18Controller extends WxBaseController
 
         WxVote::create([
             '18_id' => $activitycasa->id,
-            'wx_user_id' => Session::get('wx_user_id')
+            'user_id' => Session::get('user_id')
         ]);
         $activitycasa->vote += 1;
         $activitycasa->save();
@@ -176,19 +176,22 @@ class Activity18Controller extends WxBaseController
 
     }
 
-    // 后台活动index
+    /** 后台活动 index */
     public function selcasas()
     {
         $casas = WxCasa::all();
         return view('backstage.selCasas',compact('casas'));
     }
-    // 已选择列表
+    /** 已选择列表 */
     public function sellist()
     {
-        $data = WxCasa::where('activ',1)->get();
+        $data = WxCasa::where('activ', 1)->orderBy('display_order')->get();
         return response()->json($data);
     }
-    // 后台添加
+    /**
+     * 后台添加
+     * @param int $id
+     */
     public function add($id)
     {
         $wxCasa = WxCasa::find($id);
@@ -197,7 +200,9 @@ class Activity18Controller extends WxBaseController
         $data = ['msg','ok'];
         return response()->json($data);
     }
-    // 后台删除
+    /** 后台删除
+     * @param int $id
+     */
     public function del($id)
     {
         $wxCasa = WxCasa::find($id);
@@ -207,9 +212,10 @@ class Activity18Controller extends WxBaseController
         return response()->json($data);
     }
 
+    /** 检查关注 */
     public function checkSubscription()
     {
-        $user = WxUser::find(Session::get('wx_user_id'));
+        $user = User::find(Session::get('user_id'));
         return $this->getSubscribe($user->openid);
     }
 
@@ -225,7 +231,7 @@ class Activity18Controller extends WxBaseController
             return Config::get('config.wx_18_pics')[$name];
         } catch (Exception $e) {
             // 默认图片
-            return 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.png';
+            return 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.jpg';
         }
     }
 

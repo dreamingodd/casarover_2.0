@@ -24,17 +24,17 @@
         </div>
         <div class="brief">
             <p>{!!$wxCasa->desc!!}</p>
-            {{--<div class="collection" onclick="poll({{$wxCasa->id}})">--}}
-                    {{--<input type="hidden" value="{{empty($casas)}}" id="iscollection">--}}
-                    {{--<div class="uncollected">--}}
-                        {{--<span class="glyphicon glyphicon-star-empty"></span>--}}
-                        {{--收藏--}}
-                    {{--</div>--}}
-                    {{--<div class="collected" style="display: none">--}}
-                        {{--<span class="glyphicon glyphicon-star"></span>--}}
-                        {{--已收藏--}}
-                    {{--</div>--}}
-            {{--</div>--}}
+            <div class="collection" onclick="poll({{$wxCasa->id}})">
+                    <input type="hidden" value="{{empty($casas)}}" id="iscollection">
+                    <div class="uncollected">
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        收藏
+                    </div>
+                    <div class="collected" style="display: none">
+                        <span class="glyphicon glyphicon-star"></span>
+                        已收藏
+                    </div>
+            </div>
         </div>
         <div class="tabtable">
             <ul class="nav nav-tabs">
@@ -92,7 +92,9 @@
             }
         }
         function poll(casa){
-                        $.getJSON('/wx/casa/'+casa+'/1');
+                        $.getJSON('/wx/casa/'+casa+'/1',function (data) {
+                            
+                        });
                         $('.collected').show();
                         $('.uncollected').hide();
                 }

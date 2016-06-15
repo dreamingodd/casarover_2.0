@@ -3,12 +3,15 @@
 namespace App\Http\Middleware;
 
 use App\Common\WxTools;
-use App\Entity\Wx\WxUser;
+use App\Entity\User;
 use Closure;
 use Config;
 use Log;
 use Session;
 
+/**
+ * This middleware is used for wx user's automatic login.
+ */
 class WxAuth
 {
 
@@ -23,7 +26,7 @@ class WxAuth
      */
     public function handle($request, Closure $next)
     {
-        if (Session::has('wx_user_id')) {
+        if (Session::has('user_id')) {
             return $next($request);
         } else {
             if (env('ENV') == 'PROD') {
@@ -46,30 +49,30 @@ class WxAuth
                     }
                     $accessToken = $baseJson['access_token'];
                     $openid = $baseJson['openid'];
-                    $user = WxUser::where('openid', $openid)->get()->first();
+                    $user = User::where('openid', $openid)->get()->first();
                     $userInfoJson = WxTools::getUserInfo($accessToken, $openid);
                     Log::info($userInfoJson);
-                    $user = $this->saveWxUser($userInfoJson, $user);
+                    $user = $this->saveUser($userInfoJson, $user);
                     Session::put('openid', $openid);
-                    Session::put('wx_user_id', $user->id);
+                    Session::put('user_id', $user->id);
                     Session::save();
                     return $next($request);
                 }
             } else if (env('ENV') == 'DEV') {
                 $user = $this->getDummyUser();
                 Session::put('openid', $user->openid);
-                Session::put('wx_user_id', $user->id);
+                Session::put('user_id', $user->id);
                 Session::save();
                 return $next($request);
             }
         }
     }
 
-    private function saveWxUser($jsonUser, $user = null)
+    private function saveUser($jsonUser, $user = null)
     {
         if (empty($user)) {
             // The very first login.
-            $user = new WxUser();
+            $user = new User();
         }
         $user->openid = $jsonUser['openid'];
         $user->nickname = $jsonUser['nickname'];
@@ -85,9 +88,9 @@ class WxAuth
     private function getDummyUser()
     {
         $userId = 8888;
-        $user = WxUser::find($userId);
+        $user = User::find($userId);
         if (empty($user)) {
-            $user = new WxUser();
+            $user = new User();
             $user->id = $userId;
             $user->nickname = "Kobe";
             $user->openid = "FAKE-openid-kbMrB-T0ZGEjGZBIX88";

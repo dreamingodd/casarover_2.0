@@ -10,7 +10,7 @@ class WxCollection extends Model
     public function wxCasa() {
         return $this->hasOne('App\Entity\Wx\WxCasa','id','wx_casa_id');
     }
-    public function wxUser() {
-        return $this->hasOne('App\Entity\Wx\WxUser','id','wx_user_id');
+    public function user() {
+        return $this->hasOne('App\Entity\User','id','user_id');
     }
 }

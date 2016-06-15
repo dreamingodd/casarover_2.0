@@ -9,11 +9,11 @@ class WxMembership extends Model
 {
     protected $table = "wx_membership";
     protected $fillable = [
-        'wx_user_id' , 'level','score','accumulated_score'
+        'user_id' , 'level','score','accumulated_score'
     ];
-    public function wxUser()
+    public function user()
     {
-        return $this->belongsTo('App\Entity\Wx\WxUser');
+        return $this->belongsTo('App\Entity\User');
     }
     public static function getLevelDetail($level)
     {
