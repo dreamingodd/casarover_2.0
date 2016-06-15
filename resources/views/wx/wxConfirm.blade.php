@@ -4,7 +4,7 @@
     <link href="/assets/css/wxConfirm.css" rel="stylesheet"/>
 @stop
 @section('nav')
-    <a href="/wx/order/{{$casaroverOrder->wxCasa->id}}" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a href="/wx/order/{{$casaroverOrder->casaOrder->wx_casa_id}}" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
     <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a>
     <img  src="/assets/images/logow.png" />
 @stop
@@ -12,11 +12,11 @@
     <div class="main">
         <div class="commodity">
             <h2>商品信息</h2>
-            <p>民宿名称:<span>{{$casaroverOrder->wxCasa->getName()}}</span></p>
+            <p>民宿名称:<span>{{$casaroverOrder->name}}</span></p>
             <p>订单号:<span>{{$casaroverOrder->order_id}}</span></p>
             {{--下两行做循环--}}
-            @foreach($casaroverOrder->wxOrderItems as $item)
-                <p>房间型号:<span>{{$item->wxRoom->name}}</span></p>
+            @foreach($casaroverOrder->orderItems as $item)
+                <p>房间型号:<span>{{$item->name}}</span></p>
                 <p>房间数量:<span>{{$item->quantity}}</span></p>
             @endforeach
             <p id="total">总价：<i>元</i><i>{{$casaroverOrder->total or ''}}</i></p>
@@ -59,3 +59,4 @@
     }
 </script>
 @stop
+
