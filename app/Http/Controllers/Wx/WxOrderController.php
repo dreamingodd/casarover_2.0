@@ -108,7 +108,7 @@ class WxOrderController extends Controller
                 $wsv->wx_membership_id = $user->wxMembership->id;
                 $wsv->casa_order_id = $order->id;
                 $wsv->type = WxScoreVariation::TYPE_ORDER;
-                $wsv->name = self::ORDER_AWARD_PREFIX . $order->name . ' ' . $order->id;
+                $wsv->name = self::ORDER_CONSUME_PREFIX . $order->name . ' ' . $order->id;
                 $wsv->score = - $score;
                 $wsv->save();
                 $user->wxMembership->score -= $score;
