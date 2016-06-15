@@ -89,7 +89,8 @@
             <div class="maincondetail">
                 <a href="user/card" style="border: none">我的度假卡</a>
                 <a href="user/cardEntry">使用他人度假卡</a>
-                <a href="user/cardApply">申请记录<i>(1)</i></a>
+                <a href="user/cardApply">我的申请<i>(1)</i></a>
+                <a href="user/cardApply">他人的申请<i>(1)</i></a>
             </div>
         </div>
         <div id="order" class="maincon">

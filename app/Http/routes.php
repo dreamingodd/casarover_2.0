@@ -155,11 +155,11 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/user/cardApply/{id?}', function(){
         return view('wx.cardApply');
     });
-    Route::get('/user/cardApply/{id?}', function(){
-        return view('wx.cardApply');
-    });
     Route::get('/user/cardApplySend/{id?}', function(){
         return view('wx.cardApplySend');
+    });
+    Route::get('/user/cardForm', function(){
+        return view('wx.cardForm');
     });
     Route::get('/user/cardBill', function(){
         return view('wx.cardBill');

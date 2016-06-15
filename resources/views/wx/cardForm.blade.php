@@ -1,7 +1,7 @@
 @extends('wxBase')
-@section('title','民宿预订')
+@section('title','填写信息')
 @section('head')
-    <link href="/assets/css/cardBook.css" rel="stylesheet"/>
+    <link href="/assets/css/cardForm.css" rel="stylesheet"/>
 @stop
 @section('nav')
     <a href="/wx/user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
@@ -10,7 +10,8 @@
 @stop
 @section('body')
     <div class="main">
-        <h2>民宿预订</h2>
+        <h2>填写信息</h2>
+        <h4>填写您的身份信息向小明提出申请</h4>
         <div class="case clear" >
             <input type="hidden" value="" class="casaId">
             <div class="casecon clear">
@@ -21,25 +22,27 @@
                     <div class="articlecon">
                         <p>湖州-德州-莫干山镇</p>
                         <p>截至日期:2017年6月1日</p>
-                        <span>预订间数：<i id="reduce">-</i> <i id="number">1</i> <i id="add">+</i></span>
+                        <span>预订间数：<i>3</i></span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <a class="sub" href="tel:{{Config::get('config.help_telephone')}}">提&nbsp;&nbsp;交</a>
+    <form action="#" method="post">
+        <div class="input">
+            <label for="name">*姓名</label>
+            <input type="text" name="name" id="name">
+        </div>
+        <div class="input">
+            <label for="tel">*手机号码</label>
+            <input type="text" name="tel" id="tel">
+        </div>
+        <div class="input">
+            <label for="remark">备注</label>
+            <input type="text" name="remark" id="remark">
+        </div>
+        <input class="sub" type="submit" value="提交申请" />
+    </form>
     <script>
-        $(function () {
-            $("#reduce").click(function(){
-                var i=$('#number').html();
-                if(i<=1)
-                        return 0;
-                $('#number').html(--i);
-            });
-            $("#add").click(function() {
-                var i=$('#number').html();
-                $('#number').html(++i);
-            });
-        })
     </script>
 @stop
