@@ -15,9 +15,7 @@
             <thead>
             <tr>
                 <th>订单信息</th>
-                <th>民宿信息</th>
-                <th>买家信息</th>
-                <th>付款金额</th>
+                <th>民宿/买家信息</th>
                 <th>
                     预约状态
                     {{--<select class="form-control" v-model="type" v-on:change="getOrder">--}}
@@ -32,17 +30,19 @@
                 <tbody>
                 <template v-for="order in orders">
                     <tr transition="expand">
-                        <th scope="row">
+                        <td scope="row">
                             <p>订单号：@{{ order.order_id }}</p>
-                            <p>微信订单号：@{{ order.wxpay_id }}</p>
+                            <p>微信订单号：@{{ order.pay_id }}</p>
                             <p>下单时间：@{{ order.time }}</p>
                             <goodlist :goods="order.goods"></goodlist>
-                        </th>
-                        <td>@{{ order.casa_name }}</td>
-                        <td>@{{ order.username }} <br>
-                            <p>@{{ order.nickname }}</p>
-                            电话：@{{ order.userphone }}</td>
-                        <td>@{{ order.total }}</td>
+                        </td>
+                        <td>
+                            @{{ order.name }} <br/>
+                            @{{ order.username }} <br/>
+                            @{{ order.nickname }} <br/>
+                            电话：@{{ order.userphone }} <br/>
+                            金额：<span style="font-weight:bold;">@{{ order.total }}</span>
+                        </td>
                         <td>
                             {{--<button type="button" class="btn btn-default order-del" v-on:click="del(order.id)">--}}
                                 {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--}}
