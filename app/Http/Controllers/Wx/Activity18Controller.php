@@ -231,7 +231,7 @@ class Activity18Controller extends WxBaseController
             return Config::get('config.wx_18_pics')[$name];
         } catch (Exception $e) {
             // 默认图片
-            return 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.png';
+            return 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.jpg';
         }
     }
 
