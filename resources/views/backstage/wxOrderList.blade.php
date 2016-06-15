@@ -55,16 +55,19 @@
                                 <span v-else>@{{ order.reserveStatus }}</span>
                             </p>
                             <p>
-                                <template v-if="!order.reserve_time">
+                                <template v-if="!order.reserveComment">
                                     填写预约时间
+                                    <p class="text-danger">(时间格式是2016年5月6日)</p>
+                                </template>
+                                <template v-else>
+                                    预约时间:
                                 </template>
                                 <form action="/back/wx/changewxordertype"  method="POST">
                                     <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                                     <input type="hidden" name="orderid" value="@{{ order.id }}">
-                            <p class="text-danger">(时间格式是2016年5月6日)</p>
-                            <input type="text" class="form-control" id="order-time"  name="message" value="@{{ order.reserve_time }}">
-                            <button type="submit" class="btn btn-default" >保存</button>
-                            </form>
+                                    <input type="text" class="form-control" id="order-time"  name="message" value="@{{ order.reserveComment }}">
+                                    <button type="submit" class="btn btn-default">保存</button>
+                                </form>
                             </p>
                         </td>
                     </tr>
