@@ -48,10 +48,11 @@
                                 {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--}}
                             {{--</button>--}}
                             <p>
-                                @{{ order.paystatus }} |
-                                @{{ order.reserveStatus }} |
-                                @{{ order.consumeStatus }}
-
+                                <span v-if="order.paystatus == '已付款'" style="color:#33CC66; font-weight:bold;">@{{ order.paystatus }}</span>
+                                <span v-else>@{{ order.paystatus }}</span>
+                                |
+                                <span v-if="order.reserveStatus == '已预约'" style="color:#33CC66; font-weight:bold;">@{{ order.reserveStatus }}</span>
+                                <span v-else>@{{ order.reserveStatus }}</span>
                             </p>
                             <p>
                                 <template v-if="!order.reserve_time">

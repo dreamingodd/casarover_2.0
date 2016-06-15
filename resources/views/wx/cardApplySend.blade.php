@@ -10,11 +10,11 @@
 @stop
 @section('body')
     <div class="main">
-        <h2>确认订单</h2>
+        <h2>他人申请</h2>
         <div class="maincon">
             <div class="maintop">
-                <h3>预订成功</h3>
-                <p></p>
+                <h3>回复申请</h3>
+                <p>小新向您提出申请，请及时给予回复。</p>
             </div>
             <div class="mainmid">
                 <p>梅皋坞山居</p>
@@ -32,6 +32,10 @@
                 <p>（请提前15天或一周进行电话预定）</p>
             </div>
         </div>
+    </div>
+    <div class="button">
+        <a href="#" class="btn btn-success">同意</a>
+        <a href="#" class="btn btn-danger">拒绝</a>
     </div>
     <script>
     </script>

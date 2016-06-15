@@ -24,13 +24,13 @@ use Session;
 /**  */
 class WxOrderController extends Controller
 {
-    /** @var string ORDER_CONSUME_PREFIX */
+    /** @var string ORDER_CONSUME_PREFIX 积分抵扣 - */
     const ORDER_CONSUME_PREFIX = "积分抵扣 - ";
-    /** @var string ORDER_AWARD_PREFIX */
+    /** @var string ORDER_AWARD_PREFIX 完成订单奖励 - */
     const ORDER_AWARD_PREFIX = "完成订单奖励 - ";
-    /** @var string ORDER_SUFFIX */
+    /** @var string ORDER_SUFFIX XXX的订单*/
     const ORDER_SUFFIX = " 的订单";
-    /** @var string ORDER_PREFIX */
+    /** @var string ORDER_PREFIX 民宿订单 - */
     const ORDER_PREFIX = "民宿订单 - ";
 
     /**
@@ -143,7 +143,7 @@ class WxOrderController extends Controller
         {
             $order->time = $order->created_at->format('Y-m-d H:i');
             $order->paystatus = $this->orderstatus(0, $order->status);
-            $order->reserveStatus = $this->orderstatus(1, $order->reserve_status);
+            $order->reserveStatus = $this->orderstatus(1, $order->casaOrder->reserve_status);
             $order->goods = $order->orderItems;
             foreach($order->goods as $good)
             {
@@ -157,16 +157,25 @@ class WxOrderController extends Controller
         return response()->json($data);
     }
 
-    public function jsondata($code=0,$msg='成功',$data)
+    /**
+     *
+     * @param int $code
+     * @param string $msg
+     * @param string $data
+     */
+    public function jsondata($code=0, $msg='成功', $data)
     {
         return ['code'=>$code,'msg'=>$msg,'data'=>$data];
     }
 
-    // 手动确定预订时间
+    /**
+     * 手动确定预订时间
+     * @param Request $request
+     */
     public function editStatus(Request $request)
     {
-        $order = WxOrder::find($request->orderid);
-        $order->reserve_time = $request->message;
+        $order = CasaOrder::find($request->orderid);
+        $order->reserve_comment = $request->message;
         if (empty($request->message)) {
             $order->reserve_status = 0;
         } else {
@@ -176,49 +185,55 @@ class WxOrderController extends Controller
         $this->sendOrderSms($request->orderid);
         return redirect('back/wx/order/list');
     }
-    // 发送预约成功的短信
+
+    /**
+     * 发送预约成功的短信
+     * @param int $orderId
+     */
     private function sendOrderSms($orderId)
     {
-        $order = WxOrder::find($orderId);
+        $order = Order::find($orderId);
         $username = $order->user->realname;
-        $casaName = $order->casa_name;
-        $time = $order->reserve_time;
+        $casaName = $order->name;
+        $time = $order->casaOrder->reserve_comment;
         $userphone = $order->user->cellphone;
         $sms = app('sms');
         $message = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
         $sms->send('探庐者','SMS_9720239',$message,$userphone);
     }
 
-    public function del(Request $request)
-    {
-        $order = WxOrder::find($request->id);
-        $order->delete();
-    }
+    // public function del(Request $request)
+    // {
+    //     $order = WxOrder::find($request->id);
+    //     $order->delete();
+    // }
 
     /**
      * 商家确认订单被消费。
      * 添加一条积分变化信息。
      * 修改用户的当前积分和累计积分。
+     * @param int $orderId
      */
     public function consume($orderId)
     {
             $userId = Session::get('user_id');
             // Merchant
             $user = User::find($userId);
-            $order = WxOrder::findOrFail($orderId);
+            $order = Order::findOrFail($orderId);
             $isMerchant = false;
-            if ($order->pay_status != WxOrder::PAY_STATUS_YES) {
+            if ($order->status != Order::STATUS_PAYED) {
                 return '<p style="font-size:40px;">此订单未付款！</p>';
             }
             $wxBinds = WxBind::where('user_id', $userId)->get();
+            $casaOrder = $order->casaOrder;
             foreach ($wxBinds as $bind) {
-                if ($bind->wx_casa_id == $order->wx_casa_id) {
+                if ($bind->wx_casa_id == $casaOrder->wx_casa_id) {
                     $isMerchant = true;
                     break;
                 }
             }
             if ($isMerchant) {
-                if ($order->consume_status == WxOrder::CONSUME_STATUS_YES) {
+                if ($order->reserve_status == CasaOrder::RESERVE_STATUS_CONSUMED) {
                     return '<p style="font-size:40px;">此订单已消费过！</p>';
                 } else {
                     // Consumer's membership.
@@ -226,14 +241,13 @@ class WxOrderController extends Controller
                     if ($wms) {
                         DB::beginTransaction();
                         try {
-                            $order->consume_status = WxOrder::CONSUME_STATUS_YES;
-                            $order->save();
+                            $casaOrder->reserve_status = CasaOrder::RESERVE_STATUS_CONSUMED;
+                            $casaOrder->save();
                             $convertPercent = WxMembership::getLevelDetail($wms->level)['convert_percent'];
                             $total = $order->total;
                             $score = round($total * $convertPercent / 100);
                             $this->createWxScoreVariationByOrder($wms->id, $order->id,
-                                    self::ORDER_AWARD_PREFIX . $order->casa_name
-                                        . self::ORDER_SUFFIX . ' ' . $order->id,
+                                    self::ORDER_AWARD_PREFIX . $order->name . ' ' . $order->id,
                                     $score);
                             $this->updateMembership($wms, $score);
                             app('MembershipService')->upgradeWxMembershipLevelIfNeeded($wms);
@@ -252,7 +266,7 @@ class WxOrderController extends Controller
     }
 
     /**
-     * Merchant set the order consume_status to no(0),
+     * Merchant set the coasa order's reserve status to reserved(1) or unreserved(0),
      * simultaneously delete the score variation record and restore the membership score(accumulated score).
      * @param int $orderId
      */
@@ -260,14 +274,22 @@ class WxOrderController extends Controller
     {
         DB::beginTransaction();
         try {
-            $order = WxOrder::findOrFail($orderId);
-            $order->consume_status = WxOrder::CONSUME_STATUS_NO;
+            $order = CasaOrder::findOrFail($orderId);
+            if ($order->reserve_date or $order->reserve_comment) {
+                $order->reserve_status = CasaOrder::RESERVE_STATUS_YES;
+            } else {
+                $order->reserve_status = CasaOrder::RESERVE_STATUS_NO;
+            }
             $order->save();
-            $wms = WxMembership::where("user_id", Session::get('user_id'))->get()->first();
+            $wms = WxMembership::where("user_id", $order->order->user_id)->get()->first();
             if ($wms) {
-                $wsv = WxScoreVariation::where('wx_order_id', $order->id)->where('score', '>=', 0)->get()->first();
-                $this->updateMembership($wms, - $wsv->score);
-                $wsv->delete();
+                $wsv = WxScoreVariation::where('casa_order_id', $order->order_id)->where('score', '>=', 0)->get()->first();
+                if ($wsv) {
+                    $this->updateMembership($wms, - $wsv->score);
+                    $wsv->delete();
+                } else {
+                    Log::error('order-' . $order->order_id . ' cancel consume, score variation not found!');
+                }
             }
             DB::commit();
             return redirect('/wx/bind');
@@ -278,7 +300,10 @@ class WxOrderController extends Controller
         }
     }
 
-    /**  */
+    /**
+     * @param int $code
+     * @param int $type
+     */
     protected function orderstatus($type, $code)
     {
         $allstatus = $this->allstatus();
@@ -340,13 +365,16 @@ class WxOrderController extends Controller
 
     /**
      * Create a record of score variation which type is order.
-     * @param $name include the casa name.
+     * @param int $memberId
+     * @param int $orderId
+     * @param string $name
+     * @param int $score
      */
     private function createWxScoreVariationByOrder($memberId, $orderId, $name, $score)
     {
         $wsv = new WxScoreVariation();
         $wsv->wx_membership_id = $memberId;
-        $wsv->wx_order_id = $orderId;
+        $wsv->casa_order_id = $orderId;
         $wsv->type = WxScoreVariation::TYPE_ORDER;
         $wsv->name = $name;
         $wsv->score = $score;
@@ -356,6 +384,8 @@ class WxOrderController extends Controller
 
     /**
      * Update wx membership, and check if upgrading needed.
+     * @param WxMembership $wms
+     * @param int $score
      */
      private function updateMembership($wms, $score)
      {

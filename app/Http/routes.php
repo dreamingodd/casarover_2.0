@@ -155,7 +155,22 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/user/card/{id?}', function(){
         return view('wx.card');
     });
-    Route::get('/user/card/bill', function(){
+    Route::get('/user/cardBook', function(){
+        return view('wx.cardBook');
+    });
+    Route::get('/user/cardEntry', function(){
+        return view('wx.cardEntry');
+    });
+    Route::get('/user/cardApply/{id?}', function(){
+        return view('wx.cardApply');
+    });
+    Route::get('/user/cardApply/{id?}', function(){
+        return view('wx.cardApply');
+    });
+    Route::get('/user/cardApplySend/{id?}', function(){
+        return view('wx.cardApplySend');
+    });
+    Route::get('/user/cardBill', function(){
         return view('wx.cardBill');
     });
     // vote activity

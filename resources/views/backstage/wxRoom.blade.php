@@ -43,21 +43,21 @@
     </div>
     <div>
         <div id="room_container">
-            @if (isset($wxRooms) && count($wxRooms) > 0)
-                @foreach ($wxRooms as $wxRoom)
-                    <div class="room col-lg-11" db_id="{{$wxRoom->id}}">
+            @if (isset($rooms) && count($rooms) > 0)
+                @foreach ($rooms as $room)
+                    <div class="room col-lg-11" db_id="{{$room->id}}">
                         <div class="roomNameDiv input-group input-group-sm col-lg-4" style="float:left; margin-right:10px;">
                             <span class="input-group-addon">房间/套餐名称</span>
                             <input type="text" class="roomName form-control" aria-describedby="sizing-addon3"
-                            value="{{$wxRoom->name or ''}}"/>
+                            value="{{$room->name or ''}}"/>
                         </div>
                         <div class="roomPriceDiv input-group input-group-sm col-lg-2" style="float:left">
                             <span class="input-group-addon">价格 ¥</span>
                             <input type="text" class="roomPrice form-control" aria-describedby="sizing-addon3"
-                            value="{{$wxRoom->price or ''}}"/>
+                            value="{{$room->price or ''}}"/>
                         </div>
                         <a class="not_complete delRoom" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete</a>
-                        <a class="editDate" href="date/{{$wxRoom->id or ''}}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Edit Date</a>
+                        {{--<a class="editDate" href="date/{{$room->id or ''}}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Edit Date</a>--}}
                     </div>
                 @endforeach
             @endif
