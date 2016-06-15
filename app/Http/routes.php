@@ -88,6 +88,15 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::post('vacation/edit/{id?}', 'Wx\WxCasaController@vacationEdited');
     Route::get('vacation/casaAdd/{id}/{casa}', 'Wx\WxCasaController@vacationCasaAdd');
     Route::get('vacation/casaDel/{id}/{casa}', 'Wx\WxCasaController@vacationCasaDel');
+
+    /**
+     * 度假卡参加民宿管理
+    */
+    Route::get('vacation/casa','Mail\VacationCardController@back');
+    Route::get('api/vacation/casa','Mail\VacationCardController@casalist');
+    Route::get('api/vacation/add/{id}','Mail\VacationCardController@create');
+    Route::get('api/vacation/del/{id}','Mail\VacationCardController@del');
+    Route::post('api/vacation/update','Mail\VacationCardController@update');
 });
 
 /**

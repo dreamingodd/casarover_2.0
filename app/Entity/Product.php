@@ -13,8 +13,11 @@ class Product extends Model
     const TYPE_UNKNOWN = 0;
     /** @var int */
     const TYPE_CASA_ROOM = 1;
+    /** @var int */
+    const TYPE_VACATION_CARD = 2;
 
     protected $table = "product";
+    protected $fillable = ['parent_id','attachment_id','type','name'];
 
     /**
      * TYPE_CASA_ROOM will belongs to a wx casa.
@@ -25,4 +28,9 @@ class Product extends Model
         }
         return null;
     }
+
+    public function stock() {
+        return $this->hasOne('App\Entity\Stock');
+    }
+
 }
