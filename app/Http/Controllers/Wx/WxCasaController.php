@@ -10,8 +10,18 @@ use App\Entity\Wx\WxCard;
 use App\Entity\Wx\WxCardCasa;
 use App\Http\Controllers\BaseController;
 
+/** WxCasa related web functionalities.
+ * We created this WxCasa to make casa sellable on wechat
+ * while for now it seems they will be sold on PC(or any other vendors') platform.
+ * Accordingly, the denominations are not strictly proper.
+ * @author Ye_WD
+ * @2016-06-15
+ */
 class WxCasaController extends BaseController
 {
+    /**
+     * @param int $deleted
+     */
     public function showList($deleted = 0) {
         $wxCasas = null;
         if ($deleted) {
@@ -29,6 +39,10 @@ class WxCasaController extends BaseController
         }
         return view('backstage.wxList', compact('wxCasas'));
     }
+
+    /**
+     * @param int $id wxcasa id.
+     */
     public function show($id = 0) {
         if ($id == 0) {
             return view('backstage.wxEdit');
@@ -41,6 +55,7 @@ class WxCasaController extends BaseController
 
     /**
      * Add or update a wx casa.
+     * @param Request $request
      */
     public function edit(Request $request) {
         // request validation will not restore the user-input data.
@@ -88,16 +103,37 @@ class WxCasaController extends BaseController
         }
     }
 
+    /**
+     * @param int $id wxcasa id.
+     */
     public function del($id) {
         WxCasa::find($id)->delete();
         return redirect('/back/wx');
     }
 
+    /**
+     * @param int $id wxcasa id.
+     */
     public function restore($id) {
         WxCasa::onlyTrashed()->find($id)->restore();
         return redirect('/back/wx/trash/1');
     }
 
+    /** Change order.
+     * @param int $id wxcasa id.
+     * @param float $displayOrder.
+     */
+    public function updateDisplayOrder($id, $displayOrder) {
+        $wxCasa = WxCasa::find($id);
+        $wxCasa->display_order = $displayOrder;
+        $wxCasa->save();
+        return redirect('/back/shareactiv');
+    }
+
+    /** Change the wxcasa's test mode.
+     * @param int $id wxcasa id.
+     * @param int $test 0/1.
+     */
     public function testModeChange($id, $test) {
         $casa = WxCasa::find($id);
         $casa->test = $test;
@@ -105,6 +141,9 @@ class WxCasaController extends BaseController
         return redirect('/back/wx');
     }
 
+    /** Make a WxCasa visable only for test user.
+     * @param int $id wxcasa id.
+     */
     public function setTest($id) {
         $casa = WxCasa::find($id);
         $casa->test = 1;
@@ -112,6 +151,9 @@ class WxCasaController extends BaseController
         return redirect('/back/wx');
     }
 
+    /** Revoke the wxcasa's test qualification.
+     * @param int $id wxcasa id.
+     */
     public function unsetTest($id) {
         $casa = WxCasa::find($id);
         $casa->test = 0;
@@ -119,10 +161,15 @@ class WxCasaController extends BaseController
         return redirect('/back/wx');
     }
 
+    /** */
     public function vacation() {
         $cards = WxCard::all();
         return view('backstage.wxVacation',compact('cards'));
     }
+
+    /**
+     * @param int $id wxcasa id.
+     */
     public function vacationEdit($id=0){
         $casas=WxCasa::all();
         if($id==0){
@@ -134,7 +181,12 @@ class WxCasaController extends BaseController
             return view('backstage.vacationEdit',compact('card','casas','wxcasas','id'));
         }
     }
-    public function vacationEdited(Request $request,$id=0){
+
+    /**
+     * @param Request $request
+     * @param int $id wxcasa id.
+     */
+    public function vacationEdited(Request $request, $id=0){
         $save=$request->all();
             if($id == 0)
                 $wxcard=new WxCard();
@@ -149,11 +201,11 @@ class WxCasaController extends BaseController
         WxCard::find($id)->delete();
         return redirect("back/vacation");
     }
-    public function vacationCasaDel($id,$casa){
+    public function vacationCasaDel($id, $casa){
         WxCardCasa::where('wx_vacation_card_id',$id)->where('wx_casa_id',$casa)->delete();
         return redirect("back/vacation/edit/$id");
     }
-    public function vacationCasaAdd($id,$casa){
+    public function vacationCasaAdd($id, $casa){
         $thiscasa=WxCardCasa::where('wx_vacation_card_id',$id)->where('wx_casa_id',$casa)->first();
         if(!$thiscasa){
             $vacationcasa= new WxCardCasa;

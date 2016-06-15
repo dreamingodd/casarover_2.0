@@ -75,6 +75,7 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],funct
     Route::post('casa/edit', 'Wx\WxCasaController@edit');
     Route::get('casa/del/{id?}', 'Wx\WxCasaController@del');
     Route::get('casa/restore/{id?}', 'Wx\WxCasaController@restore');
+    Route::get('casa/display/order/{id}/{order}','Wx\WxCasaController@updateDisplayOrder');
     Route::get('room/{id}', 'Wx\WxRoomController@show');
     Route::post('room/edit', 'Wx\WxRoomController@edit');
     Route::get('order/list','Wx\WxOrderController@index');

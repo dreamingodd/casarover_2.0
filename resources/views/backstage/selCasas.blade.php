@@ -18,6 +18,7 @@
             <thead>
             <tr>
                 <th>序号</th>
+                <th>排序</th>
                 <th>民宿信息</th>
                 <th>操作</th>
             </tr>
@@ -25,15 +26,24 @@
             <tbody>
                 <template v-for="wxcasa in wxcasas">
                     <tr transition="expand">
-                        <th>
+                        <td>
                             @{{ $index+1 }}
-                        </th>
-                        <th scope="row">
+                        </td>
+                        <td scope="row" style="width:120px;">
+                            <div class="display_mode" style="display: inline;">
+                                <a href="#" v-on:click="displayOrderEdit">@{{ wxcasa.display_order }}</a>
+                            </div>
+                            <div class="edit_mode" style="display: none;">
+                                <input type="number" class="display_order" name="display_order" style="width:60px;height:22px" value="@{{ wxcasa.display_order }}" />
+                                <button db_id="@{{ wxcasa.id }}" v-on:click="displayOrderSave" class="display_order_btn btn btn-xs btn-default">保存</button>
+                            </div>
+                        </td>
+                        <td scope="row">
                             @{{ wxcasa.name }}
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <button class="btn btn-xs btn-danger" v-on:click="del(wxcasa.id)">删除</button>
-                        </th>
+                        </td>
                     </tr>
                 </template>
             </tbody>
