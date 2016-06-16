@@ -14,10 +14,12 @@ class Order extends Model
 
     /** @var int */
     const TYPE_UNKNOWN = 0;
-    /** @var int 民宿 */
+    /** @var int 1 - 民宿 */
     const TYPE_CASA = 1;
-    /** @var int 民宿 */
+    /** @var int 2 - 度假卡 */
     const TYPE_VACATION_CARD = 2;
+    /** @var int 3 - 使用度假卡预定民宿 */
+    const TYPE_OPPORTUNITY = 3;
 
     /** @var int */
     const PAY_TYPE_UNKNOWN = 0;
