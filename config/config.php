@@ -49,6 +49,7 @@ return [
         '墨意淌'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/27%E5%A2%A8%E6%84%8F%E6%B7%8C.jpg',
         '森喜'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/28%E6%A3%AE%E5%96%9C.jpg',
         '秘境'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/29%E7%A7%98%E5%A2%83.jpg',
+        '莫蕾娜古堡'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/30%E8%8E%AB%E9%9B%B7%E5%A8%9C%E5%8F%A4%E5%A0%A1.jpg',
     ],
     'wx_18_link' => 'http://www.casarover.com',
 ];
