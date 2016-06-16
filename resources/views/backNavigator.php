@@ -47,6 +47,7 @@
                     <li><a href="/back/wx/bind">商家管理</a></li>
                     <li><a href="/back/shareactiv">18家活动</a></li>
                     <li><a href="/back/vacation">度假卡管理</a></li>
+                    <li><a href="/back/vacation/casa">度假卡民宿</a></li>
                 </ul>
             </li>
             <li role="presentation" class="system">
