@@ -23,12 +23,24 @@ class Activity18Controller extends WxBaseController
     /** 首页 */
     public function index()
     {
-        $data = WxCasa::where('activ',1)->orderBy('display_order')->get();
-        foreach ($data as $casa) {
+        $casas = WxCasa::where('activ', 1)->orderBy('display_order')->get();
+        $data = array();
+        foreach ($casas as $casa) {
             $this->convertToViewCasa($casa);
-            $casa->totalVotes = Wx18::where('wx_casa_id',$casa->id)->get();
+            $casa->participantCount = Wx18::where('wx_casa_id', $casa->id)->count();
+            $casa->voteCount = Wx18::where('wx_casa_id', $casa->id)->sum('vote');
+            array_push($data, $casa);
         }
-        return view('activity.index',compact('data'));
+        usort($data, function($c1, $c2) {
+            if ($c1->voteCount == $c2->voteCount) {
+                if ($c1->participantCount == $c2->participantCount) {
+                    return $c1->display_order > $c2->display_order;
+                }
+                return $c1->participantCount < $c2->participantCount;
+            }
+            return $c1->voteCount < $c2->voteCount;
+        });
+        return view('activity.index', compact('data'));
     }
 
     /** 民宿页.
