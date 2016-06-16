@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Product;
 use App\Entity\Stock;
+use App\Entity\Order;
 use DB;
 
 /**
@@ -100,5 +101,9 @@ class VacationCardController extends Controller
     public function buy(Request $request)
     {
 
+    }
+    public function card()
+    {
+        return view('wx.card');
     }
 }
