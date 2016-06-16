@@ -86,8 +86,9 @@ class VacationCardController extends Controller
     //前台获取
     public function index()
     {
-        //当库存为0的时候不上线
-        Product::where('type',Product::TYPE_VACATION_CARD)->get();
+        //当价格为0的时候不上线
+        $casas = Product::where('type',Product::TYPE_VACATION_CARD)->where('price','>',0)->get();
+        return view('wx.cardCasaList',compact('casas'));
     }
 
     public function show($id)
