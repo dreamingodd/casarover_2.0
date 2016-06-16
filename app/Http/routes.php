@@ -10,7 +10,6 @@
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
 require_once('routes/siteRoutes.php');
 require_once('routes/backRoutes.php');
 require_once('routes/apiRoutes.php');

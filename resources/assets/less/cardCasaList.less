@@ -1,0 +1,181 @@
+.main .case, .main h2 {
+  //border-bottom: 1px solid #CFCFCF;
+  .article h3, .article p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+@bar-height:5rem;
+.all{
+  margin-bottom: @bar-height;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.casa{
+  width:100%;
+  height:100%;
+  overflow: hidden;
+  margin-top:5px;
+}
+.left{
+  width: 10%;
+  float: left;
+  display: table;
+  .circle{
+    position: absolute;
+    //margin-left: -30px;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    //background: #fff;
+    border: 1px solid #000;
+    .glyphicon-ok{
+      padding: 0.5rem;
+      font-size: 1rem;
+      //color: #fff;
+    }
+  }
+}
+.right{
+  width:90%;
+  float: right;
+  height:100%;
+  border: 1px solid #CAC5C5;
+}
+.title{
+  padding: 3px;
+  border-bottom: 1px solid #EEEEEE;
+  a{
+    color: #333;
+  }
+}
+.head-img{
+  width: 40%;
+  padding: 3px;
+  float: left;
+}
+.sel-mess{
+  float: left;
+  padding: 1rem;
+  width: 60%;
+  height: auto;
+  overflow: hidden;
+  .num{
+    margin-left: 25px;
+    font-size: 20px;
+    color: #9E9E9E;
+  }
+}
+.get-num{
+  margin:3px;
+}
+
+.buttom-buy{
+  background: #FFFFFF;
+  width: 100%;
+  height: @bar-height;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid #797979;
+  .total{
+    width:70%;
+    float: left;
+    font-size: 20px;
+    line-height: 5rem;
+    padding-left: 2rem;
+  }
+  .buy{
+    float: left;
+    background: #363636;
+    height: @bar-height;
+    color: #FFFFFF;
+    width: 30%;
+    h2{
+      background: #363636;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+.main, .main .case {
+  position: relative;
+}
+.main {
+  border-top: 5rem solid transparent;
+  margin-bottom: 1rem;
+  h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin: 0;
+    padding: 1rem 0;
+    color: #e9e9e9;
+    background: #3e3e3e;
+  }
+  .case {
+    padding: 1rem;
+    background: #ffffff;
+    color: #000000;
+    .click {
+      position: absolute;
+      bottom: .6rem;
+      right: .5rem;
+      background: #3e3e3e;
+      color: #fff;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 1.5rem;
+      padding: 0.2rem 1rem;
+    }
+    .casecon {
+      float: left;
+      width: 100%;
+    }
+    img {
+      width: 50%;
+      float: left;
+    }
+    .article {
+      width: 45%;
+      float: right;
+      img {
+        width: 1rem;
+        margin-top: .5rem;
+      }
+      .articlecon {
+        margin-left: 1.2rem;
+      }
+      h3 {
+        font-size: 2rem;
+        margin: 0;
+      }
+      p {
+        margin: .5rem 0;
+        font-size: 1.2rem;
+        line-height: 1.2rem;
+        color: #bababa;
+      }
+      span {
+        color: #bababa;
+        font-size: 1.5rem;
+        i{
+          font-style: normal;
+          color: #000;
+        }
+      }
+    }
+  }
+}
+

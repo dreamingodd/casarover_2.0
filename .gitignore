@@ -15,3 +15,4 @@ npm-debug.log
 /public/WxpayAPI/logs
 /public/WxpayAPI/lib/WxPay.Config.php
 /public/assets/phpqrcode/temp
+/ywd
