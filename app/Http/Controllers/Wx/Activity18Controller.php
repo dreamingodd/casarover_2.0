@@ -23,7 +23,7 @@ class Activity18Controller extends WxBaseController
     /** 首页 */
     public function index()
     {
-        $data = WxCasa::where('activ',1)->get();
+        $data = WxCasa::where('activ',1)->orderBy('display_order')->get();
         foreach ($data as $casa) {
             $this->convertToViewCasa($casa);
             $casa->totalVotes = Wx18::where('wx_casa_id',$casa->id)->get();
@@ -176,19 +176,22 @@ class Activity18Controller extends WxBaseController
 
     }
 
-    // 后台活动index
+    /** 后台活动 index */
     public function selcasas()
     {
         $casas = WxCasa::all();
         return view('backstage.selCasas',compact('casas'));
     }
-    // 已选择列表
+    /** 已选择列表 */
     public function sellist()
     {
-        $data = WxCasa::where('activ',1)->get();
+        $data = WxCasa::where('activ', 1)->orderBy('display_order')->get();
         return response()->json($data);
     }
-    // 后台添加
+    /**
+     * 后台添加
+     * @param int $id
+     */
     public function add($id)
     {
         $wxCasa = WxCasa::find($id);
@@ -197,7 +200,9 @@ class Activity18Controller extends WxBaseController
         $data = ['msg','ok'];
         return response()->json($data);
     }
-    // 后台删除
+    /** 后台删除
+     * @param int $id
+     */
     public function del($id)
     {
         $wxCasa = WxCasa::find($id);
@@ -207,6 +212,7 @@ class Activity18Controller extends WxBaseController
         return response()->json($data);
     }
 
+    /** 检查关注 */
     public function checkSubscription()
     {
         $user = User::find(Session::get('user_id'));
@@ -225,7 +231,7 @@ class Activity18Controller extends WxBaseController
             return Config::get('config.wx_18_pics')[$name];
         } catch (Exception $e) {
             // 默认图片
-            return 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.png';
+            return 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/banner.jpg';
         }
     }
 

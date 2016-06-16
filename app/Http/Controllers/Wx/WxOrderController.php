@@ -108,7 +108,7 @@ class WxOrderController extends Controller
                 $wsv->wx_membership_id = $user->wxMembership->id;
                 $wsv->casa_order_id = $order->id;
                 $wsv->type = WxScoreVariation::TYPE_ORDER;
-                $wsv->name = self::ORDER_AWARD_PREFIX . $order->name . ' ' . $order->id;
+                $wsv->name = self::ORDER_CONSUME_PREFIX . $order->name . ' ' . $order->id;
                 $wsv->score = - $score;
                 $wsv->save();
                 $user->wxMembership->score -= $score;
@@ -152,6 +152,7 @@ class WxOrderController extends Controller
             $order->username = $order->user->realname;
             $order->userphone = $order->user->cellphone;
             $order->nickname = $order->user->nickname;
+            $order->reserveComment = $order->casaOrder->reserve_comment;
         }
         $data = $this->jsondata('200', '获取成功', $orderlist);
         return response()->json($data);
@@ -177,12 +178,13 @@ class WxOrderController extends Controller
         $order = CasaOrder::find($request->orderid);
         $order->reserve_comment = $request->message;
         if (empty($request->message)) {
-            $order->reserve_status = 0;
+            $order->reserve_status = CasaOrder::RESERVE_STATUS_NO;
+            $order->save();
         } else {
-            $order->reserve_status = 1;
+            $order->reserve_status = CasaOrder::RESERVE_STATUS_YES;
+            $order->save();
+            $this->sendOrderSms($request->orderid);
         }
-        $order->save();
-        $this->sendOrderSms($request->orderid);
         return redirect('back/wx/order/list');
     }
 

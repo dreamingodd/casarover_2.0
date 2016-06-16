@@ -24,9 +24,9 @@
                     <div class="articlecon">
                         <p>备注:我是你表姐</p>
                         <span>申请间数: <i>3</i></span>
-                        <div class="click">
+                        <a class="click" href="cardApplySend">
                             回复
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
