@@ -109,8 +109,10 @@ window.onload=function() {
                 if (!this.loading) {
                     $(".no-more").css('display','none');
                     $(".loader").css('display','block');
-                    let areas = this.checkareas.toString();
-                    $.getJSON('/api/casas/city/'+this.city+'/areas/'+areas+'?page='+this.page, (data)=> {
+                    let areaId = this.checkareas.toString();
+                    if (areaId) areaId = "/" + areaId;
+                    $.getJSON('/api/casas/city/' + this.city + '/areas/' + areaId + '?page='+this.page, (data)=> {
+                        console.log(123);
                         if(data.data.length == 0){
                             $(".no-more").css('display','block');
                         }

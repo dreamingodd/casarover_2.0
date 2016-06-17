@@ -19,11 +19,11 @@ $(document).ready(function(){
         el: '#app',
         data: function () {
             return {
-                casas:null,
-                themes:null,
-                series:null,
-                city:null,
-                scroll:null
+                casas: null,
+                themes: null,
+                series: null,
+                city: null,
+                scroll: null
             };
         },
         ready:function(){
@@ -41,13 +41,13 @@ $(document).ready(function(){
                 })
             },
             getthemes(){
-                $.getJSON('/api/home/themes/', (data) => {
+                $.getJSON('/api/home/themes', (data) => {
                     this.themes = data;
                     this.getseries();
                 })
             },
             getseries(){
-                $.getJSON('/api/home/series/', (data) => {
+                $.getJSON('/api/home/series', (data) => {
                     this.series = data;
                     this.scrollTo();
                     this.changeBr();
