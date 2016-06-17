@@ -1,4 +1,8 @@
 <?php
+
+// OSS 签名
+Route::get('/oss/signature', 'OssController@execute');
+
 //admin user
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
@@ -69,11 +73,11 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     /**
      * 度假卡参加民宿管理
      */
-    Route::get('vacation/casa','Mail\VacationCardController@back');
-    Route::get('api/vacation/casa','Mail\VacationCardController@casalist');
-    Route::get('api/vacation/add/{id}','Mail\VacationCardController@create');
-    Route::get('api/vacation/del/{id}','Mail\VacationCardController@del');
-    Route::post('api/vacation/update','Mail\VacationCardController@update');
+    Route::get('vacation/casa','Mall\VacationCardController@back');
+    Route::get('api/vacation/casa','Mall\VacationCardController@casalist');
+    Route::get('api/vacation/add/{id}','Mall\VacationCardController@create');
+    Route::get('api/vacation/del/{id}','Mall\VacationCardController@del');
+    Route::post('api/vacation/update','Mall\VacationCardController@update');
 });
 
 

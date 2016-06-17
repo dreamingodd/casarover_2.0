@@ -176,7 +176,7 @@ class CasaController extends BaseController
      * 这里传入信息，所有城市，被选中城市，轮播图信息
      * 其他下面显示的部分是由vue进行处理
     **/
-   public function allcasa(Request $request,$cityId=7)
+   public function allcasa(Request $request, $cityId = 7)
    {
        $citys = Area::where('level','3')->whereNotIn('value', ['朱家角','黄浦区','其他'])->orwhere('value','上海')->get();
        //应该是指定三个，后面应该是相互联系的

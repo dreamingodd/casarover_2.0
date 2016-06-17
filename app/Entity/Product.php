@@ -18,6 +18,8 @@ class Product extends Model
 
     protected $table = "product";
     protected $fillable = ['parent_id','attachment_id','type','name'];
+    protected $hidden = ['attachment_id','type','deleted_at','created_at','updated_at','stock','img'];
+
 
     /**
      * TYPE_CASA_ROOM will belongs to a wx casa.

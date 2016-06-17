@@ -62,6 +62,14 @@ class WxSiteController extends WxBaseController
         return view('wx.wxCasaDetail', compact('wxCasa','casas'));
     }
 
+    public function cardCasa($id)
+    {
+        $wxCasa = WxCasa::find($id);
+        $this->convertToViewCasa($wxCasa);
+        $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
+        return view('wx.cardCasa', compact('wxCasa','casas'));
+    }
+
     /** @param string $tips */
     public function user($tips = null)
     {
