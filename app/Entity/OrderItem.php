@@ -11,6 +11,7 @@ class OrderItem extends Model
 {
     protected $table = "order_item";
     public $timestamps = false;
+    protected $fillable = ["order_id","product_id","name","photo_path","price","quantity"];
 
     /**
      * Belongs to an order.
@@ -24,5 +25,10 @@ class OrderItem extends Model
      */
     public function product() {
         return $this->belongsTo('App\Entity\Product');
+    }
+
+    public function opportunity()
+    {
+        return $this->hasOne('App\Entity\Opportunity');
     }
 }

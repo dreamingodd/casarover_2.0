@@ -12,7 +12,8 @@ $(document).ready(function(){
         data: {
             casas: null,
             casa:null,
-            total:0
+            total:0,
+            goods:[]
         },
         created: function () {
             this.getcasas();
@@ -29,15 +30,16 @@ $(document).ready(function(){
                 });
             },
             buy(){
-                const num = this.chechk();
-                if(num < 3){
+                this.goods = [];
+                let num = this.selectd();
+                if(num.length < 3){
                     alert("选择民宿必须大于三家");
                     return false;
                 }
                 $.ajax('/wx/api/cardCasaBuy', {
                     type: 'post',
                     data: {
-                        casas:this.casas
+                        casas:this.goods
                     },
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     success: (data)=>{
@@ -66,15 +68,14 @@ $(document).ready(function(){
                     this.casas[index].room ++;
                 };
             },
-            chechk(){
-                var num = 0;
-                var x;
-                for(x in this.casas){
+            selectd(){
+                for(let x in this.casas){
                     if(this.casas[x].room > 0){
-                        num++;
+                        let newRoom = {id:this.casas[x].id,headImg:this.casas[x].headImg,'room':this.casas[x].room};
+                        this.goods.push(newRoom);
                     }
                 }
-                return num;
+                return this.goods;
             }
         }
     })
