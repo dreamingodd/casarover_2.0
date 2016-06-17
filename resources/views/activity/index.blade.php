@@ -1,5 +1,5 @@
 @extends('activity')
-@section('title','莫干山奢华民宿约你睡')
+@section('title','浙江奢华民宿约你睡')
 @section('head')
     <link rel="stylesheet" href="/assets/css/activity.css">
 @stop

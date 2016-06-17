@@ -33,7 +33,10 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     // Check whether user subscribe us.
     Route::get('subscribe', 'Wx\Activity18Controller@checkSubscription');
     // vacation card
-    Route::get('cardCasaList','Mail\VacationCardController@index');
+    Route::get('cardCasaList','Mall\VacationCardController@index');
+    Route::get('/api/cardCasaList','Mall\VacationCardController@showlist');
+    Route::get('/api/cardCasa/{id}','Mall\VacationCardController@show');
+    Route::post('/api/cardCasaBuy','Mall\VacationCardController@buy');
     Route::get('/user/card/{id?}', function(){
         return view('wx.card');
     });
