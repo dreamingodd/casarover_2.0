@@ -1,18 +1,19 @@
 <?php
 
-/**
- * wechat public routess
- */
+// 类似于微信的页面模板
+Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
+// 微信支付返回数据接收
 Route::post('/wx/pay/notify', 'Wx\WxPayController@notify');
+/** wechat public routess */
 Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () {
     Route::get('/', 'Wx\WxSiteController@index');
     // User scan the QR code on the back of the card.
     Route::get('/credit_score', 'Wx\WxSiteController@creditScore');
     Route::get('/casa/{id}/{collection?}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
-    Route::get('/scorevariation/','Wx\WxSiteController@scoreVariation');
+    Route::get('scorevariation/','Wx\WxSiteController@scoreVariation');
     Route::get('/api/scorevariation/{id}/{page?}','Wx\WxSiteController@scoreVariationJson');
-    Route::get('/registerMember/','Wx\WxSiteController@registerMember');
+    Route::get('registerMember/','Wx\WxSiteController@registerMember');
     Route::get('/orderdetails', 'Wx\WxSiteController@orderDetails');
     Route::get('/confirm', 'Wx\WxSiteController@confirm');
     Route::get('/bill', function(){
@@ -33,13 +34,15 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     // Check whether user subscribe us.
     Route::get('subscribe', 'Wx\Activity18Controller@checkSubscription');
     // vacation card
+
+    Route::get('cardCasaList','Mail\VacationCardController@index');
     Route::get('cardCasaList','Mall\VacationCardController@index');
     Route::get('/api/cardCasaList','Mall\VacationCardController@showlist');
     Route::get('/api/cardCasa/{id}','Mall\VacationCardController@show');
     Route::post('/api/cardCasaBuy','Mall\VacationCardController@buy');
-    Route::get('/user/card/{id?}', function(){
-        return view('wx.card');
-    });
+
+    Route::get('/user/card/{id?}', 'Mall\VacationCardController@card');
+    Route::get('/user/cardCasa/{id?}', 'Mall\VacationCardController@cardCasa');
     Route::get('/user/cardBook', function(){
         return view('wx.cardBook');
     });
@@ -58,6 +61,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/user/cardBill', function(){
         return view('wx.cardBill');
     });
+//    Route::get('/address', 'Mail\VacationCardController@address');
     // vote activity
     Route::group(['prefix' => 'date'],function () {
         Route::get('/', 'Wx\Activity18Controller@index');

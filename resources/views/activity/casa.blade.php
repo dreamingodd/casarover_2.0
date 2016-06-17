@@ -30,7 +30,9 @@
             </div>
         </div>
         <div class="button">
-            @if($hassleep)
+            @if (!Config::get('casarover.toggle_date_sleep'))
+                <a href="#" onclick="alert('活动尚未开始，请耐心等待，谢谢！');" class="datesleep">约睡</a>
+            @elseif ($hassleep)
                 <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('user_id') }}" class="datesleep">我的约睡</a>
             @else
                 <a href="/wx/date/datesleep/{{ $wxCasa->id }}/{{ Session::get('user_id') }} " class="datesleep">约睡</a>

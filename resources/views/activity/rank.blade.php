@@ -25,15 +25,17 @@
         </div>
     @endif
     <div class="main">
-        @foreach($wx18s as $key=>$person)
+        @foreach($wx18s as $rank=>$wx18)
         <div class="person clear">
-            <div class="rank">{{$key+1}}</div>
-            <img src="{{$person->user->headimgurl}}" alt="">
+            <div class="rank">{{++$rank}}</div>
+            <a href="/wx/date/datesleep/{{$wx18->wx_casa_id}}/{{$wx18->user_id}}">
+                <img src="{{$wx18->user->headimgurl}}" alt="">
+            </a>
             <div class="personinfo">
-                <p>{{$person->user->nickname}}</p>
+                <p>{{$wx18->user->nickname}}</p>
             </div>
             <div class="number">
-                {{$person->vote}}<span>人帮约</span>
+                {{$wx18->vote}}<span>人帮约</span>
             </div>
         </div>
         @endforeach

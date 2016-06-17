@@ -81,6 +81,7 @@
                 @endif
             </div>
         </div>
+        @if (Config::get('casarover.toggle_vacation_card'))
         <div id='vacation' class="maincon">
             <p class="divider"><em class="glyphicon glyphicon-credit-card"></em>度假卡
                 <span class="glyphicon glyphicon-minus"></span>
@@ -93,6 +94,7 @@
                 <a href="user/cardApply">他人的申请<i>(1)</i></a>
             </div>
         </div>
+        @endif
         <div id="order" class="maincon">
             <p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
                 <span class="glyphicon glyphicon-minus"></span>
@@ -122,6 +124,7 @@
                                     <p>价格</p>
                                     <p id="orange">{{$order->total}}元</p>
                                 </div>
+                                @if ($order->type == App\Entity\Order::TYPE_CASA)
                                 <div class="state">
                                     <p>状态</p>
                                     @if ($order->status == 0)
@@ -152,6 +155,7 @@
                                     <p>预约信息:</p>
                                     <p>{{$order->casaOrder->reserve_comment}}</p>
                                 @endif
+                            @endif
                             </div>
                         </div>
                     </a>

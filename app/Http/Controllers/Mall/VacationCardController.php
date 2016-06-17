@@ -222,4 +222,29 @@ class VacationCardController extends Controller
             'expire_date' => $start//通过开始计算得出
         ]);
     }
+    public function card($id=0)
+    {
+        $userId = Session::get('user_id');
+        $cards=Order::where('user_id',$userId)->where('type',2)->get();
+        return view('wx.card',compact('cards'));
+    }
+    public function cardCasa($id=0)
+    {
+        $userId = Session::get('user_id');
+        $cardCasas=Order::where('user_id',$userId)->where('type',2)->get();
+        return view('wx.cardCasa',compact('cardCasas'));
+    }
+    public function address(){
+        $address=WxCasa::all();
+        $all=array();
+        foreach($address as $key=>$one){
+            $all[$key]=$one->desc;
+            $number=strpos($all[$key],'【地址】');
+            $newadd=substr($all[$key],$number);
+            $one->address=$newadd;
+            $one->save();
+//            echo $newadd;
+//            echo '<br>';
+        }
+    }
 }
