@@ -31,15 +31,7 @@ class Activity18Controller extends WxBaseController
             $casa->voteCount = Wx18::where('wx_casa_id', $casa->id)->sum('vote');
             array_push($data, $casa);
         }
-        usort($data, function($c1, $c2) {
-            if ($c1->voteCount == $c2->voteCount) {
-                if ($c1->participantCount == $c2->participantCount) {
-                    return $c1->display_order > $c2->display_order;
-                }
-                return $c1->participantCount < $c2->participantCount;
-            }
-            return $c1->voteCount < $c2->voteCount;
-        });
+        usort($data, 'App\Http\Controllers\Wx\Activity18Controller::compareCasaByVote');
         return view('activity.index', compact('data'));
     }
 
@@ -86,10 +78,12 @@ class Activity18Controller extends WxBaseController
             $this->convertToViewCasa($casa);
             array_push($casas, $casa);
         }
+        usort($casas, 'App\Http\Controllers\Wx\Activity18Controller::compareCasaByRank');
         return view('activity.rankEntry',compact('casas','user','id'));
     }
 
     /**
+     * 一家民宿的排名情况.
      * @param int $casaId WxCasa's id
      */
     public function rank($casaId = 0)
@@ -111,13 +105,12 @@ class Activity18Controller extends WxBaseController
         if (count($result) > 0) {
             $myRawWx18 = $result[0];
         }
-        foreach($wx18s as $key => $wx18){
-            if($wx18->user_id == $userId) {
+        foreach($wx18s as $key => $wx18) {
+            if ($wx18->user_id == $userId) {
                 $user->rank = $key + 1;
                 break;
             }
         }
-        $myWx18 = Wx18::where('user_id', $user->id)->first();
         $this->convertToViewCasa($casa);
         return view('activity.rank',compact('wx18s','myRawWx18','casa'));
     }
@@ -247,4 +240,37 @@ class Activity18Controller extends WxBaseController
         }
     }
 
+    /**
+     * Order by vote, participant, admin defined order.
+     * @param WxCasa $c1
+     * @param WxCasa $c2
+     **/
+    public static function compareCasaByVote($c1, $c2) {
+        if ($c1->voteCount == $c2->voteCount) {
+            if ($c1->participantCount == $c2->participantCount) {
+                return $c1->display_order > $c2->display_order;
+            }
+            return $c1->participantCount < $c2->participantCount;
+        }
+        return $c1->voteCount < $c2->voteCount;
+    }
+    /**
+     * Order by rank, vote, participant, admin defined order.
+     * @param WxCasa $c1
+     * @param WxCasa $c2
+     **/
+    public static function compareCasaByRank($c1, $c2) {
+        if ($c1->rank && $c2->rank) {
+            if ($c1->rank == $c2->rank) {
+                return self::compareCasaByVote($c1, $c2);
+            }
+            return $c1->rank > $c2->rank;
+        } else if ($c1->rank && !$c2->rank) {
+            return -1;
+        } else if (!$c1->rank && $c2->rank) {
+            return 1;
+        } else {
+            return self::compareCasaByVote($c1, $c2);
+        }
+    }
 }

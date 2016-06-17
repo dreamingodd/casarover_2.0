@@ -65,5 +65,5 @@ return [
         '岚舍'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/43%E5%B2%9A%E8%88%8D.jpg',
         '天香园'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/44%E5%A4%A9%E9%A6%99%E5%9B%AD.jpg',
     ],
-    'wx_18_link' => 'http://www.casarover.com',
+    'wx_18_link' => 'http://mp.weixin.qq.com/s?__biz=MzI3MDA4NjAxNQ==&mid=503275835&idx=1&sn=be264acfcd78482256747332bdb85291&scene=0&previewkey=eX4oBJm9UpQ1eozcgHYY6swqSljwj2bfCUaCyDofEow%3D',
 ];

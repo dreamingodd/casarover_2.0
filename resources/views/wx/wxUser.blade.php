@@ -81,6 +81,7 @@
                 @endif
             </div>
         </div>
+        @if (Config::get('casarover.toggle_vacation_card'))
         <div id='vacation' class="maincon">
             <p class="divider"><em class="glyphicon glyphicon-credit-card"></em>度假卡
                 <span class="glyphicon glyphicon-minus"></span>
@@ -93,6 +94,7 @@
                 <a href="user/cardApply">他人的申请<i>(1)</i></a>
             </div>
         </div>
+        @endif
         <div id="order" class="maincon">
             <p class="divider"><em class="glyphicon glyphicon-menu-hamburger"></em>我的订单
                 <span class="glyphicon glyphicon-minus"></span>

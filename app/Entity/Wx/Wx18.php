@@ -11,6 +11,6 @@ class Wx18 extends Model
         return $this->hasOne('App\Entity\Wx\WxCasa','id','wx_casa_id');
     }
     public function user() {
-        return $this->hasOne('App\Entity\User','id','user_id');
+        return $this->belongsTo('App\Entity\User');
     }
 }
