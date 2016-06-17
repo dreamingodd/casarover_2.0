@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mail;
+namespace App\Http\Controllers\Mall;
 
 use Illuminate\Http\Request;
 
@@ -91,14 +91,30 @@ class VacationCardController extends Controller
         return view('wx.cardCasaList',compact('casas'));
     }
 
+    public function showlist()
+    {
+        $casas = Product::where('type',Product::TYPE_VACATION_CARD)->where('price','>',0)->get();
+        foreach($casas as $casa)
+        {
+            $casa->headImg = 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/'.$casa->img->filepath;
+            $casa->orig = $casa->stock->orig;
+            $casa->room = 0;
+        }
+        return response()->json($casas);
+    }
+
     public function show($id)
     {
         $product = Product::find($id);
-        $wxCasa = WxCasa::find($product->parent_id);
+        $wxCasa = WxCasa::find($product->parent_id)->contents;
+        foreach($wxCasa as $casa){
+            $casa->imgs = $casa->attachments;
+        }
+        return response()->json($wxCasa);
     }
 
     public function buy(Request $request)
     {
-
+        dd($request->casas);
     }
 }
