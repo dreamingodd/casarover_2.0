@@ -14,7 +14,7 @@
         @foreach($cards as $card)
             <div class="case clear" >
                 <div class="casecon clear">
-                    <img src="{{Config::get('casarover.vacation_card[1]')}}" alt="">
+                    <img src="{{ Config::get('casarover.vacation_card')[0] }}" alt="">
                     <div class="article">
                         <h3>NO.12312321312</h3>
                         <p>有效期:2016-10-09~2016-10-09</p>
