@@ -61,6 +61,9 @@ return [
         '青鸟'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/39-%E9%9D%92%E9%B8%9F.jpg',
         '西田山雨'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/40%E8%A5%BF%E7%94%B0%E5%B1%B1%E9%9B%A8.jpg',
         '朵邑'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/41%E6%9C%B5%E9%82%91.jpg',
+        '从前慢'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/42%E4%BB%8E%E5%89%8D%E6%85%A2.jpg',
+        '岚舍'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/43%E5%B2%9A%E8%88%8D.jpg',
+        '天香园'=> 'http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/44%E5%A4%A9%E9%A6%99%E5%9B%AD.jpg',
     ],
     'wx_18_link' => 'http://www.casarover.com',
 ];

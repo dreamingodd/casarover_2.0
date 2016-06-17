@@ -104,12 +104,17 @@ class VacationCardController extends Controller
     {
 
     }
-    public function cardCasa()
+    public function card($id=0)
     {
         $userId = Session::get('user_id');
         $cards=Order::where('user_id',$userId)->where('type',2)->get();
-//        dd($cards[0]->casa);
-        return view('wx.cardCasa',compact('cards'));
+        return view('wx.card',compact('cards'));
+    }
+    public function cardCasa($id=0)
+    {
+        $userId = Session::get('user_id');
+        $cardCasas=Order::where('user_id',$userId)->where('type',2)->get();
+        return view('wx.cardCasa',compact('cardCasas'));
     }
 public function address(){
         $address=WxCasa::all();

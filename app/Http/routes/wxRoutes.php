@@ -34,6 +34,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('subscribe', 'Wx\Activity18Controller@checkSubscription');
     // vacation card
     Route::get('cardCasaList','Mail\VacationCardController@index');
+    Route::get('/user/card/{id?}', 'Mail\VacationCardController@card');
     Route::get('/user/cardCasa/{id?}', 'Mail\VacationCardController@cardCasa');
     Route::get('/user/cardBook', function(){
         return view('wx.cardBook');

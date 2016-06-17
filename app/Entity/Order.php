@@ -72,9 +72,4 @@ class Order extends Model
     public function Opportunity() {
         return $this->hasOne('App\Entity\Opportunity', 'order_item_id','id');
     }
-
-    public function casa()
-    {
-        return $this->belongsTo('App\Entity\Wx\WxCasa','name','name');
-    }
 }
