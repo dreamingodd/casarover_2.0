@@ -1,18 +1,19 @@
 <?php
 
-/**
- * wechat public routess
- */
+// 类似于微信的页面模板
+Route::get('/wechat/{type?}/{series?}', 'WechatController@index');
+// 微信支付返回数据接收
 Route::post('/wx/pay/notify', 'Wx\WxPayController@notify');
+/** wechat public routess */
 Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () {
     Route::get('/', 'Wx\WxSiteController@index');
     // User scan the QR code on the back of the card.
     Route::get('/credit_score', 'Wx\WxSiteController@creditScore');
     Route::get('/casa/{id}/{collection?}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
-    Route::get('/scorevariation/','Wx\WxSiteController@scoreVariation');
+    Route::get('scorevariation/','Wx\WxSiteController@scoreVariation');
     Route::get('/api/scorevariation/{id}/{page?}','Wx\WxSiteController@scoreVariationJson');
-    Route::get('/registerMember/','Wx\WxSiteController@registerMember');
+    Route::get('registerMember/','Wx\WxSiteController@registerMember');
     Route::get('/orderdetails', 'Wx\WxSiteController@orderDetails');
     Route::get('/confirm', 'Wx\WxSiteController@confirm');
     Route::get('/bill', function(){

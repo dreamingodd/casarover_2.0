@@ -1,4 +1,8 @@
 <?php
+
+// OSS 签名
+Route::get('/oss/signature', 'OssController@execute');
+
 //admin user
 Route::group(['middleware' => ['web']], function () {
     Route::auth();

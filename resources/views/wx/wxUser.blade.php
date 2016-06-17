@@ -122,6 +122,7 @@
                                     <p>价格</p>
                                     <p id="orange">{{$order->total}}元</p>
                                 </div>
+                                @if ($order->type == App\Entity\Order::TYPE_CASA)
                                 <div class="state">
                                     <p>状态</p>
                                     @if ($order->status == 0)
@@ -152,6 +153,7 @@
                                     <p>预约信息:</p>
                                     <p>{{$order->casaOrder->reserve_comment}}</p>
                                 @endif
+                            @endif
                             </div>
                         </div>
                     </a>
