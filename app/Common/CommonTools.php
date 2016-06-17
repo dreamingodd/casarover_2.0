@@ -1,17 +1,25 @@
 <?php
 namespace App\Common;
+
+use App\Casa;
+
+/**  */
 class CommonTools {
 
     /**
      * Sort casa collection by this code.
      * For instance, solve the problem which 2-101 precede 2-20.
-     * @param $c1 Casa
-     * @param $c2 Casa
+     * @param Casa $c1
+     * @param Casa $c2
      * @return -1, 0, 1
      */
-    public static function sortCasaCode($c1, $c2){
+    public static function sortCasaCode($c1, $c2) {
         return CommonTools::compareCasaCode($c1->code, $c2->code);
     }
+    /**
+     * @param Casa $c1
+     * @param Casa $c2
+     */
     public static function compareCasaCode($c1, $c2) {
         if (!strstr($c1, "-")) {
             return -1;
@@ -39,7 +47,7 @@ class CommonTools {
     }
     /**
      * Print object in original format.
-     * @param Object $sth
+     * @param object $sth
      */
     public static function print_w($sth) {
         echo '<pre>';

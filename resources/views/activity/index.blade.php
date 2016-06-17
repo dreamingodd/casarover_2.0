@@ -17,7 +17,8 @@
                     <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/wx18/mask.png" alt="mask" class="mask">
                     <div class="article">
                         <h3>{{ $casa->name }}</h3>
-                        <h4>想睡：{{ count($casa->totalVotes) }}人</h4>
+                        <h4>想睡：{{ $casa->participantCount }}人</h4>
+                        <h4>支持数：{{ $casa->voteCount }}票</h4>
                     </div>
                 </div>
             </a>
