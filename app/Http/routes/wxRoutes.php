@@ -53,6 +53,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/user/cardBill', function(){
         return view('wx.cardBill');
     });
+    Route::get('/address', 'Mail\VacationCardController@address');
     // vote activity
     Route::group(['prefix' => 'date'],function () {
         Route::get('/', 'Wx\Activity18Controller@index');

@@ -66,4 +66,7 @@ class Order extends Model
         }
         return null;
     }
+    public function Opportunity() {
+        return $this->hasOne('App\Entity\Opportunity', 'order_item_id','id');
+    }
 }

@@ -10,7 +10,9 @@ use App\Entity\Wx\WxCasa;
 use App\Entity\Product;
 use App\Entity\Stock;
 use App\Entity\Order;
+use App\Entity\Opportunity;
 use DB;
+use Session;
 
 /**
  * Class VacationCardController
@@ -104,6 +106,21 @@ class VacationCardController extends Controller
     }
     public function card()
     {
-        return view('wx.card');
+        $userId = Session::get('user_id');
+        $cards=Order::where('user_id',$userId)->where('type',2)->get();
+        return view('wx.card',compact('cards'));
     }
+public function address(){
+        $address=WxCasa::all();
+        $all=array();
+        foreach($address as $key=>$one){
+            $all[$key]=$one->desc;
+            $number=strpos($all[$key],'【地址】');
+            $newadd=substr($all[$key],$number);
+            $one->address=$newadd;
+            $one->save();
+//            echo $newadd;
+//            echo '<br>';
+        }
+}
 }
