@@ -25,19 +25,19 @@
         @endif
         @foreach( $casas as $casa)
                 @if($id)
-                    <a class="case clear" href="/wx/date/datesleep/{{$casa->id}}/{{$user->id}}">
+                <a class="case clear" href="/wx/date/datesleep/{{$casa->id}}/{{$user->id}}">
                 @else
-                    <a class="case clear" href="/wx/date/rank/{{$casa->id}}">
+                <a class="case clear" href="/wx/date/rank/{{$casa->id}}">
                 @endif
-                        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}" alt="">
-                        <div class="article">
-                            <h2>{{$casa->name}}</h2>
-                            <p>{{$casa->brief}}</p>
-                            @if ($casa->rank)
-                            <span>排名：第{{$casa->rank}}名</span>
-                            @endif
-                        </div>
-                    </a>
+                    <img style="height:75px;" src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$casa->thumbnail}}" alt="">
+                    <div class="article">
+                        <h2>{{$casa->name}}&nbsp;<span style="font-size:10px;">(总票数：{{$casa->voteCount}})</span></h2>
+                        <p>{{$casa->brief}}</p>
+                        @if ($casa->rank)
+                        <span>排名：第{{$casa->rank}}名</span>
+                        @endif
+                    </div>
+                </a>
         @endforeach
     </div>
     <br/><br/><br/>

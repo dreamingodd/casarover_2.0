@@ -30,13 +30,13 @@
             <div class="rank">{{++$rank}}</div>
             <a href="/wx/date/datesleep/{{$wx18->wx_casa_id}}/{{$wx18->user_id}}">
                 <img src="{{$wx18->user->headimgurl}}" alt="">
+                <div class="personinfo">
+                    <p>{{$wx18->user->nickname}}</p>
+                </div>
+                <div class="number">
+                    {{$wx18->vote}}<span>人帮约</span>
+                </div>
             </a>
-            <div class="personinfo">
-                <p>{{$wx18->user->nickname}}</p>
-            </div>
-            <div class="number">
-                {{$wx18->vote}}<span>人帮约</span>
-            </div>
         </div>
         @endforeach
     </div>
