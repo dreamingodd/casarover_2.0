@@ -30,7 +30,7 @@
                 @if (Config::get('casarover.toggle_date_sleep'))
                 <a class="helpsleep" onclick="poll({{ $wxCasa->id }},{{ $user->id }})">帮自己约</a>
                 @else
-                <a class="helpsleep" onclick="alert('活动尚未开始，请耐心等待，谢谢！');">帮自己约</a>
+                <a class="helpsleep" onclick="alert('活动6月19日下午6点开始，请耐心等待，谢谢！');">帮自己约</a>
                 @endif
                 <a class="invite">邀请好友帮我约</a>
                 <a href="/wx/date/rank/{{ $wxCasa->id }}">排行</a>
@@ -38,7 +38,7 @@
                 @if (Config::get('casarover.toggle_date_sleep'))
                 <a class="helpsleep" onclick="poll({{ $wxCasa->id }},{{ $user->id }})">帮他约睡</a>
                 @else
-                <a class="helpsleep" onclick="alert('活动尚未开始，请耐心等待，谢谢！');">帮他约睡</a>
+                <a class="helpsleep" onclick="alert('活动6月19日下午6点开始，请耐心等待，谢谢！');">帮他约睡</a>
                 @endif
                 <a href="/wx/date">我也约</a>
                 <a href="/wx/date/rank/{{ $wxCasa->id }}">排行</a>
