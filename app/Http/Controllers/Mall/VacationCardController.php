@@ -14,8 +14,10 @@ use App\Entity\Order;
 use App\Entity\Stock;
 use DB;
 //use Illuminate\Support\Facades\Session;
+use Mockery\CountValidator\Exception;
 use Session;
 use App\Entity\VacationCard;
+use Carbon\Carbon;
 
 /**
  * Class VacationCardController
@@ -105,6 +107,7 @@ class VacationCardController extends Controller
             $casa->headImg = 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/'.$casa->img->filepath;
             $casa->orig = $casa->stock->orig;
             $casa->room = 0;
+            $casa->surplus = $casa->stock->surplus;
         }
         return response()->json($casas);
     }
@@ -135,22 +138,26 @@ class VacationCardController extends Controller
             $photo_path = $casas[0]["headImg"];
             $total = $this->roomTotal($casas);
             $status = Order::STATUS_UNPAYED;
-            //1: 在order 中存入信息
-            $order = $this->createOrder($userId,$type,$name,$photo_path,$total,$status);
-            //2：在order_item 存入信息  在opportunity中存入机会次数
-            $this->saveOrderItem($order,$casas);
-            //3: 在vacation_card_order中存入度假卡的信息
+            DB::beginTransaction();
+            try
+            {
+                //1: 在order 中存入信息
+                $order = $this->createOrder($userId,$type,$name,$photo_path,$total,$status);
+                //2：在order_item 存入信息  在opportunity中存入机会次数
+                $this->saveOrderItem($order,$casas);
+                //3: 在vacation_card_order中存入度假卡的信息
+                $cardNo = sprintf("1%05d", $order->id).mt_rand(0,9);
+                $this->saveVacationCard($order->id,$cardNo);
+                return response()->json(['code' => 0,'msg' => '存储成功']);
+            }
+            catch(Exception $e)
+            {
+                DB::rollback();
+                Log::error($e);
+                //不一定是什么错误，但是前台能做的就是重试。
+                return response()->json(['code' => 503, 'msg' => '网络错误，请刷新重试']);
+            }
 
-            /**
-             * 未完成
-             * 考号的算法
-             * 开始时间的确定
-             * 结束时间通过配置文件和开始时间进行合并运算
-             */
-            $cardNo = '12312312';
-            $style = mt_rand(0,3);
-            $start = '12312';
-            $this->saveVacationCard($order->id,$cardNo,$style,$start);
         }
     }
 
@@ -201,7 +208,7 @@ class VacationCardController extends Controller
                 'order_id' => $order->id,
                 'product_id' => $casa["id"],
                 'name' => $product->name,
-                'photo_path' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/',
+                'photo_path' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/'.$casa["headImg"],
                 'price' => $product->price,
                 'quantity' => $casa["room"]
             ]);
@@ -212,14 +219,18 @@ class VacationCardController extends Controller
         }
     }
 
-    private function saveVacationCard($orderId,$cardNo,$style,$start)
+    private function saveVacationCard($orderId,$cardNo)
     {
+        $days = config('VacationCard.validDays');
+        $style = mt_rand(0,3);
+        $start = Carbon::now();
+        $end = Carbon::now()->addDays($days);
         VacationCard::create([
             'order_id' => $orderId,
             'card_no' => $cardNo,
             'style' => $style,
             'start_date' => $start,
-            'expire_date' => $start//通过开始计算得出
+            'expire_date' => $end
         ]);
     }
     public function card($id=0)

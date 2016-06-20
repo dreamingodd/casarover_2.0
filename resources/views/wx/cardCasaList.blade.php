@@ -13,6 +13,7 @@
 @stop
 @section('body')
     <div class="main" id="app">
+        {{--这个是点击民宿名字和图片之后显示详细信息的模板--}}
         <div class="casa-mess" v-if="casa">
             <template v-for="content in casa">
                 <p>@{{{ content.text }}}</p>
@@ -25,7 +26,7 @@
             <h2>购买度假卡</h2>
             <div class="all">
                 <template v-for="casa in casas">
-                    <div class="casa">
+                    <div class="casa" v-if="casa.surplus>0">
                         <div class="left">
                             <div class="check-bu" v-on:click="sel($index)">
                                 <div class="circle check" v-if="casa.room">
@@ -51,6 +52,7 @@
                                         <span  class="glyphicon glyphicon-minus" v-on:click="minus($index)"></span>
                                         <span class="get-num">@{{ casa.room }}</span>
                                         <span class="glyphicon glyphicon-plus" v-on:click="plus($index)"></span>
+                                        <span class="room-left" v-if="casa.surplus < 50">(房间数量紧张)</span>
                                     </div>
                                 </div>
                             </div>

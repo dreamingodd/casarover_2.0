@@ -43,7 +43,11 @@ $(document).ready(function(){
                     },
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     success: (data)=>{
-                        $("body").append(data);
+                        if(data.code == 0){
+                            //进入购买页面
+                        }else{
+                            alert("网络出错了，刷新试试");
+                        };
                     }
                 });
             },
