@@ -64,6 +64,7 @@ class Activity18Controller extends WxBaseController
         $casas = array();
         foreach ($casas18 as $key => $casa18) {
             $casa = $casa18->wxCasa == null ? $casa18 : $casa18->wxCasa;
+            $casa->voteCount = Wx18::where('wx_casa_id', $casa->id)->sum('vote');
             $result = DB::select(
                 "SELECT * FROM ("
                     ." SELECT @rownum := @rownum + 1 rank, u.id, u.headimgurl, u.nickname, wx18.vote"
