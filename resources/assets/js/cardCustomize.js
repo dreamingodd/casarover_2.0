@@ -1,12 +1,4 @@
 $(document).ready(function(){
-    $("#navleft").click(function(){
-        if(vm.casa){
-            $("#navleft").attr("href","#");
-            vm.casa = null;
-        }else{
-            $("#navleft").attr("href","/wx/user");
-        }
-    })
     var vm = new Vue({
         el: '#app',
         data: {
@@ -25,7 +17,7 @@ $(document).ready(function(){
                 });
             },
             getcasa(id){
-                $.getJSON('/wx/api/cardCasa/'+id, (data) => {
+                $.getJSON('/wx/api/cardCasa/' + id, (data) => {
                     this.casa = data;
                 });
             },
@@ -57,21 +49,27 @@ $(document).ready(function(){
                 }
                 this.casas[index].room --;
                 this.total -= this.casas[index].price;
-
             },
             sel(index){
-                if(this.casas[index].room >0){
-                    this.total = this.total-(this.casas[index].price*this.casas[index].room);
+                if(this.casas[index].room > 0){
+                    this.total = this.total-(this.casas[index].price * this.casas[index].room);
                     this.casas[index].room =0;
                 }else{
                     this.total += this.casas[index].price;
                     this.casas[index].room ++;
                 };
             },
+            calculateTotal(){
+                let total = 0;
+                for (let i = 0; i < this.casas.length; i++) {
+                    total += this.casas[i].price * this.casas[i].room;
+                }
+                this.total = total;
+            },
             selectd(){
                 for(let x in this.casas){
                     if(this.casas[x].room > 0){
-                        let newRoom = {id:this.casas[x].id,headImg:this.casas[x].headImg,'room':this.casas[x].room};
+                        let newRoom = {id:this.casas[x].id, headImg:this.casas[x].headImg, 'room':this.casas[x].room};
                         this.goods.push(newRoom);
                     }
                 }

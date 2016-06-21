@@ -208,7 +208,7 @@ class WxSiteController extends WxBaseController
     public function logout() {
         Session::forget('user_id');
         Session::forget('openid');
-        return redirect('/wx/user');
+        return "已退出";
     }
 
     private function createWxScoreVariation($memid, $activId, $name, $type, $score)

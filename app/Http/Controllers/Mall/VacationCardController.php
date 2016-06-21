@@ -25,7 +25,7 @@ use App\Entity\VacationCard;
  */
 class VacationCardController extends Controller
 {
-    //后台选择参与活动的民宿
+    /** 后台选择参与活动的民宿 */
     public function back()
     {
         $casas = WxCasa::all();
@@ -94,15 +94,18 @@ class VacationCardController extends Controller
     {
         //当价格为0的时候不上线
         $casas = Product::where('type',Product::TYPE_VACATION_CARD)->where('price','>',0)->get();
-        return view('wx.cardCasaList',compact('casas'));
+        return view('wx.cardCustomize',compact('casas'));
     }
 
+    /**
+     * 前台购买，民宿列表
+     */
     public function showlist()
     {
-        $casas = Product::where('type',Product::TYPE_VACATION_CARD)->where('price','>',0)->get();
+        $casas = Product::where('type', Product::TYPE_VACATION_CARD)->where('price', '>', 0)->get();
         foreach($casas as $casa)
         {
-            $casa->headImg = 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/'.$casa->img->filepath;
+            $casa->headImg = 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/' . $casa->img->filepath;
             $casa->orig = $casa->stock->orig;
             $casa->room = 0;
         }
@@ -225,13 +228,16 @@ class VacationCardController extends Controller
     public function card($id=0)
     {
         $userId = Session::get('user_id');
-        $cards=Order::where('user_id',$userId)->where('type',2)->get();
+        $cards = Order::where('user_id',$userId)->where('type', 2)->get();
         return view('wx.card',compact('cards'));
     }
-    public function cardCasa($id=0)
+    /**
+     * @param int $id
+     */
+    public function cardCasa($id = 0)
     {
         $userId = Session::get('user_id');
-        $cardCasas=Order::where('user_id',$userId)->where('type',2)->get();
+        $cardCasas = Order::where('user_id', $userId)->where('type', 2)->get();
         return view('wx.cardCasa',compact('cardCasas'));
     }
     public function address(){

@@ -2,11 +2,12 @@
 @section('title', '探庐者 - ' . $wxCasa->name)
 @section('head')
     <link href="/assets/css/wxDetails.css" rel="stylesheet"/>
-    <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
+    <script src="//cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+    <script src="/assets/js/wxBase.js" type="text/javascript"></script>
 @stop
 @section('body')
     @section('nav')
-        <a href="/wx" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+        <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
         <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a>
         <img  src="/assets/images/logow.png" />
     @stop
@@ -93,7 +94,7 @@
         }
         function poll(casa){
                         $.getJSON('/wx/casa/'+casa+'/1',function (data) {
-                            
+
                         });
                         $('.collected').show();
                         $('.uncollected').hide();
