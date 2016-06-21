@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mall;
 
 use App\Entity\Opportunity;
 use App\Entity\OrderItem;
+use EasyWeChat\User\User;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -18,6 +19,7 @@ use Mockery\CountValidator\Exception;
 use Session;
 use App\Entity\VacationCard;
 use Carbon\Carbon;
+use App\Entity\User as Wxuser;
 
 /**
  * Class VacationCardController
@@ -258,6 +260,18 @@ class VacationCardController extends Controller
         $cardCasas = Order::find($card->order_id)->orderItems;
         return view('wx.cardCasa',compact('cardCasas'));
     }
+    public function cardCasaJson($cardNo)
+    {
+        $card = VacationCard::where('card_no',$cardNo)->first();
+        if($card)
+        {
+            return response()->json(['code'=>0,'msg'=>'存在']);
+        }
+        else
+        {
+            return response()->json(['code'=>503,'msg'=>'卡号错误']);
+        }
+    }
     public function address(){
         $address=WxCasa::all();
         $all=array();
@@ -275,6 +289,17 @@ class VacationCardController extends Controller
     public function book($id)
     {
         $casa = OrderItem::find($id);
-        return view('wx.cardBook',compact('casa'));
+        //如果是本人进入这个页面，显示为预订，value == 1
+        $loginUserId = Session::get('user_id');
+        //test
+        $loginUserId =3;
+        $isMe = $casa->order->user_id == $loginUserId? 1: 0;
+        return view('wx.cardBook',compact('casa','isMe'));
+    }
+
+    public function cardForm()
+    {
+        $user = WxUser::find(Session::get('user_id'));
+        return view('wx.cardForm',compact('user'));
     }
 }
