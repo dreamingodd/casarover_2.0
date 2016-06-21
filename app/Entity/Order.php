@@ -42,7 +42,7 @@ class Order extends Model
     protected $table = "order";
     protected $fillable = array(
         'id', 'user_id', 'order_id', 'type', 'pay_type', 'name', 'pay_id',
-        'total', 'status', 'deleted_at', 'created_at', 'updated_at'
+        'total', 'status', 'deleted_at', 'created_at', 'updated_at','photo_path'
     );
 
     /**
@@ -71,5 +71,10 @@ class Order extends Model
 
     public function Opportunity() {
         return $this->hasOne('App\Entity\Opportunity', 'order_item_id','id');
+    }
+
+    public function VacationCard()
+    {
+        return $this->hasOne('App\Entity\VacationCard','order_id','id');
     }
 }

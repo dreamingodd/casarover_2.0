@@ -148,6 +148,7 @@ class VacationCardController extends Controller
                 //3: 在vacation_card_order中存入度假卡的信息
                 $cardNo = sprintf("1%05d", $order->id).mt_rand(0,9);
                 $this->saveVacationCard($order->id,$cardNo);
+                DB::commit();
                 return response()->json(['code' => 0,'msg' => '存储成功']);
             }
             catch(Exception $e)
@@ -208,7 +209,7 @@ class VacationCardController extends Controller
                 'order_id' => $order->id,
                 'product_id' => $casa["id"],
                 'name' => $product->name,
-                'photo_path' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/'.$casa["headImg"],
+                'photo_path' => $casa["headImg"],
                 'price' => $product->price,
                 'quantity' => $casa["room"]
             ]);
@@ -233,16 +234,22 @@ class VacationCardController extends Controller
             'expire_date' => $end
         ]);
     }
-    public function card($id=0)
+    public function card()
     {
         $userId = Session::get('user_id');
-        $cards=Order::where('user_id',$userId)->where('type',2)->get();
+        $cards=Order::where('user_id',$userId)->where('type',Order::TYPE_VACATION_CARD)->get();
+        foreach($cards as $card)
+        {
+            $card->number = $card->VacationCard->card_no;
+            $card->startDate = Carbon::parse($card->VacationCard->start_date)->format('Y-m-d');
+            $card->expireDate = Carbon::parse($card->VacationCard->expire_date)->format('Y-m-d');
+        }
         return view('wx.card',compact('cards'));
     }
-    public function cardCasa($id=0)
+    public function cardCasa($cardNo)
     {
-        $userId = Session::get('user_id');
-        $cardCasas=Order::where('user_id',$userId)->where('type',2)->get();
+        $card = VacationCard::where('card_no',$cardNo)->first();
+        $cardCasas = Order::find($card->order_id)->orderItems;
         return view('wx.cardCasa',compact('cardCasas'));
     }
     public function address(){
@@ -257,5 +264,11 @@ class VacationCardController extends Controller
 //            echo $newadd;
 //            echo '<br>';
         }
+    }
+
+    public function book($id)
+    {
+        $casa = OrderItem::find($id);
+        return view('wx.cardBook',compact('casa'));
     }
 }

@@ -13,8 +13,9 @@
         <img src="/assets/images/card.png" alt="">
         <h2>度假卡</h2>
         <p>HOLIDAY CARD</p>
-        <input type="number" value="" placeholder="卡号">
-        <div class="confirm" onclick="document.location='card'">确定</div>
+        <input type="number" value="" class="form-control" placeholder="卡号">
+        {{--校验卡号正确与否--}}
+        <div class="confirm" onclick="document.location='/wx/user/cardCasa/1001884'">确定</div>
     </div>
 
 @stop

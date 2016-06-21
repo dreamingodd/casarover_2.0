@@ -43,6 +43,7 @@ $(document).ready(function(){
                     },
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     success: (data)=>{
+                        console.log(data);
                         if(data.code == 0){
                             //进入购买页面
                         }else{
