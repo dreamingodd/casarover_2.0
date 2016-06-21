@@ -12,7 +12,12 @@
     <input type="hidden" id="page" value="system"/>
 
     <div class="options vertical5">
+        用户总数：{{ $total }}
+        <a href="/back/system/user">
+            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>列表
+        </a>
     </div>
+    {!! $users->render() !!}
     <table class="table table-hover">
         <tr>
             <th>序号</th>
@@ -46,11 +51,11 @@
                 <td>{{$user->created_at}}</td>
                 <td>
                     @if ($user->test)
-                        <a href='/back/system/wx/user/test/unregister/{{$user->id}}'>
+                        <a href='/back/system/user/test/unregister/{{$user->id}}/{{$page}}'>
                             <button type="button" class="btn btn-xs btn-warning">取消测试资格</button>
                         </a>
                     @else
-                        <a href='/back/system/wx/user/test/register/{{$user->id}}'>
+                        <a href='/back/system/user/test/register/{{$user->id}}/{{$page}}'>
                             <button type="button" class="btn btn-xs btn-info">注册测试用户</button>
                         </a>
                     @endif
@@ -58,4 +63,5 @@
             </tr>
         @endforeach
     </table>
+    {!! $users->render() !!}
 @stop

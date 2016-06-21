@@ -59,10 +59,13 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('shareactiv','Wx\Activity18Controller@selcasas');
     Route::get('api/eighteen/add/{id}','Wx\Activity18Controller@add');
     Route::get('api/eighteen/del/{id}','Wx\Activity18Controller@del');
-    Route::get('system/wx/user','Wx\WxUserController@showList');
-    Route::get('system/wx/user/test/register/{id}','Wx\WxUserController@registerTester');
-    Route::get('system/wx/user/test/unregister/{id}','Wx\WxUserController@unregisterTester');
 
+    // 用户管理
+    Route::get('system/user','UserController@showList');
+    Route::get('system/user/test/register/{id}/{page}','UserController@registerTester');
+    Route::get('system/user/test/unregister/{id}/{page}','UserController@unregisterTester');
+
+    // 度假卡参加民宿管理
     Route::get('vacation', 'Wx\WxCasaController@vacation');
     Route::get('vacation/del/{id}', 'Wx\WxCasaController@vacationDel');
     Route::get('vacation/edit/{id?}', 'Wx\WxCasaController@vacationEdit');
@@ -70,9 +73,6 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('vacation/casaAdd/{id}/{casa}', 'Wx\WxCasaController@vacationCasaAdd');
     Route::get('vacation/casaDel/{id}/{casa}', 'Wx\WxCasaController@vacationCasaDel');
 
-    /**
-     * 度假卡参加民宿管理
-     */
     Route::get('vacation/casa','Mall\VacationCardController@back');
     Route::get('api/vacation/casa','Mall\VacationCardController@casalist');
     Route::get('api/vacation/add/{id}','Mall\VacationCardController@create');
