@@ -125,6 +125,11 @@ class VacationCardController extends Controller
         return response()->json($wxCasa);
     }
 
+    /**
+     * 用户自定义了度假卡内容，下单的动作.
+     * 生成类型为度假卡的订单.
+     * @param Request $request
+     */
     public function buy(Request $request)
     {
         $casas = $request->casas;
@@ -136,23 +141,21 @@ class VacationCardController extends Controller
         {
             $userId = Session::get('user_id');
             $type = Product::TYPE_VACATION_CARD;
-            $name = "度假卡";
             //取第一家民宿的图片
             $photo_path = $casas[0]["headImg"];
             $total = $this->roomTotal($casas);
-            $status = Order::STATUS_UNPAYED;
             DB::beginTransaction();
             try
             {
                 //1: 在order 中存入信息
-                $order = $this->createOrder($userId,$type,$name,$photo_path,$total,$status);
+                $order = $this->createOrder($userId, $photo_path, $total);
                 //2：在order_item 存入信息  在opportunity中存入机会次数
-                $this->saveOrderItem($order,$casas);
+                $this->saveOrderItem($order, $casas);
                 //3: 在vacation_card_order中存入度假卡的信息
                 $cardNo = sprintf("1%05d", $order->id).mt_rand(0,9);
-                $this->saveVacationCard($order->id,$cardNo);
+                $this->saveVacationCard($order->id, $cardNo);
                 DB::commit();
-                return response()->json(['code' => 0,'msg' => '存储成功']);
+                return response()->json(['orderId' => $order->id]);
             }
             catch(Exception $e)
             {
@@ -161,19 +164,18 @@ class VacationCardController extends Controller
                 //不一定是什么错误，但是前台能做的就是重试。
                 return response()->json(['code' => 503, 'msg' => '网络错误，请刷新重试']);
             }
-
         }
     }
 
-    private function createOrder($userId,$type,$name,$photo_path,$total,$status)
+    private function createOrder($userId, $photo_path, $total)
     {
         $order = Order::create([
             'user_id' => $userId,
-            'type' => $type,
-            'name' => $name,
+            'type' => Order::TYPE_VACATION_CARD,
+            'name' => "度假卡",
             'photo_path' => $photo_path,
             'total' => $total,
-            'status' => $status
+            'status' => Order::STATUS_UNPAYED
         ]);
         $order->order_id = config('casarover.wx_shopid').'-'.$order->id;
         $order->save();
@@ -223,7 +225,7 @@ class VacationCardController extends Controller
         }
     }
 
-    private function saveVacationCard($orderId,$cardNo)
+    private function saveVacationCard($orderId, $cardNo)
     {
         $days = config('VacationCard.validDays');
         $style = mt_rand(0,3);

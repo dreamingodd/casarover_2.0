@@ -24,8 +24,8 @@ $(document).ready(function(){
             buy(){
                 this.goods = [];
                 let num = this.selectd();
-                if(num.length < 3){
-                    alert("选择民宿必须大于三家");
+                if (num.length < 3){
+                    alert("请至少选择三家民宿");
                     return false;
                 }
                 $.ajax('/wx/api/cardCasaBuy', {
@@ -35,7 +35,9 @@ $(document).ready(function(){
                     },
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     success: (data)=>{
-                        $("body").append(data);
+                        // log response data
+                        console.log(data);
+                        
                     }
                 });
             },
