@@ -13,13 +13,15 @@
         <h2>我的度假卡</h2>
         @foreach($cards as $card)
             <div class="case clear" >
-                <div class="casecon clear">
-                    <img src="{{ Config::get('casarover.vacation_card')[0] }}" alt="">
-                    <div class="article">
-                        <h3>NO.12312321312</h3>
-                        <p>有效期:2016-10-09~2016-10-09</p>
+                <a href="/wx/user/cardCasa/{{ $card->number }}">
+                    <div class="casecon clear">
+                        <img src="{{ Config::get('casarover.vacation_card')[0] }}" alt="">
+                        <div class="article">
+                            <h3>NO.{{ $card->number }}</h3>
+                            <p>有效期:{{ $card->startDate }}~{{ $card->expireDate }}</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         @endforeach
     </div>
