@@ -53,12 +53,13 @@
                                 </div>
                                 <div class="sel-mess">
                                     <div style="text-decoration:line-through" class="orig">原价：@{{ casa.orig }}</div>
-                                    <div class="price">价格：@{{ casa.price }}</div>
+                                    <div class="price">价格：@{{ casa.price }}
+                                        <span class="room-left" v-if="casa.surplus < 50">(房间数量紧张)</span>
+                                    </div>
                                     <div class="num">
                                         <span  class="glyphicon glyphicon-minus" v-on:click="minus($index)"></span>
                                         <input class="get-num" type="number" v-on:keyup="calculateTotal" v-model="casa.room" value="@{{ casa.room }}" />
                                         <span class="glyphicon glyphicon-plus" v-on:click="plus($index)"></span>
-                                        <span class="room-left" v-if="casa.surplus < 50">(房间数量紧张)</span>
                                     </div>
                                 </div>
                             </div>
