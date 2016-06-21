@@ -10,4 +10,5 @@ class Opportunity extends Model
     protected $table = 'opportunity';
     protected $fillable = ['left_quantity','order_item_id'];
 
+
 }
