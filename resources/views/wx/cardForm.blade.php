@@ -31,11 +31,11 @@
     <form action="#" method="post">
         <div class="input">
             <label for="name">*姓名</label>
-            <input type="text" name="name" id="name">
+            <input type="text" name="name" id="name" value="{{ $user->realname }}">
         </div>
         <div class="input">
             <label for="tel">*手机号码</label>
-            <input type="text" name="tel" id="tel">
+            <input type="text" name="tel" value="{{ $user->cellphone }}" id="tel">
         </div>
         <div class="input">
             <label for="remark">备注</label>

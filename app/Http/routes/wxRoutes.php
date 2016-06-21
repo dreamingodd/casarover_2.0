@@ -43,6 +43,8 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/user/card/', 'Mall\VacationCardController@card');
     //度假卡民宿列表
     Route::get('/user/cardCasa/{id?}', 'Mall\VacationCardController@cardCasa');
+    //校验卡号是否正确
+    Route::get('/api/user/cardCasa/{id?}', 'Mall\VacationCardController@cardCasaJson');
     Route::get('/user/cardBook/{id}','Mall\VacationCardController@book');
     //填写卡号位置
     Route::get('/user/cardEntry', function(){
@@ -57,9 +59,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
         return view('wx.cardApplySend');
     });
     //提出申请
-    Route::get('/user/cardForm', function(){
-        return view('wx.cardForm');
-    });
+    Route::get('/user/cardForm/{id}','Mall\VacationCardController@cardForm');
     //预订成功
     Route::get('/user/cardBill', function(){
         return view('wx.cardBill');

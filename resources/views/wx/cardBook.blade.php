@@ -28,13 +28,17 @@
             </div>
         </div>
     </div>
-    <a class="sub" href="tel:{{Config::get('config.help_telephone')}}">提&nbsp;&nbsp;交</a>
+    @if($isMe)
+        <a class="sub" href="tel:{{Config::get('config.help_telephone')}}">提&nbsp;&nbsp;交</a>
+    @else
+        <a class="sub" href="tel:{{Config::get('config.help_telephone')}}">申&nbsp;&nbsp;请</a>
+    @endif
     <script>
         $(function () {
             $("#reduce").click(function(){
                 var i=$('#number').html();
                 if(i<=1)
-                        return 0;
+                    return 0;
                 $('#number').html(--i);
             });
             $("#add").click(function() {
