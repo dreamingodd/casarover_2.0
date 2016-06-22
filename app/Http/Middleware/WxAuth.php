@@ -51,7 +51,7 @@ class WxAuth
                     $openid = $baseJson['openid'];
                     $user = User::where('openid', $openid)->get()->first();
                     $userInfoJson = WxTools::getUserInfo($accessToken, $openid);
-                    Log::info($userInfoJson);
+                    Log::info("User login by wechat: " . $userInfoJson['nickname'] .' -- ' . $userInfoJson['openid']);
                     $user = $this->saveUser($userInfoJson, $user);
                     Session::put('openid', $openid);
                     Session::put('user_id', $user->id);

@@ -48,16 +48,16 @@ class WxSiteController extends WxBaseController
     {
         $userId = Session::get('user_id');
         $wxCasa = WxCasa::find($id);
+        $wxCasa->rooms = $wxCasa->rooms();
         $this->convertToViewCasa($wxCasa);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
-        $casas=WxCollection::where('user_id',$userId)->
-        where('wx_casa_id', $id)->first();
-        if($collection==1 && empty($casas)){
-            $wxcollection=new WxCollection;
-            $wxcollection->user_id=$userId;
-            $wxcollection->wx_casa_id=$id;
+        $casas = WxCollection::where('user_id', $userId)->where('wx_casa_id', $id)->first();
+        if ($collection == 1 && empty($casas)) {
+            $wxcollection = new WxCollection;
+            $wxcollection->user_id = $userId;
+            $wxcollection->wx_casa_id = $id;
             $wxcollection->save();
-            $casas=1;
+            $casas = 1;
         }
         return view('wx.wxCasaDetail', compact('wxCasa','casas'));
     }
@@ -90,6 +90,7 @@ class WxSiteController extends WxBaseController
     public function order($id)
     {
         $wxCasa = WxCasa::find($id);
+        $wxCasa->rooms = $wxCasa->rooms();
         $user = User::find(Session::get('user_id'));
         $date = new Carbon();
         // 下个月末

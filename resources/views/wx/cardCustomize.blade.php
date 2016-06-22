@@ -1,5 +1,5 @@
 @extends('wxBase')
-@section('title','购买度假卡')
+@section('title','购买探庐者度假卡')
 @section('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="/assets/css/cardCustomize.css" rel="stylesheet"/>

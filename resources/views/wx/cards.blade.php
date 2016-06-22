@@ -15,7 +15,7 @@
             <div class="case clear" >
                 <a href="/wx/user/cardCasa/{{ $card->number }}">
                     <div class="casecon clear">
-                        <img src="{{ Config::get('casarover.vacation_card')[0] }}" alt="">
+                        <img src="{{ Config::get('VacationCard.card_images')[0] }}" alt="">
                         <div class="article">
                             <h3>NO.{{ $card->number }}</h3>
                             <p>有效期:{{ $card->startDate }}~{{ $card->expireDate }}</p>

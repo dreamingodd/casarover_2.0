@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Mall;
 
 use App\Entity\Opportunity;
 use App\Entity\OrderItem;
-use EasyWeChat\User\User;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -12,6 +11,7 @@ use App\Entity\Wx\WxCasa;
 use App\Entity\Product;
 use App\Entity\Order;
 use App\Entity\Stock;
+use App\Entity\User;
 use DB;
 use Log;
 //use Illuminate\Support\Facades\Session;
@@ -19,7 +19,6 @@ use Mockery\CountValidator\Exception;
 use Session;
 use App\Entity\VacationCard;
 use Carbon\Carbon;
-use App\Entity\User as Wxuser;
 
 /**
  * Class VacationCardController
@@ -244,14 +243,14 @@ class VacationCardController extends Controller
     public function card()
     {
         $userId = Session::get('user_id');
-        $cards=Order::where('user_id',$userId)->where('type',Order::TYPE_VACATION_CARD)->get();
+        $cards=Order::where('user_id', $userId)->where('type', Order::TYPE_VACATION_CARD)->get();
         foreach($cards as $card)
         {
             $card->number = $card->VacationCard->card_no;
             $card->startDate = Carbon::parse($card->VacationCard->start_date)->format('Y-m-d');
             $card->expireDate = Carbon::parse($card->VacationCard->expire_date)->format('Y-m-d');
         }
-        return view('wx.card',compact('cards'));
+        return view('wx.cards', compact('cards'));
     }
     /**
      * @param int $id
@@ -301,7 +300,7 @@ class VacationCardController extends Controller
 
     public function cardForm()
     {
-        $user = WxUser::find(Session::get('user_id'));
+        $user = User::find(Session::get('user_id'));
         return view('wx.cardForm',compact('user'));
     }
 }
