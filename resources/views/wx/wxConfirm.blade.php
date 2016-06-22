@@ -16,8 +16,8 @@
             <p>订单号:<span>{{$casaroverOrder->order_id}}</span></p>
             {{--下两行做循环--}}
             @foreach($casaroverOrder->orderItems as $item)
-                <p>房间型号:<span>{{$item->name}}</span></p>
-                <p>房间数量:<span>{{$item->quantity}}</span></p>
+                <p>商品:<span>{{$item->name}}</span></p>
+                <p>数量:<span>{{$item->quantity}}</span></p>
             @endforeach
             <p id="total">总价：<i>元</i><i>{{$casaroverOrder->total or ''}}</i></p>
             <p id="reserveButton" style="text-align: center; display: none;">
@@ -59,4 +59,3 @@
     }
 </script>
 @stop
-

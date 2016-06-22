@@ -11,11 +11,7 @@
         <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a>
         <img  src="/assets/images/logow.png" />
     @stop
-    <div class="flexslider">
-        <ul class="slides">
-            <li onclick="goto_link1()"
-                style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$wxCasa->thumbnail}}') ; background-size:100% 100%; "></li>
-        </ul>
+    <img style="margin-top:60px; width:100%; max-height:300px;" src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$wxCasa->thumbnail}}"/>
     </div>
     <div class="main">
         <div class="header">

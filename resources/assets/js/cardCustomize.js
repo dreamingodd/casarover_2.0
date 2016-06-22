@@ -34,10 +34,11 @@ $(document).ready(function(){
                         casas:this.goods
                     },
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                    success: (data)=>{
+                    success: (data) => {
                         // log response data
+                        console.log('order create successfully!');
                         console.log(data);
-                        
+                        location.href = "/wx/pay/wxorder/" + data.orderId;
                     }
                 });
             },

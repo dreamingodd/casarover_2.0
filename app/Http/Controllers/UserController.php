@@ -15,7 +15,7 @@ class UserController extends Controller
      * List all users in backstage.
      */
     public function showList() {
-        $users = User::paginate(100);
+        $users = User::paginate(20);
         $total = $users->total();
         $page = $users->currentPage();
         return view('backstage.userList', compact(['users', 'total', 'page']));
