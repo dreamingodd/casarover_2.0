@@ -21,7 +21,7 @@ class WxAuth
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -68,6 +68,12 @@ class WxAuth
         }
     }
 
+    /**
+     * Persist user in DB.casarover.user
+     *
+     * @param mixed $jsonUser
+     * @param mixed $user
+     */
     private function saveUser($jsonUser, $user = null)
     {
         if (empty($user)) {
@@ -87,7 +93,7 @@ class WxAuth
      */
     private function getDummyUser()
     {
-        $userId = 8888;
+        $userId = 88;
         $user = User::find($userId);
         if (empty($user)) {
             $user = new User();
