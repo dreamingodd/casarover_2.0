@@ -4,6 +4,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="/assets/css/cardCustomize.css" rel="stylesheet"/>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
+    <script src="/assets/js/wxBase.js"></script>
     <script src="/assets/js/cardCustomize.js"></script>
 @stop
 @section('nav')
@@ -24,6 +25,15 @@
         </div>
         <template v-else>
             <h2>购买度假卡</h2>
+            <br />
+            <div class="personName">
+                <label for="personName">姓名：</label>
+                <input type="text" id="username" value="{{$user->realname}}" placeholder="请输入姓名" >
+            </div>
+            <div class="cellphone">
+                <label for="cellphone">手机：</label>
+                <input type="number" id="cellphone" value="{{$user->cellphone}}" placeholder="请输入11位手机号">
+            </div>
             <div class="all">
                 <template v-for="casa in casas">
                     <div class="casa" v-if="casa.surplus>0">

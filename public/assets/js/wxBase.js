@@ -1,1 +1,1 @@
-$(function(){$(".goback").click(function(){history.go(-1)})});
+function isCellphoneNumber(n){var o=/^\d{11}$/;return o.test(n)}$(function(){$(".goback").click(function(){history.go(-1)})});

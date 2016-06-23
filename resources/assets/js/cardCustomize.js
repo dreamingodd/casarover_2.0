@@ -23,21 +23,25 @@ $(document).ready(function(){
             },
             buy(){
                 this.goods = [];
-                let num = this.selectd();
-                if (num.length < 3){
-                    alert("请至少选择三家民宿");
-                    return false;
-                }
+                // Check whether inputs confine the least requestments.
+                var username = $('#username').val();
+                var cellphone = $('#cellphone').val();
+                let selectedCount = this.selectd().length;
+                if (!checkParameters(username, cellphone, selectedCount)) return;
+                // Start ajax request to create order.
                 $.ajax('/wx/api/cardCasaBuy', {
                     type: 'post',
                     data: {
-                        casas:this.goods
+                        casas : this.goods,
+                        username : username,
+                        cellphone : cellphone
                     },
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     success: (data) => {
                         // log response data
                         console.log('order create successfully!');
                         console.log(data);
+                        // Start request to prepare payment and redirect to payment page.
                         location.href = "/wx/pay/wxorder/" + data.orderId;
                     }
                 });
@@ -81,3 +85,20 @@ $(document).ready(function(){
         }
     })
 })
+
+/** 检查 */
+function checkParameters(username, cellphone, selectedCount) {
+    if (!username) {
+        alert("请输入姓名！");
+        return false;
+    }
+    if (!isCellphoneNumber(cellphone)) {
+        alert("请输入正确的手机号码！");
+        return false;
+    }
+    if (selectedCount < 3){
+        alert("请至少选择三家民宿");
+        return false;
+    }
+    return true;
+}
