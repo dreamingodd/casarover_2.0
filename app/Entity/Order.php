@@ -61,11 +61,25 @@ class Order extends Model
         return $this->hasMany('App\Entity\OrderItem');
     }
 
-    /** */
+    /**
+     * 子类：民宿订单
+     */
     public function casaOrder() {
         if ($this->type == self::TYPE_CASA) {
             return $this->hasOne('App\Entity\CasaOrder');
         }
+        // will throw exception: meaning you must not use this relation while TYPE is not TYPE_CASA.
+        return null;
+    }
+
+    /**
+     * 子类：度假卡订单
+     */
+    public function vacationCardOrder() {
+        if ($this->type == self::TYPE_VACATION_CARD) {
+            return $this->hasOne('App\Entity\VacationCardOrder');
+        }
+        // will throw exception: meaning you must not use this relation while TYPE is not TYPE_VACATION_CARD.
         return null;
     }
 

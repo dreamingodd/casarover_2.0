@@ -8,6 +8,7 @@
     <link href="/assets/css/wxCommon.css" rel="stylesheet"/>
     <script src="//cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="/assets/js/wxBase.js" type="text/javascript"></script>
     <title>@yield('title')</title>
     @yield('head')
 </head>

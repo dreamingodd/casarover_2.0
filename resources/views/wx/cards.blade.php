@@ -4,7 +4,7 @@
     <link href="/assets/css/card.css" rel="stylesheet"/>
 @stop
 @section('nav')
-    <a href="/wx/user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop
@@ -15,7 +15,7 @@
             <div class="case clear" >
                 <a href="/wx/user/cardCasa/{{ $card->number }}">
                     <div class="casecon clear">
-                        <img src="{{ Config::get('VacationCard.card_images')[0] }}" alt="">
+                        <img src="{{ $card->photo_path }}" alt="">
                         <div class="article">
                             <h3>NO.{{ $card->number }}</h3>
                             <p>有效期:{{ $card->startDate }}~{{ $card->expireDate }}</p>

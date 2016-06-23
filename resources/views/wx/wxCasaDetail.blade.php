@@ -2,8 +2,6 @@
 @section('title', '探庐者 - ' . $wxCasa->name)
 @section('head')
     <link href="/assets/css/wxDetails.css" rel="stylesheet"/>
-    <script src="//cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
-    <script src="/assets/js/wxBase.js" type="text/javascript"></script>
 @stop
 @section('body')
     @section('nav')

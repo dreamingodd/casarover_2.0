@@ -14,7 +14,9 @@ use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxMembership;
 use App\Entity\Wx\WxCollection;
 
-/**  */
+/**
+ * 微信用户访问的连接大部分在这个类里面.
+ */
 class WxSiteController extends WxBaseController
 {
     /**

@@ -4,7 +4,7 @@
     <link href="/assets/css/wxCollection.css" rel="stylesheet"/>
 @stop
 @section('nav')
-    <a href="user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop

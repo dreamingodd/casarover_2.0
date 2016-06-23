@@ -3,9 +3,7 @@
 @section('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="/assets/css/cardCustomize.css" rel="stylesheet"/>
-    <script src="//cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
-    <script src="/assets/js/wxBase.js" type="text/javascript"></script>
     <script src="/assets/js/cardCustomize.js"></script>
 @stop
 @section('nav')

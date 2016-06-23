@@ -14,6 +14,7 @@ use App\Entity\Stock;
 use App\Entity\User;
 use DB;
 use Log;
+use Config;
 //use Illuminate\Support\Facades\Session;
 use Mockery\CountValidator\Exception;
 use Session;
@@ -142,8 +143,7 @@ class VacationCardController extends Controller
         {
             $userId = Session::get('user_id');
             $type = Product::TYPE_VACATION_CARD;
-            //取第一家民宿的图片
-            $photo_path = $casas[0]["headImg"];
+            $photo_path = Config::get('VacationCard.card_images')[mt_rand(0,3)];
             $total = $this->roomTotal($casas);
             DB::beginTransaction();
             try
