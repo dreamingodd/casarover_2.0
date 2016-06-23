@@ -4,7 +4,7 @@
     <link href="/assets/css/wxBill.css" rel="stylesheet"/>
 @stop
 @section('nav')
-    <a href="/wx/confirm" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop

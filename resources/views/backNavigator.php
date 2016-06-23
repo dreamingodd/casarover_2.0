@@ -54,7 +54,7 @@
                    aria-haspopup="true" aria-expanded="false">系统功能<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/back/system/wx/user">微信用户</a></li>
+                    <li><a href="/back/system/user">微信用户</a></li>
                 </ul>
             </li>
             <li role="presentation" class="logout">

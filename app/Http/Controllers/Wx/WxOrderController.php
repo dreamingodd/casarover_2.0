@@ -12,7 +12,7 @@ use App\Entity\OrderItem;
 use App\Entity\User;
 use App\Entity\Wx\WxMembership;
 use App\Entity\Wx\WxScoreVariation;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 
 use Illuminate\Http\Request;
 use Exception;
@@ -21,8 +21,8 @@ use Log;
 use Config;
 use Session;
 
-/**  */
-class WxOrderController extends Controller
+/** 微信民宿订单的生成，操作，展示以及积分抵扣相关的功能 */
+class WxOrderController extends BaseController
 {
     /** @var string ORDER_CONSUME_PREFIX 积分抵扣 - */
     const ORDER_CONSUME_PREFIX = "积分抵扣 - ";
@@ -34,37 +34,27 @@ class WxOrderController extends Controller
     const ORDER_PREFIX = "民宿订单 - ";
 
     /**
-     * @param int $id
-     */
-    public function show($id)
-    {
-        $order = Order::find($id);
-        $qrFile = public_path() . "/assets/phpqrcode/temp/order" . $order->id . ".png";
-        $qrPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order" . $order->id . ".png";
-        if (!file_exists($qrFile)) {
-            QrImageGenerator::generate(env('ROOT_URL') . '/wx/consume/' . $order->id, $qrFile);
-        }
-        return view('wx.wxOrderDetail', compact('order', 'qrPath'));
-    }
-
-    /**
-     * 1.Update user info.
-     * 2.Create a new order.
-     * 3.Create a ScoreVariation.
-     * 4.Update wx membership(score).
-     * @param Request $request
-     */
+    * 1.Update user info.
+    * 2.Create a new order.
+    * 3.Create a ScoreVariation.
+    * 4.Update wx membership(score).
+    * @param Request $request
+    */
     public function create(Request $request)
     {
         DB::beginTransaction();
         try {
-            // update user information.
+            // 1.Update user information.
             if (empty(Session::get('user_id'))) {
                 return "用户信息（ID）获取失败！";
             }
             $userId = Session::get('user_id');
-            $user = $this->updateUserInfo($userId, $request->input('realname'), $request->input('cellphone'));
-            // process reserved rooms data.
+            $userCheckResult =
+                    $this->checkThenSaveUsernameAndCellphone($userId, $request->realname, $request->cellphone);
+            if (!$userCheckResult) {
+                return "用户信息缺失！";
+            }
+            // 2.Save order info and process reserved rooms data.
             $reservedRooms = $request->input('reservedRooms');
             if (empty($reservedRooms)) {
                 return "没有选购商品！";
@@ -81,7 +71,7 @@ class WxOrderController extends Controller
                 $orderItem = $this->createOrderItem($order->id, $reservedRoom);
                 $total += $orderItem->price * $orderItem->quantity;
             }
-            // update order info and save casa order info
+            // 3.Save casa order info and update order info
             $casaOrder = new CasaOrder();
             $casaOrder->order_id = $order->id;
             $casaOrder->wx_casa_id = $request->input('wxCasaId');
@@ -92,29 +82,10 @@ class WxOrderController extends Controller
             $order->total = $total;
             $order->save();
 
-            // Check score. 前后台均有检查。
-            $score = $request->input('score');
-            if ($score > 0) {
-                $userScore = $user->wxMembership->score;
-                // Invalid situation 1 - larger than user's current score,
-                if ($score > $userScore) {
-                    return "您输入的积分超过当前可用的积分！";
-                }
-                // invalid situation 2 - larger than 30% of the payment.
-                if ($score > $total * Config::get('config.wx_max_discount') / 10) {
-                    return "您输入的积分超过了房价的30%！";
-                }
-                $wsv = new WxScoreVariation();
-                $wsv->wx_membership_id = $user->wxMembership->id;
-                $wsv->casa_order_id = $order->id;
-                $wsv->type = WxScoreVariation::TYPE_ORDER;
-                $wsv->name = self::ORDER_CONSUME_PREFIX . $order->name . ' ' . $order->id;
-                $wsv->score = - $score;
-                $wsv->save();
-                $user->wxMembership->score -= $score;
-                $user->wxMembership->save();
-                $order->total = $total - ($score * 0.1);
-                $order->save();
+            // 4.积分处理
+            $scoreErrorMsg = $this->processScore(User::find($userId), $order, $request->input('score'), $total);
+            if ($scoreErrorMsg) {
+                return $scoreErrorMsg;
             }
             DB::commit();
             return response()->json(['orderId' => $order->id]);
@@ -123,6 +94,23 @@ class WxOrderController extends Controller
             Log::critical($ex);
             return "探庐君处理您的订单时晕倒了！请稍后再试！";
         }
+    }
+
+    /**
+     * @param int $id
+     */
+    public function show($id)
+    {
+        $order = Order::find($id);
+        $qrFile = null;
+        if ($order->type == Order::TYPE_CASA) {
+            $qrFile = public_path() . "/assets/phpqrcode/temp/order" . $order->id . ".png";
+            $qrPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order" . $order->id . ".png";
+            if (!file_exists($qrFile)) {
+                QrImageGenerator::generate(env('ROOT_URL') . '/wx/consume/' . $order->id, $qrFile);
+            }
+        }
+        return view('wx.wxOrderDetail', compact('order', 'qrPath'));
     }
 
     /**  */
@@ -186,22 +174,6 @@ class WxOrderController extends Controller
             $this->sendOrderSms($request->orderid);
         }
         return redirect('back/wx/order/list');
-    }
-
-    /**
-     * 发送预约成功的短信
-     * @param int $orderId
-     */
-    private function sendOrderSms($orderId)
-    {
-        $order = Order::find($orderId);
-        $username = $order->user->realname;
-        $casaName = $order->name;
-        $time = $order->casaOrder->reserve_comment;
-        $userphone = $order->user->cellphone;
-        $sms = app('sms');
-        $message = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
-        $sms->send('探庐者','SMS_9720239',$message,$userphone);
     }
 
     // public function del(Request $request)
@@ -313,6 +285,22 @@ class WxOrderController extends Controller
     }
 
     /**
+     * 发送预约成功的短信
+     * @param int $orderId
+     */
+    private function sendOrderSms($orderId)
+    {
+        $order = Order::find($orderId);
+        $username = $order->user->realname;
+        $casaName = $order->name;
+        $time = $order->casaOrder->reserve_comment;
+        $userphone = $order->user->cellphone;
+        $sms = app('sms');
+        $message = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
+        $sms->send('探庐者','SMS_9720239',$message,$userphone);
+    }
+
+    /**
      * @return array $allstatus
      */
     private function allstatus()
@@ -351,20 +339,6 @@ class WxOrderController extends Controller
         return $orderItem;
     }
 
-    /** Update user table.
-     * @param int $userId
-     * @param string $realname
-     * @param string $cellphone
-     */
-    private function updateUserInfo($userId, $realname, $cellphone)
-    {
-        $user = User::find($userId);
-        $user->realname = $realname;
-        $user->cellphone = $cellphone;
-        $user->save();
-        return $user;
-    }
-
     /**
      * Create a record of score variation which type is order.
      * @param int $memberId
@@ -396,5 +370,51 @@ class WxOrderController extends Controller
          $wms->save();
          app('MembershipService')->upgradeWxMembershipLevelIfNeeded($wms);
          return $wms;
+     }
+
+     /**
+      * Score related process while creating wx casa order.
+      * @param User $user
+      * @param Order $order
+      * @param int $score
+      * @param int $total
+      * @return string or null - Score Error Msg, null means process is OK.
+      */
+     private function processScore(User $user, Order $order, $score, $total) {
+         // Check score. 前后台均有检查。
+         if ($score > 0) {
+             $userScore = $user->wxMembership->score;
+             // Invalid situation 1 - larger than user's current score,
+             if ($score > $userScore) {
+                 return "您输入的积分超过当前可用的积分！";
+             }
+             // invalid situation 2 - larger than 30% of the payment.
+             if ($score > $total * Config::get('config.wx_max_discount') / 10) {
+                 return "您输入的积分超过了房价的30%！";
+             }
+             // 保存积分信息
+             $this->createWxVariationScore($user, $order, $score);
+             $user->wxMembership->score -= $score;
+             $user->wxMembership->save();
+             $order->total = $total - ($score * 0.1);
+             $order->save();
+             return null;
+         }
+     }
+
+     /**
+      * Just as the method's name implies.
+      * @param User $user
+      * @param Order $order
+      * @param int $score
+      */
+     private function createWxVariationScore(User $user, Order $order, $score) {
+         $wsv = new WxScoreVariation();
+         $wsv->wx_membership_id = $user->wxMembership->id;
+         $wsv->casa_order_id = $order->id;
+         $wsv->type = WxScoreVariation::TYPE_ORDER;
+         $wsv->name = self::ORDER_CONSUME_PREFIX . $order->name . ' ' . $order->id;
+         $wsv->score = - $score;
+         $wsv->save();
      }
 }

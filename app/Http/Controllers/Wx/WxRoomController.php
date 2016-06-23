@@ -19,7 +19,7 @@ class WxRoomController extends Controller
      */
     public function show($id) {
         $wxCasaId = $id;
-        $rooms = WxCasa::find($wxCasaId)->rooms;
+        $rooms = WxCasa::find($wxCasaId)->rooms();
         return view('backstage.wxRoom', compact('rooms', 'wxCasaId'));
     }
 
@@ -34,7 +34,7 @@ class WxRoomController extends Controller
             $rawRooms = json_decode($request->input('wxRooms'));
             $wxCasa = WxCasa::find($wxCasaId);
             $rooms = $this->createRooms($rawRooms);
-            $wxCasa->rooms()->saveMany($rooms);
+            $wxCasa->products()->saveMany($rooms);
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();

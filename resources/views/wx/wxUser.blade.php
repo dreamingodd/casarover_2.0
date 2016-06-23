@@ -4,7 +4,7 @@
     <link href="/assets/css/wxPerson.css" rel="stylesheet"/>
 @stop
 @section('nav')
-    <a href="/wx" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop
@@ -124,7 +124,6 @@
                                     <p>价格</p>
                                     <p id="orange">{{$order->total}}元</p>
                                 </div>
-                                @if ($order->type == App\Entity\Order::TYPE_CASA)
                                 <div class="state">
                                     <p>状态</p>
                                     @if ($order->status == 0)
@@ -139,24 +138,27 @@
                                         <p id="gray">未确认</p>
                                     @endif
 
-                                    @if ($order->casaOrder->reserve_status == 0)
-                                        <p id="gray">未预约</p>
-                                    @elseif ($order->casaOrder->reserve_status == 1)
-                                        <p id="orange">已预约</p>
-                                    @elseif ($order->casaOrder->reserve_status == 2)
-                                        <p>预约失败</p>
-                                    @elseif ($order->casaOrder->reserve_status == 3)
-                                        <p id="orange">已完成</p>
+                                    @if ($order->type == App\Entity\Order::TYPE_CASA)
+                                        @if ($order->casaOrder->reserve_status == 0)
+                                            <p id="gray">未预约</p>
+                                        @elseif ($order->casaOrder->reserve_status == 1)
+                                            <p id="orange">已预约</p>
+                                        @elseif ($order->casaOrder->reserve_status == 2)
+                                            <p>预约失败</p>
+                                        @elseif ($order->casaOrder->reserve_status == 3)
+                                            <p id="orange">已完成</p>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
+                            @if ($order->type == App\Entity\Order::TYPE_CASA)
                             <div class="date">
                                 @if ($order->casaOrder->reserve_status == 1)
                                     <p>预约信息:</p>
                                     <p>{{$order->casaOrder->reserve_comment}}</p>
                                 @endif
-                            @endif
                             </div>
+                            @endif
                         </div>
                     </a>
                 @endforeach

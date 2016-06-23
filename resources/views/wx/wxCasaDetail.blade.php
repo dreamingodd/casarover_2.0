@@ -2,8 +2,6 @@
 @section('title', '探庐者 - ' . $wxCasa->name)
 @section('head')
     <link href="/assets/css/wxDetails.css" rel="stylesheet"/>
-    <script src="//cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
-    <script src="/assets/js/wxBase.js" type="text/javascript"></script>
 @stop
 @section('body')
     @section('nav')
@@ -11,11 +9,7 @@
         <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a>
         <img  src="/assets/images/logow.png" />
     @stop
-    <div class="flexslider">
-        <ul class="slides">
-            <li onclick="goto_link1()"
-                style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$wxCasa->thumbnail}}') ; background-size:100% 100%; "></li>
-        </ul>
+    <img style="margin-top:60px; width:100%; max-height:300px;" src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$wxCasa->thumbnail}}"/>
     </div>
     <div class="main">
         <div class="header">

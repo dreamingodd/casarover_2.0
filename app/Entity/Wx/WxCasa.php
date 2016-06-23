@@ -2,6 +2,7 @@
 
 namespace App\Entity\Wx;
 
+use App\Entity\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,8 +24,18 @@ class WxCasa extends Model
     public function contents() {
         return $this->belongsToMany('App\Content', 'wx_casa_content');
     }
+    public function products() {
+        return  $this->hasMany('App\Entity\Product', 'parent_id', 'id');
+    }
     public function rooms() {
-        return $this->hasMany('App\Entity\Product', 'parent_id', 'id');
+        $products = $this->products;
+        $rooms = array();
+        foreach($products as $p) {
+            if ($p->type == Product::TYPE_CASA_ROOM) {
+                array_push($rooms, $p);
+            }
+        }
+        return $rooms;
     }
 
     // 民宿主人

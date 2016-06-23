@@ -5,7 +5,7 @@
     <script src="/assets/js/wxBase.js" type="text/javascript"></script>
 @stop
 @section('nav')
-    <a  id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
+    <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop
