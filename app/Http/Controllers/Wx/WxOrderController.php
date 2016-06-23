@@ -102,10 +102,13 @@ class WxOrderController extends BaseController
     public function show($id)
     {
         $order = Order::find($id);
-        $qrFile = public_path() . "/assets/phpqrcode/temp/order" . $order->id . ".png";
-        $qrPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order" . $order->id . ".png";
-        if (!file_exists($qrFile)) {
-            QrImageGenerator::generate(env('ROOT_URL') . '/wx/consume/' . $order->id, $qrFile);
+        $qrFile = null;
+        if ($order->type == Order::TYPE_CASA) {
+            $qrFile = public_path() . "/assets/phpqrcode/temp/order" . $order->id . ".png";
+            $qrPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order" . $order->id . ".png";
+            if (!file_exists($qrFile)) {
+                QrImageGenerator::generate(env('ROOT_URL') . '/wx/consume/' . $order->id, $qrFile);
+            }
         }
         return view('wx.wxOrderDetail', compact('order', 'qrPath'));
     }

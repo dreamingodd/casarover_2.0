@@ -35,7 +35,6 @@ class VacationCardController extends BaseController
     /** @var int STYLE_QUANTITY */
     const STYLE_QUANTITY = 3;
 
-
     /** 后台选择参与活动的民宿 */
     public function back()
     {
