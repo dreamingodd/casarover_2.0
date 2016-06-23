@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Mall;
 
 use App\Entity\Opportunity;
 use App\Entity\OrderItem;
-use EasyWeChat\User\User;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -19,7 +18,8 @@ use Mockery\CountValidator\Exception;
 use Session;
 use App\Entity\VacationCard;
 use Carbon\Carbon;
-use App\Entity\User as Wxuser;
+use App\Entity\User;
+use App\Entity\OpportunityApply;
 
 /**
  * Class VacationCardController
@@ -120,9 +120,11 @@ class VacationCardController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        $wxCasa = WxCasa::find($product->parent_id)->contents;
-        foreach($wxCasa as $casa){
-            $casa->imgs = $casa->attachments;
+        $wxCasa = WxCasa::find($product->parent_id);
+        $contents = $wxCasa->contents;
+        $wxCasa->rooms = $wxCasa->rooms()->where('type',Product::TYPE_UNKNOWN)->get();
+        foreach($contents as $content){
+            $content->imgs = $content->attachments;
         }
         return response()->json($wxCasa);
     }
@@ -272,19 +274,6 @@ class VacationCardController extends Controller
             return response()->json(['code'=>503,'msg'=>'卡号错误']);
         }
     }
-    public function address(){
-        $address=WxCasa::all();
-        $all=array();
-        foreach($address as $key=>$one){
-            $all[$key]=$one->desc;
-            $number=strpos($all[$key],'【地址】');
-            $newadd=substr($all[$key],$number);
-            $one->address=$newadd;
-            $one->save();
-//            echo $newadd;
-//            echo '<br>';
-        }
-    }
 
     public function book($id)
     {
@@ -294,12 +283,130 @@ class VacationCardController extends Controller
         //test
         $loginUserId =3;
         $isMe = $casa->order->user_id == $loginUserId? 1: 0;
-        return view('wx.cardBook',compact('casa','isMe'));
+        $user = User::find(Session::get('user_id'));
+        return view('wx.cardBook',compact('casa','isMe','user'));
+    }
+    //预订成功
+    public function booksuccess(Request $request)
+    {
+        $casa = OrderItem::find($request->id);
+        //更新user的信息
+        $user = User::find(Session::get('user_id'));
+        $user->nickname = $request->name;
+        $user->cellphone = $request->tel;
+        $user->save();
+        //生成order
+//        $userid = Session::get('user_id');
+//        $order = $this->createOrder($userid,Order::TYPE_OPPORTUNITY,$casa->name,$casa->photo_path,0,0);
+        //存储orderItem
+//        $order = OrderItem::create([
+//            'order_id' => $order->id,
+//            'product_id' => $casa->product_id,
+//            'name' => $casa->name,
+//            'photo_path' => $casa->photo_path,
+//            'price' => 0,
+//            'quantity' => $request->number
+//        ]);
+        //存储opportunity_apply
+        //被申请人的id
+//        $user_id = $casa->order->user_id;
+        /**
+         * 申请人user_id
+         * 被申请人card_user_id
+         * 图片 photo_path
+         * 卡拥有者民宿 order_item_id
+         * 申请数量 quantity
+         * 状态 status
+         */
+        OpportunityApply::create([
+            'user_id' => Session::get('user_id'),
+            'card_user_id' => $casa->order->user,
+            'order_item_id' => $casa->id,
+            'quantity' => $request->number,
+            'status' => 0
+        ]);
+//        $user = User::find(Session::get('user_id'));
+//        $order = OrderItem::find($order->id);
+//        跳转到我的申请列表
+        return view('wx.cardApply');
+    }
+    //被申请的列表
+    public function cardApplyList()
+    {
+        $applyList = OpportunityApply::where('card_user_id',Session::get('user_id'))->orderBy('id','desc')->get();
+        //为了判断是否显示同意和否定按钮
+        $isMe = 0;
+        $applyList = $this->turnApplyList($applyList);
+        return view('wx.cardApply',compact('applyList','isMe'));
     }
 
-    public function cardForm()
+    public function myCardApplyList()
     {
-        $user = WxUser::find(Session::get('user_id'));
-        return view('wx.cardForm',compact('user'));
+        $applyList = $applyList = OpportunityApply::where('user_id',Session::get('user_id'))->orderBy('id','desc')->get();
+        $applyList = $this->turnApplyList($applyList);
+        $isMe = 1;
+        return view('wx.cardApply',compact('applyList','isMe'));
+    }
+
+    private function turnApplyList($applyList)
+    {
+        foreach($applyList as $apply)
+        {
+            $orderItem = OrderItem::find($apply->order_item_id);
+            $user = User::find($apply->card_user_id);
+            $apply->casaname = $orderItem->name;
+            $apply->quantity = $apply->quantity;
+            $apply->username = $user->realname;
+            $apply->cellphone = $user->cellphone;
+            $apply->casapic = $orderItem->photo_path;
+            $apply->statusWords = $this->statusToWord($apply->status);
+        }
+        return $applyList;
+    }
+
+    public function applyAgree($orderItemId)
+    {
+        $apply = OpportunityApply::where('user_id',Session::get('user_id'))->where('order_item_id',$orderItemId)->first();
+        $result = $this->checkLeftNums($apply,$orderItemId);
+        if($result)
+        {
+            $apply->status = 1;
+            $apply->save();
+        }
+        else
+        {
+            //返回数量不足的提示
+        }
+    }
+
+    private function checkLeftNums($apply,$oderItemId)
+    {
+        $left_num = OrderItem::find($oderItemId)->opportunity->left_quantity;
+        if($left_num > $apply->quantity)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    //拒绝申请
+    public function applyRefuse($id)
+    {
+        $apply = OpportunityApply::where('user_id',Session::get('user_id'))->where('order_item_id',$orderItemId)->first();
+        $apply->status = 2;
+        $apply->save();
+    }
+
+    private function statusToWord($code)
+    {
+        switch($code)
+        {
+            case 0: $result = '申请中'; break;
+            case 1: $result = '申请通过';break;
+            case 2: $result = '申请被拒绝';break;
+        }
+        return $result;
     }
 }

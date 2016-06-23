@@ -11,4 +11,5 @@ class Attachment extends Model
     const CREATED_AT = 'update_time';
     protected $table = "attachment";
     protected $fillable = array('filepath');
+    protected $hidden = ['update_time','pivot','id','type','score','name','comment','status'];
 }

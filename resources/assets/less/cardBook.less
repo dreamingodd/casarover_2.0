@@ -1,9 +1,27 @@
+//这个是对之前的css进行合并之后进行的转换，然后进行编译形成的内容，所以比较乱
+@var1: #CFCFCF;
+@var2: #e9e9e9;
+@var3: #3e3e3e;
+@var4: #ffffff;
+@var5: #000000;
+@var6: #bababa;
+@var7: #f8f8f8;
+@var8: #363636;
+@var9: #f0f0f0;
+
+.main h2, .main h4, .sub {
+  text-align: center;
+}
 .main .case, .main h2 {
-  border-bottom: 1px solid #CFCFCF;
+  border-bottom: 1px solid @var1;
   .article h3, .article p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .article p, .article span {
+    color: @var6;
+    font-size: 1.5rem;
   }
 }
 .main, .main .case {
@@ -14,22 +32,24 @@
   margin-bottom: 1rem;
   h2 {
     font-size: 2rem;
-    text-align: center;
     margin: 0;
     padding: 1rem 0;
-    color: #e9e9e9;
-    background: #3e3e3e;
+    color: @var2;
+    background: @var3;
+  }
+  h4 {
+    font-size: 1.5rem;
   }
   .case {
     padding: 1rem;
-    background: #ffffff;
-    color: #000000;
+    background: @var4;
+    color: @var5;
     .check {
       display: none;
       float: left;
       width: 10%;
       height: 8rem;
-      background: #ffffff;
+      background: @var4;
       position: relative;
     }
     .casecon {
@@ -56,40 +76,48 @@
       }
       p {
         margin: .5rem 0;
-        font-size: 1.5rem;
         line-height: 1.5rem;
-        color: #bababa;
       }
-      span {
-        color: #bababa;
-        font-size: 1.5rem;
-        i{
-          font-style: normal;
-          background: #f8f8f8;
-          margin:0 0.2rem;
-          padding: 0.1rem 0.5rem;
-          cursor: pointer;
-        }
-        #number{
-          color: #000;
-        }
+      span i {
+        font-style: normal;
+        background: @var7;
+        margin: 0 .2rem;
+        padding: .1rem .5rem;
+        cursor: pointer;
+      }
+      span #number {
+        color: @var5;
       }
     }
   }
 }
-.sub{
-  text-align: center;
-  font-size:2rem;
+.sub, .sub:hover {
+  color: @var4;
+}
+.sub {
+  font-size: 2rem;
   width: 100%;
   height: 4rem;
   line-height: 4rem;
   position: fixed;
   bottom: 0;
   left: 0;
-  background: #363636;
-  color: #fff;
+  background: @var8;
   border-radius: 0;
 }
-.sub:hover{
-  color: #fff;
+.input input, .input label {
+  height: 3rem;
+  line-height: 3rem;
+}
+.input {
+  margin: 1rem 0 0 2rem;
+  label {
+    background: @var9;
+    width: 30%;
+    text-indent: 1em;
+  }
+  input {
+    width: 65%;
+    border: none;
+  }
 }

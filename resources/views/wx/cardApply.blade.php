@@ -11,27 +11,35 @@
 @section('body')
     <div class="main">
         <h2>申请记录</h2>
-        <div class="case clear" >
-            <input type="hidden" value="" class="casaId">
-            <div class="info">
-                <p>申请人姓名：小红</p>
-                <p>电话号码：12345678901</p>
-            </div>
-            <div class="casecon clear">
-                <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160518-163558-932r9132.jpg"" alt="">
-                <div class="article">
-                    <h3>梅皋巫山居</h3>
-                    <div class="articlecon">
-                        <p>备注:我是你表姐</p>
-                        <span>申请间数: <i>3</i></span>
-                        <a class="click" href="cardApplySend">
-                            回复
-                        </a>
+        @foreach($applyList as $key)
+            <div class="case clear" >
+                <div class="info">
+                    <p>申请人：{{ $key->username }}</p>
+                    <p>电话号码：{{ $key->cellphone }}</p>
+                </div>
+                <div class="casecon clear">
+                    <img src="{{ $key->casapic }}" alt="">
+                    <div class="article">
+                        <h3>{{ $key->casaname }}</h3>
+                        <div class="articlecon">
+                            <span>申请间数: <i>{{ $key->quantity }}</i></span>
+                        </div>
+                        @if($isMe)
+                            <p>{{ $key->applyStatus }}</p>
+                        @else
+                            @if($key->status)
+                                <p>状态</p>
+                            @else
+                                <div class="handle">
+                                    <a href="/wx/user/card/apply/agree/{{ $key->order_item_id }}" class="btn btn-success">同意</a>
+                                    <a href="/wx/user/card/apply/refuse/{{ $key->order_item_id }}" class="btn btn-danger">拒绝</a>
+                                </div>
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>
-        </div>
-
+        @endforeach
     </div>
     <script>
     </script>

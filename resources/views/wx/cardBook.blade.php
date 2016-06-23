@@ -2,9 +2,10 @@
 @section('title','民宿预订')
 @section('head')
     <link href="/assets/css/cardBook.css" rel="stylesheet"/>
+    <script src="/assets/js/wxBase.js" type="text/javascript"></script>
 @stop
 @section('nav')
-    <a href="/wx/user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a  id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop
@@ -17,38 +18,59 @@
                 <img src="{{ $casa->photo_path }}" alt="">
                 <div class="article">
                     <h3>{{ $casa->name }}</h3>
-                    {{--<img src="/assets/images/sign.png" alt="" >--}}
                     <div class="articlecon">
-                        {{--<p>湖州-德州-莫干山镇</p>--}}
-                        {{--<p>截至日期:2017年6月1日</p>--}}
-                        <span>预订间数：<i id="reduce">-</i> <i id="number">1</i> <i id="add">+</i></span>
+                        <p>预订间数：</p>
+                        <span  class="glyphicon glyphicon-minus" onclick="minus()"></span>
+                        <span id="number">1</span>
+                        <span class="glyphicon glyphicon-plus" onclick="plus()"></span>
                         <p>剩余间数：{{ $casa->Opportunity->left_quantity }}</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <form action="/wx/user/booksuccess" method="post">
+            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+            <input type="hidden" name="id" value="{{ $casa->id }}">
+            <input type="hidden" name="number" id="booknumber">
+            <div class="input">
+                <label for="name">*姓名</label>
+                <input type="text" name="name" id="name" value="{{ $user->realname or '' }}">
+            </div>
+            <div class="input">
+                <label for="tel">*手机号码</label>
+                <input type="text" name="tel" value="{{ $user->cellphone or '' }}" id="tel">
+            </div>
+            <div class="input">
+                {{--<label for="remark">备注</label>--}}
+                {{--<input type="text" name="remark" id="remark">--}}
+            </div>
     @if($isMe)
+        {{--自己购买--}}
         <a class="sub" href="tel:{{Config::get('config.help_telephone')}}">提&nbsp;&nbsp;交</a>
     @else
-        <a class="sub" href="tel:{{Config::get('config.help_telephone')}}">申&nbsp;&nbsp;请</a>
-    @endif
-    <script>
-        $(function () {
-            $("#reduce").click(function(){
-                var i=$('#number').html();
-                if(i<=1)
-                    return 0;
-                $('#number').html(--i);
-            });
-            $("#add").click(function() {
+        {{--别人进行申请--}}
+        <button type="submit" class="sub" href="/wx/user/cardForm/{{ $casa->id }}/" onclick="send()">申&nbsp;&nbsp;请</button>
+        @endif
+        </form>
+
+        <script>
+            function plus(){
                 var i=$('#number').html();
                 var left = $('#left').val();
                 if(i == left){
                     return null;
                 }
                 $('#number').html(++i);
-            });
-        })
-    </script>
+            }
+            function minus(){
+                var i=$('#number').html();
+                if(i<=1)
+                    return 0;
+                $('#number').html(--i);
+            }
+            function send(){
+                var number = $('#number').html();
+                $("#booknumber").val(number);
+            }
+        </script>
 @stop

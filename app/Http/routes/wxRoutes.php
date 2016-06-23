@@ -43,27 +43,25 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/user/card/', 'Mall\VacationCardController@card');
     //度假卡民宿列表
     Route::get('/user/cardCasa/{id?}', 'Mall\VacationCardController@cardCasa');
-    //校验卡号是否正确
-    Route::get('/api/user/cardCasa/{id?}', 'Mall\VacationCardController@cardCasaJson');
-    Route::get('/user/cardBook/{id}','Mall\VacationCardController@book');
+
     //填写卡号位置
     Route::get('/user/cardEntry', function(){
         return view('wx.cardEntry');
     });
-    //申请记录
-    Route::get('/user/cardApply/{id?}', function(){
-        return view('wx.cardApply');
-    });
-    //他人申请，同意与否
-    Route::get('/user/cardApplySend/{id?}', function(){
-        return view('wx.cardApplySend');
-    });
-    //提出申请
-    Route::get('/user/cardForm/{id}','Mall\VacationCardController@cardForm');
+    //校验卡号是否正确
+    Route::get('/api/user/cardCasa/{id?}', 'Mall\VacationCardController@cardCasaJson');
+    Route::get('/user/cardBook/{id}','Mall\VacationCardController@book');
     //预订成功
-    Route::get('/user/cardBill', function(){
-        return view('wx.cardBill');
-    });
+    Route::post('/user/booksuccess','Mall\VacationCardController@booksuccess');
+    //申请记录
+    //向我申请
+    Route::get('/user/card/apply/list', 'Mall\VacationCardController@cardApplyList');
+    //我的申请
+    Route::get('/user/card/myapply/list', 'Mall\VacationCardController@myCardApplyList');
+    //他人申请，同意与否
+    Route::get('/user/card/apply/agree/{id}', 'Mall\VacationCardController@applyAgree');
+    Route::get('/user/card/apply/refuse/{id}', 'Mall\VacationCardController@applyRefuse');
+
     // vote activity
     Route::group(['prefix' => 'date'],function () {
         Route::get('/', 'Wx\Activity18Controller@index');

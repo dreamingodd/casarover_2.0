@@ -2,9 +2,10 @@
 @section('title','度假卡民宿列表')
 @section('head')
     <link href="/assets/css/cardCasa.css" rel="stylesheet"/>
+    <script src="/assets/js/wxBase.js" type="text/javascript"></script>
 @stop
 @section('nav')
-    <a href="/wx/user" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
+    <a  id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
     <img  src="/assets/images/logow.png" />
 @stop

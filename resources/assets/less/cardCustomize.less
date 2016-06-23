@@ -1,6 +1,5 @@
 @import "block/variables";
 .main .case, .main h2 {
-    //border-bottom: 1px solid #CFCFCF;
     .article h3, .article p {
         white-space: nowrap;
         overflow: hidden;
@@ -16,9 +15,12 @@
 }
 .casa{
     width:100%;
-    height:12.5rem;
+    height:100%;
     overflow: hidden;
     margin-top:5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .left{
     width: 10%;
@@ -42,7 +44,6 @@
             color:#ffffff;
             padding: 0.5rem;
             font-size: 1rem;
-            //color: #fff;
         }
     }
 }
@@ -121,17 +122,13 @@
     padding: 0.6rem;
 }
 
-
-
-
-
-
-
-
-
-.main, .main .case {
-    position: relative;
+.now-price{
+    text-align: center;
 }
+
+
+
+
 .main {
     border-top: 5rem solid transparent;
     margin-bottom: 1rem;

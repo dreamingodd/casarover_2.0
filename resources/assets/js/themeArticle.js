@@ -14,7 +14,7 @@ $(document).ready(function(){
                 $.getJSON('/api/theme/article/'+this.selected, (data)=> {
                     this.articles = data;
                 });
-                const seltext = $('#sel').find("option:selected").text();
+                let seltext = $('#sel').find("option:selected").text();
                 window.location.hash = seltext;
             }
         }

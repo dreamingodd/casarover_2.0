@@ -10,6 +10,7 @@ class Content extends Model
     const UPDATED_AT = 'update_time';
     const CREATED_AT = 'update_time';
     protected $fillable = array('name','text','house','display_order');
+    protected $hidden = ['update_time','pivot'];
     public function attachments() {
         return $this->belongsToMany('\App\Attachment', 'content_attachment');
     }

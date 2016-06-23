@@ -12,6 +12,7 @@ class WxCasa extends Model
 
     protected $table = "wx_casa";
     protected $dates = ["deleted_at"];
+    protected $hidden = ['deleted_at','created_at','updated_at','deleted_at'];
 
     public function attachment() {
         return $this->belongsTo('App\Attachment');
@@ -53,9 +54,5 @@ class WxCasa extends Model
             return $this->casa->attachment->filepath;
         }
     }
-//    //18家活动每家民宿总票数
-//    public function totalVotes()
-//    {
-//        return $this->hasManyThrough('App\Entity\Wx\WxVote','App\Entity\Wx\Wx18','wx_casa_id','18_id');
-//    }
+
 }

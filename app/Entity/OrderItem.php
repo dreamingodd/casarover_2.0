@@ -31,4 +31,9 @@ class OrderItem extends Model
     {
         return $this->hasOne('App\Entity\Opportunity');
     }
+
+    public function opportunityApply()
+    {
+        return $this->hasOne('App\Entity\OpportunityApply','order_item_id','id');
+    }
 }

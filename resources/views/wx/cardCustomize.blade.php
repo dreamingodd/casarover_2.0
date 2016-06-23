@@ -9,7 +9,7 @@
     <script src="/assets/js/cardCustomize.js"></script>
 @stop
 @section('nav')
-    <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
+    <a href="#" id="navleft" class="glyphicon glyphicon-chevron-left"></a>
     <img  src="/assets/images/logow.png" />
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
 @stop
@@ -17,12 +17,18 @@
     <div class="main" id="app">
         {{--这个是点击民宿名字和图片之后显示详细信息的模板--}}
         <div class="casa-mess" v-if="casa">
-            <template v-for="content in casa">
+            <template v-for="content in casa.contents">
                 <p>@{{{ content.text }}}</p>
                 <template v-for="img in content.imgs">
                     <img :src="'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/'+img.filepath" alt="" width="100%">
                 </template>
             </template>
+            <div class="now-price">
+                <h4>房间类型</h4>
+                <template v-for="room in casa.rooms">
+                    <p>@{{ room.name }}-市场价@{{ room.price }}</p>
+                </template>
+            </div>
         </div>
         <template v-else>
             <h2>购买度假卡</h2>
@@ -41,11 +47,7 @@
                         </div>
                         <div class="right">
                             <div class="title">
-                                 <h4>
-                                    <a href="/wx/casa/@{{ casa.parent_id }}">
-                                        @{{ casa.name }} <span class="glyphicon glyphicon-menu-right"></span>
-                                    </a>
-                                </h4>
+                                <h4 v-on:click="getcasa(casa.id)">@{{ casa.name }} <span class="glyphicon glyphicon-menu-right"></span> </h4>
                             </div>
                             <div class="message">
                                 <div class="head-img">
@@ -69,9 +71,9 @@
             </div>
             <div class="buttom-buy" v-on:click="buy">
                 <div class="total">总计：@{{ total }}元</div>
-                    <div class="buy">
-                        <h2>购买</h2>
-                    </div>
+                <div class="buy">
+                    <h2>购买</h2>
+                </div>
             </div>
         </template>
     </div>

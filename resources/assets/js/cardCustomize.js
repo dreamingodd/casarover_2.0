@@ -1,4 +1,20 @@
 $(document).ready(function(){
+    window.onhashchange = function(){
+        let urlhash = window.location.hash;
+        if(urlhash == "show"){
+            return null;
+        }else{
+            vm.casa = null;
+        }
+    }
+    $("#navleft").click(function(){
+        if(vm.casa){
+            $("#navleft").attr("href","#");
+            vm.casa = null;
+        }else{
+            $("#navleft").attr("href","/wx/user");
+        }
+    })
     var vm = new Vue({
         el: '#app',
         data: {
@@ -20,6 +36,8 @@ $(document).ready(function(){
                 $.getJSON('/wx/api/cardCasa/' + id, (data) => {
                     this.casa = data;
                 });
+                let seltext = 'show';
+                window.location.hash = seltext;
             },
             buy(){
                 this.goods = [];
