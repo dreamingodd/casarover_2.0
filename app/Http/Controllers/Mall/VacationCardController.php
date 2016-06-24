@@ -147,25 +147,23 @@ class VacationCardController extends BaseController
      */
     public function buy(Request $request)
     {
-        $casas = $request->casas;
-        $username = $request->username;
-        $cellphone = $request->cellphone;
-        if (!$this->checkNumber($casas)) {
-            return response()->json(['msg' => '至少' . self::LEAST_CASA_COUNT . '家']);
-        }
-        $userCheckResult =
-                $this->checkThenSaveUsernameAndCellphone($userId, $request->realname, $request->cellphone);
-        if (!$userCheckResult) {
-            return response()->json(['msg' => '用户信息缺失！']);;
-        }
-        $userId = Session::get('user_id');
-        $type = Product::TYPE_VACATION_CARD;
-        $total = $this->roomTotal($casas);
         DB::beginTransaction();
         try
         {
+            $casas = $request->casas;
+            if (!$this->checkNumber($casas)) {
+                return response()->json(['msg' => '至少' . self::LEAST_CASA_COUNT . '家']);
+            }
+            $userCheckResult =
+                    $this->checkThenSaveUsernameAndCellphone(Session::get('user_id'), $request->username, $request->cellphone);
+            if (!$userCheckResult) {
+                return response()->json(['msg' => '用户信息缺失！']);;
+            }
+            $userId = Session::get('user_id');
+            $type = Product::TYPE_VACATION_CARD;
+            $total = $this->roomTotal($casas);
             //1: 在order 中存入信息
-            $order = $this->createOrder($userId, $photo_path, $total);
+            $order = $this->createOrder($userId, $total);
             //2：在order_item 存入信息  在opportunity中存入机会次数
             $this->saveOrderItem($order, $casas);
             //3: 在vacation_card_order中存入度假卡的信息
@@ -178,6 +176,7 @@ class VacationCardController extends BaseController
         {
             DB::rollback();
             Log::error($e);
+            return $e;
             //不一定是什么错误，但是前台能做的就是重试。
             return response()->json(['code' => 503, 'msg' => '网络错误，请刷新重试']);
         }
@@ -362,7 +361,7 @@ class VacationCardController extends BaseController
             'user_id' => $userId,
             'type' => Order::TYPE_VACATION_CARD,
             'name' => "度假卡",
-            'photo_path' => Config::get('VacationCard.card_images')[mt_rand(0, STYLE_QUANTITY)],
+            'photo_path' => Config::get('VacationCard.card_images')[mt_rand(0, self::STYLE_QUANTITY)],
             'total' => $total,
             'status' => Order::STATUS_UNPAYED
         ]);

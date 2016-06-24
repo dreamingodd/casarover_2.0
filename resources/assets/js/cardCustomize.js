@@ -59,8 +59,13 @@ $(document).ready(function(){
                         // log response data
                         console.log('order create successfully!');
                         console.log(data);
-                        // Start request to prepare payment and redirect to payment page.
-                        location.href = "/wx/pay/wxorder/" + data.orderId;
+                        if (data['orderId']) {
+                            // Start request to prepare payment and redirect to payment page.
+                            location.href = "/wx/pay/wxorder/" + data.orderId;
+                        } else {
+                            console.log(data);
+                            alert('探庐君处理你的请求时晕倒了, 请稍后再试！');
+                        }
                     }
                 });
             },
