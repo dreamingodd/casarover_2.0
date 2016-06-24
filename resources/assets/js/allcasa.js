@@ -111,8 +111,7 @@ window.onload=function() {
                     $(".loader").css('display','block');
                     let areaId = this.checkareas.toString();
                     if (areaId) areaId = "/" + areaId;
-                    $.getJSON('/api/casas/city/' + this.city + '/areas/' + areaId + '?page='+this.page, (data)=> {
-                        console.log(123);
+                    $.getJSON('/api/casas/city/' + this.city + '/areas' + areaId + '?page='+this.page, (data)=> {
                         if(data.data.length == 0){
                             $(".no-more").css('display','block');
                         }
