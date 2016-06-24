@@ -13,7 +13,7 @@ class OpportunityApply extends Model
      *        2 申请被拒绝
      */
     protected $table = 'opportunity_apply';
-    protected $fillable = ['user_id','order_item_id','status'];
+    protected $fillable = ['user_id','card_user_id','order_item_id','quantity','status'];
 
     public function item()
     {

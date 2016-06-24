@@ -222,7 +222,7 @@ class VacationCardController extends BaseController
         //如果是本人进入这个页面，显示为预订，value == 1
         $loginUserId = Session::get('user_id');
         //test
-        $loginUserId =3;
+//        $loginUserId =3;
         $isMe = $casa->order->user_id == $loginUserId? 1: 0;
         $user = User::find(Session::get('user_id'));
         return view('wx.cardBook',compact('casa','isMe','user'));
@@ -233,7 +233,7 @@ class VacationCardController extends BaseController
         $casa = OrderItem::find($request->id);
         //更新user的信息
         $user = User::find(Session::get('user_id'));
-        $user->nickname = $request->name;
+        $user->realname = $request->name;
         $user->cellphone = $request->tel;
         $user->save();
         //生成order
@@ -261,7 +261,7 @@ class VacationCardController extends BaseController
          */
         OpportunityApply::create([
             'user_id' => Session::get('user_id'),
-            'card_user_id' => $casa->order->user,
+            'card_user_id' => $casa->order->user->id,
             'order_item_id' => $casa->id,
             'quantity' => $request->number,
             'status' => 0
@@ -362,7 +362,7 @@ class VacationCardController extends BaseController
             'user_id' => $userId,
             'type' => Order::TYPE_VACATION_CARD,
             'name' => "度假卡",
-            'photo_path' => Config::get('VacationCard.card_images')[mt_rand(0, STYLE_QUANTITY)],
+            'photo_path' => Config::get('vacationcard.card_images')[mt_rand(0, STYLE_QUANTITY)],
             'total' => $total,
             'status' => Order::STATUS_UNPAYED
         ]);
@@ -439,7 +439,7 @@ class VacationCardController extends BaseController
      */
     private function saveVacationCard($orderId, $cardNo)
     {
-        $days = config('VacationCard.validDays');
+        $days = config('vacationcard.validDays');
         $start = Carbon::now();
         $end = Carbon::now()->addDays($days);
         VacationCard::create([
