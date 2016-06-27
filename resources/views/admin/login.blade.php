@@ -8,7 +8,8 @@
                 <div class="panel-heading">登录</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/login') }}">
-                        {!! csrf_field() !!}
+
+                        <input type="hidden" id="csrf_token" name="_token" value="{{csrf_token()}}"/>
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">用户名</label>
