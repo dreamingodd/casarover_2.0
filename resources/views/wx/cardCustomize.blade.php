@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="num">
                                         <span  class="glyphicon glyphicon-minus" v-on:click="minus($index)"></span>
-                                        <input class="get-num" type="number" v-on:keyup="calculateTotal" v-model="casa.room" value="0" />
+                                        <input class="get-num" type="number" v-on:keyup="calculateTotal" v-model="casa.room"  />
                                         <span class="glyphicon glyphicon-plus" v-on:click="plus($index)"></span>
                                     </div>
                                 </div>

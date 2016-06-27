@@ -25,14 +25,14 @@
                             <span>申请间数: <i>{{ $key->quantity }}</i></span>
                         </div>
                         @if($isMe)
-                            <p>{{ $key->applyStatus }}</p>
+                            <p>{{ $key->statusWords }}</p>
                         @else
                             @if($key->status)
-                                <p>状态</p>
+                                <p>{{ $key->statusWords }}</p>
                             @else
                                 <div class="handle">
-                                    <a href="/wx/user/card/apply/agree/{{ $key->order_item_id }}" class="btn btn-success">同意</a>
-                                    <a href="/wx/user/card/apply/refuse/{{ $key->order_item_id }}" class="btn btn-danger">拒绝</a>
+                                    <a href="/wx/user/card/apply/agree/{{ $key->id }}" class="btn btn-success">同意</a>
+                                    <a href="/wx/user/card/apply/refuse/{{ $key->id }}" class="btn btn-danger">拒绝</a>
                                 </div>
                             @endif
                         @endif
@@ -42,5 +42,8 @@
         @endforeach
     </div>
     <script>
+    @if(Session::get('msg'))
+      alert('{{ Session::get('msg') }}');
+      @endif
     </script>
 @stop

@@ -32,7 +32,7 @@ class Product extends Model
     }
 
     public function stock() {
-        return $this->hasOne('App\Entity\Stock');
+        return $this->hasOne('App\Entity\Stock','product_id','id');
     }
 
     public function img()

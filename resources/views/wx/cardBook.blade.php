@@ -57,7 +57,7 @@
             function plus(){
                 var i=$('#number').html();
                 var left = $('#left').val();
-                if(i == left){
+                if(i >= left){
                     return null;
                 }
                 $('#number').html(++i);
