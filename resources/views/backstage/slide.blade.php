@@ -33,7 +33,7 @@
                 </td>
                 <td>{{ $slide->casa->name }}</td>
                 <td>
-                    <button class="btn btn-default"><a href="/back/slide/edit/{{ $slide->id }}">编辑</a></button>
+                    <a href="/back/slide/edit/{{ $slide->id }}" class="btn btn-default">编辑</a>
                     <button type="button" onclick="del({{ $slide->id }})" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
                         <i class="fa fa-times-circle"></i>
                         删除
@@ -61,6 +61,7 @@
                 <div class="modal-footer">
                     <form method="POST" action="/back/slidedel">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="type" value="{{ $type}}">
                         <input type="hidden" name="id" id="delId">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                         </button>

@@ -10,6 +10,7 @@ use App\Entity\OrderItem;
 use Session;
 use App\Entity\User;
 use App\Entity\OpportunityApply;
+use App\Entity\VacationCard;
 
 
 class VacationOpportunityController extends Controller
