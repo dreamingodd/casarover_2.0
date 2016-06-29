@@ -15,17 +15,17 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], function () {
-    Route::get('/', 'SiteController@slide');
+    Route::get('/', 'SlideController@slide');
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
     Route::get('casa/{id?}', 'CasaController@show');
     Route::post('casaEdit', 'CasaController@edit');
     Route::resource('areas','AreaController');
-    Route::get('slide','SiteController@slide');
-    Route::get('slide/add/{type}','SiteController@create');
-    Route::get('slide/edit/{id}','SiteController@edit');
-    Route::post('slidedel','SiteController@del');
-    Route::post('slide/store','SiteController@store');
+    Route::get('slide','SlideController@slide');
+    Route::get('slide/add/{type}','SlideController@create');
+    Route::get('slide/edit/{id}','SlideController@edit');
+    Route::post('slidedel','SlideController@del');
+    Route::post('slide/store','SlideController@store');
     Route::get('recom','RecomController@index');
     Route::post('recom/update','RecomController@update');
     Route::get('casarecom','RecomController@casa');
@@ -53,7 +53,7 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::post('theme/article/del/','ThemeController@articleDel');
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
-    Route::get('areaslide','SiteController@areaSlide');
+    Route::get('areaslide','SlideController@areaSlide');
     Route::get('api/wxorder/list/{page?}/{type?}','Wx\WxOrderController@orderlist');
     Route::post('api/wxorder/del/','Wx\WxOrderController@del');
     Route::get('shareactiv','Wx\Activity18Controller@selcasas');
