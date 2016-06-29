@@ -67,7 +67,7 @@ class WxBaseController extends Controller
     {
         $casa->cheapestPrice = DB::table('wx_room')->where('wx_casa_id', $casa->id)->min('price');
         // Extract room from products.
-        $casa->rooms = $casa->rooms();
+        $casa->rooms = $casa->getRooms();
         if (empty($casa->casa_id)) {
             if (!empty($casa->attachment->filepath)) {
                 $casa->thumbnail = $casa->attachment->filepath;

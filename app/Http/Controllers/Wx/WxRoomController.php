@@ -19,7 +19,7 @@ class WxRoomController extends Controller
      */
     public function show($id) {
         $wxCasaId = $id;
-        $rooms = WxCasa::find($wxCasaId)->rooms();
+        $rooms = WxCasa::find($wxCasaId)->getRooms();
         return view('backstage.wxRoom', compact('rooms', 'wxCasaId'));
     }
 
@@ -41,6 +41,14 @@ class WxRoomController extends Controller
             dd($e);
         }
         return redirect('/back/wx');
+    }
+
+    /**
+     * Del a room(product) completely.
+     * @param int $id
+     */
+    public function del($id) {
+        
     }
 
     /** Temporarily unused. */
@@ -103,6 +111,7 @@ class WxRoomController extends Controller
         }
         $room->name = $rawRoom->name;
         $room->price = $rawRoom->price;
+        $room->type = Product::TYPE_CASA_ROOM;
         $room->save();
         return $room;
     }

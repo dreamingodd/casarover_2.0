@@ -7,11 +7,15 @@
 @section('nav')
     <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
     <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
-    <img  src="/assets/images/logow.png" />
+    <img src="/assets/images/logow.png" />
 @stop
 @section('body')
     <div class="main">
-        <h2>民宿预订</h2>
+        @if($isMe)
+            <h2>民宿预订</h2>
+        @else
+            <h2>申请预订</h2>
+        @endif
         <div class="case clear" >
             <div class="casecon clear">
                 <input type="hidden" id="left" value="{{ $casa->Opportunity->left_quantity }}">
@@ -28,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <form action="/wx/user/booksuccess" method="post">
+        <form action="/wx/user/card/book" method="post">
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
             <input type="hidden" name="id" value="{{ $casa->id }}">
             <input type="hidden" name="number" id="booknumber">
@@ -46,10 +50,10 @@
             </div>
     @if($isMe)
         {{--自己购买--}}
-        <a class="sub" href="tel:{{Config::get('config.help_telephone')}}">提&nbsp;&nbsp;交</a>
+        <button type="submit" class="sub" onclick="send()">提&nbsp;&nbsp;交</button>
     @else
         {{--别人进行申请--}}
-        <button type="submit" class="sub" href="/wx/user/cardForm/{{ $casa->id }}/" onclick="send()">申&nbsp;&nbsp;请</button>
+        <button type="submit" class="sub" onclick="send()">申&nbsp;&nbsp;请</button>
         @endif
         </form>
 

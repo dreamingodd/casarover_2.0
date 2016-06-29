@@ -30,7 +30,7 @@
     </div>
 
     <div class="col-lg-11 alert alert-warning">
-        房间关联订单内容和价格，请慎重修改！如有下单将不能删除！
+        房间关联订单内容和价格，请慎重修改！
     </div>
 
     <div class="col-lg-11">
@@ -81,7 +81,7 @@
             <input type="text" class="roomPrice form-control" aria-describedby="sizing-addon3"
             value=""/>
         </div>
-        <a class="not_complete delRoom" href="#"><span class="glyphicon glyphicon-remove"></span>Delete</a>
+        <a class="delRoom" href="/back/wx/room/del/{{$room->id}}"><span class="glyphicon glyphicon-remove"></span>Delete</a>
     </div>
     <!-- Room input template ends. -->
 

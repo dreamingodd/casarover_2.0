@@ -22,6 +22,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/order/{id}', 'Wx\WxSiteController@order');
     Route::get('/order/detail/{id}', 'Wx\WxOrderController@show');
     Route::post('/order/create', 'Wx\WxOrderController@create');
+    Route::post('/order/del/{id}', 'Wx\WxOrderController@del ');
     Route::get('/pay/wxorder/{id}', 'Wx\WxPayController@prepare');
     Route::get('/collection', 'Wx\WxSiteController@collection');
     Route::post('/collection', 'Wx\WxSiteController@collectionDel');
@@ -44,21 +45,18 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/user/card/', 'Mall\VacationCardController@card');
     Route::get('/user/cardCasa/{id?}', 'Mall\VacationCardController@cardCasa');
 
-    // enter card number
     Route::get('/user/cardEntry', 'Mall\VacationOpportunityController@cardEntry');
-    //  check card number
     Route::get('/api/user/cardCasa/{id?}', 'Mall\VacationOpportunityController@cardCasaJson');
-    Route::get('/user/cardBook/{id}','Mall\VacationOpportunityController@book');
-    // book success
-    Route::post('/user/booksuccess','Mall\VacationOpportunityController@booksuccess');
+    Route::get('/user/card/prepare/book/{id}','Mall\VacationOpportunityController@prepareBook');
+    Route::post('/user/card/book','Mall\VacationOpportunityController@book');
     //Application record
     //to me
     Route::get('/user/card/apply/list', 'Mall\VacationOpportunityController@cardApplyList');
     //my apply
     Route::get('/user/card/myapply/list', 'Mall\VacationOpportunityController@myCardApplyList');
-    //agree or not
-    Route::get('/user/card/apply/agree/{id}', 'Mall\VacationOpportunityController@applyAgree');
-    Route::get('/user/card/apply/refuse/{id}', 'Mall\VacationOpportunityController@applyRefuse');
+    //approve or not
+    Route::get('/user/card/apply/approve/{id}', 'Mall\VacationOpportunityController@applyApprove');
+    Route::get('/user/card/apply/reject/{id}', 'Mall\VacationOpportunityController@applyReject');
 
     // vote activity
     Route::group(['prefix' => 'date'],function () {

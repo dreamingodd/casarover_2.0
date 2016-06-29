@@ -51,4 +51,9 @@
             <img src="{{$qrPath}}" style="width:100%;"/>
         </div>
     @endif
+    <script>
+        @if(Session::get('msg'))
+            alert('{{ Session::get('msg') }}');
+        @endif
+    </script>
 @stop

@@ -18,7 +18,8 @@
                         <img src="{{ $card->photo_path }}" alt="">
                         <div class="article">
                             <h3>NO.{{ $card->number }}</h3>
-                            <p>有效期:{{ $card->startDate }}~{{ $card->expireDate }}</p>
+                            <p>有效期:</p>
+                            <p>{{ $card->startDate }} ~ {{ $card->expireDate }}</p>
                         </div>
                     </div>
                 </a>
