@@ -35,8 +35,8 @@
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody id="app" v-for="article in articles" transition="expand">
-            <tr>
+            <tbody id="app" v-for="article in articles" transition="expand" >
+            <tr v-cloak>
                 <th scope="row">@{{ $index+1 }}</th>
                 <td>@{{ article.name }}</td>
                 <td>@{{ article.houseName }}</td>

@@ -9,7 +9,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('home/themes', 'Api\HomeController@getThemes');
     Route::get('casa/recom/{id?}', 'Api\CasaController@getCasasById');
     Route::get('casa/slim/all', 'Api\CasaController@getSlimCasas');
-    Route::post('/recom/save', 'Api\CasaController@save');
     Route::post('/theme/change', 'Api\ThemeController@setchange');
     Route::post('/wechat/change', 'Api\WechatController@setchange');
     Route::get('theme/article/{id}', 'Api\ThemeController@getThemeArticle');

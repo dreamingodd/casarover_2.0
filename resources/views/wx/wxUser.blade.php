@@ -3,13 +3,7 @@
 @section('head')
     <link href="/assets/css/wxPerson.css" rel="stylesheet"/>
 @stop
-@section('nav')
-    <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
-    <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
-    <img  src="/assets/images/logow.png" />
-@stop
 @section('body')
-    <div class="split"></div>
     @if($tips)
         <div class="tips">
             <p>
@@ -165,11 +159,8 @@
             </div>
         </div>
     </div>
-    <p id="notice">Tip:点击右上方电话按钮进行预约</p>
     <script>
         $(function ($) {
-            $('.glyphicon-minus').hide();
-            $('.maincondetail').hide();
             $('.divider').click(function () {
                 $(this).find('.glyphicon-plus').toggle();
                 $(this).find('.glyphicon-minus').toggle();

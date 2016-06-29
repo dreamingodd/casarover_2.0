@@ -4,11 +4,9 @@
     <link href="/assets/css/wx.css " rel="stylesheet"/>
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
 @stop
-@section('nav')
-    <a href="#"  id="navleft" class="glyphicon glyphicon-home"></a>
+    {{-- <a href="#"  id="navleft" class="glyphicon glyphicon-home"></a>
     <img  src="/assets/images/logow.png" />
-    <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a>
-@stop
+    <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a> --}}
 @section('body')
     <div class="flexslider">
         <ul class="slides">

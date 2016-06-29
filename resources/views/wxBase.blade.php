@@ -13,9 +13,27 @@
     @yield('head')
 </head>
 <body>
-<nav>
+{{-- <nav>
     @yield('nav')
-</nav>
+</nav> --}}
+<header>
+    {{-- 如果要改成固定在顶部加 .fix-top --}}
+    <nav>
+        <div class="nav-left">
+            <a href="/wx">
+                <img src="/assets/images/header/home.png" height="100%" alt="" />
+            </a>
+        </div>
+        <div class="logo">
+            <img  src="/assets/images/logow.png" height="100%"/>
+        </div>
+        <div class="nav-right">
+            <a href="/wx/user">
+                <img src="/assets/images/header/user.png" height="100%" alt="" />
+            </a>
+        </div>
+    </nav>
+</header>
     @yield('body')
 </body>
 </html>

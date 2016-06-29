@@ -4,12 +4,7 @@
     <link href="/assets/css/wxDetails.css" rel="stylesheet"/>
 @stop
 @section('body')
-    @section('nav')
-        <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
-        <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a>
-        <img  src="/assets/images/logow.png" />
-    @stop
-    <img style="margin-top:60px; width:100%; max-height:300px;" src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$wxCasa->thumbnail}}"/>
+    <img  src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$wxCasa->thumbnail}}" width="100%"/>
     </div>
     <div class="main">
         <div class="header">
@@ -72,10 +67,6 @@
     <input type="hidden" value="{{$wxCasa->id}}" id="casaId">
     <a href="/wx/order/{{$wxCasa->id}}" class="btn">立即购买</a>
     <script>
-        $('.flexslider').flexslider({
-            directionNav: true,
-            pauseOnAction: false
-        });
         function iscollection() {
             if($('#iscollection').val()==1){
                 $('.collected').hide();

@@ -31,37 +31,6 @@ class CasaController extends Controller
         }
         return response()->json($casas);
     }
-
-    public function save(Request $request)
-    {
-        $areaIds = Area::find($request->city)->casaRecoms;
-        $this->reset($areaIds);
-        if(!count($areaIds))
-        {
-            $arealast = Area::where('parentid', $request->city)->where('islast', 1)->get();
-            $this->reset($arealast);
-        }
-        foreach($request->casa as $casa)
-        {
-            $data = Casa::find($casa);
-            $area = $data->area;
-            $data->areaRecoms()->save($area);
-        }
-        return response()->json(['msg'=>'ok']);
-    }
-
-//    对area_casa中的进行重置
-    public function reset($areaIds)
-    {
-      foreach($areaIds as $areaId)
-      {
-          foreach($areaId->casaRecoms as $delId)
-          {
-              $delId->pivot->delete();
-          }
-      }
-    }
-
     /**
      * Get (just) id, code, name of all of the casas.
      */

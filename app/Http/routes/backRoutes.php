@@ -16,19 +16,36 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], function () {
     Route::get('/', 'SlideController@slide');
-    Route::get('casaList/{deleted?}', 'CasaController@showList');
-    Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
-    Route::get('casa/{id?}', 'CasaController@show');
-    Route::post('casaEdit', 'CasaController@edit');
-    Route::resource('areas','AreaController');
     Route::get('slide','SlideController@slide');
     Route::get('slide/add/{type}','SlideController@create');
     Route::get('slide/edit/{id}','SlideController@edit');
     Route::post('slidedel','SlideController@del');
     Route::post('slide/store','SlideController@store');
+
     Route::get('recom','RecomController@index');
     Route::post('recom/update','RecomController@update');
     Route::get('casarecom','RecomController@casa');
+    Route::post('api/recom/save', 'RecomController@save');
+
+    Route::get('theme','ThemeController@index');
+    Route::get('theme/add','ThemeController@create');
+    Route::post('theme/store','ThemeController@store');
+    Route::get('theme/edit/{id}','ThemeController@edit');
+    Route::post('theme/del','ThemeController@del');
+    Route::get('theme/article','ThemeController@article');
+    Route::get('theme/article/add','ThemeController@articleCreate');
+    Route::post('theme/article/store','ThemeController@articleStore');
+    Route::get('theme/article/edit/{id}','ThemeController@articleEdit');
+    Route::post('theme/article/del/','ThemeController@articleDel');
+
+    Route::get('casaList/{deleted?}', 'CasaController@showList');
+    Route::get('casaDel/{id}/{deleted}', 'CasaController@del');
+    Route::get('casa/realDel/{id}/', 'CasaController@realDel');
+    Route::get('casa/{id?}', 'CasaController@show');
+    Route::post('casaEdit', 'CasaController@edit');
+    Route::resource('areas','AreaController');
+
+
     Route::get('casaList/{deleted?}', 'CasaController@showList');
     Route::get('casaEdit', 'CasaController@casaEdit');
     Route::get('participateList', 'WechatController@participateList');
@@ -41,16 +58,6 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('wechatDel/{id?}/{deleted?}', 'WechatController@del');
     Route::post('wechatEdit/{id?}', 'WechatController@wechatEdits');
     Route::get('wechatEdit/{id?}', 'WechatController@wechatEdit');
-    Route::get('theme','ThemeController@index');
-    Route::get('theme/add','ThemeController@create');
-    Route::post('theme/store','ThemeController@store');
-    Route::get('theme/edit/{id}','ThemeController@edit');
-    Route::post('theme/del','ThemeController@del');
-    Route::get('theme/article','ThemeController@article');
-    Route::get('theme/article/add','ThemeController@articleCreate');
-    Route::post('theme/article/store','ThemeController@articleStore');
-    Route::get('theme/article/edit/{id}','ThemeController@articleEdit');
-    Route::post('theme/article/del/','ThemeController@articleDel');
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
     Route::get('areaslide','SlideController@areaSlide');
