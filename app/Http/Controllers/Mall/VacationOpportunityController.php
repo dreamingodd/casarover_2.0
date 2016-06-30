@@ -158,9 +158,9 @@ class VacationOpportunityController extends BaseController
             $order = $this->createCasaOrder($apply->user_id,
                                             $apply->quantity,
                                             OrderItem::find($apply->order_item_id));
-            return redirect('/wx/user/card/apply/list')->with(['msg' => '操作成功']);
+            return redirect('/wx/user/card/applied/list')->with(['msg' => '操作成功']);
         } else {
-          return redirect('/wx/user/card/apply/list')->with(['msg' => '房间剩余数量不足']);
+          return redirect('/wx/user/card/applied/list')->with(['msg' => '房间剩余数量不足']);
         }
     }
     /**
@@ -172,7 +172,7 @@ class VacationOpportunityController extends BaseController
         $apply = OpportunityApply::where('user_id',Session::get('user_id'))->where('id', $id)->first();
         $apply->status = 2;
         $apply->save();
-        return redirect('/wx/user/card/apply/list');
+        return redirect('/wx/user/card/applied/list');
     }
 
     /**

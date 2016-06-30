@@ -95,11 +95,16 @@ class WxOrderController extends BaseController
     /**
      * @param int $id
      */
+    const TYPE_CASA_ROOM = 1;
     public function show($id)
     {
         $order = Order::find($id);
         $qrFile = null;
-        $orderPhone = config('casarover.help_telephone');
+        if($order->pay_type == Order::PAY_TYPE_CARD){
+            $orderPhone = $order->orderItems[0]->product->casaMessage->phone;
+        }else{
+            $orderPhone = config('casarover.help_telephone');
+        }
         if ($order->type == Order::TYPE_CASA) {
             $qrFile = public_path() . "/assets/phpqrcode/temp/order" . $order->id . ".png";
             $qrPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order" . $order->id . ".png";

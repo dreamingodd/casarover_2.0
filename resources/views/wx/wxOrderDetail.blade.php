@@ -16,7 +16,7 @@
     3、消费度假卡订单，显示内容不同的地方是，订单金额显示为度假卡消费，应该显示一下消费的卡号是多少，这时候的预订电话是民宿主人的预订电话 --}}
 
     {{-- nornal casa order --}}
-    @if($order->type == \App\Entity\Order::TYPE_CASA)
+    @if($order->type == \App\Entity\Order::TYPE_CASA && $order->pay_type != \App\Entity\Order::PAY_TYPE_CARD )
         <div class="main">
             @if ((empty($order->casaOrder->reserve_comment)))
                 <p class="call-me">
@@ -92,14 +92,45 @@
             <p>下单时间：{{$order->created_at}}</p>
         </div>
             <br/>
-    @endif
-<<<<<<< HEAD
-
-=======
-    <script>
-        @if(Session::get('msg'))
-            alert('{{ Session::get('msg') }}');
+    {{-- buy casa use vacation card --}}
+    @elseif($order->pay_type == \App\Entity\Order::PAY_TYPE_CARD)
+        <div class="main">
+            @if ((empty($order->casaOrder->reserve_comment)))
+                <p class="call-me">
+                    请尽快电话预约
+                </p>
+            @endif
+            <h2>
+                {{$order->name}}
+            </h2>
+            <h3>订单编号：{{$order->order_id}}</h3>
+            <table class="table table-hover">
+                <tr class="goods-nav">
+                    <th>商品</th>
+                    <th>数量</th>
+                    <th>价格</th>
+                </tr>
+                @foreach ($order->orderItems as $item)
+                <tr>
+                    <td>{{$item->name}}</td>
+                    <td>{{$item->quantity}}</td>
+                    <td>{{$item->price}}</td>
+                </tr>
+                @endforeach
+            </table>
+            <p class="order-pay">度假卡支付：<i>{{$order->total}}元</i></p>
+            <p>下单时间：{{$order->created_at}}</p>
+                @if (($order->casaOrder->reserve_comment))
+                    <p>预约信息：{{$order->casaOrder->reserve_comment}}</p>
+                @endif
+        </div>
+            <br/>
+            @if ($order->reserve_status != \App\Entity\CasaOrder::RESERVE_STATUS_CONSUMED && $order->status == 1)
+                <div class="qrcode">
+                    <p>消费时展示此二维码</p>
+                    <img src="{{$qrPath}}" style="width:100%;"/>
+                </div>
+            @endif
         @endif
-    </script>
->>>>>>> bfd246fce982abfcff5a6215fe5c86c63fc8ea00
+
 @stop

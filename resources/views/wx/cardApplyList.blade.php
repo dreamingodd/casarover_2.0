@@ -25,14 +25,22 @@
                             <span>申请间数: <i>{{ $key->quantity }}</i></span>
                         </div>
                         @if($isMe)
-                            <p>{{ $key->statusWords }}</p>
+                            <p>
+                                {{ $key->statusWords }}
+                                @if($key->status == 1)
+                                    <span>
+                                        已生成订单
+                                    </span>
+                                @endif
+                            </p>
+                            {{-- 如果已经通过 --}}
                         @else
                             @if($key->status)
                                 <p>{{ $key->statusWords }}</p>
                             @else
                                 <div class="handle">
-                                    <a href="/wx/user/card/apply/agree/{{ $key->id }}" class="btn btn-success">同意</a>
-                                    <a href="/wx/user/card/apply/refuse/{{ $key->id }}" class="btn btn-danger">拒绝</a>
+                                    <a href="/wx/user/card/apply/approve/{{ $key->id }}" class="btn btn-success">同意</a>
+                                    <a href="/wx/user/card/apply/reject/{{ $key->id }}" class="btn btn-danger">拒绝</a>
                                 </div>
                             @endif
                         @endif
