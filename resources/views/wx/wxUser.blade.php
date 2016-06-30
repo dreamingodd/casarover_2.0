@@ -84,8 +84,8 @@
             <div class="maincondetail">
                 <a href="user/cards" style="border: none">我的度假卡</a>
                 <a href="user/cardEntry">使用他人度假卡</a>
-                <a href="user/card/applied/list">我的申请<i></i></a>
-                <a href="user/card/apply/list">他人的申请<i></i></a>
+                <a href="user/card/apply/list">我的申请<i></i></a>
+                <a href="user/card/applied/list">他人的申请<i></i></a>
             </div>
         </div>
         @endif

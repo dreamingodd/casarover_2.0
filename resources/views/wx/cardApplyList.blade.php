@@ -24,7 +24,7 @@
                                 {{ $key->statusWords }}
                                 @if($key->status == 1)
                                     <span>
-                                        <a href="#">立刻预订</a>
+                                        已生成订单
                                     </span>
                                 @endif
                             </p>
@@ -34,8 +34,8 @@
                                 <p>{{ $key->statusWords }}</p>
                             @else
                                 <div class="handle">
-                                    <a href="/wx/user/card/apply/agree/{{ $key->id }}" class="btn btn-success">同意</a>
-                                    <a href="/wx/user/card/apply/refuse/{{ $key->id }}" class="btn btn-danger">拒绝</a>
+                                    <a href="/wx/user/card/apply/approve/{{ $key->id }}" class="btn btn-success">同意</a>
+                                    <a href="/wx/user/card/apply/reject/{{ $key->id }}" class="btn btn-danger">拒绝</a>
                                 </div>
                             @endif
                         @endif

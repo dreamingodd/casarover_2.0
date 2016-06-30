@@ -31,6 +31,11 @@ class Product extends Model
         return null;
     }
 
+    public function casaMessage()
+    {
+        return $this->hasOne('App\Entity\Wx\WxCasa','id','parent_id');
+    }
+
     public function stock() {
         return $this->hasOne('App\Entity\Stock','product_id','id');
     }

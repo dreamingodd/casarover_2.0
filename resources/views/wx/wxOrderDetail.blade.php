@@ -16,7 +16,7 @@
     3、消费度假卡订单，显示内容不同的地方是，订单金额显示为度假卡消费，应该显示一下消费的卡号是多少，这时候的预订电话是民宿主人的预订电话 --}}
 
     {{-- nornal casa order --}}
-    @if($order->type == \App\Entity\Order::TYPE_CASA)
+    @if($order->type == \App\Entity\Order::TYPE_CASA && $order->pay_type != \App\Entity\Order::PAY_TYPE_CARD )
         <div class="main">
             @if ((empty($order->casaOrder->reserve_comment)))
                 <p class="call-me">
@@ -92,6 +92,7 @@
             <p>下单时间：{{$order->created_at}}</p>
         </div>
             <br/>
+    {{-- buy casa use vacation card --}}
     @elseif($order->pay_type == \App\Entity\Order::PAY_TYPE_CARD)
         <div class="main">
             @if ((empty($order->casaOrder->reserve_comment)))
@@ -117,13 +118,7 @@
                 </tr>
                 @endforeach
             </table>
-            @if (!empty($order->casaOrder->wxScoreVariation->score))
-                <p style="text-align: right;">
-                    订单总额：{{$order->total - ($order->casaOrder->wxScoreVariation->score * 0.1)}}元<br/>
-                    积分抵扣：{{$order->casaOrder->wxScoreVariation->score * 0.1}}元
-                </p>
-            @endif
-            <p class="order-pay">订单实付：<i>{{$order->total}}元</i></p>
+            <p class="order-pay">度假卡支付：<i>{{$order->total}}元</i></p>
             <p>下单时间：{{$order->created_at}}</p>
                 @if (($order->casaOrder->reserve_comment))
                     <p>预约信息：{{$order->casaOrder->reserve_comment}}</p>
