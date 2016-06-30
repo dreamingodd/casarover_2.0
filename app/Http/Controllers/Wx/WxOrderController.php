@@ -28,10 +28,6 @@ class WxOrderController extends BaseController
     const ORDER_CONSUME_PREFIX = "积分抵扣 - ";
     /** @var string ORDER_AWARD_PREFIX 完成订单奖励 - */
     const ORDER_AWARD_PREFIX = "完成订单奖励 - ";
-    /** @var string ORDER_SUFFIX XXX的订单*/
-    const ORDER_SUFFIX = " 的订单";
-    /** @var string ORDER_PREFIX 民宿订单 - */
-    const ORDER_PREFIX = "民宿订单 - ";
 
     /**
     * 1.Update user info.
@@ -62,7 +58,7 @@ class WxOrderController extends BaseController
             $order = new Order();
             $wxCasa = WxCasa::find($request->input('wxCasaId'));
             $order->user_id = $userId;
-            $order->name = self::ORDER_PREFIX . $wxCasa->name;
+            $order->name = Order::CASA_ORDER_PREFIX . $wxCasa->name;
             $order->type = Order::TYPE_CASA;
             // Id is needed for wx order item creation
             $order->save();
@@ -78,7 +74,7 @@ class WxOrderController extends BaseController
             $casaOrder->save();
             // 民宿订单展示图片
             $order->photo_path = Config::get('config.photo_folder') . $wxCasa->thumbnail();
-            $order->order_id = Config::get("casarover.wx_shopid") . '-' . $order->id;
+            $order->generateOrderId();
             $order->total = $total;
             $order->save();
 

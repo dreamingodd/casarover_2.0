@@ -42,7 +42,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/api/cardCasa/{id}','Mall\VacationCardController@show');
     Route::post('/api/cardCasaBuy','Mall\VacationCardController@buy');
     //  card message
-    Route::get('/user/card/', 'Mall\VacationCardController@card');
+    Route::get('/user/cards', 'Mall\VacationCardController@cards');
     Route::get('/user/cardCasa/{id?}', 'Mall\VacationCardController@cardCasa');
 
     Route::get('/user/cardEntry', 'Mall\VacationOpportunityController@cardEntry');
@@ -50,10 +50,8 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/user/card/prepare/book/{id}','Mall\VacationOpportunityController@prepareBook');
     Route::post('/user/card/book','Mall\VacationOpportunityController@book');
     //Application record
-    //to me
-    Route::get('/user/card/apply/list', 'Mall\VacationOpportunityController@cardApplyList');
-    //my apply
-    Route::get('/user/card/myapply/list', 'Mall\VacationOpportunityController@myCardApplyList');
+    Route::get('/user/card/applied/list', 'Mall\VacationOpportunityController@appliedList');
+    Route::get('/user/card/apply/list', 'Mall\VacationOpportunityController@applyList');
     //approve or not
     Route::get('/user/card/apply/approve/{id}', 'Mall\VacationOpportunityController@applyApprove');
     Route::get('/user/card/apply/reject/{id}', 'Mall\VacationOpportunityController@applyReject');

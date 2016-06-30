@@ -25,7 +25,7 @@
                 <th>订单信息</th>
                 <th>用户信息</th>
                 <th>
-                    预约状态
+                    状态
                     {{--<select class="form-control" v-model="type" v-on:change="getOrder">--}}
                     {{--@foreach($allstatus as $key => $status)--}}
                     {{--<option value="{{ $key }}">{{ $status }}</option>--}}
@@ -59,6 +59,7 @@
                                 <span v-if="order.reserveStatus == '已预约'" style="color:#33CC66; font-weight:bold;">@{{ order.reserveStatus }}</span>
                                 <span v-else>@{{ order.reserveStatus }}</span>
                             <br />
+                            <template v-if="order.type=={{\App\Entity\Order::TYPE_CASA}}">
                                 <template v-if="!order.reserveComment">
                                     填写预约时间
                                     <p class="text-danger">(时间格式是2016年5月6日)</p>
@@ -72,6 +73,7 @@
                                     <input type="text" class="" id="order-time"  name="message" value="@{{ order.reserveComment }}">
                                     <button type="submit" class="btn btn-default btn-xs">保存</button>
                                 </form>
+                            </template>
                         </td>
                     </tr>
                 </template>

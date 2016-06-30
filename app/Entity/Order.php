@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Config;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -39,11 +41,24 @@ class Order extends Model
     /** @var int 已完成 */
     const STATUS_COMPLETED = 4;
 
+    /** @var string ORDER_PREFIX 民宿订单 - */
+    const CASA_ORDER_PREFIX = "民宿订单 - ";
+
     protected $table = "order";
     protected $fillable = array(
         'id', 'user_id', 'order_id', 'type', 'pay_type', 'name', 'pay_id',
         'total', 'status', 'deleted_at', 'created_at', 'updated_at','photo_path'
     );
+
+    /** Generate an orderId for payment Identity. */
+    public function generateOrderId() {
+        if ($this->id) {
+            $this->order_id = Config::get('casarover.wx_shopid') . '-' . $this->id;
+        } else {
+            throw Exception('Save first! Otherwise there\'s no id');
+        }
+
+    }
 
     /**
      * The user who make this order.
