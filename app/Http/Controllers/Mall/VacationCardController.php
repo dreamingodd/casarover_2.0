@@ -180,11 +180,16 @@ class VacationCardController extends BaseController
             return response()->json(['code' => 503, 'msg' => '网络错误，请刷新重试']);
         }
     }
-    //  card list belong user
+    /**
+     * Card list belong to current user
+     */
     public function card()
     {
         $userId = Session::get('user_id');
-        $cards=Order::where('user_id', $userId)->where('type', Order::TYPE_VACATION_CARD)->get();
+        $cards = Order::where('user_id', $userId)
+                      ->where('type', Order::TYPE_VACATION_CARD)
+                      ->where('status', Order::STATUS_PAYED)
+                      ->get();
         foreach($cards as $card)
         {
             $card->number = $card->VacationCard->card_no;

@@ -30,7 +30,7 @@ class WxCasaController extends BaseController
             $wxCasas = WxCasa::orderBy('id', 'desc')->get();
         }
         foreach ($wxCasas as $casa) {
-            $rooms = $casa->wxRooms;
+            $rooms = $casa->getRooms();
             $casa->roomString = "";
             for ($i = 0; $i < count($rooms); $i++) {
                 $room = $rooms[$i];

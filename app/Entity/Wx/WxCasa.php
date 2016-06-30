@@ -15,6 +15,17 @@ class WxCasa extends Model
     protected $dates = ["deleted_at"];
     protected $hidden = ['deleted_at','created_at','updated_at','deleted_at'];
 
+    public function getRooms() {
+        $products = $this->products;
+        $rooms = array();
+        foreach($products as $p) {
+            if ($p->type == Product::TYPE_CASA_ROOM) {
+                array_push($rooms, $p);
+            }
+        }
+        return $rooms;
+    }
+
     public function attachment() {
         return $this->belongsTo('App\Attachment');
     }
@@ -26,16 +37,6 @@ class WxCasa extends Model
     }
     public function products() {
         return  $this->hasMany('App\Entity\Product', 'parent_id', 'id');
-    }
-    public function rooms() {
-        $products = $this->products;
-        $rooms = array();
-        foreach($products as $p) {
-            if ($p->type == Product::TYPE_CASA_ROOM) {
-                array_push($rooms, $p);
-            }
-        }
-        return $rooms;
     }
 
     // 民宿主人

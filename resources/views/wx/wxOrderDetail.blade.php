@@ -93,5 +93,13 @@
         </div>
             <br/>
     @endif
+<<<<<<< HEAD
 
+=======
+    <script>
+        @if(Session::get('msg'))
+            alert('{{ Session::get('msg') }}');
+        @endif
+    </script>
+>>>>>>> bfd246fce982abfcff5a6215fe5c86c63fc8ea00
 @stop
