@@ -16,9 +16,6 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('registerMember/','Wx\WxSiteController@registerMember');
     Route::get('/orderdetails', 'Wx\WxSiteController@orderDetails');
     Route::get('/confirm', 'Wx\WxSiteController@confirm');
-    Route::get('/bill', function(){
-        return view('wx.wxBill');
-    });
     Route::get('/order/{id}', 'Wx\WxSiteController@order');
     Route::get('/order/detail/{id}', 'Wx\WxOrderController@show');
     Route::post('/order/create', 'Wx\WxOrderController@create');

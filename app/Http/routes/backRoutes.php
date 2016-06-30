@@ -69,8 +69,8 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
 
     // 用户管理
     Route::get('system/user','UserController@showList');
-    Route::get('system/user/test/register/{id}/{page}','UserController@registerTester');
-    Route::get('system/user/test/unregister/{id}/{page}','UserController@unregisterTester');
+    Route::get('system/user/test/register/{id}/{page}/{searchText}/{hasPhone}','UserController@registerTester');
+    Route::get('system/user/test/unregister/{id}/{page}/{searchText}/{hasPhone}','UserController@unregisterTester');
 
     // 度假卡参加民宿管理
     Route::get('vacation', 'Wx\WxCasaController@vacation');

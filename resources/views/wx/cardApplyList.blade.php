@@ -3,9 +3,14 @@
 @section('head')
     <link href="/assets/css/cardApply.css" rel="stylesheet"/>
 @stop
+@section('nav')
+    <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
+    <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
+    <img  src="/assets/images/logow.png" />
+@stop
 @section('body')
     <div class="main">
-        {{-- <h2>申请记录</h2> --}}
+        <h2>申请记录</h2>
         @foreach($applyList as $key)
             <div class="case clear" >
                 <div class="info">
@@ -20,15 +25,7 @@
                             <span>申请间数: <i>{{ $key->quantity }}</i></span>
                         </div>
                         @if($isMe)
-                            <p>
-                                {{ $key->statusWords }}
-                                @if($key->status == 1)
-                                    <span>
-                                        <a href="#">立刻预订</a>
-                                    </span>
-                                @endif
-                            </p>
-                            {{-- 如果已经通过 --}}
+                            <p>{{ $key->statusWords }}</p>
                         @else
                             @if($key->status)
                                 <p>{{ $key->statusWords }}</p>
