@@ -26,7 +26,13 @@ $(function(){
                 @if ($hasPhone)
                     checked
                 @endif
-         /> <a href="/back/system/user?hasPhone=1">仅显示带有手机信息的用户</a>&nbsp;
+        />
+        @if ($hasPhone)
+            <a href="/back/system/user?hasPhone=0">仅显示带有手机信息的用户</a>
+        @else
+            <a href="/back/system/user?hasPhone=1">仅显示带有手机信息的用户</a>
+        @endif
+        &nbsp;
         <input id="searchText" value="{{$searchText or ''}}"/>
         <button id="searchBtn">搜索</button>
     </div>

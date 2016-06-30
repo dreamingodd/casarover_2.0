@@ -1,0 +1,13 @@
+insert into `order`(user_id,order_id,type,pay_type,pay_id,total,status,name)
+values(8888,'1284592101-125',2,1,'40081520012016052562840969XX',3450,1,'度假卡');
+
+
+insert into order_item values(null, 125, 128, '小木森森【感恩粉丝回馈中】', '', 12, 2);
+insert into order_item values(null, 125, 129, '沐心坊', '', 12, 1);
+insert into order_item values(null, 125, 130, '谁的花园', '', 12, 4);
+insert into order_item values(null, 125, 131, '莫干山居图', '', 12, 6);
+
+insert into opportunity values(137, 2);
+insert into opportunity values(138, 1);
+insert into opportunity values(139, 4);
+insert into opportunity values(140, 6);
