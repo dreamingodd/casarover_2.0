@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mall;
 use DB;
 use Log;
 use Exception;
+use App\Entity\Order;
 use App\Entity\VacationCard;
 use App\Entity\OrderItem;
 use App\Entity\User;
@@ -102,6 +103,7 @@ class VacationOpportunityController extends BaseController
                 //跳转到我的申请列表
                 return redirect('/wx/user/card/myapply/list')->with(['msg' => '申请已提交']);
             }
+            DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             Log::error($e);
@@ -195,6 +197,7 @@ class VacationOpportunityController extends BaseController
         }
         return $result;
     }
+    /***/
     private function checkLeftNums($apply,$id)
     {
         $orderItemId = OpportunityApply::find($id)->order_item_id;
@@ -214,7 +217,8 @@ class VacationOpportunityController extends BaseController
     /**
      *
      */
-    private function createCasaOrder() {
+    private function createCasaOrder($userId, $name, $wxCasaId) {
+        $order = new Order();
 
     }
 }

@@ -126,24 +126,31 @@ class WxOrderController extends BaseController
      */
     public function orderlist($page = 1, $type = 0)
     {
-        $orderlist = Order::orderBy('id', 'desc')->paginate(20);
-        foreach($orderlist as $order)
-        {
-            $order->time = $order->created_at->format('Y-m-d H:i');
-            $order->paystatus = $this->orderstatus(0, $order->status);
-            $order->reserveStatus = $this->orderstatus(1, $order->casaOrder->reserve_status);
-            $order->goods = $order->orderItems;
-            foreach($order->goods as $good)
+        try {
+            $orderlist = Order::orderBy('id', 'desc')->paginate(20);
+            foreach($orderlist as $order)
             {
-                $good->name = Product::find($good->product->id)->name;
+                $order->time = $order->created_at->format('Y-m-d H:i');
+                $order->paystatus = $this->orderstatus(0, $order->status);
+                $order->goods = $order->orderItems;
+                foreach($order->goods as $good)
+                {
+                    $good->name = Product::find($good->product->id)->name;
+                }
+                $order->username = $order->user->realname;
+                $order->userphone = $order->user->cellphone;
+                $order->nickname = $order->user->nickname;
+                if ($order->type == Order::TYPE_CASA) {
+                    $order->reserveStatus = $this->orderstatus(1, $order->casaOrder->reserve_status);
+                    $order->reserveComment = $order->casaOrder->reserve_comment;
+                }
             }
-            $order->username = $order->user->realname;
-            $order->userphone = $order->user->cellphone;
-            $order->nickname = $order->user->nickname;
-            $order->reserveComment = $order->casaOrder->reserve_comment;
+            $data = $this->jsondata('200', '获取成功', $orderlist);
+            return response()->json($data);
+        } catch (Exception $e) {
+            Log::error($e);
+            return $e;
         }
-        $data = $this->jsondata('200', '获取成功', $orderlist);
-        return response()->json($data);
     }
 
     /**
