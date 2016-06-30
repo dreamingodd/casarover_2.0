@@ -92,14 +92,50 @@
             <p>下单时间：{{$order->created_at}}</p>
         </div>
             <br/>
-    @endif
-<<<<<<< HEAD
-
-=======
-    <script>
-        @if(Session::get('msg'))
-            alert('{{ Session::get('msg') }}');
+    @elseif($order->pay_type == \App\Entity\Order::PAY_TYPE_CARD)
+        <div class="main">
+            @if ((empty($order->casaOrder->reserve_comment)))
+                <p class="call-me">
+                    请尽快电话预约
+                </p>
+            @endif
+            <h2>
+                {{$order->name}}
+            </h2>
+            <h3>订单编号：{{$order->order_id}}</h3>
+            <table class="table table-hover">
+                <tr class="goods-nav">
+                    <th>商品</th>
+                    <th>数量</th>
+                    <th>价格</th>
+                </tr>
+                @foreach ($order->orderItems as $item)
+                <tr>
+                    <td>{{$item->name}}</td>
+                    <td>{{$item->quantity}}</td>
+                    <td>{{$item->price}}</td>
+                </tr>
+                @endforeach
+            </table>
+            @if (!empty($order->casaOrder->wxScoreVariation->score))
+                <p style="text-align: right;">
+                    订单总额：{{$order->total - ($order->casaOrder->wxScoreVariation->score * 0.1)}}元<br/>
+                    积分抵扣：{{$order->casaOrder->wxScoreVariation->score * 0.1}}元
+                </p>
+            @endif
+            <p class="order-pay">订单实付：<i>{{$order->total}}元</i></p>
+            <p>下单时间：{{$order->created_at}}</p>
+                @if (($order->casaOrder->reserve_comment))
+                    <p>预约信息：{{$order->casaOrder->reserve_comment}}</p>
+                @endif
+        </div>
+            <br/>
+            @if ($order->reserve_status != \App\Entity\CasaOrder::RESERVE_STATUS_CONSUMED && $order->status == 1)
+                <div class="qrcode">
+                    <p>消费时展示此二维码</p>
+                    <img src="{{$qrPath}}" style="width:100%;"/>
+                </div>
+            @endif
         @endif
-    </script>
->>>>>>> bfd246fce982abfcff5a6215fe5c86c63fc8ea00
+
 @stop

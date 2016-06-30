@@ -25,6 +25,8 @@ class Order extends Model
     const PAY_TYPE_WX = 1;
     /** @var int 支付宝 */
     const PAY_TYPE_ALI = 2;
+    /** @var int 度假卡 */
+    const PAY_TYPE_CARD = 3;
 
     /** @var int 未支付 */
     const STATUS_UNPAYED = 0;
