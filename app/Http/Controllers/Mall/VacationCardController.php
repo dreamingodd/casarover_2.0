@@ -183,12 +183,13 @@ class VacationCardController extends BaseController
     /**
      * Card list belong to current user
      */
-    public function card()
+    public function cards()
     {
         $userId = Session::get('user_id');
         $cards = Order::where('user_id', $userId)
                       ->where('type', Order::TYPE_VACATION_CARD)
                       ->where('status', Order::STATUS_PAYED)
+                      ->orderBy('id', 'desc')
                       ->get();
         foreach($cards as $card)
         {

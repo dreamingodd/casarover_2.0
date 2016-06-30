@@ -88,10 +88,10 @@
                 <span class="glyphicon glyphicon-plus"></span>
             </p>
             <div class="maincondetail">
-                <a href="user/card" style="border: none">我的度假卡</a>
+                <a href="user/cards" style="border: none">我的度假卡</a>
                 <a href="user/cardEntry">使用他人度假卡</a>
-                <a href="user/cardApply">我的申请<i>(1)</i></a>
-                <a href="user/cardApply">他人的申请<i>(1)</i></a>
+                <a href="user/card/applied/list">我的申请<i></i></a>
+                <a href="user/card/apply/list">他人的申请<i></i></a>
             </div>
         </div>
         @endif

@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Mall;
 
 use DB;
 use Log;
+use Session;
 use Exception;
 use App\Entity\Order;
+use App\Entity\CasaOrder;
+use App\Entity\Opportunity;
 use App\Entity\VacationCard;
 use App\Entity\OrderItem;
 use App\Entity\User;
 use App\Entity\OpportunityApply;
+use App\Entity\Wx\WxCasa;
 use App\Http\Controllers\BaseController;
 
 use Illuminate\Http\Request;
-use Session;
 
 
 /**
@@ -78,16 +81,22 @@ class VacationOpportunityController extends BaseController
 
             $orderItem = OrderItem::find($request->id);
             $ownerId = $orderItem->order->user->id;
+            $quantity = $request->number;
 
             if ($applicantId == $ownerId) {
                 // 自己的卡，直接创建订单！
-                $this->createCasaOrder();
-                return redirect('/wx/order/detail/153')->with(['msg' => '订单已创建，请使用电话预约完成预定！']);
+                $order = $this->createCasaOrder($applicantId,
+                                                $quantity,
+                                                $orderItem);
+                // 同时把机会减掉
+                $this->consumeOpportunity($orderItem->id, $quantity);
+                DB::commit();
+                return redirect('/wx/order/detail/' . $order->id)
+                        ->with(['msg' => '订单已创建，请使用电话预约完成预定！']);
             } else {
                 // 别人的卡，提交申请
-                /**
-                 * 申请人user_id
-                 * 被申请人card_user_id
+                /**申请人user_id
+                 * 被申请人owner_id
                  * 图片 photo_path
                  * 卡拥有者民宿 order_item_id
                  * 申请数量 quantity
@@ -95,15 +104,15 @@ class VacationOpportunityController extends BaseController
                  */
                 OpportunityApply::create([
                     'user_id' => Session::get('user_id'),
-                    'card_user_id' => $ownerId,
+                    'owner_id' => $ownerId,
                     'order_item_id' => $orderItem->id,
                     'quantity' => $request->number,
                     'status' => 0
                 ]);
+                DB::commit();
                 //跳转到我的申请列表
                 return redirect('/wx/user/card/myapply/list')->with(['msg' => '申请已提交']);
             }
-            DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             Log::error($e);
@@ -114,24 +123,24 @@ class VacationOpportunityController extends BaseController
     /**
      * 被申请的列表
      */
-    public function cardApplyList()
+    public function appliedList()
     {
-        $applyList = OpportunityApply::where('card_user_id',Session::get('user_id'))->orderBy('id','desc')->get();
+        $applyList = OpportunityApply::where('owner_id',Session::get('user_id'))->orderBy('id','desc')->get();
         //为了判断是否显示同意和否定按钮
         $isMe = 0;
         $applyList = $this->turnApplyList($applyList);
-        return view('wx.cardApply',compact('applyList','isMe'));
+        return view('wx.cardApplyList',compact('applyList','isMe'));
     }
 
     /**
      * 用户自己申请的列表
      */
-    public function myCardApplyList()
+    public function applyList()
     {
         $applyList = $applyList = OpportunityApply::where('user_id',Session::get('user_id'))->orderBy('id','desc')->get();
         $applyList = $this->turnApplyList($applyList);
         $isMe = 1;
-        return view('wx.cardApply',compact('applyList','isMe'));
+        return view('wx.cardApplyList',compact('applyList','isMe'));
     }
     /**
      * Approve another user's apply for opportunity and create a payed by vacation card order.
@@ -146,12 +155,11 @@ class VacationOpportunityController extends BaseController
             $apply->status = 1;
             $apply->save();
             //创建申请的订单
-
-
+            $order = $this->createCasaOrder($apply->user_id,
+                                            $apply->quantity,
+                                            OrderItem::find($apply->order_item_id));
             return redirect('/wx/user/card/apply/list')->with(['msg' => '操作成功']);
-        }
-        else
-        {
+        } else {
           return redirect('/wx/user/card/apply/list')->with(['msg' => '房间剩余数量不足']);
         }
     }
@@ -176,7 +184,7 @@ class VacationOpportunityController extends BaseController
         foreach($applyList as $apply)
         {
             $orderItem = OrderItem::find($apply->order_item_id);
-            $user = User::find($apply->card_user_id);
+            $user = User::find($apply->owner_id);
             $apply->casaname = $orderItem->name;
             $apply->quantity = $apply->quantity;
             $apply->username = $user->realname;
@@ -198,7 +206,7 @@ class VacationOpportunityController extends BaseController
         return $result;
     }
     /***/
-    private function checkLeftNums($apply,$id)
+    private function checkLeftNums($apply, $id)
     {
         $orderItemId = OpportunityApply::find($id)->order_item_id;
         $left_order = OrderItem::find($orderItemId);
@@ -215,10 +223,49 @@ class VacationOpportunityController extends BaseController
         }
     }
     /**
-     *
+     * Create a card payed order including an Order, an OrderItem(just one) and a casa order.
      */
-    private function createCasaOrder($userId, $name, $wxCasaId) {
+    private function createCasaOrder($userId, $quantity, OrderItem $orderItem) {
+        // 1.base order
         $order = new Order();
-
+        $wxCasa = WxCasa::find($orderItem->product->parent_id);
+        $order->user_id = $userId;
+        $order->type = Order::TYPE_CASA;
+        $order->name = Order::CASA_ORDER_PREFIX . $wxCasa->name;
+        $order->pay_type = Order::PAY_TYPE_CARD;
+        $order->status = Order::STATUS_PAYED;
+        $order->photo_path = $orderItem->photo_path;
+        $order->total = $orderItem->price * $quantity;
+        $order->save();
+        $order->generateOrderId();
+        $order->save();
+        // 2.order item
+        $newOi = new OrderItem();
+        $newOi->order_id = $order->id;
+        $newOi->product_id = $orderItem->product_id;
+        $newOi->name = $orderItem->name;
+        $newOi->photo_path = $orderItem->photo_path;
+        $newOi->price = $orderItem->price;
+        $newOi->quantity = $quantity;
+        $newOi->save();
+        // dd($newOi);
+        // 3.casa order.
+        $casaOrder = new CasaOrder();
+        $casaOrder->order_id = $order->id;
+        $casaOrder->wx_casa_id = $wxCasa->id;
+        $casaOrder->save();
+        return $order;
     }
+    /**
+     * Consume the opportunities, will go wrong if the $quantity exceed maximum.
+     */
+    private function consumeOpportunity($orderItemId, $quantity) {
+        $opp = Opportunity::where('order_item_id', $orderItemId)->get()->first();
+        $opp->left_quantity -= $quantity;
+        if ($opp->left_quantity < 0) {
+            throw Exception('Exceed left quantity of card opportunity!');
+        }
+        $opp->save();
+    }
+
 }

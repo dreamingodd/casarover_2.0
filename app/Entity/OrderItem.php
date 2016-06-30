@@ -11,7 +11,7 @@ class OrderItem extends Model
 {
     protected $table = "order_item";
     public $timestamps = false;
-    protected $fillable = ["order_id","product_id","name","photo_path","price","quantity"];
+    protected $fillable = ["order_id", "product_id", "name", "photo_path", "price", "quantity"];
 
     /**
      * Belongs to an order.
