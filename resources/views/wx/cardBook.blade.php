@@ -4,14 +4,9 @@
     <link href="/assets/css/cardBook.css" rel="stylesheet"/>
     <script src="/assets/js/wxBase.js" type="text/javascript"></script>
 @stop
-@section('nav')
-    <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
-    <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
-    <img  src="/assets/images/logow.png" />
-@stop
 @section('body')
     <div class="main">
-        <h2>民宿预订</h2>
+        {{-- <h2>民宿预订</h2> --}}
         <div class="case clear" >
             <div class="casecon clear">
                 <input type="hidden" id="left" value="{{ $casa->Opportunity->left_quantity }}">

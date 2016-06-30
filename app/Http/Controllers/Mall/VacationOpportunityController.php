@@ -114,7 +114,7 @@ class VacationOpportunityController extends Controller
         switch($code)
         {
             case 0: $result = '申请中'; break;
-            case 1: $result = '申请通过';break;
+            case 1: $result = '已通过';break;
             case 2: $result = '申请已被拒绝';break;
         }
         return $result;

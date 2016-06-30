@@ -5,13 +5,7 @@
     <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
     <script src="/assets/js/scoreVariation.js"></script>
 @stop
-@section('nav')
-    <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
-    <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
-    <img  src="/assets/images/logow.png" />
-@stop
 @section('body')
-    <div class="split"></div>
 <input type="hidden" id="id" value="{{ $userid or null }}">
 <div id="app">
     <div class="main">
