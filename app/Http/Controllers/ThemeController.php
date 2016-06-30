@@ -31,6 +31,7 @@ class ThemeController extends Controller
         else
             return view('site.theme',compact('theme','contents','others'));
     }
+    
     public function create()
     {
         return view('backstage.themeEdit');
@@ -65,7 +66,7 @@ class ThemeController extends Controller
         $theme->save();
         return redirect('back/theme');
     }
-//    后台编辑
+    //后台编辑
     public function edit($id)
     {
         $theme = Theme::find($id);
@@ -127,7 +128,7 @@ class ThemeController extends Controller
     {
         $themes = Theme::where('status',1)->get();
         $article = Content::find($id);
-//        这个应该变成vue去处理
+        //这个应该变成vue去处理
         $casas = Casa::all();
         $casa = Casa::find($article->house);
         return view('backstage.themeArticleEdit',compact('themes','article','casas','casa'));

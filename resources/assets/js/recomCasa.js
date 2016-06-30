@@ -17,7 +17,7 @@ $(document).ready(function(){
                 });
             },
             save(){
-                $.ajax('/api/recom/save', {
+                $.ajax('/back/api/recom/save', {
                     type: 'post',
                     data: {
                         city:this.selected,

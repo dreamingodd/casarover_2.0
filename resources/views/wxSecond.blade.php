@@ -13,24 +13,20 @@
     @yield('head')
 </head>
 <body>
-{{-- <nav>
-    @yield('nav')
-</nav> --}}
 <header>
+    {{-- 这个是微信中进图二级菜单时候的上面的导航 --}}
     {{-- 如果要改成固定在顶部加 .fix-top --}}
     <nav>
         <div class="nav-left">
-            <a href="/wx">
-                <img src="/assets/images/header/home.png" height="100%" alt="" />
+            <a href="javascript:history.go(-1)">
+                <img src="/assets/images/header/back.png" height="100%" alt="" />
             </a>
         </div>
         <div class="logo">
             <img  src="/assets/images/logow.png" height="100%"/>
         </div>
         <div class="nav-right">
-            <a href="/wx/user">
-                <img src="/assets/images/header/user.png" height="100%" alt="" />
-            </a>
+            @yield('rightNav')
         </div>
     </nav>
 </header>

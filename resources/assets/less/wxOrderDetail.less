@@ -1,8 +1,8 @@
 .main {
   background: #fff;
   padding: 0 1rem;
-  border-top: 6rem solid #f8f8f8;
   border-bottom: 1px solid #9a9a9a;
+  overflow: hidden;
 }
 h2{
   font-size: 2rem;
@@ -24,4 +24,27 @@ h4{
 }
 h5{
   font-size: 1rem;
+}
+.qrcode{
+    width: 24rem;
+    margin: 0 auto;
+    p{
+        text-align: center;
+    }
+}
+.call-me{
+    text-align: center;
+    margin: .5rem 0;
+}
+// 强制让上面的标题在一行显示，否则在iphone5的尺寸下会出现换行的问题
+.goods-nav{
+    white-space: nowrap;
+}
+.order-pay{
+    width: 99%;
+    text-align: right;
+    i{
+        font-size: 3rem;
+        color: #800;
+    }
 }

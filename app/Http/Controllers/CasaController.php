@@ -119,6 +119,7 @@ class CasaController extends BaseController
     }
 
     public function del($id, $deleted) {
+        //移动到回收站
         $casa = Casa::find($id);
         $casa->deleted = $deleted;
         $casa->save();
@@ -128,6 +129,12 @@ class CasaController extends BaseController
             $this->showList(1);
             return redirect('/back/casaList/1');
         }
+    }
+    public function realDel($id)
+    {
+        $casa = Casa::find($id);
+        $casa->delete();
+        return redirect('/back/casaList/1');
     }
    public function casaInfo($id,Request $request)
    {

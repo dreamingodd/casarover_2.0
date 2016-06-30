@@ -79,39 +79,6 @@
         <div class="sub">
             <button onclick="sed()" type="submit" class="btn btn-primary">保存</button>
     </form>
-    {{--<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">--}}
-    {{--<i class="fa fa-times-circle"></i>--}}
-    {{--删除--}}
-    {{--</button>--}}
-    <div class="modal fade" id="modal-delete" tabIndex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        ×
-                    </button>
-                    <h4 class="modal-title">注意</h4>
-                </div>
-                <div class="modal-body">
-                    <p class="lead">
-                        <i class="fa fa-question-circle fa-lg"></i>
-                        确定删除吗？
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <form method="POST" action="{{ route('back.areas.destroy',$message->id ) }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                        </button>
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fa fa-times-circle"></i> 确定删除
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
     </form>
 @endsection

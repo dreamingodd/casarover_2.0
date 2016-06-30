@@ -36,6 +36,9 @@
                             <a id="casa_recover" href='/back/casaDel/{{$casa->id}}/0'>
                                 <button type="button" class="btn btn-xs btn-warning">还原</button>
                             </a>
+                            <a  href='/back/casa/realDel/{{$casa->id}}'>
+                                <button type="button" class="btn btn-xs btn-danger">永久删除</button>
+                            </a>
                         @else
                             <a id="casa_continue" href='/back/casa/{{$casa->id}}'>
                                 <button type="button" class="btn btn-xs btn-info">编辑</button>

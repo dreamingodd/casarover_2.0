@@ -4,14 +4,9 @@
     <link href="/assets/css/cardCasa.css" rel="stylesheet"/>
     <script src="/assets/js/wxBase.js" type="text/javascript"></script>
 @stop
-@section('nav')
-    <a href="#" id="navleft" class="goback glyphicon glyphicon-chevron-left"></a>
-    <a href="tel:{{Config::get('config.help_telephone')}}" id="navright" class="glyphicon glyphicon-earphone"></a>
-    <img  src="/assets/images/logow.png" />
-@stop
 @section('body')
     <div class="main">
-        <h2>度假卡民宿列表</h2>
+        {{-- <h2>度假卡民宿列表</h2> --}}
         {{--foreach--}}
         @foreach($cardCasas as $casa)
             <div class="case clear" >

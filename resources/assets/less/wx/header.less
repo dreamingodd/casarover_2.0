@@ -1,0 +1,49 @@
+@header-color:#ff8c00;
+@header-height:5rem;
+header{
+    z-index: 1023;
+    height: @header-height;
+    width: 100%;
+    position: relative;
+}
+nav{
+    display: block;
+    background-color: @header-color;
+    height: @header-height;
+    line-height: @header-height;
+    width: 100%;
+    a{
+        display: block;
+        text-align: center;
+    }
+    .nav-left{
+        width: 20%;
+        float: left;
+        img{
+            width: @header-height/2;
+            height: @header-height/2;
+        }
+    }
+    .logo{
+        width: 60%;
+        float: left;
+        text-align: center;
+        img{
+            height: @header-height/2;
+        }
+    }
+    .nav-right{
+        width: 20%;
+        float: left;
+        img{
+            width: @header-height/2;
+            height: @header-height/2;
+        }
+    }
+}
+
+.fix-top{
+    position: fixed;
+    top: 0;
+    right: 0;
+}

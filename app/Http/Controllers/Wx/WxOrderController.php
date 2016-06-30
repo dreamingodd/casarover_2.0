@@ -99,6 +99,7 @@ class WxOrderController extends BaseController
     {
         $order = Order::find($id);
         $qrFile = null;
+        $orderPhone = config('casarover.help_telephone');
         if ($order->type == Order::TYPE_CASA) {
             $qrFile = public_path() . "/assets/phpqrcode/temp/order" . $order->id . ".png";
             $qrPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order" . $order->id . ".png";
@@ -106,7 +107,7 @@ class WxOrderController extends BaseController
                 QrImageGenerator::generate(env('ROOT_URL') . '/wx/consume/' . $order->id, $qrFile);
             }
         }
-        return view('wx.wxOrderDetail', compact('order', 'qrPath'));
+        return view('wx.wxOrderDetail', compact('order', 'qrPath','orderPhone'));
     }
 
     /**  */

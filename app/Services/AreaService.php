@@ -17,7 +17,11 @@ class AreaService {
     }
     protected function nameRecursion($id, $areaText) {
         $area = Area::find($id);
-        $areaText = $area->value.' '.$areaText;
+        if(isset($area->value)) {
+            $areaText = $area->value.' '.$areaText;
+        }else{
+            $areaText = "区域已经被删除，请删除该民宿";
+        }
         if (empty($area->parentid) || $area->parentid == 1) {
             return $areaText;
         } else {
