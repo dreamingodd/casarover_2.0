@@ -45,7 +45,7 @@
                     <li><a href="/back/wx">微信民宿</a></li>
                     <li><a href="/back/wx/order/list">订单管理</a></li>
                     <li><a href="/back/wx/bind">商家管理</a></li>
-                    <li><a href="/back/shareactiv">18家活动</a></li>
+                    <li><a href="/back/shareactiv">约睡活动</a></li>
                     <li><a href="/back/vacation/casa">度假卡管理</a></li>
                 </ul>
             </li>
@@ -55,6 +55,8 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="/back/system/user">微信用户</a></li>
+                    <li><a href="/back/system/user/analyze">用户分析</a></li>
+                    <li><a href="/back/system/datesleep/result">约睡结果</a></li>
                 </ul>
             </li>
             <li role="presentation" class="logout">

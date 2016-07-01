@@ -37,7 +37,7 @@
                         @foreach ($wxCasa->contents as $content)
                             <h2>{{$content->name}}</h2>
                             @foreach ($content->attachments as $attachment)
-                            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$attachment->filepath}}"/>
+                            <img class="contentImg" src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$attachment->filepath}}"/>
                             @endforeach
                             <p>{!!$content->text!!}</p>
                         @endforeach
@@ -45,7 +45,7 @@
                         @foreach ($wxCasa->casa->contents as $content)
                             <h2>{{$content->name}}</h2>
                             @foreach ($content->attachments as $attachment)
-                            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$attachment->filepath}}"/>
+                            <img class="contentImg" src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/{{$attachment->filepath}}"/>
                             @endforeach
                             <p>{!!$content->text!!}</p>
                         @endforeach

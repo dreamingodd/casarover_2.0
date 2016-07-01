@@ -52,3 +52,9 @@ SELECT wv.*
    AND wuc.user_id = u.id
    AND wv.18_id = wuc.id
    AND u.nickname like '%妃子笑%';
+SELECT wv.created_at, u.nickname, wc.name casa_name
+ FROM wx_user_casa_18 wuc, user u, wx_casa wc, wx_vote wv
+WHERE wuc.wx_casa_id = wc.id
+  AND wuc.user_id = u.id
+  AND wv.18_id = wuc.id
+  AND u.id = 3471;
