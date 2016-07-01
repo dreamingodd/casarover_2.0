@@ -114,4 +114,5 @@ Route::group(['prefix' => 'back/system', 'middleware' => ['web','auth:admin']],f
     Route::any('user/analyze','UserController@analyze');
     Route::get('datesleep/result','Wx\DateSleepStatController@result');
     Route::get('datesleep/vote/records/{userId}','Wx\DateSleepStatController@voteRecords');
+    Route::get('datesleep/analyze','Wx\DateSleepStatController@analyze');
 });

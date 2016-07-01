@@ -57,6 +57,7 @@
                     <li><a href="/back/system/user">微信用户</a></li>
                     <li><a href="/back/system/user/analyze">用户分析</a></li>
                     <li><a href="/back/system/datesleep/result">约睡结果</a></li>
+                    <li><a href="/back/system/datesleep/analyze">约睡分析</a></li>
                 </ul>
             </li>
             <li role="presentation" class="logout">
