@@ -18,10 +18,16 @@ class UserController extends Controller
     public function showList(Request $request) {
         $searchText = $request->searchText;
         $hasPhone = $request->hasPhone;
-        $users = User::where('nickname', 'like', "%$searchText%")
-                    ->orWhere('realname', 'like', "%$searchText%")
-                    ->orWhere('cellphone', 'like', "%$searchText%")
-                    ->paginate(20);
+        $users = User::where(function($query) use ($searchText) {
+            $query->where('nickname', 'like', "%$searchText%")
+                ->orWhere('realname', 'like', "%$searchText%")
+                ->orWhere('cellphone', 'like', "%$searchText%");
+        });
+        if ($hasPhone) {
+            $users = $users->where('cellphone', '<>', '')->paginate(20);
+        } else {
+            $users = $users->paginate(20);
+        }
         $total = User::count();
         $page = $users->currentPage();
         return view('backstage.system.userList', compact(['users', 'total', 'page', 'searchText', 'hasPhone']));

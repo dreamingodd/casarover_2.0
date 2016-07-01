@@ -7,7 +7,7 @@
 $(function(){
     $('#searchBtn').click(function(){
         var searchText = $('#searchText').val();
-        location.href = "/back/system/user?page={{$page}}&searchText=" + searchText;
+        location.href = "/back/system/user?hasPhone={{$hasPhone}}&searchText=" + searchText;
     });
 })
 </script>
@@ -28,9 +28,9 @@ $(function(){
                 @endif
         />
         @if ($hasPhone)
-            <a href="/back/system/user?hasPhone=0">仅显示带有手机信息的用户</a>
+            <a href="/back/system/user?hasPhone=0&searchText={{$searchText}}">仅显示带有手机信息的用户</a>
         @else
-            <a href="/back/system/user?hasPhone=1">仅显示带有手机信息的用户</a>
+            <a href="/back/system/user?hasPhone=1&searchText={{$searchText}}">仅显示带有手机信息的用户</a>
         @endif
         &nbsp;
         <input id="searchText" value="{{$searchText or ''}}"/>
