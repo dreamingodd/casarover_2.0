@@ -99,8 +99,17 @@ class DateSleepStatController extends Controller
         $voteData = json_encode($voteDataArray);
         $voteCount = count($voteRecords);
         $voteVirginCount = count($voteVirginRecords);
-
+        // 第三部分：vote by individuals
+        $individualRecords = DB::select("SELECT u.nickname, count(wv.id) vote_count "
+                                      ."FROM user u, wx_vote wv "
+                                     ."WHERE u.id = wv.user_id "
+                                     ."GROUP BY wv.user_id "
+                                     ."ORDER BY vote_count DESC "
+                                     ."LIMIT 0, 20");
+        $individualData = json_encode($individualRecords);
         return view('backstage.system.dateSleepAnalyze',
-                compact(['dateData', 'dateCount', 'dateVirginCount', 'voteData', 'voteCount', 'voteVirginCount']));
+                compact(['dateData', 'dateCount', 'dateVirginCount',
+                        'voteData', 'voteCount', 'voteVirginCount',
+                        'individualData']));
     }
 }
