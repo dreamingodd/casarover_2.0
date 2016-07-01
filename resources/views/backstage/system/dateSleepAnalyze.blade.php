@@ -14,7 +14,7 @@ $(function(){
 function drawDateChart() {
     // Convert the raw mysql data to the google chart's need.
     var rawData = eval("(" + $('#dateData').val() + ")");
-    console.log(rawData);
+    // console.log(rawData);
     var specialData = [];
     specialData.push(["时间", "人数", "第一次约睡人数"]);
     for (var key in rawData) {
@@ -34,7 +34,7 @@ function drawDateChart() {
 function drawVoteChart() {
     // Convert the raw mysql data to the google chart's need.
     var rawData = eval("(" + $('#voteData').val() + ")");
-    console.log(rawData);
+    // console.log(rawData);
     var specialData = [];
     specialData.push(["时间", "人数", "第一次投票人数"]);
     for (var key in rawData) {
@@ -57,7 +57,7 @@ function drawIndividualChart() {
     rollData.push(["Element", "Density", { role: "style" } ]);
     var rankColors = ['gold', 'silver', 'b87333'];
     for (var key in rawData) {
-        console.log(rawData[key]);
+        // console.log(rawData[key]);
         var rank = parseInt(key) + 1;
         if (rank <= 3) {
             rollData.push([rawData[key].nickname + " - 第" + rank + "名", rawData[key].vote_count, rankColors[key]]);

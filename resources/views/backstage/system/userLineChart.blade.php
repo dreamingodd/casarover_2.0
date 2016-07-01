@@ -2,7 +2,7 @@
 
 @section('title', '用户分析')
 @section('head')
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="/assets/js/integration/google/chart/google.chart.js"></script>
 <script type="text/javascript">
 $(function(){
     google.charts.load('current', {'packages':['corechart']});
