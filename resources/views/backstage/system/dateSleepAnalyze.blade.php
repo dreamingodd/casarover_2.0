@@ -24,7 +24,8 @@ function drawDateChart() {
     var options = {
         title: '约睡： ' + {{$dateVirginCount}} + "名用户参与约睡，" + "共约了" + {{$dateCount}} + "次",
         curveType: 'function',
-        legend: { position: 'bottom' }
+        colors: ['#99ccff', '#99ff33'],
+        legend: { position: 'top' }
     };
     var chart = new google.visualization.LineChart(document.getElementById('dateChart'));
     chart.draw(data, options);
@@ -43,7 +44,8 @@ function drawVoteChart() {
     var options = {
         title: '投票： ' + {{$voteVirginCount}} + "名用户参与投票，" + "共投了" + {{$voteCount}} + "票",
         curveType: 'function',
-        legend: { position: 'bottom' }
+        colors: ['#99ccff', '#99ff33'],
+        legend: { position: 'top' }
     };
     var chart = new google.visualization.LineChart(document.getElementById('voteChart'));
     chart.draw(data, options);
