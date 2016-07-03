@@ -1,0 +1,60 @@
+
+# clear vote data
+truncate wx_user_casa_18;
+truncate wx_vote;
+
+
+# 查看各家民宿第一名
+SELECT wuc.id 18_id, u.nickname, wc.name, mr.vote
+  FROM user u, wx_casa wc, wx_user_casa_18 wuc,
+		(SELECT max(wuc.vote) vote, wx_casa_id
+		   FROM wx_user_casa_18 wuc
+		  GROUP BY wx_casa_id) mr
+ WHERE u.id = wuc.user_id
+   AND wc.id = wuc.wx_casa_id
+   AND wuc.vote = mr.vote
+   AND wuc.wx_casa_id = mr.wx_casa_id
+ ORDER BY mr.vote DESC;
+
+# 查看总票数
+SELECT count(*) from wx_vote;
+# 查看约睡人数
+SELECT count(distinct(user_id)) from wx_user_casa_18;
+# 查看投票人数
+SELECT count(distinct(user_id)) from wx_vote;
+# 查看投票数前十
+SELECT u.nickname, count(wv.id) vote_count
+  FROM user u, wx_vote wv
+ WHERE u.id = wv.user_id
+ GROUP BY wv.user_id
+ ORDER BY vote_count DESC
+ LIMIT 0, 20;
+
+# 获得的票数前十
+SELECT u.nickname, count(wuc.id) casa_count, sum(wuc.vote) vote_count
+  FROM wx_user_casa_18 wuc, user u
+ WHERE wuc.user_id = u.id
+ GROUP BY wuc.user_id
+ ORDER BY vote_count DESC
+ LIMIT 0, 150;
+
+#某用户报名民宿
+SELECT u.nickname, wc.name
+  FROM wx_user_casa_18 wuc, user u, wx_casa wc
+ WHERE wuc.wx_casa_id = wc.id
+   AND wuc.user_id = u.id
+   AND u.nickname like '%妃子笑%';
+
+#某用户获得的选票
+SELECT wv.*
+  FROM wx_user_casa_18 wuc, user u, wx_casa wc, wx_vote wv
+ WHERE wuc.wx_casa_id = wc.id
+   AND wuc.user_id = u.id
+   AND wv.18_id = wuc.id
+   AND u.nickname like '%妃子笑%';
+SELECT wv.created_at, u.nickname, wc.name casa_name
+ FROM wx_user_casa_18 wuc, user u, wx_casa wc, wx_vote wv
+WHERE wuc.wx_casa_id = wc.id
+  AND wuc.user_id = u.id
+  AND wv.18_id = wuc.id
+  AND u.id = 3471;

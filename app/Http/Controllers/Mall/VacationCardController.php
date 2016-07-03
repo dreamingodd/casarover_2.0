@@ -132,7 +132,7 @@ class VacationCardController extends BaseController
         $product = Product::find($id);
         $wxCasa = WxCasa::find($product->parent_id);
         $contents = $wxCasa->contents;
-        $wxCasa->rooms = $wxCasa->rooms();
+        $wxCasa->rooms = $wxCasa->getRooms();
         foreach($contents as $content){
             $content->imgs = $content->attachments;
         }

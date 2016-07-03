@@ -4,6 +4,12 @@
 
 @section('head')
 <script type="text/javascript">
+$(function(){
+    $('#searchBtn').click(function(){
+        var searchText = $('#searchText').val();
+        location.href = "/back/system/user?hasPhone={{$hasPhone}}&searchText=" + searchText;
+    });
+})
 </script>
 @stop
 
@@ -14,10 +20,23 @@
     <div class="options vertical5">
         用户总数：{{ $total }}
         <a href="/back/system/user">
-            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>列表
-        </a>
+            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>全部列表
+        </a>&nbsp;
+        <input type="checkbox"
+                @if ($hasPhone)
+                    checked
+                @endif
+        />
+        @if ($hasPhone)
+            <a href="/back/system/user?hasPhone=0&searchText={{$searchText}}">仅显示带有手机信息的用户</a>
+        @else
+            <a href="/back/system/user?hasPhone=1&searchText={{$searchText}}">仅显示带有手机信息的用户</a>
+        @endif
+        &nbsp;
+        <input id="searchText" value="{{$searchText or ''}}"/>
+        <button id="searchBtn">搜索</button>
     </div>
-    {!! $users->render() !!}
+    {!! $users->appends(['searchText' => $searchText, 'hasPhone' => $hasPhone])->render() !!}
     <table class="table table-hover">
         <tr>
             <th>序号</th>
@@ -51,11 +70,11 @@
                 <td>{{$user->created_at}}</td>
                 <td>
                     @if ($user->test)
-                        <a href='/back/system/user/test/unregister/{{$user->id}}/{{$page}}'>
+                        <a href='/back/system/user/test/unregister/{{$user->id}}/{{$page}}/{{$searchText}}/{{$hasPhone}}'>
                             <button type="button" class="btn btn-xs btn-warning">取消测试资格</button>
                         </a>
                     @else
-                        <a href='/back/system/user/test/register/{{$user->id}}/{{$page}}'>
+                        <a href='/back/system/user/test/register/{{$user->id}}/{{$page}}/{{$searchText}}/{{$hasPhone}}'>
                             <button type="button" class="btn btn-xs btn-info">注册测试用户</button>
                         </a>
                     @endif
@@ -63,5 +82,5 @@
             </tr>
         @endforeach
     </table>
-    {!! $users->render() !!}
+    {!! $users->appends(['searchText' => $searchText, 'hasPhone' => $hasPhone])->render() !!}
 @stop

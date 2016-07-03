@@ -67,11 +67,6 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('api/eighteen/add/{id}','Wx\Activity18Controller@add');
     Route::get('api/eighteen/del/{id}','Wx\Activity18Controller@del');
 
-    // 用户管理
-    Route::get('system/user','UserController@showList');
-    Route::get('system/user/test/register/{id}/{page}','UserController@registerTester');
-    Route::get('system/user/test/unregister/{id}/{page}','UserController@unregisterTester');
-
     // 度假卡参加民宿管理
     Route::get('vacation', 'Wx\WxCasaController@vacation');
     Route::get('vacation/del/{id}', 'Wx\WxCasaController@vacationDel');
@@ -109,4 +104,15 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],funct
     Route::get('bind/{bindId}/{casaId}', 'Wx\WxBindController@bind');
     Route::get('casa/test/set/{id}', 'Wx\WxCasaController@setTest');
     Route::get('casa/test/unset/{id}', 'Wx\WxCasaController@unsetTest');
+});
+
+Route::group(['prefix' => 'back/system', 'middleware' => ['web','auth:admin']],function () {
+    // 用户管理
+    Route::get('user','UserController@showList');
+    Route::get('user/test/register/{id}/{page}/{searchText}/{hasPhone}','UserController@registerTester');
+    Route::get('user/test/unregister/{id}/{page}/{searchText}/{hasPhone}','UserController@unregisterTester');
+    Route::any('user/analyze','UserController@analyze');
+    Route::get('datesleep/result','Wx\DateSleepStatController@result');
+    Route::get('datesleep/vote/records/{userId}','Wx\DateSleepStatController@voteRecords');
+    Route::get('datesleep/analyze','Wx\DateSleepStatController@analyze');
 });

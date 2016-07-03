@@ -50,7 +50,7 @@ class WxSiteController extends WxBaseController
     {
         $userId = Session::get('user_id');
         $wxCasa = WxCasa::find($id);
-        $wxCasa->rooms = $wxCasa->rooms();
+        $wxCasa->rooms = $wxCasa->getRooms();
         $this->convertToViewCasa($wxCasa);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         $casas = WxCollection::where('user_id', $userId)->where('wx_casa_id', $id)->first();
@@ -92,7 +92,7 @@ class WxSiteController extends WxBaseController
     public function order($id)
     {
         $wxCasa = WxCasa::find($id);
-        $wxCasa->rooms = $wxCasa->rooms();
+        $wxCasa->rooms = $wxCasa->getRooms();
         $user = User::find(Session::get('user_id'));
         $date = new Carbon();
         // 下个月末
