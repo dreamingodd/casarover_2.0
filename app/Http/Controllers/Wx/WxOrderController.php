@@ -137,7 +137,9 @@ class WxOrderController extends BaseController
                 $order->goods = $order->orderItems;
                 foreach($order->goods as $good)
                 {
-                    $good->name = Product::find($good->product->id)->name;
+                    if(Product::find($good->product)){
+                        $good->name = Product::find($good->product->id)->name;
+                    }
                 }
                 $order->username = $order->user->realname;
                 $order->userphone = $order->user->cellphone;
@@ -151,7 +153,7 @@ class WxOrderController extends BaseController
             return response()->json($data);
         } catch (Exception $e) {
             Log::error($e);
-            return $e;
+            dd($e);
         }
     }
 
@@ -305,7 +307,9 @@ class WxOrderController extends BaseController
         $time = $order->casaOrder->reserve_comment;
         $userphone = $order->user->cellphone;
         $sms = app('sms');
-        $message = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
+        $sendArr = ['name' => $username,'room' => $casaName,'time' => $time];
+        $message = json_encode($sendArr,JSON_UNESCAPED_UNICODE);
+        // $message2 = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
         $sms->send('探庐者','SMS_9720239',$message,$userphone);
     }
 

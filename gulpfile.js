@@ -23,6 +23,7 @@ var gulp = require('gulp'),
 const del = require('del');
 const babel = require('gulp-babel');
 const changed = require('gulp-changed');
+// var debug = require('gulp-debug');
 
 //配置部分
 var lessDir = ['resources/assets/less/**/*.less'];
@@ -45,7 +46,8 @@ gulp.task('dev-less',function() {
 // 压缩js
 gulp.task('js',function () {
     return gulp.src('resources/assets/js/*.js')
-        .pipe(changed('public/assets/js/*'))
+        .pipe(changed('public/assets/js/'))
+        // .pipe(debug({title: 'unicorn:'}))
         .pipe(babel())
         .pipe(uglify())
         .pipe(gulp.dest('public/assets/js/'))

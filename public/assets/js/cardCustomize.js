@@ -1,1 +1,127 @@
-function checkParameters(a,s,t){return a?isCellphoneNumber(s)?3>t?(alert("请至少选择三家民宿"),!1):!0:(alert("请输入正确的手机号码！"),!1):(alert("请输入姓名！"),!1)}$(document).ready(function(){window.onhashchange=function(){var s=window.location.hash;return"show"==s?null:void(a.casa=null)},$("#navleft").click(function(){a.casa?($("#navleft").attr("href","#"),a.casa=null):$("#navleft").attr("href","/wx/user")});var a=new Vue({el:"#app",data:{casas:null,casa:null,total:0,goods:[]},created:function(){this.getcasas()},methods:{getcasas:function(){var a=this;$.getJSON("/wx/api/cardCasaList",function(s){a.casas=s})},getcasa:function(a){var s=this;$.getJSON("/wx/api/cardCasa/"+a,function(a){s.casa=a});var t="show";window.location.hash=t},buy:function(){this.goods=[];var a=$("#username").val(),s=$("#cellphone").val(),t=this.selectd().length;checkParameters(a,s,t)&&$.ajax("/wx/api/cardCasaBuy",{type:"post",data:{casas:this.goods,username:a,cellphone:s},headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},success:function(a){console.log("order create successfully!"),console.log(a),a.orderId?location.href="/wx/pay/wxorder/"+a.orderId:(console.log(a),alert("探庐君处理你的请求时晕倒了, 请稍后再试！"))}})},plus:function(a){this.total+=this.casas[a].price,this.casas[a].room++},minus:function(a){this.casas[a].room<=0||(this.casas[a].room--,this.total-=this.casas[a].price)},sel:function(a){this.casas[a].room>0?(this.total=this.total-this.casas[a].price*this.casas[a].room,this.casas[a].room=0):(this.total+=this.casas[a].price,this.casas[a].room++)},calculateTotal:function(){for(var a=0,s=0;s<this.casas.length;s++)a+=this.casas[s].price*this.casas[s].room;this.total=a},selectd:function(){for(var a in this.casas)if(this.casas[a].room>0){var s={id:this.casas[a].id,headImg:this.casas[a].headImg,room:this.casas[a].room};this.goods.push(s)}return this.goods}}})});
+$(document).ready(function(){
+    window.onhashchange = function(){
+        let urlhash = window.location.hash;
+        if(urlhash == "show"){
+            return null;
+        }else{
+            vm.casa = null;
+        }
+    }
+    $("#navleft").click(function(){
+        if(vm.casa){
+            $("#navleft").attr("href","#");
+            vm.casa = null;
+        }else{
+            $("#navleft").attr("href","/wx/user");
+        }
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            casas: null,
+            casa:null,
+            total:0,
+            goods:[]
+        },
+        created: function () {
+            this.getcasas();
+        },
+        methods:{
+            getcasas(){
+                $.getJSON('/wx/api/cardCasaList', (data) => {
+                    this.casas = data;
+                });
+            },
+            getcasa(id){
+                $.getJSON('/wx/api/cardCasa/' + id, (data) => {
+                    this.casa = data;
+                });
+                let seltext = 'show';
+                window.location.hash = seltext;
+            },
+            buy(){
+                this.goods = [];
+                // Check whether inputs confine the least requestments.
+                var username = $('#username').val();
+                var cellphone = $('#cellphone').val();
+                let selectedCount = this.selectd().length;
+                if (!checkParameters(username, cellphone, selectedCount)) return;
+                // Start ajax request to create order.
+                $.ajax('/wx/api/cardCasaBuy', {
+                    type: 'post',
+                    data: {
+                        casas : this.goods,
+                        username : username,
+                        cellphone : cellphone
+                    },
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    success: (data) => {
+                        // log response data
+                        console.log('order create successfully!');
+                        console.log(data);
+                        if (data['orderId']) {
+                            // Start request to prepare payment and redirect to payment page.
+                            location.href = "/wx/pay/wxorder/" + data.orderId;
+                        } else {
+                            console.log(data);
+                            alert('探庐君处理你的请求时晕倒了, 请稍后再试！');
+                        }
+                    }
+                });
+            },
+            plus(index){
+                this.total += this.casas[index].price;
+                this.casas[index].room ++;
+            },
+            minus(index){
+                if(this.casas[index].room <=0 ){
+                    return;
+                }
+                this.casas[index].room --;
+                this.total -= this.casas[index].price;
+            },
+            sel(index){
+                if(this.casas[index].room > 0){
+                    this.total = this.total-(this.casas[index].price * this.casas[index].room);
+                    this.casas[index].room =0;
+                }else{
+                    this.total += this.casas[index].price;
+                    this.casas[index].room ++;
+                };
+            },
+            calculateTotal(){
+                let total = 0;
+                for (let i = 0; i < this.casas.length; i++) {
+                    total += this.casas[i].price * this.casas[i].room;
+                }
+                this.total = total;
+            },
+            selectd(){
+                for(let x in this.casas){
+                    if(this.casas[x].room > 0){
+                        let newRoom = {id:this.casas[x].id, headImg:this.casas[x].headImg, 'room':this.casas[x].room};
+                        this.goods.push(newRoom);
+                    }
+                }
+                return this.goods;
+            }
+        }
+    })
+})
+
+/** 检查 */
+function checkParameters(username, cellphone, selectedCount) {
+    if (!username) {
+        alert("请输入姓名！");
+        return false;
+    }
+    if (!isCellphoneNumber(cellphone)) {
+        alert("请输入正确的手机号码！");
+        return false;
+    }
+    if (selectedCount < 3){
+        alert("请至少选择三家民宿");
+        return false;
+    }
+    return true;
+}

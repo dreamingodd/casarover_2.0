@@ -15,3 +15,7 @@ require_once('routes/backRoutes.php');
 require_once('routes/apiRoutes.php');
 require_once('routes/wxRoutes.php');
 require_once('routes/mobileRoutes.php');
+
+Route::get('dashboard',function(){
+    return view('shop.orderList');
+});
