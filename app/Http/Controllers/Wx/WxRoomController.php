@@ -40,7 +40,7 @@ class WxRoomController extends Controller
             DB::rollback();
             dd($e);
         }
-        return redirect('/back/wx');
+        return redirect('/back/wx/room/' . $wxCasaId);
     }
 
     /**
@@ -48,7 +48,10 @@ class WxRoomController extends Controller
      * @param int $id
      */
     public function del($id) {
-        
+        $room = Product::find($id);
+        $room->delete();
+        $wxCasaId = $room->parent_id;
+        return redirect('/back/wx/room/' . $wxCasaId);
     }
 
     /** Temporarily unused. */

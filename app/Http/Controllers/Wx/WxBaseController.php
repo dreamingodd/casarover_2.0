@@ -65,7 +65,7 @@ class WxBaseController extends Controller
      */
     protected function convertToViewCasa(WxCasa $casa)
     {
-        $casa->cheapestPrice = DB::table('wx_room')->where('wx_casa_id', $casa->id)->min('price');
+        $casa->cheapestPrice = DB::table('product')->where('parent_id', $casa->id)->min('price');
         // Extract room from products.
         $casa->rooms = $casa->getRooms();
         if (empty($casa->casa_id)) {

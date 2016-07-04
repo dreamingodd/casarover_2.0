@@ -56,7 +56,7 @@
                             <input type="text" class="roomPrice form-control" aria-describedby="sizing-addon3"
                             value="{{$room->price or ''}}"/>
                         </div>
-                        <a class="not_complete delRoom" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete</a>
+                        <a class="delRoom" href="/back/wx/room/del/{{$room->id}}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete</a>
                         {{--<a class="editDate" href="date/{{$room->id or ''}}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Edit Date</a>--}}
                     </div>
                 @endforeach
@@ -81,7 +81,8 @@
             <input type="text" class="roomPrice form-control" aria-describedby="sizing-addon3"
             value=""/>
         </div>
-        <a class="delRoom" href="/back/wx/room/del/{{$room->id}}"><span class="glyphicon glyphicon-remove"></span>Delete</a>
+        <a class="delUnsavedRoom" href="#"><span class="delUnsavedRoom glyphicon glyphicon-remove"></span>Delete</a>
+
     </div>
     <!-- Room input template ends. -->
 

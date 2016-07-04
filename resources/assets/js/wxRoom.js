@@ -1,19 +1,22 @@
 $(function(){
-        // If there's no room in this casa, add an empty one.
-        if ($('#room_container').children().length === 0) {
-            addRoom();
-        }
-        // When one presses the add icon
-        $('.addRoom').click(function() {
-            addRoom();
-        });
-    // When one presses the delete icon.
-    $('#room_container').on('click', '.delRoom', function() {
-        // TODO ajax check to confirm whether the room is deletable.
-        if (deleted) {
-            $(this).parent().remove();
-        }
+    // If there's no room in this casa, add an empty one.
+    if ($('#room_container').children().length === 0) {
+        addRoom();
+    }
+    // When one presses the add icon
+    $('.addRoom').click(function() {
+        addRoom();
     });
+    $('body').on('click', '.delUnsavedRoom', function() {
+        $(this).parent().remove();
+    });
+    // When one presses the delete icon.
+    // $('#room_container').on('click', '.delRoom', function() {
+    //     // TODO ajax check to confirm whether the room is deletable.
+    //     if (deleted) {
+    //         $(this).parent().remove();
+    //     }
+    // });
     // Submit the form, aggregate all the data we have.
     $('.submit_btn').click(function(){
         var rooms = [];
