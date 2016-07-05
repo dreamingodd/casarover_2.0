@@ -19,3 +19,7 @@ require_once('routes/mobileRoutes.php');
 Route::get('dashboard',function(){
     return view('shop.orderList');
 });
+
+Route::get('login',function(){
+    return view('shop.login');
+});
