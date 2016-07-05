@@ -49,5 +49,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'wx.auth' => \App\Http\Middleware\WxAuth::class,
+        'pc.wx' => \App\Http\Middleware\PcWxAuth::class,
     ];
 }
