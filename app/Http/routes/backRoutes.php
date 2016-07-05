@@ -80,6 +80,7 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('api/vacation/add/{id}','Mall\VacationCardController@create');
     Route::get('api/vacation/del/{id}','Mall\VacationCardController@del');
     Route::post('api/vacation/update','Mall\VacationCardController@update');
+
 });
 
 

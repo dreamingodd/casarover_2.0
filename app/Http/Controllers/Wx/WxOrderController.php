@@ -125,9 +125,16 @@ class WxOrderController extends BaseController
     /**
      * @param int $page
      * @param int $type
+     * 这个系统管理员查看和每个民宿主人查看到的内容应该是不一样的，
+     * 两个订单列表应该使用相同的代码，通过对登录用户的不同来显示不同的内容
      */
     public function orderlist($page = 1, $type = 0)
     {
+        //test 假定已经获取了用户的id
+        // $userId = 10;
+        // $orderlist = CasaOrder::where('wx_casa_id',WxBind::where('user_id',$userId)->first()->wx_casa_id)->first()-;
+        // $orderlist = WxBind::where('user_id',$userId)->first()->wx_casa_id;
+        // dd($orderlist);
         try {
             $orderlist = Order::orderBy('id', 'desc')->paginate(20);
             foreach($orderlist as $order)
