@@ -1,19 +1,10 @@
 /**
- *总计两个命令
- *开发的时候gulp
- *部署的时候gulp build
+ * 总计两个命令
+ * 开发的时候gulp
+ * 部署的时候gulp build
+ * @link http://www.jianshu.com/p/6b4151f7e2ec
+ * @author draguo
  **/
-
-/**
-*为了加快编译速度使用gulp-changed
-*这个是使得只有被编译过的文件才进行编译
-*不能检测第一次的编译，所以第一次编译js的时候还是有些慢的
-**/
-
-
-// 适配laravel的工作流
-// 本地开发环境下less js 等文件放在 resources/assets/ 下
-// 通过watch 只要有改动就编译到 public/assets/ 对应的目录下 这里面是没有进行替换文件的
 
 
 var gulp = require('gulp'),
@@ -27,32 +18,44 @@ var gulp = require('gulp'),
     del = require('del');
     babel = require('gulp-babel');
     changed = require('gulp-changed');
-// 调试使用
-// var debug = require('gulp-debug');
+    // debug = require('gulp-debug');
 
-//配置部分
 var lessDir = ['resources/assets/less/**/*.less'];
-var jsDir = ['resources/assets/js/**/*.js'];
 var reloadDir = ['resources/views/**/*.*'];
 
+// 监视内容
+gulp.watch(lessDir,['dev-less']);
+gulp.watch('resources/assets/js/*.js',['js']);
+gulp.watch('resources/assets/js/integration/*js',['uglify_integration']);
+gulp.watch(reloadDir).on('change',reload);
+gulp.task('default',function() {
+    browserSync.init({
+        proxy: "http://localhost",
+        port:"80"
+    });
+});
 
-//开发使用
-// 编译less
+//default
+/**
+* 编译less
+* 使用gulp-changed时候 因为编译之后文件的类型改变了，必须进行单独的配置
+**/
 gulp.task('dev-less',function() {
-    //为了加快编译速度不进行删除操作，如果出现问题，重新添加回来
     gulp.src('resources/assets/less/*.less')
-        // 因为编译之后文件的类型改变了，必须进行单独的配置
         .pipe(changed('public/assets/css/',{extension:'.css'}))
         .pipe(less())
         .pipe(minifycss())
         .pipe(gulp.dest('public/assets/css/'))
-        // 直接注入到浏览器里，进行快速动态的刷新
         .pipe(reload({stream: true}));
 });
-// 压缩js
+
+/**
+* 压缩js
+* 检测changed设置的目录必须和dest的完全一致，
+* 不要加 * 不然可能会不起作用
+*/
 gulp.task('js',function () {
     return gulp.src('resources/assets/js/*.js')
-        // 这个目录必须和下面的完全一致，不要加 * 不然可能会出现并没有检测到改变的问题
         .pipe(changed('public/assets/js/'))
         .pipe(babel())
         .pipe(uglify())
@@ -107,15 +110,3 @@ gulp.task('replace',['less'], function() {     //说明replace 是依赖于less�
 });
 
 gulp.task('build',['replace','less','clean']);
-
-
-gulp.task('default',function() {
-    browserSync.init({
-        proxy: "http://localhost",
-        port:"80"
-    });
-    gulp.watch(lessDir,['dev-less']);
-    gulp.watch('resources/assets/js/*.js',['js']);
-    gulp.watch('resources/assets/js/integration/*js',['uglify_integration']);
-    gulp.watch(reloadDir).on('change',reload);
-});

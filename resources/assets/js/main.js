@@ -49,7 +49,7 @@ function input_error(input) {
 }
 /**
  * Below 3 methods are input parameter check methods.
- * @param str input 
+ * @param str input
  * @returns whether the input string is standard.
  */
 function is_cellphone_number(str) {
@@ -78,7 +78,7 @@ function getRandom(digits) {
  * The PHPs are generally in the website folder which will be returned in getUrl().
  * We suppose the getUrl() returns http://Realm/project/website/
  * @returns http://Realm/website/
- */ 
+ */
 function getWebUrl() {
     if ($('#web_url').val()) {
         return $('#web_url').val();
@@ -165,7 +165,7 @@ function adjust_height(dom, proportion) {
  * 民宿图标显示，最终效果为：
  * 宽高比大于3:2的：纵向全部显示，横向居中，简单来说就是显示的时候图片的左右被截掉了一部分；
  * 宽高比小于3:2的：横向全部显示，纵向居中，简单来说就是显示的时候图片的上下被截掉了一部分。
- * 
+ *
  * Scope: HomePage's 主题推荐 & CityPage's 民宿列表
  */
 function adjust_casa_thumbnail() {
