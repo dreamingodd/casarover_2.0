@@ -1,17 +1,21 @@
 /**
  *总计两个命令
  *开发的时候gulp
- *部署的时候gulp produc
+ *部署的时候gulp build
  **/
+
+/**
+*为了加快编译速度使用gulp-changed
+*这个是使得只有被编译过的文件才进行编译
+*不能检测第一次的编译，所以第一次编译js的时候还是有些慢的
+**/
+
 
 // 适配laravel的工作流
 // 本地开发环境下less js 等文件放在 resources/assets/ 下
 // 通过watch 只要有改动就编译到 public/assets/ 对应的目录下 这里面是没有进行替换文件的
 
-// 生产环境
-// 对resources/assets 下的文件进行打包
-// 上传到cdn服务器
-// 对view下的页面文件进行静态文件的替换
+
 var gulp = require('gulp'),
     less = require('gulp-less'),
     rev = require('gulp-rev'),
@@ -20,9 +24,10 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create(),
     reload = browserSync.reload,
     minifycss = require('gulp-minify-css');
-const del = require('del');
-const babel = require('gulp-babel');
-const changed = require('gulp-changed');
+    del = require('del');
+    babel = require('gulp-babel');
+    changed = require('gulp-changed');
+// 调试使用
 // var debug = require('gulp-debug');
 
 //配置部分
@@ -30,24 +35,25 @@ var lessDir = ['resources/assets/less/**/*.less'];
 var jsDir = ['resources/assets/js/**/*.js'];
 var reloadDir = ['resources/views/**/*.*'];
 
-// 通用
 
 //开发使用
 // 编译less
 gulp.task('dev-less',function() {
     //为了加快编译速度不进行删除操作，如果出现问题，重新添加回来
     gulp.src('resources/assets/less/*.less')
-        .pipe(changed('public/assets/css/*'))
+        // 因为编译之后文件的类型改变了，必须进行单独的配置
+        .pipe(changed('public/assets/css/',{extension:'.css'}))
         .pipe(less())
         .pipe(minifycss())
         .pipe(gulp.dest('public/assets/css/'))
+        // 直接注入到浏览器里，进行快速动态的刷新
         .pipe(reload({stream: true}));
 });
 // 压缩js
 gulp.task('js',function () {
     return gulp.src('resources/assets/js/*.js')
+        // 这个目录必须和下面的完全一致，不要加 * 不然可能会出现并没有检测到改变的问题
         .pipe(changed('public/assets/js/'))
-        // .pipe(debug({title: 'unicorn:'}))
         .pipe(babel())
         .pipe(uglify())
         .pipe(gulp.dest('public/assets/js/'))
@@ -65,7 +71,11 @@ gulp.task('uglify_integration',function () {
 
 
 
-// 部署执行
+// 部署执行 未完成
+// 生产环境
+// 对resources/assets 下的文件进行打包
+// 上传到cdn服务器
+// 对view下的页面文件进行静态文件的替换
 gulp.task('clean',function(){
     del.sync('public/assets/css/*.css');
     del.sync('public/assets/js/*.js');
@@ -96,7 +106,7 @@ gulp.task('replace',['less'], function() {     //说明replace 是依赖于less�
         .pipe(gulp.dest('resources/views/'));                     //- 替换后的文件输出的目录
 });
 
-gulp.task('deploy',['replace','less','clean']);
+gulp.task('build',['replace','less','clean']);
 
 
 gulp.task('default',function() {
