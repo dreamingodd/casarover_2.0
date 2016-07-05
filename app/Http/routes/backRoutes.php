@@ -93,7 +93,7 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],funct
     Route::get('casa/display/order/{id}/{order}','Wx\WxCasaController@updateDisplayOrder');
     Route::get('room/{id}', 'Wx\WxRoomController@show');
     Route::post('room/edit', 'Wx\WxRoomController@edit');
-    Route::post('room/del/{id}', 'Wx\WxRoomController@del');
+    Route::get('room/del/{id}', 'Wx\WxRoomController@del');
     Route::get('order/list','Wx\WxOrderController@index');
     Route::get('room/date/{id}', 'Wx\WxRoomController@date');
     Route::post('changewxordertype','Wx\WxOrderController@editStatus');

@@ -2,7 +2,7 @@
 
 @section('title', '约睡分析')
 @section('head')
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="/assets/js/integration/google/chart/google.chart.js"></script>
 <script type="text/javascript">
 $(function(){
     google.charts.load('current', {'packages':['corechart']});

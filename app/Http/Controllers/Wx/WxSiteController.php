@@ -85,7 +85,7 @@ class WxSiteController extends WxBaseController
                 * 100;
             $levelStr = WxMembership::getLevelDetail($user->wxMembership->level)['name'];
         }
-        return view('wx.wxUser', compact('orders', 'user','percent', 'levelStr','tips'));
+        return view('wx.wxUser', compact('orders', 'user','percent', 'levelStr', 'tips'));
     }
 
     /** @param int $id */

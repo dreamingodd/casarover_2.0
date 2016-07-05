@@ -7,6 +7,7 @@ use Config;
 use DB;
 use Log;
 use App\Common\WxTools;
+use App\Entity\Product;
 use App\Entity\Wx\WxCasa;
 use App\Http\Controllers\Controller;
 
@@ -65,7 +66,8 @@ class WxBaseController extends Controller
      */
     protected function convertToViewCasa(WxCasa $casa)
     {
-        $casa->cheapestPrice = DB::table('wx_room')->where('wx_casa_id', $casa->id)->min('price');
+        $casa->cheapestPrice = DB::table('product')
+                ->where('parent_id', $casa->id)->where('type', Product::TYPE_CASA_ROOM)->min('price');
         // Extract room from products.
         $casa->rooms = $casa->getRooms();
         if (empty($casa->casa_id)) {

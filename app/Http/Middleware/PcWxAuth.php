@@ -2,8 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Common\WxTools;
-use App\Entity\User;
 use Closure;
 use Config;
 use Log;
@@ -15,7 +13,6 @@ use Session;
 class WxAuth
 {
 
-    use WxTools;
 
     /**
      * Handle an incoming request.
@@ -67,44 +64,4 @@ class WxAuth
         }
     }
 
-    /**
-     * Persist user in DB.casarover.user
-     *
-     * @param mixed $jsonUser
-     * @param mixed $user
-     */
-    private function saveUser($jsonUser, $user = null)
-    {
-        if (empty($user)) {
-            // The very first login.
-            $user = new User();
-        }
-        $user->openid = $jsonUser['openid'];
-        $user->nickname = $jsonUser['nickname'];
-        $user->sex = $jsonUser['sex'];
-        $user->headimgurl = $jsonUser['headimgurl'];
-        $user->save();
-        return $user;
-    }
-
-    /**
-     * @return $user a dummy user for dev machine to run testings.
-     */
-    private function getDummyUser()
-    {
-        $userId = 88;
-        $user = User::find($userId);
-        if (empty($user)) {
-            $user = new User();
-            $user->id = $userId;
-            $user->nickname = "Kobe";
-            $user->openid = "FAKE-openid-kbMrB-T0ZGEjGZBIX88";
-            $user->cellphone = "18368841168";
-            $user->sex = 1;
-            $user->headimgurl =
-                    "http://casarover.oss-cn-hangzhou.aliyuncs.com/image/image_20160427-162517-907r1707.jpg";
-            $user->save();
-        }
-        return $user;
-    }
 }
