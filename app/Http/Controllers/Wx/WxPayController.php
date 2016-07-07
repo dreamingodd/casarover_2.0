@@ -11,6 +11,7 @@ use Exception;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Payment\Order;
 use App\Http\Controllers\Controller;
+use App\Entity\User;
 
 /**  */
 class WxPayController extends Controller
@@ -33,14 +34,15 @@ class WxPayController extends Controller
             'out_trade_no'     => $casaroverOrder->order_id,
             'total_fee'        => $casaroverOrder->total * 100,//$casaroverOrder->total,
             'trade_type'       => 'JSAPI',
-            'openid'           => Session::get('openid'),
+            'openid'           => User::find(Session::get('user_id'))->openid,
             // 支付结果通知网址，如果不设置则会使用配置里的默认地址
             'notify_url'       => 'http://www.casarover.com/wx/pay/notify',
         ];
         // 统一下单
         $order = new Order($attributes);
         // var_dump($order);
-        $result = $payment->prepare($order);
+	// echo '<br/><br/><br/>';
+	$result = $payment->prepare($order);
         // var_dump($result);
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
             $prepayId = $result->prepay_id;

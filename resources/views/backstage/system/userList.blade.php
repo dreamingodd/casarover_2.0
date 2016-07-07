@@ -70,14 +70,17 @@ $(function(){
                 <td>{{$user->created_at}}</td>
                 <td>
                     @if ($user->test)
-                        <a href='/back/system/user/test/unregister/{{$user->id}}/{{$page}}/{{$searchText}}/{{$hasPhone}}'>
-                            <button type="button" class="btn btn-xs btn-warning">取消测试资格</button>
-                        </a>
+                    <form action="/back/system/user/test/unregister">
+                        <button type="submit" class="btn btn-xs btn-warning">取消测试资格</button>
                     @else
-                        <a href='/back/system/user/test/register/{{$user->id}}/{{$page}}/{{$searchText}}/{{$hasPhone}}'>
-                            <button type="button" class="btn btn-xs btn-info">注册测试用户</button>
-                        </a>
+                    <form action="/back/system/user/test/register">
+                        <button type="submit" class="btn btn-xs btn-info">注册测试用户</button>
                     @endif
+                        <input type="hidden" name="userId" value="{{$user->id}}" />
+                        <input type="hidden" name="page" value="{{$page}}" />
+                        <input type="hidden" name="searchText" value="{{$searchText}}" />
+                        <input type="hidden" name="hasPhone" value="{{$hasPhone}}" />
+                    </form>
                 </td>
             </tr>
         @endforeach

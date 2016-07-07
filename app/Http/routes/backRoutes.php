@@ -110,8 +110,8 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],funct
 Route::group(['prefix' => 'back/system', 'middleware' => ['web','auth:admin']],function () {
     // 用户管理
     Route::get('user','UserController@showList');
-    Route::get('user/test/register/{id}/{page}/{searchText}/{hasPhone}','UserController@registerTester');
-    Route::get('user/test/unregister/{id}/{page}/{searchText}/{hasPhone}','UserController@unregisterTester');
+    Route::any('user/test/register','UserController@registerTester');
+    Route::any('user/test/unregister','UserController@unregisterTester');
     Route::any('user/analyze','UserController@analyze');
     Route::get('datesleep/result','Wx\DateSleepStatController@result');
     Route::get('datesleep/vote/records/{userId}','Wx\DateSleepStatController@voteRecords');
