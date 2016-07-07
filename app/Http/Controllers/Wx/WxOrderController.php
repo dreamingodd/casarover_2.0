@@ -103,7 +103,7 @@ class WxOrderController extends BaseController
         // 如果是预订平台的订单，那么预订电话是公司设定好的，到配置文件中去修改
         // 如果是度假卡的消费订单，那么预订电话是民宿主人的电话
         if($order->pay_type == Order::PAY_TYPE_CARD){
-            $orderPhone = $order->orderItems[0]->product->casaMessage->phone;
+            $orderPhone = $order->wxCasa[0]->phone;
         }else{
             $orderPhone = config('casarover.help_telephone');
         }

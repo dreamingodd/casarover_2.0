@@ -106,9 +106,11 @@ class Order extends Model
     {
         return $this->hasOne('App\Entity\VacationCard','order_id','id');
     }
-
+    /**
+    * 属于哪个民宿的订单
+    */
     public function wxCasa()
     {
-        return $this->belongsTo('App\Entity\Wx\wxCasa');
+        return $this->belongsToMany('App\Entity\Wx\wxCasa','casa_order');
     }
 }
