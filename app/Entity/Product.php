@@ -40,8 +40,8 @@ class Product extends Model
         return $this->hasOne('App\Entity\Stock','product_id','id');
     }
 
-    public function img()
-    {
-        return $this->belongsTo('App\Attachment','attachment_id','id');
-    }
+    // public function img()
+    // {
+    //     return $this->belongsTo('App\Attachment','attachment_id','id');
+    // }
 }
