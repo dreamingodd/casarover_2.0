@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class PcWxLoginController extends Controller
 {
 
-    public function login()
+    public function login($redirectUrl = "")
     {
         $plr = new PcLoginRequest();
         $plr->save();

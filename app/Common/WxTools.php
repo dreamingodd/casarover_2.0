@@ -89,11 +89,11 @@ trait WxTools
 
         public static function getUser()
         {
-            $openid = Session::get('openid');
-            if (empty($openid)) {
+            $userId = Session::get('user_id');
+            if (empty($userId)) {
                 return null;
             } else {
-                $user = User::where('openid', $openid)->distinct()->get();
+                $user = User::find($userId);
                 return $user;
             }
         }

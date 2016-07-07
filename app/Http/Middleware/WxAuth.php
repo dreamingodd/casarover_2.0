@@ -59,7 +59,6 @@ class WxAuth
                 }
             } else if (env('ENV') == 'DEV') {
                 $user = $this->getDummyUser();
-                Session::put('openid', $user->openid);
                 Session::put('user_id', $user->id);
                 Session::save();
                 return $next($request);

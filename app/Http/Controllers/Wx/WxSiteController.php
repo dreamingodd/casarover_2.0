@@ -210,7 +210,6 @@ class WxSiteController extends WxBaseController
     /** */
     public function logout() {
         Session::forget('user_id');
-        Session::forget('openid');
         return "已退出";
     }
 
