@@ -169,7 +169,7 @@ class VacationOpportunityController extends BaseController
      */
     public function applyReject($id)
     {
-        $apply = OpportunityApply::where('user_id',Session::get('user_id'))->where('id', $id)->first();
+        $apply = OpportunityApply::find($id);
         $apply->status = 2;
         $apply->save();
         return redirect('/wx/user/card/applied/list');

@@ -26,6 +26,7 @@ Route::group(['prefix' => 'wx/pc-wx-login', 'middleware' => ['web', 'wx.auth']],
 });
 Route::group(['prefix' => 'merchant', 'middleware' => ['web', 'pc.wx']], function() {
     Route::get('/', 'Merchant\ReserveController@index');
+    Route::get('sdfe/ddd', 'Merchant\ReserveController@index');
 });
 
 Route::get('dashboard',function(){

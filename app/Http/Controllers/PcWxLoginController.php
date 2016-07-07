@@ -7,13 +7,15 @@ use App\Common\QrImageGenerator;
 use App\Entity\PcLoginRequest;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class PcWxLoginController extends Controller
 {
 
-    public function login($redirectUrl = "")
+    public function login(Request $request)
     {
         $plr = new PcLoginRequest();
+        $plr->redirect_url = $request->redirect_url;
         $plr->save();
         $plr->code = $plr->id . '-' . mt_rand(1000, 9999);
         $plr->save();
