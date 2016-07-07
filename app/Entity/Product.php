@@ -25,8 +25,8 @@ class Product extends Model
      * TYPE_CASA_ROOM will belongs to a wx casa.
      */
     public function wxCasa() {
-        if (TYPE_CASA_ROOM == 1) {
-            return $this->belongsTo('App\Entity\Wx\WxCasa');
+        if ($this->type == self::TYPE_CASA_ROOM || $this->type == self::TYPE_VACATION_CARD) {
+            return $this->hasOne('App\Entity\Wx\WxCasa','id','parent_id');
         }
         return null;
     }

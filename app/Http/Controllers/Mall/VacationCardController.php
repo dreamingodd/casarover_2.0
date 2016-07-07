@@ -120,7 +120,7 @@ class VacationCardController extends BaseController
         foreach($casas as $casa)
         {
             $casa->headImg = 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/'
-                    . $casa->wxCasa->attachment->filepath;
+                    . $casa->wxCasa->thumbnail();
             $casa->orig = $casa->stock->orig;
             $casa->room = 0;
             $casa->surplus = $casa->stock->surplus;
