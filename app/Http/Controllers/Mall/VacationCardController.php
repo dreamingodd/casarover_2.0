@@ -119,7 +119,8 @@ class VacationCardController extends BaseController
         $casas = Product::where('type', Product::TYPE_VACATION_CARD)->where('price', '>', 0)->get();
         foreach($casas as $casa)
         {
-            $casa->headImg = 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/' . $casa->img->filepath;
+            $casa->headImg = 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/'
+                    . $casa->wxCasa->thumbnail();
             $casa->orig = $casa->stock->orig;
             $casa->room = 0;
             $casa->surplus = $casa->stock->surplus;
