@@ -132,29 +132,16 @@ class WxOrderController extends BaseController
      */
     public function orderlist()
     {
-        // return 1;
-        //test 假定已经获取了用户的id
-        $userId = 10;
-        $orderlist = [];
-        $casaorderlist = WxBind::where('user_id',$userId)->first()->orders()->paginate(20);
-        dd($casaorderlist);
-        foreach ($casaorderlist  as $value) {
-            array_push($orderlist, $value->order);
-        }
-        foreach ($orderlist as $order) {
-            $order->casaOrder;
-            if($order->casaOrder->reserve_date){
-                $order->start = $order->casaOrder->reserve_date;
-            }else{
-                $order->start = '';
-            }
-            $order->comment = $order->casaOrder->reserve_comment;
-        }
-        $data = $this->jsondata('200', '获取成功', $orderlist);
-        return response()->json($data);
-        // dd($orderlist);
         try {
-            $orderlist = Order::orderBy('id', 'desc')->paginate(20);
+            // 如果session 中有user_id 那么就是单个用户登录，不然就是系统管理员，那么应该显示所有的订单信息
+            // for test;
+            $userId = 10;
+            if(isset($userId)){
+                $orderlist = WxCasa::find(WxBind::where('user_id',$userId)->first()->wx_casa_id)
+                                ->orders()->where('pay_type','3')->paginate(20);
+            }else{
+                $orderlist = Order::orderBy('id', 'desc')->paginate(20);
+            }
             foreach($orderlist as $order)
             {
                 $order->time = $order->created_at->format('Y-m-d H:i');

@@ -15,6 +15,9 @@ $(document).ready(function(){
             $("#navleft").attr("href","/wx/user");
         }
     })
+    Vue.filter('roundDisplay', function (value) {
+      return value.toFixed(2);
+    })
     var vm = new Vue({
         el: '#app',
         data: {

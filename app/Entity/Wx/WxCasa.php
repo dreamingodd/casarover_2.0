@@ -69,7 +69,7 @@ class WxCasa extends Model
 
     public function orders()
     {
-        return $this->hasMany('App\Entity\Order');
+        return $this->belongsToMany('App\Entity\Order','casa_order');
     }
 
 }

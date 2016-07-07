@@ -78,7 +78,7 @@
                 </template>
             </div>
             <div class="buttom-buy" v-on:click="buy">
-                <div class="total">总计：@{{ total }}元</div>
+                <div class="total">总计：@{{ total | roundDisplay }}元</div>
                 <div class="buy">
                     <h2>购买</h2>
                 </div>
