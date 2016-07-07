@@ -16,6 +16,7 @@ class UserController extends Controller
 {
     /**
      * List all users in backstage.
+     * @param Request $request
      */
     public function showList(Request $request)
     {
@@ -38,11 +39,14 @@ class UserController extends Controller
 
     /**
      * 注册成为测试用户
-     * @param int $id
-     * @param int $page
+     * @param Request $request
      */
-    public function registerTester($id, $page, $searchText, $hasPhone)
+    public function registerTester(Request $request)
     {
+        $id = $request->userId;
+        $page = $request->page;
+        $searchText = $request->searchText;
+        $hasPhone = $request->hasPhone;
         $user = User::find($id);
         $user->test = 1;
         $user->save();
@@ -51,11 +55,14 @@ class UserController extends Controller
 
     /**
      * 取消测试用户资格
-     * @param int $id
-     * @param int $page
+     * @param Request $request
      */
-    public function unregisterTester($id, $page, $searchText, $hasPhone)
+    public function unregisterTester(Request $request)
     {
+        $id = $request->userId;
+        $page = $request->page;
+        $searchText = $request->searchText;
+        $hasPhone = $request->hasPhone;
         $user = User::find($id);
         $user->test = 0;
         $user->save();

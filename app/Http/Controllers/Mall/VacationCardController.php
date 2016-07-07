@@ -15,7 +15,7 @@ use App\Entity\User;
 use DB;
 use Log;
 use Config;
-use Mockery\CountValidator\Exception;
+use Exception;
 use Session;
 use App\Entity\VacationCard;
 use Carbon\Carbon;
