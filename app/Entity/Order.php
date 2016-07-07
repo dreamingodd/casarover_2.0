@@ -106,4 +106,9 @@ class Order extends Model
     {
         return $this->hasOne('App\Entity\VacationCard','order_id','id');
     }
+
+    public function wxCasa()
+    {
+        return $this->belongsTo('App\Entity\Wx\wxCasa');
+    }
 }

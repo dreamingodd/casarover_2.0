@@ -61,7 +61,7 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('sucess/{type?}/{id?}', 'BackController@sucess');
     Route::get('fail', 'BackController@fail');
     Route::get('areaslide','SlideController@areaSlide');
-    Route::get('api/wxorder/list/{page?}/{type?}','Wx\WxOrderController@orderlist');
+    Route::get('api/wxorder/list','Wx\WxOrderController@orderlist');
     Route::post('api/wxorder/del/','Wx\WxOrderController@del');
     Route::get('shareactiv','Wx\Activity18Controller@selcasas');
     Route::get('api/eighteen/add/{id}','Wx\Activity18Controller@add');

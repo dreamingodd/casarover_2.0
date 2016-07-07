@@ -3,12 +3,13 @@ $(document).ready(function(){
         directionNav: true,
         pauseOnAction: false
     });
-    $('.search-input input').click(()=>{
-        $('.search-place').css('display','block');
-    });
-    $('.search-input input').blur(()=>{
-        $('.search-place').css('display','none');
-    });
+    // this is for search
+    // $('.search-input input').click(()=>{
+    //     $('.search-place').css('display','block');
+    // });
+    // $('.search-input input').blur(()=>{
+    //     $('.search-place').css('display','none');
+    // });
     Vue.component('card',{
         template : '#card',
         props : ['casa']
@@ -27,9 +28,18 @@ $(document).ready(function(){
             };
         },
         ready:function(){
-            this.turn(7);
+            this.firstCasas();
         },
         methods: {
+            firstCasas (){
+                $(".loader").css('display','block');
+                $.getJSON('/api/home/recom/'+this.city, (data) => {
+                    this.casas = data;
+                    $(".loader").css('display','none');
+                    this.setActive(this.city);
+                    this.getthemes();
+                })
+            },
             turn (event){
                 $(".loader").css('display','block');
                 this.city = event;
@@ -37,7 +47,7 @@ $(document).ready(function(){
                     this.casas = data;
                     $(".loader").css('display','none');
                     this.setActive(event);
-                    this.getthemes();
+                    this.changeBr();
                 })
             },
             getthemes(){
@@ -65,7 +75,7 @@ $(document).ready(function(){
             },
             setActive(event){
                 $('.city-list a').each(function(){
-                    var clickdom = $(this).attr("value");
+                    let clickdom = $(this).data("index");
                     $(this).removeClass('active');
                     if(clickdom == event){
                         $(this).addClass('active');
@@ -75,7 +85,7 @@ $(document).ready(function(){
             changeBr:function(){
                 //对info中的br进行处理
                 $('.middle p').each(function () {
-                    var str = $(this).html();
+                    let str = $(this).html();
                     str = str.split('<BR/>').join('\n');
                     str = str.split('&lt;BR/&gt;').join('\n');
                     $(this).text(str);

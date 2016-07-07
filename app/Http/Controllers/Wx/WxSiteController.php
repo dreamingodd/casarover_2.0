@@ -76,7 +76,7 @@ class WxSiteController extends WxBaseController
     public function user($tips = null)
     {
         $user = User::find(Session::get('user_id'));
-        $orders = Order::where('user_id', Session::get('user_id'))->orderBy('id', 'desc')->get();
+        $orders = $user->orders()->orderBy('id','desc')->get();
         $percent = 0;
         if (!empty($user->wxMembership->id)) {
             $accumulatedScore = $user->wxMembership->accumulated_score;

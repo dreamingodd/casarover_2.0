@@ -58,8 +58,9 @@
             <h2>民宿推荐</h2>
             <div class="line"></div>
             <div class="city-list">
+                <input type="hidden" name="name" value="{{ $citys[0]->id }}" v-model="city">
                 @foreach($citys as $city)
-                    <a class="normal" value="{{ $city->id }}" v-on:click="turn({{ $city->id }})" >{{ $city->value }}</a>
+                    <a class="normal" data-index={{ $city->id }} @click="turn({{ $city->id }})" >{{ $city->value }}</a>
                 @endforeach
             </div>
             <div class="loader">

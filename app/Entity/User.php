@@ -39,4 +39,8 @@ class User extends Model
     {
         return $this->hasManyThrough('App\Entity\Wx\WxScoreVariation', 'App\Entity\Wx\WxMembership');
     }
+    public function orders()
+    {
+        return $this->hasMany('App\Entity\Order');
+    }
 }

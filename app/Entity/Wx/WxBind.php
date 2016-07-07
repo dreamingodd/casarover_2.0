@@ -21,4 +21,10 @@ class WxBind extends Model
     public function wxCasa() {
         return $this->belongsTo('App\Entity\Wx\WxCasa');
     }
+    // 获取该管理者所能处理的所有订单
+    public function orders()
+    {
+        // return $this->hasManyThrough('App\Entity\Order' , 'App\Entity\CasaOrder','order_id');
+        return $this->hasMany('App\Entity\CasaOrder', 'wx_casa_id', 'wx_casa_id');
+    }
 }

@@ -67,4 +67,9 @@ class WxCasa extends Model
         }
     }
 
+    public function orders()
+    {
+        return $this->hasMany('App\Entity\Order');
+    }
+
 }

@@ -100,6 +100,8 @@ class WxOrderController extends BaseController
     {
         $order = Order::find($id);
         $qrFile = null;
+        // 如果是预订平台的订单，那么预订电话是公司设定好的，到配置文件中去修改
+        // 如果是度假卡的消费订单，那么预订电话是民宿主人的电话
         if($order->pay_type == Order::PAY_TYPE_CARD){
             $orderPhone = $order->orderItems[0]->product->casaMessage->phone;
         }else{
@@ -128,12 +130,28 @@ class WxOrderController extends BaseController
      * 这个系统管理员查看和每个民宿主人查看到的内容应该是不一样的，
      * 两个订单列表应该使用相同的代码，通过对登录用户的不同来显示不同的内容
      */
-    public function orderlist($page = 1, $type = 0)
+    public function orderlist()
     {
+        // return 1;
         //test 假定已经获取了用户的id
-        // $userId = 10;
-        // $orderlist = CasaOrder::where('wx_casa_id',WxBind::where('user_id',$userId)->first()->wx_casa_id)->first()-;
-        // $orderlist = WxBind::where('user_id',$userId)->first()->wx_casa_id;
+        $userId = 10;
+        $orderlist = [];
+        $casaorderlist = WxBind::where('user_id',$userId)->first()->orders()->paginate(20);
+        dd($casaorderlist);
+        foreach ($casaorderlist  as $value) {
+            array_push($orderlist, $value->order);
+        }
+        foreach ($orderlist as $order) {
+            $order->casaOrder;
+            if($order->casaOrder->reserve_date){
+                $order->start = $order->casaOrder->reserve_date;
+            }else{
+                $order->start = '';
+            }
+            $order->comment = $order->casaOrder->reserve_comment;
+        }
+        $data = $this->jsondata('200', '获取成功', $orderlist);
+        return response()->json($data);
         // dd($orderlist);
         try {
             $orderlist = Order::orderBy('id', 'desc')->paginate(20);
