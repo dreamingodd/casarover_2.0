@@ -135,7 +135,7 @@ class WxOrderController extends BaseController
         try {
             // 如果session 中有user_id 那么就是单个用户登录，不然就是系统管理员，那么应该显示所有的订单信息
             // for test;
-            $userId = 10;
+            // $userId = 10;
             if(isset($userId)){
                 $orderlist = WxCasa::find(WxBind::where('user_id',$userId)->first()->wx_casa_id)
                                 ->orders()->where('pay_type','3')->paginate(20);
