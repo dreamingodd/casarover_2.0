@@ -15,6 +15,7 @@ class AddRedirectUrlToPcLoginRequest extends Migration
         Schema::dropIfExists('wx_room');
         Schema::table('pc_login_request', function(Blueprint $t) {
             $t->string('redirect_url', 1024)->after('status');
+            $t->bigInteger('user_id')->after('code')->references('user')->on('id');
         });
     }
 
@@ -27,6 +28,7 @@ class AddRedirectUrlToPcLoginRequest extends Migration
     {
         Schema::table('pc_login_request', function(Blueprint $t) {
             $t->dropColumn('redirect_url');
+            $t->dropColumn('user_id');
         });
 
     }
