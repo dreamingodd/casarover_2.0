@@ -3,7 +3,7 @@
 <head>
     <meta charset=UTF-8" />
     <meta name="format-detection" content="telephone=no" />
-    <meta name="viewport" content="device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="/assets/css/common.css">
     <link rel="stylesheet" href="/assets/css/mobileIndex.css">
     <script src="//cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
@@ -14,13 +14,13 @@
     <title>@yield('title')</title>
     {{--百度统计代码--}}
     <script>
-        var _hmt = _hmt || [];
+        {{-- var _hmt = _hmt || [];
         (function() {
             var hm = document.createElement("script");
             hm.src = "//hm.baidu.com/hm.js?4f26b22fbfe63c2ca0935f07dc6159ca";
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
-        })();
+        })(); --}}
     </script>
     @yield('head')
 </head>

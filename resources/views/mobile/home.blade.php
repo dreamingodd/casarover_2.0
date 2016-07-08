@@ -35,6 +35,7 @@
         </div>
     </nav>
     <div class="container" id="app">
+        <input type="hidden" name="name" value="{{ $citys[0]->id }}" v-model="city">
         @if(config('config.toggle_recom'))
                 <!-- 民宿推荐 -->
         <section id="recom">

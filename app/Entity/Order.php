@@ -49,7 +49,7 @@ class Order extends Model
         'id', 'user_id', 'order_id', 'type', 'pay_type', 'name', 'pay_id',
         'total', 'status', 'deleted_at', 'created_at', 'updated_at','photo_path'
     );
-    protected $hidden = ['created_at','updated_at','deleted_at','user','pivot'];
+    protected $hidden = ['created_at','updated_at','deleted_at','user','pivot','pay_type','pay_id','user_id','orderItems'];
 
     /** Generate an orderId for payment Identity. */
     public function generateOrderId() {

@@ -26,5 +26,15 @@
                 }
             })
         }
+        // 貌似没用
+        // if (/Android/gi.test(navigator.userAgent)) {
+        //     window.addEventListener('resize', function () {
+        //         if (document.activeElement.tagName == 'INPUT' || document.activeElement.tagName == 'TEXTAREA') {
+        //             window.setTimeout(function () {
+        //                 $('.confirm').scrollIntoViewIfNeeded();
+        //             }, 0);
+        //         }
+        //     })
+        // }
     </script>
 @stop
