@@ -24,7 +24,7 @@ class PcWxAuth
         if (Session::has('user_id')) {
             return $next($request);
         } else {
-            return redirect('/pc-wx-login');
+            return redirect('/pc-wx-login?redirect_url=' . urlencode($request->path()));
         }
     }
 

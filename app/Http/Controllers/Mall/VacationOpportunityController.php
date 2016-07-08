@@ -111,7 +111,7 @@ class VacationOpportunityController extends BaseController
                 ]);
                 DB::commit();
                 //跳转到我的申请列表
-                return redirect('/wx/user/card/myapply/list')->with(['msg' => '申请已提交']);
+                return redirect('/wx/user/card/apply/list')->with(['msg' => '申请已提交']);
             }
         } catch (Exception $e) {
             DB::rollback();
@@ -148,7 +148,7 @@ class VacationOpportunityController extends BaseController
      */
     public function applyApprove($id)
     {
-        $apply = OpportunityApply::where('user_id',Session::get('user_id'))->where('id', $id)->first();
+        $apply = OpportunityApply::find($id);
         $result = $this->checkLeftNums($apply, $id);
         if($result)
         {
@@ -169,7 +169,7 @@ class VacationOpportunityController extends BaseController
      */
     public function applyReject($id)
     {
-        $apply = OpportunityApply::where('user_id',Session::get('user_id'))->where('id', $id)->first();
+        $apply = OpportunityApply::find($id);
         $apply->status = 2;
         $apply->save();
         return redirect('/wx/user/card/applied/list');
