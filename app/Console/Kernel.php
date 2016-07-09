@@ -25,7 +25,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('ywd:loginclean')
-                 ->everyMinute();
+        // This Schedule piece of shit failed on Aliyun CentOS, I don't know why. Rubbish!
     }
 }
