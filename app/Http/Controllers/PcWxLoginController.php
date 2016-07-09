@@ -6,6 +6,7 @@ use Log;
 use Config;
 use stdClass;
 use Session;
+use Exception;
 use App\Common\QrImageGenerator;
 use App\Entity\PcLoginRequest;
 use App\Http\Controllers\Controller;
@@ -71,32 +72,36 @@ class PcWxLoginController extends Controller
     /** Loop check request status,  */
     public function check($code)
     {
-        $plr = PcLoginRequest::where('code', $code)->first();
-        if ($plr) {
-            $data = new stdClass();
-            $now = new Carbon();
-            while ($now->timestamp - $plr->created_at->timestamp < Config::get('casarover.pc_wx_expire_duration')) {
-                $plr = PcLoginRequest::where('code', $code)->first();
-                if ($plr->status == PcLoginRequest::STATUS_APPROVED) {
-                    // Actual Login action takes place.
-                    Session::put('user_id', $plr->user_id);
-                    Session::save();
-                    $data->msg = "approved";
-                    $data->redirect_url = urlencode($plr->redirect_url);
-                    return response()->json($data);
-                } else if ($plr->status == PcLoginRequest::STATUS_REJECTED) {
-                    $data->msg = "rejected";
-                    return response()->json($data);
-                }
-                sleep(2);
-                // Refresh now.
+        try {
+            $plr = PcLoginRequest::where('code', $code)->first();
+            if ($plr) {
+                $data = new stdClass();
                 $now = new Carbon();
+                while ($now->timestamp - $plr->created_at->timestamp < Config::get('casarover.pc_wx_expire_duration')) {
+                    $plr = PcLoginRequest::where('code', $code)->first();
+                    if ($plr->status == PcLoginRequest::STATUS_APPROVED) {
+                        // Actual Login action takes place.
+                        Session::put('user_id', $plr->user_id);
+                        Session::save();
+                        $data->msg = "approved";
+                        $data->redirect_url = urlencode($plr->redirect_url);
+                        return response()->json($data);
+                    } else if ($plr->status == PcLoginRequest::STATUS_REJECTED) {
+                        $data->msg = "rejected";
+                        return response()->json($data);
+                    }
+                    sleep(2);
+                    // Refresh now.
+                    $now = new Carbon();
+                }
+                Log::info(get_class() . " - timeout");
+                $data->msg = "timeout";
+                return response()->json($data);
+            } else {
+                return "登录请求查找失败！";
             }
-            Log::info(get_class() . "timeout");
-            $data->msg = "timeout";
-            return response()->json($data);
-        } else {
-            return "登录请求查找失败！";
+        } catch (Exception $e) {
+            Log::error(get_class() . " - " . $e);
         }
     }
 }

@@ -18,7 +18,7 @@ require_once('routes/mobileRoutes.php');
 
 // Merchat
 Route::get('pc-wx-login/{redirectUrl?}', 'PcWxLoginController@login');
-Route::get('pc-wx-login/check/{code}', 'PcWxLoginController@check');
+Route::get('pc-wx-login/check/{code}', 'PcWxLoginController@check')->middleware(['web']);
 Route::group(['prefix' => 'wx/pc-wx-login', 'middleware' => ['web', 'wx.auth']], function () {
     Route::get('option/{code}', 'PcWxLoginController@option');
     Route::get('approve/{code}', 'PcWxLoginController@approve');
