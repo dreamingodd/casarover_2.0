@@ -20,7 +20,7 @@ class PcWxLoginController extends Controller
         $plr = new PcLoginRequest();
         $plr->redirect_url = "/" . $request->redirect_url;
         $plr->save();
-        $plr->code = $plr->id . '-' . mt_rand(1000, 9999);
+        $plr->code = $plr->id . '-' . str_random(6);
         $plr->save();
         $now = new Carbon();
         $qrFile = public_path() . "/assets/phpqrcode/temp/pclogin_" . $plr->code ."_" . $now->format("Ymd") . ".png";
@@ -92,11 +92,11 @@ class PcWxLoginController extends Controller
                 // Refresh now.
                 $now = new Carbon();
             }
-            Log::info("timeout");
+            Log::info(get_class() . "timeout");
             $data->msg = "timeout";
             return response()->json($data);
         } else {
-            return "<h1>登录请求查找失败！</h1>";
+            return "登录请求查找失败！";
         }
     }
 }

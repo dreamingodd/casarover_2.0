@@ -42,7 +42,7 @@ class WxBaseController extends Controller
             } else {
                 $token = $this->getBaseAccessTokenFromWx();
             }
-            Log::info('Wx Token Refreshed - ' . $token);
+            Log::info(get_class() . ' - ' . 'Wx Token Refreshed - ' . $token);
             // Save the access_token in cache,
             // will be destroyed in 20 minutes.
             Cache::put('access_token', $token, 20);

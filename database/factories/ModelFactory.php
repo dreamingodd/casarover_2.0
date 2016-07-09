@@ -1,4 +1,5 @@
 <?php
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,8 +12,12 @@
 |
 */
 
-$factory->define(App\Task::class, function (Faker\Generator $faker) {
+$factory->define(\App\Entity\PcLoginRequest::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->title,
+        'code' => $faker->name,
+        'user_id' => mt_rand(1, 8000),
+        'status' => mt_rand(1, 3),
+        'redirect_url' => str_random(10),
+        'created_at' => Carbon::createFromDate(2016, 7, 7, 'America/Toronto'),
     ];
 });

@@ -14,6 +14,7 @@ use App\Entity\Wx\WxMembership;
 use App\Entity\Wx\WxScoreVariation;
 use App\Http\Controllers\BaseController;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
 use DB;
@@ -108,8 +109,8 @@ class WxOrderController extends BaseController
             $orderPhone = config('casarover.help_telephone');
         }
         if ($order->type == Order::TYPE_CASA) {
-            $qrFile = public_path() . "/assets/phpqrcode/temp/order" . $order->id . ".png";
-            $qrPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order" . $order->id . ".png";
+            $qrFile = public_path() . "/assets/phpqrcode/temp/order_" . $order->id . ".png";
+            $qrPath = env('ROOT_URL') . "/assets/phpqrcode/temp/order_" . $order->id . ".png";
             if (!file_exists($qrFile)) {
                 QrImageGenerator::generate(env('ROOT_URL') . '/wx/consume/' . $order->id, $qrFile);
             }
@@ -164,7 +165,7 @@ class WxOrderController extends BaseController
             $data = $this->jsondata('200', '获取成功', $orderlist);
             return response()->json($data);
         } catch (Exception $e) {
-            Log::error($e);
+            Log::error(get_class() . ' - ' . $e);
             dd($e);
         }
     }
@@ -251,7 +252,7 @@ class WxOrderController extends BaseController
                             DB::commit();
                         } catch (Exception $e) {
                             DB::rollBack();
-                            Log::error($e);
+                            Log::error(get_class() . ' - ' . $e);
                             return "操作失败！";
                         }
                     }
@@ -285,14 +286,14 @@ class WxOrderController extends BaseController
                     $this->updateMembership($wms, - $wsv->score);
                     $wsv->delete();
                 } else {
-                    Log::error('order-' . $order->order_id . ' cancel consume, score variation not found!');
+                    Log::error(get_class() . ' - ' . 'order-' . $order->order_id . ' cancel consume, score variation not found!');
                 }
             }
             DB::commit();
             return redirect('/wx/bind');
         } catch (Exception $e) {
             DB::rollBack();
-            Log::error($e);
+            Log::error(get_class() . ' - ' . $e);
             return "操作失败！";
         }
     }

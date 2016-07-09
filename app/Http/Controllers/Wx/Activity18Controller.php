@@ -135,7 +135,7 @@ class Activity18Controller extends WxBaseController
                 DB::commit();
             } catch(\Exception $e) {
                 DB::rollback();
-                Log::error($e);
+                Log::error(get_class() . ' - ' . $e);
                 //出错应该到错误页面不应该是404
                 abort(404);
             }

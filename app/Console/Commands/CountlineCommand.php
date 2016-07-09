@@ -20,7 +20,7 @@ class CountlineCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'It will display line info for all developed js/php files.';
 
     /**
      * Create a new command instance.

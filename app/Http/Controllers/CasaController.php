@@ -69,7 +69,7 @@ class CasaController extends BaseController
             dd($e);
         } catch(\Exception $e) {
             DB::rollback();
-            Log::error($e);
+            Log::error(get_class() . ' - ' . $e);
             dd($e);
         }
     }

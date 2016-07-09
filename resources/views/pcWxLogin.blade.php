@@ -12,8 +12,8 @@
 -->
 <script>
 $.ajax('/wx/pc-wx-login/check/{{$plr->code}}', {
-    // 1s = 100
-    timeout: 10000,
+    // 1s = 1000
+    timeout: 100000,
     success: function(data) {
         if (data.msg) {
             if (data.msg === "approved") {

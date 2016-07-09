@@ -74,7 +74,7 @@ class VacationCardController extends BaseController
         catch(Exception $e)
         {
             DB::rollback();
-            Log::error($e);
+            Log::error(get_class() . ' - ' . $e);
         }
         return response()->json(['msg'=>'ok']);
     }
@@ -175,7 +175,7 @@ class VacationCardController extends BaseController
         catch(Exception $e)
         {
             DB::rollback();
-            Log::error($e);
+            Log::error(get_class() . ' - ' . $e);
             return $e;
             //不一定是什么错误，但是前台能做的就是重试。
             return response()->json(['code' => 503, 'msg' => '网络错误，请刷新重试']);
