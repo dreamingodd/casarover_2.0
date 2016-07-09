@@ -48,7 +48,7 @@ class WxPayController extends Controller
             $prepayId = $result->prepay_id;
         }
 
-        Log::info('Order created:' . $casaroverOrder->order_id);
+        Log::info(get_class() . ' - ' . 'Order created:' . $casaroverOrder->order_id);
         $payConfig = $payment->configForPayment($prepayId);
         return view("wx.wxConfirm", compact('payConfig', 'order', 'casaroverOrder'));
     }
@@ -61,10 +61,10 @@ class WxPayController extends Controller
         try {
             $app = new Application($this->getOptions());
             $response = $app->payment->handleNotify(function($notify, $successful) {
-                Log::info("Payment process has been notified!");
+                Log::info(get_class() . ' - ' . "Payment process has been notified!");
                 if ($successful) {
                     $orderId = $notify->out_trade_no;
-                    Log::info("Order:" . $orderId . " has been notified!");
+                    Log::info(get_class() . ' - ' . "Order:" . $orderId . " has been notified!");
                     $transactionId = $notify->transaction_id;
                     $resultCode = $notify->result_code;
                     $order = \App\Entity\Order::where("order_id", $orderId)->get()->first();
@@ -72,14 +72,14 @@ class WxPayController extends Controller
                         $order->status = 1;
                         $order->pay_id = $transactionId;
                         $order->save();
-                        Log::info("Order:" . $orderId . " payment is successful!");
+                        Log::info(get_class() . ' - ' . "Order:" . $orderId . " payment is successful!");
                     }
                 }
                 return true; // Or error msg
             });
             return $response;
         } catch (Exception $e) {
-            Log::error($e);
+            Log::error(get_class() . ' - ' . $e);
             return "fail";
         }
     }

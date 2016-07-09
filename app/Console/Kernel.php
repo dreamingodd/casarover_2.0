@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\CountlineCommand::class,
+        Commands\PcLoginCleanCommand::class,
     ];
 
     /**
@@ -24,7 +25,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        // This Schedule piece of shit failed on Aliyun CentOS, I don't know why. Rubbish!
     }
 }

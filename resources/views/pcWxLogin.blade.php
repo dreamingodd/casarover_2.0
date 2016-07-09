@@ -11,7 +11,7 @@
 <script src="/assets/js/integration/jquery.min.js"></script>
 -->
 <script>
-$.ajax('/wx/pc-wx-login/check/{{$plr->code}}', {
+$.ajax('/pc-wx-login/check/{{$plr->code}}', {
     // 1s = 1000
     timeout: 100000,
     success: function(data) {

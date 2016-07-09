@@ -115,7 +115,7 @@ class VacationOpportunityController extends BaseController
             }
         } catch (Exception $e) {
             DB::rollback();
-            Log::error($e);
+            Log::error(get_class() . ' - ' . $e);
             return $e;
         }
     }

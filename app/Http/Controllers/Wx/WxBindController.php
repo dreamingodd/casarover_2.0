@@ -42,7 +42,7 @@ class WxBindController extends Controller
             $reserveStatus = ['未预约', '已预约', '预约失败', '已消费'];
             return view('wx.merchant', compact('orders', 'wxCasa', 'reserveStatus'));
         }
-        Log::error("Error: Unpredicted condition!");
+        Log::error(get_class() . ' - ' . "Error: Unpredicted condition!");
         return "Error: Unpredicted condition!";
     }
 
@@ -65,7 +65,7 @@ class WxBindController extends Controller
             $wxBind->save();
             return view('wx.bindWait');
         } catch (Exception $e) {
-            Log::error($e);
+            Log::error(get_class() . ' - ' . $e);
             return "<p style='font-size: 100px;'>System Error!</p>";
         }
     }
