@@ -20,10 +20,12 @@ use DB;
 use Log;
 use Config;
 use Session;
+use App\Common\OrderStatus;
 
 /** 微信民宿订单的生成，操作，展示以及积分抵扣相关的功能 */
 class WxOrderController extends BaseController
 {
+    use OrderStatus;
     /** @var string ORDER_CONSUME_PREFIX 积分抵扣 - */
     const ORDER_CONSUME_PREFIX = "积分抵扣 - ";
     /** @var string ORDER_AWARD_PREFIX 完成订单奖励 - */
@@ -120,32 +122,21 @@ class WxOrderController extends BaseController
     /**  */
     public function index()
     {
-        $allstatus = $this->allstatus();
-        return view('backstage.wxOrderList',compact('allstatus'));
+        return view('backstage.wxOrderList');
     }
 
     /**
      * @param int $page
      * @param int $type
-     * 这个系统管理员查看和每个民宿主人查看到的内容应该是不一样的，
-     * 两个订单列表应该使用相同的代码，通过对登录用户的不同来显示不同的内容
      */
     public function orderlist()
     {
         try {
-            // 如果session 中有user_id 那么就是单个用户登录，不然就是系统管理员，那么应该显示所有的订单信息
-            // for test;
-            // $userId = 10;
-            if(isset($userId)){
-                $orderlist = WxCasa::find(WxBind::where('user_id',$userId)->first()->wx_casa_id)
-                                ->orders()->where('pay_type','3')->paginate(20);
-            }else{
-                $orderlist = Order::orderBy('id', 'desc')->paginate(20);
-            }
+            $orderlist = Order::orderBy('id', 'desc')->paginate(20);
             foreach($orderlist as $order)
             {
                 $order->time = $order->created_at->format('Y-m-d H:i');
-                $order->paystatus = $this->orderstatus(0, $order->status);
+                $order->paystatus = $this->getStatusWord(0, $order->status);
                 $order->goods = $order->orderItems;
                 foreach($order->goods as $good)
                 {
@@ -157,7 +148,7 @@ class WxOrderController extends BaseController
                 $order->userphone = $order->user->cellphone;
                 $order->nickname = $order->user->nickname;
                 if ($order->type == Order::TYPE_CASA) {
-                    $order->reserveStatus = $this->orderstatus(1, $order->casaOrder->reserve_status);
+                    $order->reserveStatus = $this->getStatusWord(1, $order->casaOrder->reserve_status);
                     $order->reserveComment = $order->casaOrder->reserve_comment;
                 }
             }
@@ -167,17 +158,6 @@ class WxOrderController extends BaseController
             Log::error($e);
             dd($e);
         }
-    }
-
-    /**
-     *
-     * @param int $code
-     * @param string $msg
-     * @param string $data
-     */
-    public function jsondata($code=0, $msg='成功', $data)
-    {
-        return ['code'=>$code,'msg'=>$msg,'data'=>$data];
     }
 
     /**
@@ -297,15 +277,6 @@ class WxOrderController extends BaseController
         }
     }
 
-    /**
-     * @param int $code
-     * @param int $type
-     */
-    protected function orderstatus($type, $code)
-    {
-        $allstatus = $this->allstatus();
-        return $allstatus[$type][$code];
-    }
 
     /**
      * 发送预约成功的短信
@@ -323,28 +294,6 @@ class WxOrderController extends BaseController
         $message = json_encode($sendArr,JSON_UNESCAPED_UNICODE);
         // $message2 = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
         $sms->send('探庐者','SMS_9720239',$message,$userphone);
-    }
-
-    /**
-     * @return array $allstatus
-     */
-    private function allstatus()
-    {
-        $allstatus = [
-            [
-                '未付款',
-                '已付款',
-                '申请退款',
-                '已退款'
-            ],
-            [
-                '未预约',
-                '已预约',
-                '预约失败',
-                '已消费',
-            ],
-        ];
-        return $allstatus;
     }
 
     /**

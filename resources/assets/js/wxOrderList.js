@@ -19,8 +19,8 @@ $(document).ready(function(){
                 $('.pagination li').removeClass('active');
                 $('.pagination li:eq('+(page-1)+')').addClass('active');
                 $.getJSON('/back/api/wxorder/list/?page='+page, (data)=> {
-                    this.orders = data.data.data;
-                    this.pageArr(data.data.last_page);
+                    this.orders = data.result.data;
+                    this.pageArr(data.result.last_page);
                 });
             },
             pageArr(page){

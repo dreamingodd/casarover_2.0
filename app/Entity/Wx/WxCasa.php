@@ -72,4 +72,9 @@ class WxCasa extends Model
         return $this->belongsToMany('App\Entity\Order','casa_order');
     }
 
+    public function orderItems()
+    {
+        return $this->hasManyThrough('App\Entity\OrderItem', 'App\Entity\Product','parent_id','product_id');
+    }
+
 }

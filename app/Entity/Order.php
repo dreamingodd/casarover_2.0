@@ -103,7 +103,7 @@ class Order extends Model
         return $this->hasOne('App\Entity\Opportunity', 'order_item_id','id');
     }
 
-    public function VacationCard()
+    public function vacationCard()
     {
         return $this->hasOne('App\Entity\VacationCard','order_id','id');
     }
