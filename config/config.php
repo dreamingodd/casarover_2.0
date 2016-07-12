@@ -11,7 +11,7 @@ return [
     'help_telephone' => '18355146150',
     'system_mail_receivers' => [
         ['name' => 'wenda', 'address' => 'alwayslookback@sina.com'],
-        ['name' => 'yunlong', 'address' => '744007114@qq.com'],
+        ['name' => 'yunlong', 'address' => 'dragon2590@qq.com'],
     ],
     // 预定平台可抵最高折扣百分比 - %
     'wx_max_discount' => 30,

@@ -71,14 +71,14 @@ class DbBackupCommand extends Command
             // Send email.
             Log::info(get_class() . ' - '
                     . 'DB backup file is sending to mail addresses which are defined in config/config.php');
-            Mail::send('email.dbBackup', [], function ($m) {
+	    Mail::send('email.dbBackup', ['postSqlFile' => $postSqlFile], function ($m) use ($postSqlFile) {
                 $m->from('alwayslookback@163.com', 'Casarover');
                 $m->attach($postSqlFile);
                 foreach (Config::get('config.system_mail_receivers') as $receiver) {
-                    $m->to($receiver->address, $receiver->name)->subject('Casarover DB Backup!');
-                }
+                    $m->to($receiver['address'], $receiver['name'])->subject('Casarover DB Backup!');
+		}
             });
-        } catch (Exception $e) {
+	} catch (Exception $e) {
             Log::error(get_class() . ' - ' . $e);
         }
     }
