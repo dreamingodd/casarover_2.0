@@ -9,6 +9,10 @@ return [
     'image_folder' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/image/',
     'image_tmp_folder' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/tmp/',
     'help_telephone' => '18355146150',
+    'system_mail_receivers' => [
+        ['name' => 'wenda', 'address' => 'alwayslookback@sina.com'],
+        ['name' => 'yunlong', 'address' => '744007114@qq.com'],
+    ],
     // 预定平台可抵最高折扣百分比 - %
     'wx_max_discount' => 30,
     // 预订平台-用户等级

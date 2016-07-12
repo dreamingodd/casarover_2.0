@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Log;
 use Mail;
+use Config;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -68,9 +69,14 @@ class DbBackupCommand extends Command
             // Rename file.
             exec($renameCommand, $outputArray, $returnVal);
             // Send email.
-            Mail::send('emails.reminder', [], function ($m) {
+            Log::info(get_class() . ' - '
+                    . 'DB backup file is sending to mail addresses which are defined in config/config.php');
+            Mail::send('email.dbBackup', [], function ($m) {
                 $m->from('alwayslookback@163.com', 'Casarover');
-                $m->to("alwayslookback@sina.com", "alwayslookback")->subject('Test!');
+                $m->attach($postSqlFile);
+                foreach (Config::get('config.system_mail_receivers') as $receiver) {
+                    $m->to($receiver->address, $receiver->name)->subject('Casarover DB Backup!');
+                }
             });
         } catch (Exception $e) {
             Log::error(get_class() . ' - ' . $e);
