@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Log;
+use Mail;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -41,11 +42,11 @@ class DbBackupCommand extends Command
     {
         try {
             $prevSqlFile = "/home/back/db_backup.sql";
-            $postSqlFile = "/home/back/db_backup_" . date("Ymd_hms") . ".sql";
+            $postSqlFile = "/home/back/db_backup/db_backup_" . date("Ymd_hms") . ".sql";
             $shellFile = "/home/back/db_backup.sh";
             // Commands.
             $delSqlCommand = "rm -f " . $prevSqlFile;
-            $backupCommand = "sudo " . "/home/back/db_backup.sh";
+            $backupCommand = "sudo " . $shellFile;
             $renameCommand = "mv " . $prevSqlFile . " " . $postSqlFile;
             // Check shell existence.
             if (!file_exists($shellFile)) {
@@ -67,7 +68,10 @@ class DbBackupCommand extends Command
             // Rename file.
             exec($renameCommand, $outputArray, $returnVal);
             // Send email.
-            
+            Mail::send('emails.reminder', [], function ($m) {
+                $m->from('alwayslookback@163.com', 'Casarover');
+                $m->to("alwayslookback@sina.com", "alwayslookback")->subject('Test!');
+            });
         } catch (Exception $e) {
             Log::error(get_class() . ' - ' . $e);
         }
