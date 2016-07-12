@@ -34,24 +34,24 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
 
     // vacation card
     //  buy
-    Route::get('cardCasaList','Mall\VacationCardController@index');
-    Route::get('/api/cardCasaList','Mall\VacationCardController@showlist');
-    Route::get('/api/cardCasa/{id}','Mall\VacationCardController@show');
-    Route::post('/api/cardCasaBuy','Mall\VacationCardController@buy');
+    Route::get('cardCasaList','Vacation\VacationCardController@index');
+    Route::get('/api/cardCasaList','Vacation\VacationCardController@showlist');
+    Route::get('/api/cardCasa/{id}','Vacation\VacationCardController@show');
+    Route::post('/api/cardCasaBuy','Vacation\VacationCardController@buy');
     //  card message
-    Route::get('/user/cards', 'Mall\VacationCardController@cards');
-    Route::get('/user/cardCasa/{id?}', 'Mall\VacationCardController@cardCasa');
+    Route::get('/user/cards', 'Vacation\VacationCardController@cards');
+    Route::get('/user/cardCasa/{id?}', 'Vacation\VacationCardController@cardCasa');
 
-    Route::get('/user/cardEntry', 'Mall\VacationOpportunityController@cardEntry');
-    Route::get('/api/user/cardCasa/{id?}', 'Mall\VacationOpportunityController@cardCasaJson');
-    Route::get('/user/card/prepare/book/{id}','Mall\VacationOpportunityController@prepareBook');
-    Route::post('/user/card/book','Mall\VacationOpportunityController@book');
+    Route::get('/user/cardEntry', 'Vacation\VacationOpportunityController@cardEntry');
+    Route::get('/api/user/cardCasa/{id?}', 'Vacation\VacationOpportunityController@cardCasaJson');
+    Route::get('/user/card/prepare/book/{id}','Vacation\VacationOpportunityController@prepareBook');
+    Route::post('/user/card/book','Vacation\VacationOpportunityController@book');
     //Application record
-    Route::get('/user/card/applied/list', 'Mall\VacationOpportunityController@appliedList');
-    Route::get('/user/card/apply/list', 'Mall\VacationOpportunityController@applyList');
+    Route::get('/user/card/applied/list', 'Vacation\VacationOpportunityController@appliedList');
+    Route::get('/user/card/apply/list', 'Vacation\VacationOpportunityController@applyList');
     //approve or not
-    Route::get('/user/card/apply/approve/{id}', 'Mall\VacationOpportunityController@applyApprove');
-    Route::get('/user/card/apply/reject/{id}', 'Mall\VacationOpportunityController@applyReject');
+    Route::get('/user/card/apply/approve/{id}', 'Vacation\VacationOpportunityController@applyApprove');
+    Route::get('/user/card/apply/reject/{id}', 'Vacation\VacationOpportunityController@applyReject');
 
     // vote activity
     Route::group(['prefix' => 'date'],function () {
