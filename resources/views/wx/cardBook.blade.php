@@ -55,6 +55,7 @@
         <script>
             function plus(){
                 var i=$('#number').html();
+                var i = parseInt(i);
                 var left = $('#left').val();
                 if(i >= left){
                     return null;
