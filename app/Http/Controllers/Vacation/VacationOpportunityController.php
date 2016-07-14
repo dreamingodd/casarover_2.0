@@ -21,6 +21,12 @@ use Illuminate\Http\Request;
 
 /**
  * The nights of casas on the card is consuming or lending in this Controller.
+ * @Ye_WD
+ * @201606??
+ *
+ * Add vc_order_relation insertion before casa order is created.
+ * @Ye_WD
+ * @20160714
  */
 class VacationOpportunityController extends BaseController
 {
@@ -74,38 +80,34 @@ class VacationOpportunityController extends BaseController
         DB::beginTransaction();
         try {
             $applicantId = Session::get('user_id');
-            //更新user的信息
+            // 更新user的信息
             $userCheckResult =
                     $this->checkThenSaveUsernameAndCellphone($applicantId, $request->name, $request->tel);
             if (!$userCheckResult) return "用户信息缺失！";
 
-            $orderItem = OrderItem::find($request->id);
-            $ownerId = $orderItem->order->user->id;
+            // vacation card's item
+            $vacationCardItem = OrderItem::find($request->id);
+            $ownerId = $vacationCardItem->order->user->id;
             $quantity = $request->number;
 
             if ($applicantId == $ownerId) {
                 // 自己的卡，直接创建订单！
-                $order = $this->createCasaOrder($applicantId,
-                                                $quantity,
-                                                $orderItem);
+                $order = $this->createCasaOrder($applicantId, $quantity, $vacationCardItem);
                 // 同时把机会减掉
-                $this->consumeOpportunity($orderItem->id, $quantity);
+                $this->consumeOpportunity($vacationCardItem->id, $quantity);
+                // 保存民宿订单和度假卡(订单)的关联
+                app('VcRelationService')->add($vacationCardItem->order->id, $order->id);
                 DB::commit();
                 return redirect('/wx/order/detail/' . $order->id)
                         ->with(['msg' => '订单已创建，请使用电话预约完成预定！']);
             } else {
                 // 别人的卡，提交申请
-                /**申请人user_id
-                 * 被申请人owner_id
-                 * 图片 photo_path
-                 * 卡拥有者民宿 order_item_id
-                 * 申请数量 quantity
-                 * 状态 status
+                /**申请人user_id, 被申请人owner_id, 卡拥有者民宿 order_item_id, 申请数量 quantity, 状态 status
                  */
                 OpportunityApply::create([
                     'user_id' => Session::get('user_id'),
                     'owner_id' => $ownerId,
-                    'order_item_id' => $orderItem->id,
+                    'order_item_id' => $vacationCardItem->id,
                     'quantity' => $request->number,
                     'status' => 0
                 ]);
@@ -158,6 +160,10 @@ class VacationOpportunityController extends BaseController
             $order = $this->createCasaOrder($apply->user_id,
                                             $apply->quantity,
                                             OrderItem::find($apply->order_item_id));
+            // 保存民宿订单和度假卡(订单)的关联
+            app('VcRelationService')->add(
+                    // apply's vacation card's id, casa order's id
+                    $apply->vacationCardItem->order->id, $order->id);
             return redirect('/wx/user/card/applied/list')->with(['msg' => '操作成功']);
         } else {
           return redirect('/wx/user/card/applied/list')->with(['msg' => '房间剩余数量不足']);
@@ -200,8 +206,8 @@ class VacationOpportunityController extends BaseController
         switch($code)
         {
             case 0: $result = '申请中'; break;
-            case 1: $result = '已通过';break;
-            case 2: $result = '申请已被拒绝';break;
+            case 1: $result = '已通过'; break;
+            case 2: $result = '申请已被拒绝'; break;
         }
         return $result;
     }

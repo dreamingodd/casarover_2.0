@@ -161,6 +161,7 @@ return [
         App\Providers\AreaServiceProvider::class,
         App\Providers\CasaServiceProvider::class,
         App\Providers\MembershipProvider::class,
+        App\Providers\VcRelationServiceProvider::class,
         /** Wechat */
         Overtrue\LaravelWechat\ServiceProvider::class,
         /** LaravelIdeHelper */
