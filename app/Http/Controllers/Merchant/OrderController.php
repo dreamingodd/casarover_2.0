@@ -32,7 +32,7 @@ class OrderController extends Controller
             $query = ['pay_type'=>Order::PAY_TYPE_CARD,'reserve_status'=>$type];
         }
         $orderlist = WxCasa::find(WxBind::where('user_id',$userId)->first()->wx_casa_id)
-                    ->orders()->where($query)->orderBy('id','desc')->paginate(1);
+                    ->orders()->where($query)->orderBy('id','desc')->paginate(10);
         foreach($orderlist as $order)
         {
             $order->time = $order->created_at->format('Y-m-d H:i');
@@ -60,6 +60,7 @@ class OrderController extends Controller
         $order->casaOrder->reserve_comment = $request->reserveComment;
         $result = $order->casaOrder->save();
         if($result){
+            // 发送短信
             $data = $this->jsondata(0, '更新成功',['error'=>0]);
             return response()->json($data);
         }else{

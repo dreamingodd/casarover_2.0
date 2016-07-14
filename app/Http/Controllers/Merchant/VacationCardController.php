@@ -31,7 +31,7 @@ class VacationCardController extends Controller
             array_push($itemIds,$key->id);
         }
         // all vacation card order belong the wxcasa so it is also a card list
-        $cards = Order::with('VacationCard','user')->where('type',Order::TYPE_VACATION_CARD)->whereIn('id',$orderIds)->paginate(1);
+        $cards = Order::with('VacationCard','user')->where('type',Order::TYPE_VACATION_CARD)->whereIn('id',$orderIds)->paginate(10);
         // dd($cards);
         // 合并数据
         foreach ($cards as $card) {
