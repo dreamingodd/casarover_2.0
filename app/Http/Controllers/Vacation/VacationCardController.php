@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mall;
+namespace App\Http\Controllers\Vacation;
 
 use App\Entity\Opportunity;
 use App\Entity\OrderItem;
@@ -44,11 +44,15 @@ class VacationCardController extends BaseController
     /** 后台获取已经选中的 */
     public function casalist()
     {
-        $casalist = Product::where('type',Product::TYPE_VACATION_CARD)->get();
-        foreach($casalist as $list)
+        $casalist = Product::where('type',Product::TYPE_VACATION_CARD)->orderBy('parent_id')->get();
+        foreach($casalist as $vacaProduct)
         {
-            $list->orig = $list->stock->orig;
-            $list->surplus = $list->stock->surplus;
+            // orig:原价 stock:度假卡产品
+            $vacaProduct->orig = $vacaProduct->stock->orig;
+            $vacaProduct->surplus = $vacaProduct->stock->surplus;
+            $vacaProduct->isWhole = $vacaProduct->stock->is_whole;
+            $casa = WxCasa::find($vacaProduct->parent_id);
+            $vacaProduct->casaName = $casa->name;
         }
         return response()->json($casalist);
     }
@@ -63,7 +67,7 @@ class VacationCardController extends BaseController
                 'parent_id' => $id,
                 'attachment_id' => $casa->attachment_id,
                 'type' => Product::TYPE_VACATION_CARD,
-                'name' => $casa->name
+                'name' => ''
             ]);
             Stock::create([
                 'product_id' => $product->id,
@@ -89,14 +93,16 @@ class VacationCardController extends BaseController
     public function update(Request $request)
     {
         $product = Product::find($request->id);
+        $product->name = $request->name;
         $product->price = $request->price;
         $product->stock->orig = $request->orig;
         $product->stock->surplus = $request->surplus;
+        $product->stock->is_whole = $request->isWhole;
         $product->stock->save();
         $result = $product->save();
         if($result)
         {
-            return response()->json(['msg'=>'ok']);
+            return response()->json(['msg' => $request->is_whole]);
         }
     }
     /**

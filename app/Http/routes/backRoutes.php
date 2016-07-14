@@ -75,11 +75,11 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('vacation/casaAdd/{id}/{casa}', 'Wx\WxCasaController@vacationCasaAdd');
     Route::get('vacation/casaDel/{id}/{casa}', 'Wx\WxCasaController@vacationCasaDel');
 
-    Route::get('vacation/casa','Mall\VacationCardController@back');
-    Route::get('api/vacation/casa','Mall\VacationCardController@casalist');
-    Route::get('api/vacation/add/{id}','Mall\VacationCardController@create');
-    Route::get('api/vacation/del/{id}','Mall\VacationCardController@del');
-    Route::post('api/vacation/update','Mall\VacationCardController@update');
+    Route::get('vacation/casa','Vacation\VacationCardController@back');
+    Route::get('api/vacation/casa','Vacation\VacationCardController@casalist');
+    Route::get('api/vacation/add/{id}','Vacation\VacationCardController@create');
+    Route::get('api/vacation/del/{id}','Vacation\VacationCardController@del');
+    Route::post('api/vacation/update','Vacation\VacationCardController@update');
 
 });
 

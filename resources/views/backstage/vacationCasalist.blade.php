@@ -1,8 +1,16 @@
 @extends('back')
+
+@section('title', '探庐者后台-度假卡条目')
+
 @section('head')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="/assets/js/integration/vue.js" type="text/javascript"></script>
-    <script src="/assets/js/vacation.js"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="/assets/js/integration/vue.js" type="text/javascript"></script>
+<script src="/assets/js/vacation.js"></script>
+<style>
+.input_number {
+    width: 100px;
+}
+</style>
 @stop
 @section('body')
     <input type="hidden" id="page" value="reserve"/>
@@ -19,35 +27,44 @@
             <thead>
             <tr>
                 <th>序号</th>
-                <th>民宿信息</th>
+                <th>从属民宿</th>
+                <th>产品/房间</th>
                 <th>原价</th>
                 <th>价格</th>
                 <th>库存</th>
+                <th>包幢</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <template v-for="wxcasa in wxcasas">
+            <template v-for="p in vacaProducts">
                 <tr transition="expand" >
-                    <th>
+                    <td>
                         @{{ $index+1 }}
-                    </th>
-                    <th scope="row">
-                        @{{ wxcasa.name }}
-                    </th>
-                    <th>
-                        <input type="text" class="form-control" value="@{{ wxcasa.orig }}" id="orig@{{ wxcasa.id }}">
-                    </th>
-                    <th>
-                        <input type="text" class="form-control" value="@{{ wxcasa.price }}" id="price@{{ wxcasa.id }}">
-                    </th>
-                    <th>
-                        <input type="text" class="form-control" value="@{{ wxcasa.surplus }}" id="surplus@{{ wxcasa.id }}">
-                    </th>
-                    <th>
-                        <button class="btn  btn-primary" v-on:click="save(wxcasa.id)">更新</button>
-                        <button class="btn  btn-danger" v-on:click="del(wxcasa.id)">删除</button>
-                    </th>
+                    </td>
+                    <td>
+                        @{{ p.casaName }}
+                    </td>
+                    <td class="input_number">
+                        <input type="text" class="form-control input-sm" value="@{{ p.name }}" id="name@{{ p.id }}">
+                    </td>
+                    <td class="input_number">
+                        <input type="text" class="form-control input-sm" value="@{{ p.orig }}" id="orig@{{ p.id }}">
+                    </td>
+                    <td class="input_number">
+                        <input type="text" class="form-control input-sm" value="@{{ p.price }}" id="price@{{ p.id }}">
+                    </td>
+                    <td class="input_number">
+                        <input type="text" class="form-control input-sm" value="@{{ p.surplus }}" id="surplus@{{ p.id }}">
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;
+                        <input @click="clickIsWhole(p.id)" type="checkbox" id="isWhole@{{ p.id }}" v-model="p.isWhole"/>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" v-on:click="save(p.id)">更新</button>
+                        <button class="btn btn-sm btn-danger" v-on:click="del(p.id)">删除</button>
+                    </td>
                 </tr>
             </template>
             </tbody>

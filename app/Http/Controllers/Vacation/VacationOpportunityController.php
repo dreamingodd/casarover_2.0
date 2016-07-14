@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mall;
+namespace App\Http\Controllers\Vacation;
 
 use DB;
 use Log;
