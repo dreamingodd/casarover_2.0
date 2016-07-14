@@ -92,7 +92,7 @@ class WxAuth
      */
     private function getDummyUser()
     {
-        $userId = 88;
+        $userId = Config::get('config.dummy_user_id');
         $user = User::find($userId);
         if (empty($user)) {
             $user = new User();

@@ -10,10 +10,21 @@
 .input_number {
     width: 100px;
 }
+.casaName {
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 </style>
 @stop
 @section('body')
     <input type="hidden" id="page" value="reserve"/>
+
+
+    <div class="col-lg-11 alert alert-warning">
+        Attention：一次只能修改一条！
+    </div>
     <div class="col-md-4" style="margin: 10px">
         <input type="text" id="select-casa" class="form-control disabled" data-toggle="modal"
                data-target="#casaSelectModal" readonly value="选择民宿">
@@ -29,6 +40,9 @@
                 <th>序号</th>
                 <th>从属民宿</th>
                 <th>产品/房间</th>
+                {{--
+                <th>说明</th>
+                --}}
                 <th>原价</th>
                 <th>价格</th>
                 <th>库存</th>
@@ -42,9 +56,12 @@
                     <td>
                         @{{ $index+1 }}
                     </td>
-                    <td>
+                    <td class="casaName">
                         @{{ p.casaName }}
                     </td>
+                    {{--
+                    <td></td>
+                    --}}
                     <td class="input_number">
                         <input type="text" class="form-control input-sm" value="@{{ p.name }}" id="name@{{ p.id }}">
                     </td>

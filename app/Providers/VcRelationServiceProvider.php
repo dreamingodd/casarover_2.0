@@ -2,18 +2,11 @@
 
 namespace App\Providers;
 
-use App\Services\MembershipService;
+use App\Services\VcRelationService;
 use Illuminate\Support\ServiceProvider;
 
-class MembershipProvider extends ServiceProvider
+class VcRelationServiceProvider extends ServiceProvider
 {
-
-    /**
-     * Indicates if loading of the provider is deferred.
-     * @var bool
-     */
-    protected $defer = true;
-
     /**
      * Bootstrap the application services.
      *
@@ -31,8 +24,8 @@ class MembershipProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('MembershipService', function(){
-            return new MembershipService();
+        $this->app->singleton('VcRelationService', function(){
+            return new VcRelationService();
         });
     }
 }
