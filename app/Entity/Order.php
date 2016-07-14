@@ -102,13 +102,13 @@ class Order extends Model
     public function Opportunity() {
         return $this->hasOne('App\Entity\Opportunity', 'order_item_id','id');
     }
-
+    // 订单下度假卡的信息
     public function vacationCard()
     {
         return $this->hasOne('App\Entity\VacationCard','order_id','id');
     }
     /**
-    * 属于哪个民宿的订单
+    * 属于哪个民宿的订单,依赖于下单的时候进行casa_order的绑定
     */
     public function wxCasa()
     {

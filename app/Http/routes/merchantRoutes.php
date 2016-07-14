@@ -15,10 +15,12 @@ Route::group(['prefix' => 'merchant', 'middleware' => ['web', 'pc.wx']], functio
 
 // 商家平台的接口数据
 Route::group(['prefix' => 'api/merch', 'middleware' => ['web', 'pc.wx']], function() {
-    Route::get('orderList', 'Merchant\OrderController@index');
+    Route::get('orderList/{type?}', 'Merchant\OrderController@index');
     Route::get('cardList','Merchant\VacationCardController@cardList');
+    Route::post('changeorder','Merchant\OrderController@update');
+    Route::get('delorder/{id}','Merchant\OrderController@del');
 });
 
 Route::get('dashboard',function(){
-    return view('shop.orderList');
+    return view('merchant.index');
 });

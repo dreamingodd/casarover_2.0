@@ -4,9 +4,6 @@
     <link href="/assets/css/wx.css " rel="stylesheet"/>
     <script src="/assets/js/integration/jquery.flexslider-min.js" type="text/javascript"></script>
 @stop
-    {{-- <a href="#"  id="navleft" class="glyphicon glyphicon-home"></a>
-    <img  src="/assets/images/logow.png" />
-    <a href="/wx/user" id="navright" class="glyphicon glyphicon-user"></a> --}}
 @section('body')
     <div class="flexslider">
         <ul class="slides">
@@ -18,13 +15,33 @@
             </li>
         </ul>
     </div>
+    <!-- 活动banner 长宽比1.8:1 -->
+    {{-- <div class="ac-banner">
+        <a href="">
+            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/image_20160419-094608-425r3598.jpg" alt="banner">
+        </a>
+    </div> --}}
+    <!-- 城市 -->
+    {{-- <div class="city-card">
+        <a href="user">
+            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/image_20160419-094608-425r3598.jpg" alt="" />
+            <div class="pic-info">
+                <h2>嘉兴</h2>
+                <h4>
+                    品味纯正的水乡生活
+                </h4>
+                <p>
+                    查看全部
+                </p>
+            </div>
+        </a>
+    </div> --}}
+
     <div class="tabtable">
-        <!--
-        <ul class="nav nav-tabs">
+        {{-- <ul class="nav nav-tabs">
             <li class="active"><a href="#hot" data-target="#hot" data-toggle="tab" aria-expanded="false">热门精选</a></li>
             <li><a href="#special" data-target="#special" data-toggle="tab" aria-expanded="false">当季特价</a></li>
-        </ul>
-        -->
+        </ul> --}}
         <div class="tab-content">
             <div class="tab-pane active" id="hot">
                 @foreach($testWxCasas as $casa)
@@ -52,8 +69,8 @@
                                 </a>
                                 <span>¥{{$casa->cheapestPrice}}元起</span>
                             </div>
-                            <p>{{$casa->name or ""}}</p>
-                            <em>{{$casa->brief or ""}}</em>
+                            <h4>{{$casa->name or ""}}</h4>
+                            <p>{{$casa->brief or ""}}</p>
                         </div>
                     @endif
                 @endforeach
