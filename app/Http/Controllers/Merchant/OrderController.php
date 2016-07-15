@@ -25,7 +25,7 @@ class OrderController extends Controller
         // not
         $userId = Session::get('user_id');
         // for test;
-        $userId = 10;
+        // $userId = 10;
         if($type<0 ){
             $query = ['pay_type'=>Order::PAY_TYPE_CARD];
         }else{
@@ -61,6 +61,7 @@ class OrderController extends Controller
         $result = $order->casaOrder->save();
         if($result){
             // 发送短信
+            $this->sendOrderSms($request->id);
             $data = $this->jsondata(0, '更新成功',['error'=>0]);
             return response()->json($data);
         }else{
@@ -82,5 +83,23 @@ class OrderController extends Controller
             $data = $this->jsondata(401, 'no');
             return response()->json($data);
         }
+    }
+
+    /**
+     * 发送预约成功的短信
+     * @param int $orderId
+     */
+    private function sendOrderSms($orderId)
+    {
+        $order = Order::find($orderId);
+        $username = $order->user->realname;
+        $casaName = $order->name;
+        $time = $order->casaOrder->reserve_comment;
+        $userphone = $order->user->cellphone;
+        $sms = app('sms');
+        $sendArr = ['name' => $username,'room' => $casaName,'time' => $time];
+        $message = json_encode($sendArr,JSON_UNESCAPED_UNICODE);
+        // $message2 = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
+        $sms->send('探庐者','SMS_9720239',$message,$userphone);
     }
 }
