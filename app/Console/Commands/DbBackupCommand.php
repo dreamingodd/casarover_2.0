@@ -46,9 +46,9 @@ class DbBackupCommand extends Command
             $postSqlFile = "/home/back/db_backup/db_backup_" . date("Ymd_hms") . ".sql";
             $shellFile = "/home/back/db_backup.sh";
             // Commands.
-            $delSqlCommand = "rm -f " . $prevSqlFile;
+            $delSqlCommand = "sudo rm -f " . $prevSqlFile;
             $backupCommand = "sudo " . $shellFile;
-            $renameCommand = "mv " . $prevSqlFile . " " . $postSqlFile;
+            $renameCommand = "sudo mv " . $prevSqlFile . " " . $postSqlFile;
             // Check shell existence.
             if (!file_exists($shellFile)) {
                 throw Exception("DB Backup Shell doesn't exist.");
