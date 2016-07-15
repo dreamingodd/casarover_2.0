@@ -13,6 +13,10 @@ addProduct(1, 4, 6);
 var products = getProducts();
 console.log(products);
 
+addProduct(1, 3, 15);
+var products = getProducts();
+console.log(products);
+
 clearProducts();
 var products = getProducts();
 console.log(products);
