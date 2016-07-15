@@ -22,7 +22,8 @@
                 if(data.code == 0){
                     window.location.href = '/wx/user/cardCasa/'+number;
                 }else{
-                    alert("该卡不存在，请检查卡号");
+                    console.log(data);
+                    alert(data.msg);
                 }
             })
         }

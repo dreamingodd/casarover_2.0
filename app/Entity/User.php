@@ -43,4 +43,9 @@ class User extends Model
     {
         return $this->hasMany('App\Entity\Order');
     }
+    // 用户拥有的度假卡
+    public function vacationCard()
+    {
+        return $this->hasManyThrough('App\Entity\VacationCard', 'App\Entity\Order');
+    }
 }

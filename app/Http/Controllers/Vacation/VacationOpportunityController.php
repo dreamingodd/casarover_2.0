@@ -45,12 +45,19 @@ class VacationOpportunityController extends BaseController
         $card = VacationCard::where('card_no', $cardNo)->first();
         if($card)
         {
-            return response()->json(['code'=>0,'msg'=>'存在']);
+            $result = ['code'=>0,'msg'=>'存在'];
+            $user = User::find(Session::get('user_id'));
+            $isMine = $user->vacationCard()->where('card_no',$cardNo)->first();
+            if($isMine){
+                $result = ['code'=>2,'msg'=>'该卡为自己所有，请到我的度假卡查看'];
+            };
         }
         else
         {
-            return response()->json(['code'=>503,'msg'=>'卡号错误']);
+            $result = ['code'=>503,'msg'=>'请检查卡号是否正确'];
         }
+
+        return response()->json($result);
     }
     /**
      * book page
@@ -163,7 +170,7 @@ class VacationOpportunityController extends BaseController
             // 保存民宿订单和度假卡(订单)的关联
             app('VcRelationService')->add(
                     // apply's vacation card's id, casa order's id
-                    $apply->vacationCardItem->order->id, $order->id);
+                    $apply->item->order->id, $order->id);
             return redirect('/wx/user/card/applied/list')->with(['msg' => '操作成功']);
         } else {
           return redirect('/wx/user/card/applied/list')->with(['msg' => '房间剩余数量不足']);
@@ -190,7 +197,7 @@ class VacationOpportunityController extends BaseController
         foreach($applyList as $apply)
         {
             $orderItem = OrderItem::find($apply->order_item_id);
-            $user = User::find($apply->owner_id);
+            $user = User::find($apply->user_id);
             $apply->casaname = $orderItem->name;
             $apply->quantity = $apply->quantity;
             $apply->username = $user->realname;
@@ -219,7 +226,7 @@ class VacationOpportunityController extends BaseController
         $left_num = $left_order->opportunity->left_quantity;
         if($left_num >= $apply->quantity)
         {
-            $left_order->opportunity->left_quantity = 0;
+            $left_order->opportunity->left_quantity = $left_num - $apply->quantity;
             $left_order->opportunity->save();
             return 1;
         }

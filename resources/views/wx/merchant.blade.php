@@ -27,7 +27,7 @@
                     下单时间：<br/>
                     {{$order->order->created_at->format('Y-m-d')}}<br/>
                     @foreach ($order->order->orderItems as $item)
-                        {{$item->product->name}}*{{$item->quantity}}<br/>
+                        {{$item->product->name or '过期订单'}}*{{$item->quantity}}<br/>
                     @endforeach
                 </td>
                 <td>

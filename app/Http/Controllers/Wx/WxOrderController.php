@@ -194,6 +194,7 @@ class WxOrderController extends BaseController
      */
     public function consume($orderId)
     {
+        dd(app('MembershipService'));
             $userId = Session::get('user_id');
             // Merchant
             $user = User::find($userId);
