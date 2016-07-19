@@ -103,7 +103,7 @@ module.exports = {
       days: [],
       today: [],
       currentMonth: Number,
-      sep: '/',
+      sep: '-',
       weeks: ['日', '一', '二', '三', '四', '五', '六'],
       months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
     }
@@ -229,6 +229,7 @@ module.exports = {
                         var options={day:i,today:false};
                         if (that.begin!=undefined){
                             var beginSplit=that.begin.split(that.sep);
+
                             var beginTime=Number(new Date(parseInt(beginSplit[0]),parseInt(beginSplit[1])-1,parseInt(beginSplit[2])));
                             var thisTime=Number(new Date(that.year,that.month,i));
                             if (beginTime>thisTime)options.disabled=true;

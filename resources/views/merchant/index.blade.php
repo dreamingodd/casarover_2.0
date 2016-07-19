@@ -3,4 +3,4 @@
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]--><script src=//cdn.bootcss.com/jquery/2.1.1/jquery.min.js></script><script src=//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js></script><style>v-link-active{
             background: #123;
-        }</style><link href=/static/css/app.048362535d02500d3128437e27a9a02c.css rel=stylesheet></head><body><div class=container><div id=app></div></div><script type=text/javascript src=/static/js/manifest.19a487017d9bca49f699.js></script><script type=text/javascript src=/static/js/vendor.0fcd4753cd0dbb8e119b.js></script><script type=text/javascript src=/static/js/app.22cde89d4aa856b5c7f7.js></script></body></html>
+        }</style><link href=/static/css/app.0795c17f16a2c94c3ae5e989395f532b.css rel=stylesheet></head><body><div class=container><div id=app></div></div><script type=text/javascript src=/static/js/manifest.f3e7893a9fd6cbae06ed.js></script><script type=text/javascript src=/static/js/vendor.4d293581c5af7862b0ff.js></script><script type=text/javascript src=/static/js/app.c4ed37cebd5cba0be84d.js></script></body></html>

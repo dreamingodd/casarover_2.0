@@ -11,4 +11,9 @@ class VcOrderRelation extends Model
 {
     public $timestamps = false;
     protected $table = "vc_order_relation";
+    protected $hidden = ['vacationCard'];
+    public function vacationCard()
+    {
+        return $this->hasOne('App\Entity\vacationCard','order_id','vacation_card_order_id');
+    }
 }

@@ -11,6 +11,7 @@ class User extends Model
     const MALE = 1;
     const FEMALE = 2;
     protected $table = "user";
+    protected $hidden = ['openid'];
 
     /**
      * For now, one user could be binded merely to one wx casa.

@@ -114,4 +114,13 @@ class Order extends Model
     {
         return $this->belongsToMany('App\Entity\Wx\wxCasa','casa_order');
     }
+
+    // public function useVacationCard()
+    // {
+    //     return $this->hasManyThrough('App\Entity\VacationCard', 'App\Entity\VcOrderRelation','casa_order_id','order_id');
+    // }
+    public function useVacationCard()
+    {
+        return $this->hasOne('App\Entity\VcOrderRelation' ,'casa_order_id','id');
+    }
 }
