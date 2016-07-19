@@ -4,6 +4,11 @@
 
 @section('head')
 <script src="/assets/js/casaSelectModal.js"></script>
+<style>
+.select_bind_btn {
+    margin-bottom: 3px;
+}
+</style>
 <script type="text/javascript">
 $(function() {
     $('.select_bind_btn').click(function(){
@@ -38,8 +43,8 @@ $(function() {
             <th>姓名</th>
             <th>微信名</th>
             <th>手机</th>
-            <th>用户输入民宿</th>
-            <th>实际绑定民宿</th>
+            <th>用户输入信息</th>
+            <th>绑定民宿|经销商</th>
             <th>更新时间</th>
             <th>操作</th>
         </tr>
@@ -51,10 +56,16 @@ $(function() {
                 <td>{{$bind->user->nickname or ''}}</td>
                 <td>{{$bind->user->cellphone or ''}}</td>
                 <td>{{$bind->casa_name}}</td>
-                <td>
+                <td class="bind_name">
                     @if (!$bind->trashed())
                         <button type="button" db_id="{{$bind->id}}" class="select_bind_btn btn btn-xs btn-info"
-                                data-toggle="modal" data-target="#casaSelectModal">选择</button>
+                                data-toggle="modal" data-target="#casaSelectModal">民宿</button>
+                    @endif
+                    <span>{{$bind->wxCasa->name or ''}}</span>
+                    <br />
+                    @if (!$bind->trashed())
+                        <button type="button" db_id="{{$bind->id}}" class="select_dealer_btn btn btn-xs btn-info"
+                                data-toggle="modal" data-target="#casaSelectModal">经销商</button>
                     @endif
                     {{$bind->wxCasa->name or ''}}
                 </td>

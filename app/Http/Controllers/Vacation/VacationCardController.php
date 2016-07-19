@@ -32,8 +32,6 @@ class VacationCardController extends BaseController
     const CARDNO_PREFIX = "1";
     /** @var int LEAST_CASA_COUNT 3 */
     const LEAST_CASA_COUNT = 3;
-    /** @var int STYLE_QUANTITY */
-    const STYLE_QUANTITY = 3;
 
     /** 后台选择参与活动的民宿 */
     public function back()
@@ -227,7 +225,8 @@ class VacationCardController extends BaseController
             'user_id' => $userId,
             'type' => Order::TYPE_VACATION_CARD,
             'name' => "度假卡",
-            'photo_path' => Config::get('vacationcard.card_images')[mt_rand(0, self::STYLE_QUANTITY)],
+            'photo_path' => Config::get('vacationcard.card_images')
+                    [mt_rand(0, count(Config::get('vacationcard.card_images')) - 1)],
             'total' => $total,
             'status' => Order::STATUS_UNPAYED
         ]);
