@@ -3,9 +3,8 @@ import VueRouter from 'vue-router'
 
 import Home from './Home'
 import Casa from './Casa'
+import App from './App'
 
-
-var App = Vue.extend({})
 
 Vue.use(VueRouter);
 var router = new VueRouter({

@@ -123,11 +123,8 @@ class VacationCardController extends BaseController
         $casas = Product::where('type', Product::TYPE_VACATION_CARD)->where('price', '>', 0)->get();
         foreach($casas as $casa)
         {
-            $casa->headImg = 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/'
+            $casa->headImg = config('config.photo_folder')
                     . $casa->wxCasa->thumbnail();
-            $casa->orig = $casa->stock->orig;
-            $casa->room = 0;
-            $casa->surplus = $casa->stock->surplus;
         }
         return response()->json($casas);
     }
@@ -136,9 +133,9 @@ class VacationCardController extends BaseController
     {
         $product = Product::find($id);
         $wxCasa = WxCasa::find($product->parent_id);
-        $contents = $wxCasa->contents;
+        $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         $wxCasa->rooms = $wxCasa->getRooms();
-        foreach($contents as $content){
+        foreach($wxCasa->contents as $content){
             $content->imgs = $content->attachments;
         }
         return response()->json($wxCasa);

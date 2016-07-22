@@ -126,4 +126,7 @@
 .slide-a{
   padding: 3px;
 }
+h2{
+  text-align: center;
+}
 </style>
