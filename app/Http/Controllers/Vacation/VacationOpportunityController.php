@@ -276,7 +276,7 @@ class VacationOpportunityController extends BaseController
         $opp = Opportunity::where('order_item_id', $orderItemId)->get()->first();
         $opp->left_quantity -= $quantity;
         if ($opp->left_quantity < 0) {
-            throw Exception('Exceed left quantity of card opportunity!');
+            throw new Exception('Exceed left quantity of card opportunity!');
         }
         $opp->save();
     }

@@ -18,7 +18,7 @@ class Product extends Model
 
     protected $table = "product";
     protected $fillable = ['parent_id','attachment_id','type','name'];
-    protected $hidden = ['attachment_id','type','deleted_at','created_at','updated_at','stock','img'];
+    protected $hidden = ['attachment_id','type','deleted_at','created_at','updated_at','stock','img','wxCasa'];
 
 
     /**

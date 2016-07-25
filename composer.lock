@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8d94d255c88342c305608fdb58a53350",
+    "hash": "2311b6f3c66920e94ae031ce74df2f2a",
     "content-hash": "44c35a98d8b0370a5be4af7a5d008e6d",
     "packages": [
         {
@@ -926,6 +926,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
+            "abandoned": "laravelcollective/html",
             "time": "2015-01-01 16:31:18"
         },
         {
@@ -1600,22 +1601,22 @@
         },
         {
             "name": "overtrue/wechat",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "5477de6d96f2c361f7479f8dc366e6c5fbfffcc7"
+                "reference": "86249073f183c70e6b9af0e1320c385dbc6e1096"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/overtrue/wechat/5477de6d96f2c361f7479f8dc366e6c5fbfffcc7.zip",
-                "reference": "5477de6d96f2c361f7479f8dc366e6c5fbfffcc7",
+                "url": "https://packagist.phpcomposer.com/files/overtrue/wechat/86249073f183c70e6b9af0e1320c385dbc6e1096.zip",
+                "reference": "86249073f183c70e6b9af0e1320c385dbc6e1096",
                 "shasum": ""
             },
             "require": {
                 "doctrine/cache": "~1.4",
                 "ext-openssl": "*",
-                "guzzlehttp/guzzle": "~6.1",
+                "guzzlehttp/guzzle": "~6.2.1",
                 "monolog/monolog": "^1.17",
                 "overtrue/socialite": ">=1.0.7",
                 "php": ">=5.5.0",
@@ -1653,7 +1654,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2016-07-12 04:40:39"
+            "time": "2016-07-21 07:18:19"
         },
         {
             "name": "paragonie/random_compat",

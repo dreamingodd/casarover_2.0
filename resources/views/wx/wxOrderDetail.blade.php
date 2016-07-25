@@ -95,7 +95,7 @@
     {{-- buy casa use vacation card --}}
     @elseif($order->pay_type == \App\Entity\Order::PAY_TYPE_CARD)
         <div class="main">
-            @if ((empty($order->casaOrder->reserve_comment)))
+            @if ((empty($order->casaOrder->reserve_date)))
                 <p class="call-me">
                     请尽快电话预约
                 </p>
@@ -120,8 +120,8 @@
             </table>
             <p class="order-pay">度假卡支付：<i>{{$order->total}}元</i></p>
             <p>下单时间：{{$order->created_at}}</p>
-                @if (($order->casaOrder->reserve_comment))
-                    <p>预约信息：{{$order->casaOrder->reserve_comment}}</p>
+                @if (($order->casaOrder->reserve_date))
+                    <p>预约时间：{{$order->casaOrder->reserve_date}}</p>
                 @endif
         </div>
             <br/>

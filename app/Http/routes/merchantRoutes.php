@@ -19,6 +19,7 @@ Route::group(['prefix' => 'api/merch', 'middleware' => ['web', 'pc.wx']], functi
     Route::get('cardList','Merchant\VacationCardController@cardList');
     Route::post('changeorder','Merchant\OrderController@update');
     Route::get('delorder/{id}','Merchant\OrderController@del');
+    Route::get('turnusedorder/{id}','Merchant\OrderController@turnused');
 });
 
 Route::get('dashboard',['middleware' => ['web','pc.wx'],function(){
