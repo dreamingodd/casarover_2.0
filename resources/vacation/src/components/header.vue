@@ -1,7 +1,7 @@
 <template>
     <nav>
         <div class="nav-left">
-            <a v-if="back" href="javascript:history.go(-1)">
+            <a v-if="back" onclick="history.go(-1)">
                 <img src="/static/header/back.png" height="100%" alt="" />
             </a>
             <a v-else href="/wx">

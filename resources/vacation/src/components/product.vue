@@ -13,25 +13,37 @@
                 <span>数量</span>                
             </div>
             <div class="quantity">
-            <span class="fa fa-minus" @click="minus"></span>
-                <input type="text" value="1">
-            <span class="fa fa-plus" @click="plus"></span>
+            <span class="fa fa-minus" @click="minus($index)"></span>
+                <input type="text" v-model="product.number">
+            <span class="fa fa-plus" @click="plus($index)"></span>
             </div>
         </div>
     </div>
 </template>
 <script>
-    export default{
-      methods: {
-        plus () {
-          console.log('plus')
-        },
-        minus () {
-          console.log('minus')
-        }
-      },
-      props: ['products']
+import store from '../vuex/store'
+import { addGoods, removeGoods } from '../vuex/actions'
+
+export default{
+  vuex: {
+    actions: {
+      addGoods,
+      removeGoods
     }
+  },
+  methods: {
+    plus (index) {
+      console.log('plus')
+      this.addGoods(this.products[index])
+    },
+    minus (index) {
+      console.log('minus')
+      this.removeGoods(this.products[index])
+    }
+  },
+  store,
+  props: ['products']
+}
 </script>
 <style lang="less">
     .product{

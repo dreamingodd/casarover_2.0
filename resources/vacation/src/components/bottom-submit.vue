@@ -2,10 +2,11 @@
     <div class="cover">
       <div class="bottom-submit ui-box">
           <div class="price">
-              <span class="fa fa-credit-card"></span>
-              <span>12345元</span>
+              <span v-if="card" class="show fa fa-credit-card" transition="bounce"></span>
+              <span v-else class="show fa fa-credit-card" transition="bounce"></span>
+              <span>{{ totalPrice }}元</span>
           </div>
-          <div class="btn">
+          <div class="btn btn-disable">
               <a v-link="{ path:'/',exact: true}">
                   <span>继续选</span>
               </a>
@@ -22,9 +23,45 @@
     </div>
 </template>
 <script>
-  export default{
-    props: ['last']
-  }
+import store from '../vuex/store'
+
+export default{
+  data () {
+    return {
+      card: 1
+    }
+  },
+  vuex: {
+    getters: {
+      goods (state) {
+        return state.orders.goods
+      }
+    }
+  },
+  computed: {
+    'totalPrice': function () {
+      let totalPrice = 0
+      for (const i in this.goods) {
+        totalPrice += this.goods[i].price * this.goods[i].number
+      }
+      return totalPrice
+    }
+  },
+  methods: {
+    putgood () {
+      // this.card = 1
+      // this.cad = 0
+      const k = this.card
+      if (k) {
+        this.card = 0
+      } else {
+        this.card = 1
+      }
+    }
+  },
+  store,
+  props: ['last']
+}
 </script>
 <style lang="less">
 .cover{
@@ -52,6 +89,9 @@
     box-flex: 1;
     width: 100%;
     text-align: center;
+    .show{
+      font-size: 2.5rem;
+    }
     span{
       font-size: 1.5rem;
     }
@@ -75,5 +115,40 @@
       color: #fff;
     }
   }
+}
+
+.bounce-transition {
+  display: inline-block; /* 否则 scale 动画不起作用 */
+}
+.bounce-enter {
+  animation: bounce-in .5s;
+}
+.bounce-leave {
+  animation: bounce-out 0;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes bounce-out {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+.btn-disable{
+  background: #F4F4F4;
 }
 </style>

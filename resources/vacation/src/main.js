@@ -5,6 +5,7 @@ import VueResource from 'vue-resource'
 import index from './index'
 import casa from './casa'
 import order from './order'
+import verify from './verify'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -27,6 +28,10 @@ router.map({
   '/order': {
     name: 'order',
     component: order
+  },
+  '/verify': {
+    name: 'verify',
+    component: verify
   }
 })
 // router.redirect({

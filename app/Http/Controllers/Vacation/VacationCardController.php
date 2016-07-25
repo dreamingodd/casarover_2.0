@@ -118,23 +118,33 @@ class VacationCardController extends BaseController
     /**
      * casalist for vue
      */
-    public function showlist()
+    public function showlist(Request $request)
     {
-        $casas = Product::where('type', Product::TYPE_VACATION_CARD)->where('price', '>', 0)->get();
+        // 价格为0的时候不上线，包幢为1
+        $casas = DB::table('product')->join('stocks','product.id','=','stocks.product_id')->select('product.*','stocks.is_whole')
+                ->where('type',Product::TYPE_VACATION_CARD)->where('price','>',0)->where('is_whole',$request->type)->get();
+
+        // $casas = DB::table('wx_casa')->join('product','product.parent_id','=','wx_casa.id')
+        //         ->join('stocks','stocks.prodcut_id','=','product.id')
+        //         ->select('wx_casa.*')->where('type',Product::TYPE_VACATION_CARD)
         foreach($casas as $casa)
         {
             $casa->headImg = config('config.photo_folder')
-                    . $casa->wxCasa->thumbnail();
+                    . wxCasa::find($casa->parent_id)->thumbnail();
         }
         return response()->json($casas);
     }
     //casa message for vue
-    public function show($id)
+    public function show(Request $request,$id)
     {
         $product = Product::find($id);
         $wxCasa = WxCasa::find($product->parent_id);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
-        $wxCasa->rooms = $wxCasa->getRooms();
+        $wxCasa->products = $wxCasa->products()->join('stocks','product.id','=','stocks.product_id')->select('product.*','stocks.is_whole')
+            ->where('is_whole',$request->type)->get();
+        foreach($wxCasa->products as $product){
+            $product->number = 0;
+        }
         foreach($wxCasa->contents as $content){
             $content->imgs = $content->attachments;
         }

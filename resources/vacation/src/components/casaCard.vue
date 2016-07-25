@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <a v-link="{ name:'casa',params:{ id:casa.id }}">
+        <a v-link="{ name:'casa',params:{ id:casa.id },query:{type:type}}">
             <div class="pic" style="background">
                 <img :src="casa.headImg" alt="">
             </div>
@@ -12,7 +12,7 @@
 </template>
 <script>
     export default{
-      props: ['casa']
+      props: ['casa', 'type']
     }
 </script>
 <style lang="less">

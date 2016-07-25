@@ -11,17 +11,19 @@
 export default{
   data () {
     return {
-      casa: []
+      casa: [],
+      type: 0
     }
   },
   route: {
     data (tab) {
+      this.type = tab.to.query.type
       this.getinfo(tab.to.params.id)
     }
   },
   methods: {
     getinfo (id) {
-      this.$http.get('/wx/api/cardCasa/' + id).then((response) => {
+      this.$http.get('/wx/api/cardCasa/' + id + '?type=' + this.type).then((response) => {
         console.log(response)
         this.$set('casa', response.json())
       })

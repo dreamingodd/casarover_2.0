@@ -1,15 +1,17 @@
 <template>
     <div class="order" v-for="x in 2">
-    <div class="casa-info">
-      <div class="casa-img">
-        <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160721-112253-389r1648.png" alt="">
+      <div class="casa-info">
+        <div class="casa-img">
+          <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160721-112253-389r1648.png" alt="">
+        </div>
+        <div class="delete">
+          <h3>福压机</h3>
+          <span @click="del" class="fa fa-trash-o"></span>
+        </div>
       </div>
-      <div class="delete">
-        <h3>福压机</h3>
-        <span @click="del" class="fa fa-trash-o"></span>
-      </div>
-    </div>
-    <goods :products="products"></goods>
+        <div class="goods">
+          <goods :products="products"></goods>          
+        </div>
     </div>
 </template>
 <script>
@@ -47,6 +49,7 @@
     display: box;
     display: -webkit-box;
     margin: .5rem 2rem;
+    position: relative;
     .casa-img{
       height: 8rem;
       // width: 8rem;
@@ -59,14 +62,12 @@
       -webkit-box-flex:1;
       box-flex:1;
       padding-left: 2rem;
-      position: relative;
       h3{
         font-size: 2rem;
         font-weight: normal;
       }
       span{
         font-size: 2rem;
-        text-align: right;
         display: block;
         position: absolute;
         right: 0;
@@ -74,4 +75,5 @@
       }
     }
   }
+
 </style>

@@ -7,7 +7,7 @@
       </ul>
     </div>
     <template v-for="casa in casas">
-      <card :casa="casa"></card>
+      <card :casa="casa" :type="type"></card>
     </template>
 </template>
 <script>
@@ -18,16 +18,21 @@ export default{
       type: 0
     }
   },
-  ready: function () {
-    this.$http.get('/wx/api/cardCasaList').then((response) => {
-      console.log(response)
-      this.$set('casas', response.json())
-    })
+  // route: {
+  //   data () {
+  //     this.getinfo(this.type)
+  //   }
+  // },
+  created () {
+    this.getinfo(this.type)
   },
   methods: {
     getinfo (type) {
-      console.log(type)
       this.type = type
+      this.$http.get('/wx/api/cardCasaList?type=' + this.type).then((response) => {
+        console.log(response)
+        this.$set('casas', response.json())
+      })
     }
   },
   components: {
