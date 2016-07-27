@@ -1,6 +1,8 @@
 <?php
 return [
     // 首页显示配置
+    'dummy_user_id' => 123,
+    'dummy_openid' => 'of43pwjQffZPkbMrB-T0ZGEjGZBI-24',
     'toggle_recom' => 1,
     'toggle_theme' => 1,
     'toggle_series' => 1,
@@ -8,7 +10,13 @@ return [
     'photo_folder' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/',
     'image_folder' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/image/',
     'image_tmp_folder' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/tmp/',
+    // 探庐者客服电话
     'help_telephone' => '18355146150',
+    // 充值卡金额级别
+    'coupon_prices' => [
+        2000, 3000
+    ],
+    // 备份邮件发送地址
     'system_mail_receivers' => [
         ['name' => 'wenda', 'address' => 'alwayslookback@sina.com'],
         ['name' => 'yunlong', 'address' => 'dragon2590@qq.com'],

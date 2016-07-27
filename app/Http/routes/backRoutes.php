@@ -75,11 +75,16 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('vacation/casaAdd/{id}/{casa}', 'Wx\WxCasaController@vacationCasaAdd');
     Route::get('vacation/casaDel/{id}/{casa}', 'Wx\WxCasaController@vacationCasaDel');
 
-    Route::get('vacation/casa','Mall\VacationCardController@back');
-    Route::get('api/vacation/casa','Mall\VacationCardController@casalist');
-    Route::get('api/vacation/add/{id}','Mall\VacationCardController@create');
-    Route::get('api/vacation/del/{id}','Mall\VacationCardController@del');
-    Route::post('api/vacation/update','Mall\VacationCardController@update');
+    Route::get('vacation/casa', 'Vacation\VacationCardController@back');
+    Route::get('api/vacation/casa', 'Vacation\VacationCardController@casalist');
+    Route::get('api/vacation/add/{id}', 'Vacation\VacationCardController@create');
+    Route::get('api/vacation/del/{id}', 'Vacation\VacationCardController@del');
+    Route::post('api/vacation/update', 'Vacation\VacationCardController@update');
+
+    // 经销商管理
+    Route::get('dealer/list', 'Merchant\DealerController@showList');
+    Route::get('dealer/edit/{id?}', 'Merchant\DealerController@edit');
+    Route::any('dealer/update/{id?}', 'Merchant\DealerController@update');
 
 });
 
@@ -102,7 +107,8 @@ Route::group(['prefix' => 'back/wx', 'middleware' => ['web','auth:admin']],funct
     Route::get('bind/trash/{deleted}', 'Wx\WxBindController@bindList');
     Route::get('bind/delete/{id}', 'Wx\WxBindController@delete');
     Route::get('bind/restore/{id}', 'Wx\WxBindController@restore');
-    Route::get('bind/{bindId}/{casaId}', 'Wx\WxBindController@bind');
+    Route::get('bind/{bindId}/{casaId}', 'Wx\WxBindController@bindWxcasa');
+    Route::get('bind/dealer/{bindId}/{dealerId}', 'Wx\WxBindController@bindDealer');
     Route::get('casa/test/set/{id}', 'Wx\WxCasaController@setTest');
     Route::get('casa/test/unset/{id}', 'Wx\WxCasaController@unsetTest');
 });

@@ -11,6 +11,7 @@ class User extends Model
     const MALE = 1;
     const FEMALE = 2;
     protected $table = "user";
+    protected $hidden = ['openid'];
 
     /**
      * For now, one user could be binded merely to one wx casa.
@@ -42,5 +43,10 @@ class User extends Model
     public function orders()
     {
         return $this->hasMany('App\Entity\Order');
+    }
+    // 用户拥有的度假卡
+    public function vacationCard()
+    {
+        return $this->hasManyThrough('App\Entity\VacationCard', 'App\Entity\Order');
     }
 }

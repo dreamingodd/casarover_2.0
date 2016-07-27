@@ -9,6 +9,7 @@
 # Clear login request records(rows&QRfiles) everyday.
 5 0 * * * /usr/local/php/bin/php /var/www/html/casarover_2.0/artisan ywd:loginclean
 
-# Backup DB and send mail to  everyday.
+# Backup DB and send mail to every 3 days.
+5 4 3-31/3 * * /usr/local/php/bin/php /var/www/html/casarover_2.0/artisan ywd:backup
 
-# TODO on DEV machine Backup OSS images every week.
+# TODO on DEV machine Backup OSS images manually.

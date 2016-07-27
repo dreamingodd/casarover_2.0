@@ -107,6 +107,7 @@ class WxOrderController extends BaseController
         // 如果是度假卡的消费订单，那么预订电话是民宿主人的电话
         if($order->pay_type == Order::PAY_TYPE_CARD){
             $orderPhone = $order->wxCasa[0]->phone;
+            $order->casaOrder->reserve_date = $order->casaOrder->reserve_date == null? null : Carbon::parse($order->casaOrder->reserve_date)->format('Y年m月d日');
         }else{
             $orderPhone = config('casarover.help_telephone');
         }
@@ -194,6 +195,7 @@ class WxOrderController extends BaseController
      */
     public function consume($orderId)
     {
+        dd(app('MembershipService'));
             $userId = Session::get('user_id');
             // Merchant
             $user = User::find($userId);

@@ -20,8 +20,9 @@ class OpportunityApply extends Model
         return $this->hasOne('App\Entity\OrderItem','id','order_item_id');
     }
 
-    public function order()
+    /** Vacation Card Item */
+    public function vacationCardItem()
     {
-        return $this->belongsTo('App\Entity\Order','id','order_item_id');
+        return $this->belongsTo('App\Entity\OrderItem');
     }
 }

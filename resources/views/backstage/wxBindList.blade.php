@@ -4,6 +4,11 @@
 
 @section('head')
 <script src="/assets/js/casaSelectModal.js"></script>
+<style>
+.select_bind_btn {
+    margin-bottom: 3px;
+}
+</style>
 <script type="text/javascript">
 $(function() {
     $('.select_bind_btn').click(function(){
@@ -13,6 +18,11 @@ $(function() {
         var bindId = $('#bindId').val();
         var casaId = $(this).attr('db_id');
         location.href = '/back/wx/bind/' + bindId + '/' + casaId;
+    });
+    $('.select_dealer_btn').click(function(){
+        var bindId = $('#bindId').val();
+        var dealerId = $(this).attr('db_id');
+        location.href = '/back/wx/bind/dealer/' + bindId + '/' + dealerId;
     });
 });
 </script>
@@ -38,8 +48,8 @@ $(function() {
             <th>姓名</th>
             <th>微信名</th>
             <th>手机</th>
-            <th>用户输入民宿</th>
-            <th>实际绑定民宿</th>
+            <th>用户输入信息</th>
+            <th>绑定民宿|经销商</th>
             <th>更新时间</th>
             <th>操作</th>
         </tr>
@@ -51,12 +61,18 @@ $(function() {
                 <td>{{$bind->user->nickname or ''}}</td>
                 <td>{{$bind->user->cellphone or ''}}</td>
                 <td>{{$bind->casa_name}}</td>
-                <td>
+                <td class="bind_name">
                     @if (!$bind->trashed())
                         <button type="button" db_id="{{$bind->id}}" class="select_bind_btn btn btn-xs btn-info"
-                                data-toggle="modal" data-target="#casaSelectModal">选择</button>
+                                data-toggle="modal" data-target="#casaSelectModal">民宿</button>
                     @endif
-                    {{$bind->wxCasa->name or ''}}
+                    <span>{{$bind->wxCasa->name or ''}}</span>
+                    <br />
+                    @if (!$bind->trashed())
+                        <button type="button" db_id="{{$bind->id}}" class="select_bind_btn btn btn-xs btn-info"
+                                data-toggle="modal" data-target="#dealerSelectModal">经销商</button>
+                    @endif
+                    {{$bind->dealer->name or ''}}
                 </td>
                 <td>{{$bind->updated_at==''?$bind->created_at:$bind->updated_at}}</td>
                 <td>
@@ -74,8 +90,8 @@ $(function() {
         @endforeach
     </table>
 
-    <!-- Modal for WxCasa Selector. -->
     @if (!empty($bind) && !$bind->trashed())
+    <!-- Modal for WxCasa Selector. -->
     <div class="modal fade" id="casaSelectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
@@ -101,6 +117,42 @@ $(function() {
                                 <td>{{$casa->name}}</td>
                                 <td><button db_id="{{$casa->id}}" type="button"
                                         class="select_casa_btn btn btn-info btn-xs">
+                                    是它</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Dealer Selector. -->
+    <div class="modal fade" id="dealerSelectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">选择一个经销商</h4>
+                </div>
+                <div class="modal-body" style="height:500px; overflow:scroll;">
+                    <!--
+                    <div class="search">
+                        <input type="text" value="" id="search" />
+                        <button class="glyphicon glyphicon-search" id="enlarge"></button>
+                        <button class="glyphicon glyphicon-repeat" id="reset"></button>
+                    </div>
+                    <div class="alert alert-info" role="alert"
+                            style="float: left; padding: 2px; margin: 7px 0 5px 0;">
+                        按回车搜索，按Shift重置。
+                    </div> -->
+                    <table id="slimCasaTable" class="table table-hover">
+                        @foreach ($dealers as $dealer)
+                            <tr>
+                                <td>{{$dealer->name}}</td>
+                                <td><button db_id="{{$dealer->id}}" type="button"
+                                        class="select_dealer_btn btn btn-info btn-xs">
                                     就是它</button>
                                 </td>
                             </tr>

@@ -11,6 +11,7 @@ class LineCounter {
         '.php',
         '.js',
         '.less',
+        '.vue',
     ];
     /** File in this list must be included.
      * ##Only File.
@@ -26,7 +27,11 @@ class LineCounter {
         "/app/Console/Commands/Processors/LineCounter.php",
         "/bootstrap",
         "/config",
-        "/public",
+        "/public/assets",
+        "/public/static",
+        "/public/WxPayAPI",
+        "/public/shop/build",
+        "/public/shop/config",
         "/storage",
         "/vendor",
         "/server.php",

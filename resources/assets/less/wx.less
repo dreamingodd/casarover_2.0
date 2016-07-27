@@ -1,36 +1,36 @@
 @import "block/slider";
-ul,ol{
-  margin: 0;
-  padding: 0;
+// 不要起名叫ad-** 这样的标签会被广告插件屏蔽
+.ac-banner{
+  margin-top: .4rem;
+  overflow: hidden;
+  img{
+    width: 100%;
+    padding: 0.4rem;
+  }
 }
+
 .slides{
   li{
     height: 18rem;
   }
 }
-.tabtable {
-  background: #fff;
-}
-.nav-tabs li{
-  width: 50%;
-  text-align: center;
-  a{
-    font-size: 2rem;
-}
-}
+
 .case{
-  padding:3rem 1rem 0;
-  width: 100%;
-  z-index: 0;
-  p{
+  width: 97%;
+  margin: 1rem auto;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: .2rem;
+  h4{
     display: block;
     font-size: 2rem;
     font-weight: 900;
+    padding-left: 1rem;
   }
-  em{
+  p{
     display: block;
     font-size: 1.5rem;
     color: #999999;
+    padding-left: 1rem;
   }
 }
 .image{
@@ -53,4 +53,57 @@ ul,ol{
     font-weight:900;
     background-color: rgba(20,143,117,0.7);
   }
+}
+
+
+// city-card block
+.city-card{
+    margin: .5rem 0;
+    a{
+        display: block;
+        position: relative;
+        img{
+            width: 100%;
+        }
+    }
+    .pic-info{
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 50%;
+        margin-top: -5rem;
+        color: #fff;
+        h2{
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        h4{
+            font-size: 15px;
+            margin: 10px 0;
+            font-weight: 700;
+        }
+        p{
+            font-size: 16px;
+            line-height: 16px;
+            padding: .2rem;
+            border: 1px solid #fff;
+            width: 20%;
+            border-radius: 5%;
+            margin: 0 auto;
+        }
+    }
+}
+
+
+
+
+.tabtable {
+  background: #fff;
+}
+.nav-tabs li{
+  width: 50%;
+  text-align: center;
+  a{
+    font-size: 2rem;
+}
 }
