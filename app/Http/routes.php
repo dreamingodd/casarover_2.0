@@ -16,3 +16,5 @@ require_once('routes/apiRoutes.php');
 require_once('routes/wxRoutes.php');
 require_once('routes/mobileRoutes.php');
 require_once('routes/merchantRoutes.php');
+
+Route::any('soaptest', 'SoapTestController@test');
