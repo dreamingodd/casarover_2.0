@@ -1,22 +1,36 @@
 <template>
     <!-- 使用代金券等 -->
     <div class="use">
-        <button v-link="{ name:'verify'}">使用充值卡</button><i class="fa fa-angle-right"></i>        
-        <!-- <button>继续使用</button><i class="fa fa-angle-right"></i>         -->
+        <template v-if="paycards.length > 0">
+          <button v-link="{ name:'verify'}">继续使用</button><i class="fa fa-angle-right"></i>        
+        </template>
+        <template v-else>
+          <button v-link="{ name:'verify'}">使用充值卡</button><i class="fa fa-angle-right"></i>          
+        </template>
     </div>
-    <div class="chit">
+    <div class="chit" v-for="item in paycards">
         <div class="check">
-            <input type="checkbox">            
+            <input type="checkbox" v-model="item.isuse" >            
         </div>
         <div class="chit-info">
-            <span>使用1500度假卡-3000</span>
+            <span>使用{{ item.name }}-{{ item.price }}</span>
         </div>
-<!--         <div class="use-more">
-            <span>使用充值卡&nbsp;<i class="fa fa-angle-right"></i></span>
-            <span>继续使用&nbsp;<i class="fa fa-angle-right"></i></span>
-        </div> -->
     </div>
 </template>
+<script>
+import store from '../vuex/store'
+
+export default{
+  vuex: {
+    getters: {
+      paycards (state) {
+        return state.otherpay
+      }
+    }
+  },
+  store
+}
+</script>
 <style lang="less">
 .use{
     height: 4rem;

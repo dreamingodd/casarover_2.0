@@ -4,15 +4,15 @@
           <div class="price">
               <span v-if="card" class="show fa fa-credit-card" transition="bounce"></span>
               <span v-else class="show fa fa-credit-card" transition="bounce"></span>
-              <span>{{ totalPrice }}元</span>
+              <span>{{ totalPrice | roundDisplay }}元</span>
           </div>
           <div class="btn btn-disable">
-              <a v-link="{ path:'/',exact: true}">
+              <a v-link="{ path:'/list',exact: true}">
                   <span>继续选</span>
               </a>
           </div>
           <div class="btn btn-submit">
-            <a v-if="last == 1" v-link="{ name:'order' }">
+            <a v-if="last == 1" @click="pay">
               <span>立刻支付</span>
             </a>           
             <a v-else v-link="{ name:'order' }">
@@ -24,6 +24,7 @@
 </template>
 <script>
 import store from '../vuex/store'
+import { clearOtherPay } from '../vuex/actions'
 
 export default{
   data () {
@@ -33,29 +34,66 @@ export default{
   },
   vuex: {
     getters: {
-      goods (state) {
-        return state.orders.goods
+      list (state) {
+        const trueGoods = []
+        for (const i in state.goods) {
+          if (state.goods[i].number > 0) {
+            trueGoods.push(state.goods[i])
+          }
+        }
+        return trueGoods
+      },
+      otherpay (state) {
+        return state.otherpay
+      },
+      user (state) {
+        return state.user
       }
+    },
+    actions: {
+      clearOtherPay
     }
   },
   computed: {
     'totalPrice': function () {
       let totalPrice = 0
-      for (const i in this.goods) {
-        totalPrice += this.goods[i].price * this.goods[i].number
+      for (const i in this.list) {
+        totalPrice += this.list[i].price * this.list[i].number
       }
-      return totalPrice
+      let minus = 0
+      for (const i in this.otherpay) {
+        minus += this.otherpay[i].price
+      }
+      if (minus > totalPrice) {
+        window.alert('充值卡')
+        this.clearOtherPay
+      }
+      const result = totalPrice - minus
+      return result
     }
   },
   methods: {
-    putgood () {
-      // this.card = 1
-      // this.cad = 0
-      const k = this.card
-      if (k) {
-        this.card = 0
-      } else {
-        this.card = 1
+    pay () {
+      this.$http.post('/wx/api/cardCasaBuy',
+        {
+          casas: this.list,
+          user: this.user
+        }).then((response) => {
+          const result = response.json()
+          if (result.orderId) {
+            window.location.href = '/wx/pay/wxorder/' + result.orderId
+          } else {
+            window.alert(result.msg)
+          }
+        })
+    },
+    checkNumber () {
+      let num = 0
+      for (const i in this.list) {
+        num += this.list[i].number
+      }
+      if (num < 3) {
+        return null
       }
     }
   },

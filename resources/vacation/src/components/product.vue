@@ -14,7 +14,7 @@
             </div>
             <div class="quantity">
             <span class="fa fa-minus" @click="minus($index)"></span>
-                <input type="text" v-model="product.number">
+                <input type="text" v-model="product.number" placeholder="0" >
             <span class="fa fa-plus" @click="plus($index)"></span>
             </div>
         </div>
@@ -22,23 +22,31 @@
 </template>
 <script>
 import store from '../vuex/store'
-import { addGoods, removeGoods } from '../vuex/actions'
+import { addGoods, getFromlocal } from '../vuex/actions'
 
 export default{
+  watch: {
+    'products': function (val, old) {
+      for (const i in this.products) {
+        this.getFromlocal(this.products[i])
+      }
+    }
+  },
   vuex: {
     actions: {
       addGoods,
-      removeGoods
+      getFromlocal
     }
   },
   methods: {
     plus (index) {
-      console.log('plus')
       this.addGoods(this.products[index])
     },
     minus (index) {
-      console.log('minus')
-      this.removeGoods(this.products[index])
+    // 这样写是不符合规范的，但是真的是好用啊
+      if (this.products[index].number) {
+        this.products[index].number --
+      }
     }
   },
   store,

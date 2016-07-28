@@ -88,6 +88,12 @@ class WxSiteController extends WxBaseController
         return view('wx.wxUser', compact('orders', 'user','percent', 'levelStr', 'tips'));
     }
 
+    public function userinfo()
+    {
+        $user = User::find(Session::get('user_id'));
+        return response()->json(['msg'=>'ok', 'code'=> 0,'result'=>$user]);
+    }
+
     /** @param int $id */
     public function order($id)
     {

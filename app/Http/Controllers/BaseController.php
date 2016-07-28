@@ -55,15 +55,16 @@ abstract class BaseController extends Controller
       * @param string $cellphone
       * @return bool success or not
       */
-     protected function checkThenSaveUsernameAndCellphone($userId, $username, $cellphone)
+     protected function checkThenSaveUsernameAndCellphone($userId, $username, $cellphone, $address)
      {
-         if (empty($username) || empty($cellphone)) {
+         if (empty($username) || empty($cellphone) || empty($address)) {
              return false;
          } else {
              $user = User::find($userId);
-             if ($user->realname != $username or $user->cellphone != $cellphone) {
+             if ($user->realname != $username or $user->cellphone != $cellphone or $user->address != $address) {
                  $user->realname = $username;
                  $user->cellphone = $cellphone;
+                 $user->address = $address;
                  $user->save();
              }
              return true;

@@ -3,25 +3,65 @@
     <div class="verify">
         <div class="card-no">
             <span>卡号</span>
-            <input type="number" pattern="[0-9]*" placeholder="请输入卡号">
+            <input type="number" pattern="[0-9]*" v-model="number" placeholder="请输入卡号">
         </div>
         <div class="pwd">
             <span>密码</span>
-            <input type="password" placeholder="请输入密码">
+            <input type="password" v-model="password" placeholder="请输入密码">
         </div>
     </div>
-    <div class="submit">
-        <button>立即使用</button>
+    <div class="submit" @click="check">
+        <button >立即使用</button>
     </div>
 </template>
 <script>
-    export default{
-      components: {
-        'nav-head': require('./components/header')
+import store from './vuex/store'
+import { addOtherPay } from './vuex/actions'
+export default{
+  data () {
+    return {
+      number: null,
+      password: null
+    }
+  },
+  vuex: {
+    actions: {
+      addOtherPay
+    }
+  },
+  methods: {
+    check () {
+      if (!this.number) {
+        window.alert('卡号不能为空')
+        return null
+      }
+      if (!this.password) {
+        window.alert('密码不能为空')
+      }
+      // 发送ajax请求
+      const result = { id: 3, name: '度假卡', price: 123, isuse: true }
+      // 验证，成功之后加入到otherpay中
+      const r = 1
+      if (r) {
+        this.addOtherPay(result)
+        window.history.go(-1)
+      } else {
+        window.alert('error message')
       }
     }
+  },
+  components: {
+    'nav-head': require('./components/header')
+  },
+  store
+}
 </script>
 <style lang="less">
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button{
+        -webkit-appearance: none !important;
+        margin: 0; 
+    }
     .verify{
         padding-left: 2rem;
         font-size: 17px;
