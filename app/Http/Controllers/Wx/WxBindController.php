@@ -6,6 +6,7 @@ use Log;
 use Session;
 use Exception;
 use App\Entity\User;
+use App\Entity\Dealer;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxBind;
 use App\Entity\CasaOrder;
@@ -80,9 +81,10 @@ class WxBindController extends Controller
             $wxBinds = WxBind::onlyTrashed()->orderBy("id", "desc")->get();
         } else {
             $wxCasas = WxCasa::orderBy("id", "desc")->get();
+            $dealers = Dealer::all();
             $wxBinds = WxBind::orderBy("id", "desc")->get();
         }
-        return view('backstage.wxBindList', compact('wxBinds', 'wxCasas'));
+        return view('backstage.wxBindList', compact('wxBinds', 'wxCasas', 'dealers'));
     }
 
     /**
@@ -104,14 +106,27 @@ class WxBindController extends Controller
     }
 
     /**
-     * .
+     * Bind wxcasa and user.
      * @param int $bindId
      * @param int $casaId
      */
-    public function bind($bindId, $casaId) {
+    public function bindWxcasa($bindId, $casaId) {
         $wxBind = WxBind::find($bindId);
         $wxBind->wx_casa_id = $casaId;
         $wxBind->status = WxBind::STATUS_COMFIRMED;
+        $wxBind->save();
+        return redirect('/back/wx/bind');
+    }
+
+    /**
+     * Bind dealer and user.
+     * @param int $bindId
+     * @param int $casaId
+     */
+    public function bindDealer($bindId, $dealerId) {
+        $wxBind = WxBind::find($bindId);
+        $wxBind->dealer_id = $dealerId;
+        // $wxBind->status = WxBind::STATUS_COMFIRMED;
         $wxBind->save();
         return redirect('/back/wx/bind');
     }

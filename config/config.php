@@ -10,7 +10,13 @@ return [
     'photo_folder' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/',
     'image_folder' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/image/',
     'image_tmp_folder' => 'http://casarover.oss-cn-hangzhou.aliyuncs.com/tmp/',
+    // 探庐者客服电话
     'help_telephone' => '18355146150',
+    // 充值卡金额级别
+    'coupon_prices' => [
+        2000, 3000
+    ],
+    // 备份邮件发送地址
     'system_mail_receivers' => [
         ['name' => 'wenda', 'address' => 'alwayslookback@sina.com'],
         ['name' => 'yunlong', 'address' => 'dragon2590@qq.com'],

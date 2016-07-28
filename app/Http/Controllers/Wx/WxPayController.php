@@ -41,8 +41,8 @@ class WxPayController extends Controller
         // 统一下单
         $order = new Order($attributes);
         // var_dump($order);
-	// echo '<br/><br/><br/>';
-	$result = $payment->prepare($order);
+        // echo '<br/><br/><br/>';
+        $result = $payment->prepare($order);
         // var_dump($result);
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
             $prepayId = $result->prepay_id;

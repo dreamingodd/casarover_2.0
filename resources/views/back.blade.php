@@ -5,6 +5,9 @@
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen" />
     <script src="//cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- <script src="/assets/js/integration/jquery.min.js"></script> -->
+
     <script src="/assets/js/back.js"></script>
     <link href="/assets/css/back.css" rel="stylesheet"/>
 

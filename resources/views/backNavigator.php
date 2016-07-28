@@ -45,7 +45,7 @@
                     <li><a href="/back/wx">微信民宿</a></li>
                     <li><a href="/back/wx/order/list">订单管理</a></li>
                     <li><a href="/back/vacation/casa">度假卡管理</a></li>
-                    <li><a href="/back/dealer">经销商管理</a></li>
+                    <li><a href="/back/dealer/list">经销商管理</a></li>
                     <li><a href="/back/wx/bind">民宿|经销商绑定</a></li>
                 </ul>
             </li>
