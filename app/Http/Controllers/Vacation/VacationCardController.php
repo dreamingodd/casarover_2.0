@@ -163,15 +163,21 @@ class VacationCardController extends BaseController
         {
             $casas = $request->casas;
             if (!$this->checkNumber($casas)) {
-                return response()->json(['msg' => '至少' . self::LEAST_CASA_COUNT . '间']);
+                return response()->json(['msg' => '请至少选择' . self::LEAST_CASA_COUNT . '间']);
             }
-            $userCheckResult =
-                    $this->checkThenSaveUsernameAndCellphone(Session::get('user_id'), $request->user["realname"],
-                     $request->user["cellphone"], $request->user["address"]);
-            if (!$userCheckResult) {
-                return response()->json(['msg' => '用户信息缺失！']);;
+            if (empty($request->user["realname"]) || empty($request->user["cellphone"]) || empty($request->user["address"])) {
+                return response()->json(['msg' => '用户信息缺失！']);
             }
             $userId = Session::get('user_id');
+            $user = User::find($userId);
+            if ($user->realname != $request->user["realname"] or 
+                  $user->cellphone != $request->user["cellphone"] or $user->address != $request->user["address"]) {
+                $user->realname = $username;
+                $user->cellphone = $cellphone;
+                $user->address = $address;
+                $user->save();
+            }
+
             $type = Product::TYPE_VACATION_CARD;
             $total = $this->roomTotal($casas);
             //1: 在order 中存入信息
