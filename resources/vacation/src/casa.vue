@@ -1,7 +1,7 @@
 <template>
     <nav-head back="1" :title="casa.name"></nav-head>
     <h2>房型选择</h2>
-    <product :products="casa.products"></product>
+    <product :products="casa.products" ></product>
     <hr>
     <h2>民宿介绍</h2>
     <content :contents="casa.contents"></content>
@@ -24,7 +24,6 @@ export default{
   methods: {
     getinfo (id) {
       this.$http.get('/wx/api/cardCasa/' + id + '?type=' + this.type).then((response) => {
-        console.log(response)
         this.$set('casa', response.json())
       })
     }

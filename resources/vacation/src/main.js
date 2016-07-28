@@ -2,11 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
+import lead from './lead'
 import index from './index'
 import casa from './casa'
 import order from './order'
 import verify from './verify'
+import filters from './filters'
 
+Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
 Vue.use(VueRouter)
 Vue.use(VueResource)
 var router = new VueRouter({
@@ -19,6 +22,9 @@ var router = new VueRouter({
 // 稍后我们会讲解嵌套路由
 router.map({
   '/': {
+    component: lead
+  },
+  '/list': {
     component: index
   },
   '/casa/:id': {

@@ -19,6 +19,7 @@ use Exception;
 use Session;
 use App\Entity\VacationCard;
 use Carbon\Carbon;
+use App\Attachment;
 
 /**
  * Class VacationCardController
@@ -108,11 +109,7 @@ class VacationCardController extends BaseController
      */
     public function index()
     {
-        $user = User::find(Session::get('user_id'));
-        //当库存为0的时候不上线
-        $casas = DB::table('product')->join('stocks','product.id','=','stocks.product_id')
-                ->where('type',Product::TYPE_VACATION_CARD)->where('surplus', '>',0)->get();
-        return view('wx.cardCustomize',compact(['casas', 'user']));
+        return view('wx.cardCasaList');
     }
 
     /**
@@ -121,29 +118,32 @@ class VacationCardController extends BaseController
     public function showlist(Request $request)
     {
         // 价格为0的时候不上线，包幢为1
-        $casas = DB::table('product')->join('stocks','product.id','=','stocks.product_id')->select('product.*','stocks.is_whole')
-                ->where('type',Product::TYPE_VACATION_CARD)->where('price','>',0)->where('is_whole',$request->type)->get();
+        // $casas = DB::table('product')->join('stocks','product.id','=','stocks.product_id')->select('product.*','stocks.is_whole')
+        //         ->where('type',Product::TYPE_VACATION_CARD)->where('price','>',0)->where('is_whole',$request->type)->get();
 
-        // $casas = DB::table('wx_casa')->join('product','product.parent_id','=','wx_casa.id')
-        //         ->join('stocks','stocks.prodcut_id','=','product.id')
-        //         ->select('wx_casa.*')->where('type',Product::TYPE_VACATION_CARD)
+        $casas = DB::table('wx_casa')->join('product','product.parent_id','=','wx_casa.id')
+                ->join('stocks','stocks.product_id','=','product.id')
+                ->select('wx_casa.id','wx_casa.name')->where('product.type',Product::TYPE_VACATION_CARD)
+                ->where('is_whole',$request->type)
+                ->where('price','>',0)
+                ->distinct()->get();
         foreach($casas as $casa)
         {
             $casa->headImg = config('config.photo_folder')
-                    . wxCasa::find($casa->parent_id)->thumbnail();
+                    . wxCasa::find($casa->id)->thumbnail();
         }
         return response()->json($casas);
     }
     //casa message for vue
     public function show(Request $request,$id)
     {
-        $product = Product::find($id);
-        $wxCasa = WxCasa::find($product->parent_id);
+        $wxCasa = WxCasa::find($id);
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         $wxCasa->products = $wxCasa->products()->join('stocks','product.id','=','stocks.product_id')->select('product.*','stocks.is_whole')
             ->where('is_whole',$request->type)->get();
         foreach($wxCasa->products as $product){
             $product->number = 0;
+            $product->headImg = config('config.photo_folder').wxCasa::find($product->parent_id)->thumbnail();
         }
         foreach($wxCasa->contents as $content){
             $content->imgs = $content->attachments;
@@ -163,10 +163,11 @@ class VacationCardController extends BaseController
         {
             $casas = $request->casas;
             if (!$this->checkNumber($casas)) {
-                return response()->json(['msg' => '至少' . self::LEAST_CASA_COUNT . '家']);
+                return response()->json(['msg' => '至少' . self::LEAST_CASA_COUNT . '间']);
             }
             $userCheckResult =
-                    $this->checkThenSaveUsernameAndCellphone(Session::get('user_id'), $request->username, $request->cellphone);
+                    $this->checkThenSaveUsernameAndCellphone(Session::get('user_id'), $request->user["realname"],
+                     $request->user["cellphone"], $request->user["address"]);
             if (!$userCheckResult) {
                 return response()->json(['msg' => '用户信息缺失！']);;
             }
@@ -186,7 +187,7 @@ class VacationCardController extends BaseController
         catch(Exception $e)
         {
             DB::rollback();
-            Log::error(get_class() . ' - ' . $e);
+            Log::info(get_class() . ' - ' . $e);
             return $e;
             //不一定是什么错误，但是前台能做的就是重试。
             return response()->json(['code' => 503, 'msg' => '网络错误，请刷新重试']);
@@ -254,7 +255,7 @@ class VacationCardController extends BaseController
         {
             // the specific price is gotten from database.
             $price = Product::find($casa["id"])->price;
-            $number = $casa["room"];
+            $number = $casa["number"];
             $total += $price * $number;
         }
         return $total;
@@ -267,7 +268,11 @@ class VacationCardController extends BaseController
     private function checkNumber($casas)
     {
         $num = $casas;
-        if(count($num) < self::LEAST_CASA_COUNT)
+        $getNum = 0;
+        foreach ($num as $value) {
+            $getNum += $value["number"];
+        }
+        if($getNum < self::LEAST_CASA_COUNT)
         {
             return false;
         }
@@ -293,11 +298,11 @@ class VacationCardController extends BaseController
                 'name' => $product->name,
                 'photo_path' => $casa["headImg"],
                 'price' => $product->price,
-                'quantity' => $casa["room"]
+                'quantity' => $casa["number"]
             ]);
             Opportunity::create([
                 'order_item_id' => $item->id,
-                'left_quantity' => $casa["room"]
+                'left_quantity' => $casa["number"]
             ]);
         }
     }

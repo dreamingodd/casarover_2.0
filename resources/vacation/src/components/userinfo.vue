@@ -2,18 +2,57 @@
     <div class="userinfo">
         <div class="name input-default">
             <span>联系人</span>
-            <input type="text" placeholder="请填写真实姓名">
+            <input type="text" v-model="userMessage.realname" placeholder="请填写真实姓名">
         </div>
         <div class="phone input-default">
             <span>电话</span>
-            <input type="number" pattern="[0-9]*" placeholder="请填写有效的手机号">
+            <input type="number" v-model="userMessage.cellphone" pattern="[0-9]*" placeholder="请填写有效的手机号">
         </div>
         <div class="address">
             <p>地址<span>(购买达一定金额会有精美礼品赠送)</span></p>
-            <textarea name="" id="" cols="30" rows="5" placeholder="请填写真实地址，用于邮寄礼品"></textarea>
+            <textarea name="" id="" cols="30" rows="5" placeholder="请填写真实地址，用于邮寄礼品" v-model="userMessage.address"></textarea>
         </div>
     </div>
 </template>
+<script>
+import store from '../vuex/store'
+import { userinfo } from '../vuex/actions'
+
+export default{
+  vuex: {
+    getters: {
+      user (state) {
+        return state.user
+      }
+    },
+    actions: {
+      userinfo
+    }
+  },
+  created () {
+    this.getUserInfo()
+  },
+  computed: {
+    userMessage: {
+      get () {
+        return this.user
+      },
+      set (val) {
+        console.log(val)
+        this.userinfo(val)
+      }
+    }
+  },
+  methods: {
+    getUserInfo () {
+      this.$http.get('/wx/api/user').then((response) => {
+        this.userinfo(response.json().result)
+      })
+    }
+  },
+  store
+}
+</script>
 <style lang="less">
     .userinfo{
       padding: .5rem;

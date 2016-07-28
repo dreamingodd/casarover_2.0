@@ -1,9 +1,9 @@
 <template>
-    <nav-head title="度假卡"></nav-head>
+    <nav-head back="1" title="选择民宿"></nav-head>
     <div class="tab">
       <ul>
-        <li v-bind:class="{'active': type == 0}" @click="getinfo(0)">单选</li>
-        <li v-bind:class="{'active': type == 1}" @click="getinfo(1)">包幢</li>
+        <li v-bind:class="{'active': type == 0}" @click="changeType(0)">单选</li>
+        <li v-bind:class="{'active': type == 1}" @click="changeType(1)">包幢</li>
       </ul>
     </div>
     <template v-for="casa in casas">
@@ -11,26 +11,36 @@
     </template>
 </template>
 <script>
+import store from './vuex/store'
+import { changeType } from './vuex/actions'
+
 export default{
-  data () {
-    return {
-      casas: null,
-      type: 0
+  vuex: {
+    getters: {
+      type (state) {
+        return state.type
+      }
+    },
+    actions: {
+      changeType
     }
   },
-  // route: {
-  //   data () {
-  //     this.getinfo(this.type)
-  //   }
-  // },
+  watch: {
+    'type': function (val, old) {
+      this.getinfo(this.type)
+    }
+  },
+  data () {
+    return {
+      casas: null
+    }
+  },
   created () {
     this.getinfo(this.type)
   },
   methods: {
     getinfo (type) {
-      this.type = type
       this.$http.get('/wx/api/cardCasaList?type=' + this.type).then((response) => {
-        console.log(response)
         this.$set('casas', response.json())
       })
     }
@@ -38,7 +48,8 @@ export default{
   components: {
     'nav-head': require('./components/header'),
     'card': require('./components/casaCard')
-  }
+  },
+  store
 }
 </script>
 <style lang="less">

@@ -11,6 +11,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/credit_score', 'Wx\WxSiteController@creditScore');
     Route::get('/casa/{id}/{collection?}', 'Wx\WxSiteController@casa');
     Route::get('/user', 'Wx\WxSiteController@user');
+    Route::get('/api/user','Wx\WxSiteController@userinfo');
     Route::get('scorevariation/','Wx\WxSiteController@scoreVariation');
     Route::get('/api/scorevariation/{id}/{page?}','Wx\WxSiteController@scoreVariationJson');
     Route::get('registerMember/','Wx\WxSiteController@registerMember');
