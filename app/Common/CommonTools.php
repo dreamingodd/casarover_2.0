@@ -112,6 +112,20 @@ class CommonTools {
         }
         return $new_array;
     }
+
+    /**
+     * e.g. 12 -> '000012'
+     */
+    public static function changeToStartWithZero($number, $digit) {
+        $number = floor($number);
+        $lackDigit = $digit - strlen($number);
+        if ($lackDigit <= 0) return $number;
+        $prefix = "";
+        for ($i = 0; $i < $lackDigit; $i++) {
+            $prefix .= "0";
+        }
+        return $prefix . $number;
+    }
 }
 
 ?>
