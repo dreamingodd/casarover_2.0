@@ -30,6 +30,7 @@
     }
     .pic{
         width: 94%;
+        height: 10rem;
         padding: 2px 3%;
         overflow: hidden;
         img{

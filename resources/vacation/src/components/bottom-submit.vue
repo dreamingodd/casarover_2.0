@@ -65,7 +65,8 @@ export default{
         minus += this.otherpay[i].price
       }
       if (minus > totalPrice) {
-        window.alert('充值卡')
+        console.log('充值卡金额大于订单金额')
+        // window.alert('充值卡')
         this.clearOtherPay
       }
       const result = totalPrice - minus

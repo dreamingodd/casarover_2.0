@@ -60,6 +60,7 @@ export default{
     position: relative;
     .casa-img{
       height: 8rem;
+      width: 13rem;
       img{
         height: 100%;
       }
@@ -69,7 +70,7 @@ export default{
       box-flex:1;
       padding-left: 2rem;
       h3{
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: normal;
       }
       .delete{

@@ -21,7 +21,3 @@ Route::group(['prefix' => 'api/merch', 'middleware' => ['web', 'pc.wx']], functi
     Route::get('delorder/{id}','Merchant\OrderController@del');
     Route::get('turnusedorder/{id}','Merchant\OrderController@turnused');
 });
-
-Route::get('dashboard',['middleware' => ['web','pc.wx'],function(){
-    return view('merchant.index');
-}]);

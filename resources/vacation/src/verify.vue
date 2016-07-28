@@ -39,7 +39,7 @@ export default{
         window.alert('密码不能为空')
       }
       // 发送ajax请求
-      const result = { id: 3, name: '度假卡', price: 123, isuse: true }
+      const result = { id: 3, name: '充值卡', price: 123, isuse: true }
       // 验证，成功之后加入到otherpay中
       const r = 1
       if (r) {
