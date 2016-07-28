@@ -112,7 +112,7 @@ class Order extends Model
     */
     public function wxCasa()
     {
-        return $this->belongsToMany('App\Entity\Wx\wxCasa','casa_order');
+        return $this->belongsToMany('App\Entity\Wx\WxCasa','casa_order');
     }
 
     // public function useVacationCard()
