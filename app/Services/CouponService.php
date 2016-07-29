@@ -19,7 +19,7 @@ class CouponService {
         $client_order_id = $dealerCode . $orderId;
         $coupon = Coupon::where('client_order_id', $client_order_id)->get()->first();
         // orderId error
-        if($coupon) return "Duplicated order_id";
+        if($coupon) return "Duplicated order_id!";
         if ($dealer->key == $dealerKey) {
             return "PROD";
         } else if ($dealer->dev_key == $dealerKey) {

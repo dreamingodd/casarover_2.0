@@ -68,14 +68,14 @@ class CouponRestfulServer extends Controller
                 }
                 if ($coupon) {
                     $data = new stdClass();
-                    $data->code = $coupon->code;
+                    $data->coupon_no = $coupon->code;
                     $data->status = $coupon->status;
                     $data->price = $coupon->price;
                     if ($data->status == Coupon::STATUS_TEST) $data->status = 0;
                     $returnObj = $this->generateReturnObj(200, "Get coupon status successfully!");
                     $returnObj->data = $data;
                 } else {
-                    $returnObj = $this->generateReturnObj(200, "Coupon not found");
+                    $returnObj = $this->generateReturnObj(400, "Coupon not found");
                     $returnObj->data = null;
                 }
             } else {
