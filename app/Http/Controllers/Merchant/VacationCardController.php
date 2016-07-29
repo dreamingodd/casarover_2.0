@@ -30,7 +30,6 @@ class VacationCardController extends Controller
         $wxcasa = WxCasa::find($user->wx_casa_id);
         // find order_items belong wxcasa
         $orderItems = $wxcasa->orderItems;
-        // dd($orderItems);
         // find all order_id belong the wxcasa
         $itemIds = [];
         $orderIds = [];
@@ -68,9 +67,9 @@ class VacationCardController extends Controller
             $card->username = $card->realname;
             $card->cellphone = $card->cellphone;
         }
-        $wxcaa->products;
+        $wxcasa->products;
 
-        $products = $wxcaa->products->where('type',Product::TYPE_VACATION_CARD);
+        $products = $wxcasa->products->where('type',Product::TYPE_VACATION_CARD);
         foreach ($products as $product) {
             // $orderItems = OrderItem::where('product_id',$product->id)->whereIn('id',$itemIds)->get();
             $orderItems = DB::table('order_item')->join('order','order.id','=','order_item.order_id')

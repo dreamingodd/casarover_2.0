@@ -165,16 +165,15 @@ class VacationCardController extends BaseController
             if (!$this->checkNumber($casas)) {
                 return response()->json(['msg' => '请至少选择' . self::LEAST_CASA_COUNT . '间']);
             }
-            if (empty($request->user["realname"]) || empty($request->user["cellphone"]) || empty($request->user["address"])) {
+            if (empty($request->user["realname"]) || empty($request->user["cellphone"]) ) {
                 return response()->json(['msg' => '用户信息缺失！']);
             }
             $userId = Session::get('user_id');
             $user = User::find($userId);
-            if ($user->realname != $request->user["realname"] or 
-                  $user->cellphone != $request->user["cellphone"] or $user->address != $request->user["address"]) {
-                $user->realname = $username;
-                $user->cellphone = $cellphone;
-                $user->address = $address;
+            if ($user->realname != $request->user["realname"] or
+                  $user->cellphone != $request->user["cellphone"]) {
+                $user->realname = $request->user["realname"];
+                $user->cellphone = $request->user["cellphone"];
                 $user->save();
             }
 

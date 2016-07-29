@@ -1,7 +1,7 @@
 <?php
 return [
     // 首页显示配置
-    'dummy_user_id' => 123,
+    'dummy_user_id' => 88,
     'dummy_openid' => 'of43pwjQffZPkbMrB-T0ZGEjGZBI-24',
     'toggle_recom' => 1,
     'toggle_theme' => 1,
