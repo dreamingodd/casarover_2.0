@@ -7,14 +7,14 @@
             <td>已使用</td>
             <td>未使用</td>
         </tr>
-        <tr>
-            <template v-for="good in list">
-                <td>{{ good.name }}</td>
-                <td>{{ good.sales }}</td>
-                <td>{{ good.sales-good.surplus }}</td>
-                <td>{{ good.surplus }}</td>                
-            </template>
-        </tr>
+        <template v-for="good in list">
+            <tr>
+                    <td>{{ good.name }}</td>
+                    <td>{{ good.sales }}</td>
+                    <td>{{ good.sales-good.surplus }}</td>
+                    <td>{{ good.surplus }}</td>                
+            </tr>
+        </template>
     </table>
 </template>
 <script>
