@@ -29,7 +29,7 @@ class VacationCardController extends Controller
         // find wxcasa_id
         $wxcasa = WxCasa::find($user->wx_casa_id);
         // find order_items belong wxcasa
-        $orderItems = $wxcaa->orderItems;
+        $orderItems = $wxcasa->orderItems;
         // dd($orderItems);
         // find all order_id belong the wxcasa
         $itemIds = [];
