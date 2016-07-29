@@ -1,0 +1,18 @@
+
+ICBC MTMCZYFG291VZCBR93 B9LR
+
+http://localhost/rest/get-coupon
+http://localhost/rest/get-coupon?coupon_no=ICBC00000311
+http://localhost/rest/get-coupon?code=ICBC&order_id=3934
+
+http://localhost/rest/get-new-coupon?code=ICBC&key=B9LR&price=2000&order_id=123
+http://localhost/rest/get-new-coupon?code=BOC&key=D3KB&price=3000&order_id=1
+http://localhost/rest/get-new-coupon?code=BOC&key=NRE7AHZN0JDCHOLHLB&price=3000&order_id=2
+
+http://www.casarover.com/rest/get-coupon
+http://www.casarover.com/rest/get-coupon?coupon_no=ICBC00000311
+http://www.casarover.com/rest/get-coupon?code=ICBC&order_id=3934
+
+http://www.casarover.com/rest/get-new-coupon?code=YWD&key=RVDW&price=2000&order_id=1001
+http://www.casarover.com/rest/get-new-coupon?code=BOC&key=D3KB&price=3000&order_id=1
+http://www.casarover.com/rest/get-new-coupon?code=BOC&key=NRE7AHZN0JDCHOLHLB&price=3000&order_id=2
