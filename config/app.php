@@ -161,6 +161,8 @@ return [
         App\Providers\AreaServiceProvider::class,
         App\Providers\CasaServiceProvider::class,
         App\Providers\MembershipProvider::class,
+        /** Add relations */
+        App\Providers\DealerVacationRelationProvider::class,
         App\Providers\VcRelationServiceProvider::class,
         /** Coupon Creation */
         App\Providers\CouponServiceProvider::class,

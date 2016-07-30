@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Relation;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +14,6 @@ class VcOrderRelation extends Model
     protected $hidden = ['vacationCard'];
     public function vacationCard()
     {
-        return $this->hasOne('App\Entity\VacationCard','order_id','vacation_card_order_id');
+        return $this->hasOne('App\Entity\VacationCard', 'order_id', 'vacation_card_order_id');
     }
 }

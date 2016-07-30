@@ -117,10 +117,10 @@ class Order extends Model
 
     // public function useVacationCard()
     // {
-    //     return $this->hasManyThrough('App\Entity\VacationCard', 'App\Entity\VcOrderRelation','casa_order_id','order_id');
+    //     return $this->hasManyThrough('App\Entity\VacationCard', 'App\Entity\Relation\VcOrderRelation','casa_order_id','order_id');
     // }
     public function useVacationCard()
     {
-        return $this->hasOne('App\Entity\VcOrderRelation' ,'casa_order_id','id');
+        return $this->hasOne('App\Entity\Relation\VcOrderRelation' ,'casa_order_id','id');
     }
 }
