@@ -191,9 +191,9 @@ class VacationCardController extends BaseController
             }
             //1: 在order 中存入信息
             $order = $this->createOrder($userId, $total);
-            // foreach($coupons as $coupon){
-            //     app('DealerVacationRelationService')->add($coupon["id"], $order->id);
-            // }
+            foreach($request->coupons as $coupon){
+                app('DealerVacationRelationService')->add($coupon["id"], $order->id);
+            }
             //2：在order_item 存入信息  在opportunity中存入机会次数
             $this->saveOrderItem($order, $casas);
             //3: 在vacation_card_order中存入度假卡的信息
@@ -293,6 +293,8 @@ class VacationCardController extends BaseController
                         return false;
                         bread;
                     }
+                    $checkResult->status = Coupon::STATUS_USED;
+                    $checkResult->save();
                     $total += $checkResult->left;
                 }
                 else
