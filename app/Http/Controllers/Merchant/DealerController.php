@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Merchant;
 
+use DB;
 use App\Common\RandomString;
 use App\Entity\Dealer;
 use App\Http\Controllers\Controller;
@@ -12,12 +13,27 @@ class DealerController extends Controller
 {
     /** The very dealer's index page. */
     public function index() {
-        
+
+    }
+
+    public function statDeal() {
+
+        return view('backstage.dealerStatDeal', compact('stats'));
     }
 
     /** Backstage dealer selling result statistics. */
-    public function stat() {
-
+    public function statCoupon() {
+        $stats = DB::select(
+        "select * from dealer inner join"
+        ." (select requested.dealer_id, requested.requested_count, used.used_count from"
+            ." (select dealer_id, count(*) requested_count from coupon where status in (0,1) group by dealer_id) requested"
+            ." left join"
+            ." (select dealer_id, count(*) used_count from coupon where status = 1 group by dealer_id) used"
+            ." on requested.dealer_id = used.dealer_id"
+        ." ) stat on dealer.id = stat.dealer_id"
+        );
+        dd($stats);
+        return view('backstage.dealerStatCoupon', compact('stats'));
     }
 
     public function showList()

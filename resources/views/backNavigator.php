@@ -47,6 +47,8 @@
                     <li><a href="/back/vacation/casa">度假卡管理</a></li>
                     <li><a href="/back/dealer/list">经销商管理</a></li>
                     <li><a href="/back/wx/bind">民宿|经销商绑定</a></li>
+                    <li><a href="/back/dealer/stat/deal">经销商交易统计</a></li>
+                    <li><a href="/back/dealer/stat/coupon">经销商抵用券统计</a></li>
                 </ul>
             </li>
             <li role="presentation" class="dropdown activity">
