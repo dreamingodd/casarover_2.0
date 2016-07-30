@@ -180,9 +180,13 @@ class VacationCardController extends BaseController
                 $user->save();
             }
             $type = Product::TYPE_VACATION_CARD;
-            $couponTotal = $this->couponsToal($request->coupons);
-            if(!$couponTotal){
-                throw new Exception("充值卡号或密码错误或包含测试卡", 1);
+            if($request->coupons){
+                $couponTotal = $this->couponsToal($request->coupons);
+                if(!$couponTotal){
+                    throw new Exception("充值卡号或密码错误或包含测试卡", 1);
+                }
+            }else{
+                $couponTotal=0;
             }
             $roomstotal = $this->roomTotal($casas);
             $total = $roomstotal - $couponTotal;
@@ -191,8 +195,10 @@ class VacationCardController extends BaseController
             }
             //1: 在order 中存入信息
             $order = $this->createOrder($userId, $total);
-            foreach($request->coupons as $coupon){
-                app('DealerVacationRelationService')->add($coupon["id"], $order->id);
+            if($request->coupons){
+                foreach($request->coupons as $coupon){
+                    app('DealerVacationRelationService')->add($coupon["id"], $order->id);
+                }
             }
             //2：在order_item 存入信息  在opportunity中存入机会次数
             $this->saveOrderItem($order, $casas);
@@ -383,6 +389,12 @@ class VacationCardController extends BaseController
             $result->password = $result->key;
             $result->left = $result->left;
             $result->isuse = true;
+            if($result->status == 1){
+                return response()->json(['code'=>2,'result'=>'','msg'=>'已被使用']);
+            }
+            if($result->status == 2){
+                return response()->json(['code'=>2,'result'=>$result,'msg'=>'测试卡，不能使用']);
+            }
             return response()->json(['code'=>0,'result'=>$result,'msg'=>'ok']);
         }else{
             return response()->json(['code'=>2,'result'=>'','msg'=>'卡号或密码错误']);

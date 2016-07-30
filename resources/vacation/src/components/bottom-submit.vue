@@ -75,9 +75,7 @@ export default{
   },
   watch: {
     'totalPrice': function (val, old) {
-      if (val > old) {
-        this.resetOtherPay()
-      }
+      this.resetOtherPay()
     }
   },
   computed: {

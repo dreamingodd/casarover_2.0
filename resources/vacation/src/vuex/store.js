@@ -78,8 +78,11 @@ const mutations = {
     }
   },
   DELETEOTHERPAY (state, card) {
-    console.log(card)
     state.otherpay.$remove(card)
+    for (const i in state.otherpay) {
+      state.otherpay[i].isuse = true
+      state.otherpay.$set(i, state.otherpay[i])
+    }
   }
 }
 
