@@ -190,6 +190,7 @@ class VacationCardController extends BaseController
             }
             $roomstotal = $this->roomTotal($casas);
             $total = $roomstotal - $couponTotal;
+            $total = sprintf("%.2f", $total);
             if($total < 0){
                 throw new Exception("订单金额少于充值卡金额", 1);
             }
@@ -299,8 +300,6 @@ class VacationCardController extends BaseController
                         return false;
                         bread;
                     }
-                    $checkResult->status = Coupon::STATUS_USED;
-                    $checkResult->save();
                     $total += $checkResult->left;
                 }
                 else
