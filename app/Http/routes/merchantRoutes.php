@@ -13,6 +13,10 @@ Route::group(['prefix' => 'merchant', 'middleware' => ['web', 'pc.wx']], functio
     Route::get('/', 'Merchant\ReserveController@index');
 });
 
+Route::group(['prefix' => 'dealer', 'middleware' => ['web', 'pc.wx']], function(){
+    Route::get('/', "Merchant\DealerController@index");
+});
+
 // 商家平台的接口数据
 Route::group(['prefix' => 'api/merch', 'middleware' => ['web', 'pc.wx']], function() {
     Route::get('user', 'Merchant\VacationCardController@user');

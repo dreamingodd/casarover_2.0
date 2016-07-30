@@ -85,6 +85,7 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::get('dealer/list', 'Merchant\DealerController@showList');
     Route::get('dealer/edit/{id?}', 'Merchant\DealerController@edit');
     Route::any('dealer/update/{id?}', 'Merchant\DealerController@update');
+    Route::any('dealer/stat', 'Merchant\DealerController@stat');
 
 });
 
