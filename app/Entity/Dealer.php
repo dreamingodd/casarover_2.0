@@ -10,4 +10,10 @@ class Dealer extends Model
 
     protected $table = 'dealer';
     protected $fillable = ['name', 'code', 'key', 'dev_key'];
+
+    //对应的度假卡
+    public function vacationCard()
+    {
+        return $this->belongsTo('App\Entity\VacationCard');
+    }
 }

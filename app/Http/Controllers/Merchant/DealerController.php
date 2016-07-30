@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 /** 经销商管理 */
 class DealerController extends Controller
 {
+    /** The very dealer's index page. */
+    public function index() {
+        
+    }
+
+    /** Backstage dealer selling result statistics. */
+    public function stat() {
+
+    }
 
     public function showList()
     {
