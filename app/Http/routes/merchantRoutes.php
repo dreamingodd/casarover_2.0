@@ -15,6 +15,7 @@ Route::group(['prefix' => 'merchant', 'middleware' => ['web', 'pc.wx']], functio
 
 // 商家平台的接口数据
 Route::group(['prefix' => 'api/merch', 'middleware' => ['web', 'pc.wx']], function() {
+    Route::get('user', 'Merchant\VacationCardController@user');
     Route::get('orderList/{type?}', 'Merchant\OrderController@index');
     Route::get('cardList','Merchant\VacationCardController@cardList');
     Route::post('changeorder','Merchant\OrderController@update');

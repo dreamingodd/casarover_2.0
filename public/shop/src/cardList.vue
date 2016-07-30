@@ -46,7 +46,7 @@ export default {
               this.cardList = data.result.cards.data;
               this.products = data.result.products;
             }else{
-              alert('出错了，请刷新重试');
+              alert(data.msg);
             }
         });
     }

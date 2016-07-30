@@ -22,10 +22,14 @@ class VacationCardController extends Controller
     {
         $search = $request->input('query');
         $userId = Session::get('user_id');
+        $user = Wxbind::where('user_id',$userId)->first();
+        if(!$user){
+          return response()->json(['msg'=>'未绑定民宿']);
+        }
         // find wxcasa_id
-        $wxcaa = WxCasa::find(Wxbind::where('user_id',$userId)->first()->wx_casa_id);
+        $wxcasa = WxCasa::find($user->wx_casa_id);
         // find order_items belong wxcasa
-        $orderItems = $wxcaa->orderItems;
+        $orderItems = $wxcasa->orderItems;
         // find all order_id belong the wxcasa
         $itemIds = [];
         $orderIds = [];
@@ -51,6 +55,11 @@ class VacationCardController extends Controller
         // $cards = Order::with('VacationCard','user')->where('type',Order::TYPE_VACATION_CARD)->whereIn('id',$orderIds)->paginate(10);
         // 合并数据
         foreach ($cards as $card) {
+
+
+            // 问题在这里哟
+
+
             $card->goods = Order::find($card->order_id)->orderItems()->whereIn('id',$itemIds)->get();
             foreach ($card->goods as $key ) {
                 $key->left = $key->opportunity->left_quantity;
@@ -58,22 +67,43 @@ class VacationCardController extends Controller
             $card->username = $card->realname;
             $card->cellphone = $card->cellphone;
         }
-        $wxcaa->products;
+        $wxcasa->products;
 
-        $products = $wxcaa->products->where('type',Product::TYPE_VACATION_CARD);
+        $products = $wxcasa->products->where('type',Product::TYPE_VACATION_CARD);
         foreach ($products as $product) {
-            $orderItems = OrderItem::where('product_id',$product->id)->whereIn('id',$itemIds)->get();
+            // $orderItems = OrderItem::where('product_id',$product->id)->whereIn('id',$itemIds)->get();
+            $orderItems = DB::table('order_item')->join('order','order.id','=','order_item.order_id')
+                            ->select('order_item.*','order.status')->where('product_id',$product->id)->where('status','>',0)
+                            // ->where('')
+                            ->get();
             $sales = 0;
             $surplus = 0;
             foreach ($orderItems as $key ) {
-                if(isset($key->opportunity->left_quantity)){
-                    $surplus += $key->opportunity->left_quantity;
-                    $sales += $key->quantity;
+                $orderItem = OrderItem::find($key->id);
+                if(isset($orderItem->opportunity->left_quantity)){
+                    $surplus += $orderItem->opportunity->left_quantity;
+                    $sales += $orderItem->quantity;
                 }
             }
             $product->sales = $sales;
             $product->surplus = $surplus;
         }
         return response()->json(['code' => 0, 'msg' => '获取成功','result' => compact('cards','products')]);
+    }
+
+    public function user()
+    {
+        $userId = Session::get('user_id');
+        $user = User::find($userId);
+        $userBind = Wxbind::where('user_id',$userId)->first();
+        $code = 0;
+        $msg = 'ok';
+        if($userBind){
+            $data = ['username'=>$user->nickname,'casaname'=>$userBind->casa_name];
+        }else{
+            $data = ['username'=>$user->nickname,'casaname'=>'未绑定民宿'];
+        }
+        $result = ['code'=> $code, 'result'=> $data, 'msg'=> $msg];
+        return  response()->json($result);
     }
 }
