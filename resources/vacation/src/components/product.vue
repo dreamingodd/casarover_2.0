@@ -13,9 +13,7 @@
                 <span>数量</span>                
             </div>
             <div class="quantity">
-            <span class="fa fa-minus" @click="minus($index)"></span>
-                <input type="text" v-model="product.number" placeholder="0" >
-            <span class="fa fa-plus" @click="plus($index)"></span>
+                <span class="fa fa-minus" @click="minus($index)"></span><input type="text" v-model="product.number" placeholder="0" ><span class="fa fa-plus" @click="plus($index)"></span>
             </div>
         </div>
     </div>
@@ -66,7 +64,7 @@ export default{
             width: 50%;
             padding-left: 2rem;
             h3{
-                color: #333;
+                color: #777;
                 font-size: 1.5rem;
                 line-height: 2rem;
             }
@@ -86,25 +84,37 @@ export default{
         .tip{
             width: 50%;
             float: left;
-            
+            font-size: 14px;
         }
         .quantity{
             width: 50%;
             float: left;
             text-align: center;
             font-size: 2rem;
-            height: 2rem;
+            height: 2.8rem;
             color: #868484;
+            // border: 1px solid #eee;
+            // background: #123;
             input{
-                width: 15%;
+                width: 10%;
+                height: 3.2rem;
+                line-height: 3.2rem;
                 color: #232326;
-                border: 1px solid #bdb6b6;
-                padding: 0 .3rem;
+                background: #F7F7F7;
+                border: 0px solid #bdb6b6;
+                border-top: 1px solid #eee;
+                border-bottom: 1px solid #eee;
+                padding: 0 .6rem;
                 border-radius: 2px;
                 outline: none;
                 text-align: center;
-                height: 100%;
                 -webkit-appearance: none;
+            }
+            .fa{
+                 display: inline-block;
+                 background: #EFEEEC;
+                 padding: 10px;
+                 color: #A9A8A6;
             }
         }
     }

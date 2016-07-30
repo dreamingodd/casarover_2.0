@@ -24,7 +24,7 @@
 </template>
 <script>
 import store from '../vuex/store'
-import { clearOtherPay } from '../vuex/actions'
+import { clearOtherPay, resetOtherPay } from '../vuex/actions'
 
 export default{
   data () {
@@ -34,6 +34,15 @@ export default{
   },
   vuex: {
     getters: {
+      listPrice (state) {
+        let goodsPrice = 0
+        for (const i in state.goods) {
+          if (state.goods[i].number > 0) {
+            goodsPrice += state.goods[i].price * state.goods[i].number
+          }
+        }
+        return goodsPrice
+      },
       list (state) {
         const trueGoods = []
         for (const i in state.goods) {
@@ -46,31 +55,40 @@ export default{
       otherpay (state) {
         return state.otherpay
       },
+      otherPayPrice (state) {
+        let minus = 0
+        for (const i in state.otherpay) {
+          if (state.otherpay[i].isuse) {
+            minus += state.otherpay[i].price
+          }
+        }
+        return minus
+      },
       user (state) {
         return state.user
       }
     },
     actions: {
-      clearOtherPay
+      clearOtherPay,
+      resetOtherPay
+    }
+  },
+  watch: {
+    'totalPrice': function (val, old) {
+      if (val > old) {
+        this.resetOtherPay()
+      }
     }
   },
   computed: {
     'totalPrice': function () {
-      let totalPrice = 0
-      for (const i in this.list) {
-        totalPrice += this.list[i].price * this.list[i].number
+      const result = this.listPrice - this.otherPayPrice
+      if (result < 0) {
+        this.clearOtherPay()
+        return this.listPrice
+      } else {
+        return result
       }
-      let minus = 0
-      for (const i in this.otherpay) {
-        minus += this.otherpay[i].price
-      }
-      if (minus > totalPrice) {
-        console.log('充值卡金额大于订单金额')
-        // window.alert('充值卡')
-        this.clearOtherPay
-      }
-      const result = totalPrice - minus
-      return result
     }
   },
   methods: {
@@ -78,7 +96,8 @@ export default{
       this.$http.post('/wx/api/cardCasaBuy',
         {
           casas: this.list,
-          user: this.user
+          user: this.user,
+          coupons: this.otherpay
         }).then((response) => {
           const result = response.json()
           if (result.orderId) {

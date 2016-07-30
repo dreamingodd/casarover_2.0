@@ -1,9 +1,10 @@
 <template>
     <nav-head back="1" :title="casa.name"></nav-head>
+    <div class="head-img">
+      <img :src="casa.headImg" alt="">      
+    </div>
     <h2>房型选择</h2>
     <product :products="casa.products" ></product>
-    <hr>
-    <h2>民宿介绍</h2>
     <content :contents="casa.contents"></content>
     <submit></submit>
 </template>
@@ -36,7 +37,14 @@ export default{
   }
 }
 </script>
-<style>
+<style lang="less">
+  .head-img{
+    height: 20rem;
+    overflow: hidden;
+    img{
+      width: 100%;
+    }
+  }
   hr{
     width: 98%;
     margin-bottom: 2rem;

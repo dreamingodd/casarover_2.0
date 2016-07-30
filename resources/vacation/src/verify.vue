@@ -3,7 +3,7 @@
     <div class="verify">
         <div class="card-no">
             <span>卡号</span>
-            <input type="number" pattern="[0-9]*" v-model="number" placeholder="请输入卡号">
+            <input type="text" v-model="number" placeholder="请输入卡号">
         </div>
         <div class="pwd">
             <span>密码</span>
@@ -37,17 +37,23 @@ export default{
       }
       if (!this.password) {
         window.alert('密码不能为空')
+        return null
       }
       // 发送ajax请求
-      const result = { id: 3, name: '充值卡', price: 123, isuse: true }
-      // 验证，成功之后加入到otherpay中
-      const r = 1
-      if (r) {
-        this.addOtherPay(result)
-        window.history.go(-1)
-      } else {
-        window.alert('error message')
-      }
+      this.$http.post('/wx/api/checkCoupon',
+        {
+          number: this.number,
+          password: this.password
+        }).then((response) => {
+          const data = response.json()
+          if (data.code === 0) {
+            this.addOtherPay(data.result)
+            window.history.go(-1)
+          } else {
+            console.log(data)
+            window.alert(data.msg)
+          }
+        })
     }
   },
   components: {

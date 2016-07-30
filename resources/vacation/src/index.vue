@@ -1,5 +1,5 @@
 <template>
-    <nav-head back="1" title="选择民宿"></nav-head>
+    <nav-head  title="选择民宿"></nav-head>
     <div class="tab">
       <ul>
         <li v-bind:class="{'active': type == 0}" @click="changeType(0)">单选</li>
