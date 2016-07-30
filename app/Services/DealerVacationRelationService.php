@@ -2,15 +2,15 @@
 namespace App\Services;
 
 use Log;
-use App\Entity\Relation\VcOrderRelation;
+use App\Entity\Relation\DealerVacationRelation;
 
 /** 民宿订单和度假卡订单的关系。 */
-class VcRelationService {
-    public function add($vacationOrderId, $casaOrderId) {
+class DealerVacationRelationService {
+    public function add($dealerId, $vacationOrderId) {
         Log::info(get_class() . " - relation add start.");
-        $relation = new VcOrderRelation();
+        $relation = new DealerVacationRelation();
+        $relation->dealer_id = $dealerId;
         $relation->vacation_card_order_id = $vacationOrderId;
-        $relation->casa_order_id = $casaOrderId;
         $relation->save();
         Log::info(get_class() . " - relation add successfully.");
     }
