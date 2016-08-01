@@ -51,16 +51,38 @@ const mutations = {
     // state.orders.goods.$remove(goods)
   },
   ADDOTHERPAY (state, result) {
-    const index = state.otherpay.indexOf(result)
-    if (index < 0) {
-      console.log(result)
-      state.otherpay.push(result)
-    } else {
+    let index = -1
+    for (const i in state.otherpay) {
+      if (result.id === state.otherpay[i].id) {
+        index = i
+      }
+    }
+    console.log(index)
+    if (index > -1) {
       window.alert('请勿重复添加')
+      return null
+    } else {
+      state.otherpay.push(result)
     }
   },
   CLEAROTHERPAY (state) {
-    state.otherpay = []
+    for (const i in state.otherpay) {
+      state.otherpay[i].isuse = false
+      state.otherpay.$set(i, state.otherpay[i])
+    }
+  },
+  RESETOTHERPAY (state) {
+    for (const i in state.otherpay) {
+      state.otherpay[i].isuse = true
+      state.otherpay.$set(i, state.otherpay[i])
+    }
+  },
+  DELETEOTHERPAY (state, card) {
+    state.otherpay.$remove(card)
+    for (const i in state.otherpay) {
+      state.otherpay[i].isuse = true
+      state.otherpay.$set(i, state.otherpay[i])
+    }
   }
 }
 

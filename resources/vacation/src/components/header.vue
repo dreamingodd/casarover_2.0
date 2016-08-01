@@ -4,7 +4,7 @@
             <a v-if="back" onclick="history.go(-1)">
                 <img src="/static/header/back.png" height="100%" alt="" />
             </a>
-            <a v-else href="/wx">
+            <a v-else v-link="{ path: '/'}">
                 <img src="/static/header/home.png" height="100%" alt="" />
             </a>
         </div>

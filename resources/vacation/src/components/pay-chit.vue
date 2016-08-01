@@ -9,16 +9,26 @@
         </template>
     </div>
     <div class="chit" v-for="item in paycards">
-        <div class="check">
-            <input type="checkbox" v-model="item.isuse" >            
-        </div>
+       <template v-if="item.isuse">
+          <div class="check">
+              <input  type="checkbox" v-model="item.isuse">             
+          </div>
+          <div class="chit-info">
+              <span>使用{{ item.name }}-{{ item.price }}</span>
+              <span @click="del($index)" class="delete fa fa-trash-o"></span>
+          </div>
+       </template>
+       <template v-else>
+        <input disabled="disabled" type="checkbox" >
         <div class="chit-info">
-            <span>使用{{ item.name }}-{{ item.price }}</span>
-        </div>
+            <span>&nbsp;订单金额过少，不能使用充值卡</span><span @click="del($index)" class="delete fa fa-trash-o"></span>
+        </div>           
+       </template>
     </div>
 </template>
 <script>
 import store from '../vuex/store'
+import { deleteOtherPay } from '../vuex/actions'
 
 export default{
   vuex: {
@@ -26,6 +36,14 @@ export default{
       paycards (state) {
         return state.otherpay
       }
+    },
+    actions: {
+      deleteOtherPay
+    }
+  },
+  methods: {
+    del (index) {
+      this.deleteOtherPay(this.paycards[index])
     }
   },
   store
@@ -58,6 +76,9 @@ export default{
   .chit-info{
     box-flex:1;
     -webkit-box-flex:1;
+    .fa-trash-o{
+      padding-left: 2rem;
+    }
   }
   .use-more{
     box-flex:1;

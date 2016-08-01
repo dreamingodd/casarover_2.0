@@ -39,6 +39,7 @@ Route::group(['prefix' => 'wx', 'middleware' => ['web', 'wx.auth']],function () 
     Route::get('/api/cardCasaList','Vacation\VacationCardController@showlist');
     Route::get('/api/cardCasa/{id}','Vacation\VacationCardController@show');
     Route::post('/api/cardCasaBuy','Vacation\VacationCardController@buy');
+    Route::post('/api/checkCoupon','Vacation\VacationCardController@checkCoupon');
     //  card message
     Route::get('/user/cards', 'Vacation\VacationCardController@cards');
     Route::get('/user/cardCasa/{id?}', 'Vacation\VacationCardController@cardCasa');

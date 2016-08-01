@@ -11,4 +11,5 @@ class Coupon extends Model
     const STATUS_TEST= 2;
     protected $table = 'coupon';
     protected $fillable = ['dealer_id', 'client_order_id', 'code', 'key', 'price', 'left', 'type', 'status'];
+    protected $hidden = ['created_at','updated_at'];
 }

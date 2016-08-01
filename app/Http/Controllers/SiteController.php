@@ -13,6 +13,11 @@ class SiteController extends Controller
     // website index
     public function index(Request $request)
     {
+        // $string = '这个是测试';
+        // $data = base64_encode($string);
+        // $data = str_replace(array('+','/','='),array('-','_',''),$data);
+        // return $data;
+        // dd(1);
         // get slide data
         $casas = Option::where('type',1)->get();
         foreach($casas as $casa)

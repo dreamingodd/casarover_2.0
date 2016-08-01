@@ -8,10 +8,10 @@
             <span>电话</span>
             <input type="number" v-model="userMessage.cellphone" pattern="[0-9]*" placeholder="请填写有效的手机号">
         </div>
-        <div class="address">
+<!--         <div class="address">
             <p>地址<span>(购买达一定金额会有精美礼品赠送)</span></p>
             <textarea name="" id="" cols="30" rows="5" placeholder="请填写真实地址，用于邮寄礼品" v-model="userMessage.address"></textarea>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>

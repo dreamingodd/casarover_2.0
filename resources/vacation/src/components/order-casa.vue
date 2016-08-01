@@ -9,9 +9,7 @@
             <h3>{{ item.name }}</h3>
             <p>￥{{ item.price }}</p>
             <div class="quantity">
-              <span class="fa fa-minus" @click="minus($index)"></span>
-                  <input type="text" v-model="item.number">
-              <span class="fa fa-plus" @click="plus($index)"></span>
+              <span class="fa fa-minus" @click="minus($index)"></span><input type="text" v-model="item.number"><span class="fa fa-plus" @click="plus($index)"></span>
             </div>
             <span @click="del($index)" class="delete fa fa-trash-o"></span>
           </div>
@@ -60,7 +58,7 @@ export default{
     position: relative;
     .casa-img{
       height: 8rem;
-      width: 13rem;
+      width: 12rem;
       img{
         height: 100%;
       }
@@ -73,30 +71,45 @@ export default{
         font-size: 1.5rem;
         font-weight: normal;
       }
+      p{
+        margin: 0.5rem 0;
+      }
       .delete{
           font-size: 2rem;
           display: block;
           position: absolute;
           right: .5rem;
-          bottom: 0;
+          bottom: 0.5rem;
       }
     }
   }
   .quantity{
+     display: block;
+     margin-bottom: 1rem;
       width: 100%;
       font-size: 2rem;
       height: 2rem;
       color: #868484;
       input{
           width: 15%;
+          height: 2.8rem;
+          line-height: 2.8rem;
           color: #232326;
-          border: 1px solid #bdb6b6;
-          padding: 0 .3rem;
+          background: #F7F7F7;
+          border: 0px solid #bdb6b6;
+          border-top: 1px solid #eee;
+          border-bottom: 1px solid #eee;
+          padding: 0 .6rem;
           border-radius: 2px;
           outline: none;
           text-align: center;
-          height: 100%;
           -webkit-appearance: none;
+      }
+      .fa{
+           display: inline-block;
+           background: #EFEEEC;
+           padding: 8px;
+           color: #A9A8A6;
       }
   }
 

@@ -20,6 +20,7 @@ use Session;
 use App\Entity\VacationCard;
 use Carbon\Carbon;
 use App\Attachment;
+use App\Entity\Coupon;
 
 /**
  * Class VacationCardController
@@ -138,6 +139,8 @@ class VacationCardController extends BaseController
     public function show(Request $request,$id)
     {
         $wxCasa = WxCasa::find($id);
+        // $wxCasa
+        $wxCasa->headImg = config('config.photo_folder').$wxCasa->attachment->filepath;
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
         $wxCasa->products = $wxCasa->products()->join('stocks','product.id','=','stocks.product_id')->select('product.*','stocks.is_whole')
             ->where('is_whole',$request->type)->get();
@@ -176,11 +179,29 @@ class VacationCardController extends BaseController
                 $user->cellphone = $request->user["cellphone"];
                 $user->save();
             }
-
             $type = Product::TYPE_VACATION_CARD;
-            $total = $this->roomTotal($casas);
+            if($request->coupons){
+                $couponTotal = $this->couponsToal($request->coupons);
+                if(!$couponTotal){
+                    throw new Exception("充值卡号或密码错误或包含测试卡", 1);
+                }
+            }else{
+                $couponTotal=0;
+            }
+            $roomstotal = $this->roomTotal($casas);
+            $total = $roomstotal - $couponTotal;
+            $total = sprintf("%.2f", $total);
+            if($total < 0){
+                throw new Exception("订单金额少于充值卡金额", 1);
+            }
             //1: 在order 中存入信息
             $order = $this->createOrder($userId, $total);
+            if($request->coupons){
+                foreach($request->coupons as $coupon){
+                    $k = app('DealerVacationRelationService')->add($coupon["id"], $order->id);
+                    dd($k);
+                }
+            }
             //2：在order_item 存入信息  在opportunity中存入机会次数
             $this->saveOrderItem($order, $casas);
             //3: 在vacation_card_order中存入度假卡的信息
@@ -266,6 +287,32 @@ class VacationCardController extends BaseController
         return $total;
     }
 
+    private function couponsToal($coupons)
+    {
+        $total = 0;
+        foreach($coupons as $coupon)
+        {
+            if($coupon["isuse"] == true)
+            {
+                $checkResult = $this->checkCouponNoAndPwd($coupon["number"],$coupon["password"]);
+                if($checkResult)
+                {
+                    if($checkResult->status == Coupon::STATUS_TEST){
+                        return false;
+                        bread;
+                    }
+                    $total += $checkResult->left;
+                }
+                else
+                {
+                    return false;
+                    break;
+                }
+            }
+        }
+        return $total;
+    }
+
     /**
      * Check whether fits LEAST_CASA_COUNT.
      * @param array $casas selected casas
@@ -329,5 +376,38 @@ class VacationCardController extends BaseController
             'start_date' => $start,
             'expire_date' => $end
         ]);
+    }
+
+    public function checkCoupon(Request $request)
+    {
+        $number = $request->number;
+        $pwd = $request->password;
+        $result = $this->checkCouponNoAndPwd($number, $pwd);
+        if($result){
+            $result->name = '充值卡';
+            $result->number = $result->code;
+            $result->password = $result->key;
+            $result->left = $result->left;
+            $result->isuse = true;
+            if($result->status == 1){
+                return response()->json(['code'=>2,'result'=>'','msg'=>'已被使用']);
+            }
+            if($result->status == 2){
+                return response()->json(['code'=>2,'result'=>$result,'msg'=>'测试卡，不能使用']);
+            }
+            return response()->json(['code'=>0,'result'=>$result,'msg'=>'ok']);
+        }else{
+            return response()->json(['code'=>2,'result'=>'','msg'=>'卡号或密码错误']);
+        }
+    }
+
+    private function checkCouponNoAndPwd($number,$pwd)
+    {
+        $coupon = Coupon::where(['code'=>$number,'key'=>$pwd])->first();
+        if($coupon){
+            return $coupon;
+        }else{
+            return false;
+        }
     }
 }
