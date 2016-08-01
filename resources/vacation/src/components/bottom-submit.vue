@@ -124,7 +124,7 @@ export default{
           const result = response.json()
           console.log(result)
           if (result.orderId) {
-            if (result.total === 0) {
+            if (result.total <= 0) {
               window.location.href = '/wx/order/detail/' + result.orderId
             } else {
               window.location.href = '/wx/pay/wxorder/' + result.orderId
