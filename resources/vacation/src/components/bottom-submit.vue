@@ -24,13 +24,16 @@
 </template>
 <script>
 import store from '../vuex/store'
-import { clearOtherPay, resetOtherPay } from '../vuex/actions'
+import { addGoods, clearOtherPay, resetOtherPay } from '../vuex/actions'
 
 export default{
   data () {
     return {
       card: 1
     }
+  },
+  ready: function () {
+    this.getGoodsFromLocal()
   },
   vuex: {
     getters: {
@@ -66,16 +69,22 @@ export default{
       },
       user (state) {
         return state.user
+      },
+      dealer (state) {
+        return state.dealer
       }
     },
     actions: {
       clearOtherPay,
-      resetOtherPay
+      resetOtherPay,
+      addGoods
     }
   },
   watch: {
     'totalPrice': function (val, old) {
       this.resetOtherPay()
+      // console.log(this.list)
+      // window.localStorage.setItem('goods', this.list)
     }
   },
   computed: {
@@ -90,12 +99,17 @@ export default{
     }
   },
   methods: {
+    getGoodsFromLocal () {
+      // const k = window.localStorage.getItem('goods').split(',')
+      // this.addGoods(k)
+    },
     pay () {
       this.$http.post('/wx/api/cardCasaBuy',
         {
           casas: this.list,
           user: this.user,
-          coupons: this.otherpay
+          coupons: this.otherpay,
+          dealer: this.dealer
         }).then((response) => {
           const result = response.json()
           if (result.orderId) {

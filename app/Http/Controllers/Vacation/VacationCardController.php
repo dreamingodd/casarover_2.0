@@ -21,6 +21,7 @@ use App\Entity\VacationCard;
 use Carbon\Carbon;
 use App\Attachment;
 use App\Entity\Coupon;
+use App\Entity\Dealer;
 
 /**
  * Class VacationCardController
@@ -196,10 +197,25 @@ class VacationCardController extends BaseController
             }
             //1: 在order 中存入信息
             $order = $this->createOrder($userId, $total);
+            $dealer = $request->dealer;
+            if($dealer){
+                $dealerId = Dealer::where('code',$dealer)->first()->id;
+                if($dealerId){
+                    // 存入经销商和订单的关系
+                    app('DealerVacationRelationService')->add($dealerId, $order->id);
+                }
+            }
+
             if($request->coupons){
                 foreach($request->coupons as $coupon){
-                    $k = app('DealerVacationRelationService')->add($coupon["id"], $order->id);
-                    dd($k);
+                    $coupon = Coupon::find($coupon["id"]);
+                    if(!$coupon->vacation_card_order_id){
+                        $coupon->vacation_card_order_id = $order->id;
+                        $coupon->save();
+                    }else{
+                        throw new Exception("度假卡已被使用请联系工作人员", 1);
+                    }
+
                 }
             }
             //2：在order_item 存入信息  在opportunity中存入机会次数
@@ -389,6 +405,9 @@ class VacationCardController extends BaseController
             $result->password = $result->key;
             $result->left = $result->left;
             $result->isuse = true;
+            if($result->vacation_card_order_id){
+                return response()->json(['code'=>2,'result'=>'','msg'=>'已被其他订单使用，若是未付款请联系工作人员']);
+            }
             if($result->status == 1){
                 return response()->json(['code'=>2,'result'=>'','msg'=>'已被使用']);
             }

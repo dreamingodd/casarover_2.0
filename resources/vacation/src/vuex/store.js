@@ -8,7 +8,8 @@ const state = {
   type: 0,
   goods: [],
   user: {},
-  otherpay: []
+  otherpay: [],
+  dealer: 0
 }
 
 const mutations = {
@@ -83,6 +84,9 @@ const mutations = {
       state.otherpay[i].isuse = true
       state.otherpay.$set(i, state.otherpay[i])
     }
+  },
+  ADDDEALER (state, dealer) {
+    state.dealer = dealer
   }
 }
 

@@ -12,6 +12,7 @@ use EasyWeChat\Foundation\Application;
 use EasyWeChat\Payment\Order;
 use App\Http\Controllers\Controller;
 use App\Entity\User;
+use App\Entity\Coupon;
 
 /**  */
 class WxPayController extends Controller
@@ -75,6 +76,14 @@ class WxPayController extends Controller
                         Log::info(get_class() . ' - ' . "Order:" . $orderId . " payment is successful!");
 
                         // 减去充值卡，如果有使用的话
+                        $coupon = Coupon::where("vacation_card_order_id",$order->id)->get();
+                        if($coupon){
+                            foreach ($coupon as $value) {
+                                $value->status = Coupon::STATUS_USED;
+                                $value->save();
+                            }                            
+                        }
+
                     }
                 }
                 return true; // Or error msg

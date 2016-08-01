@@ -2,15 +2,27 @@
 <div class="back-img">
   <img src="/static/lead2.jpg" alt="">  
 </div>
-  <div class="buy">立刻购买</div>
-
-<!-- <div class="link">
-  <button class="rule">了解规则</button>
-  <button class="article">原文链接</button>
-</div>
- --></template>
+  <div class="buy" v-link="{ path:'/list',exact: true}"></div>
+  <div class="rule"></div>
+  <div class="article"></div>
+</template>
 <script>
+import store from './vuex/store'
+import { addDealer } from './vuex/actions'
+
 export default{
+  vuex: {
+    actions: {
+      addDealer
+    }
+  },
+  route: {
+    data (tab) {
+      const fromdealer = tab.to.query.dealer
+      this.addDealer(fromdealer)
+    }
+  },
+  store,
   components: {
     'nav-head': require('./components/header')
   }
@@ -29,41 +41,25 @@ export default{
     }
     .buy{
       width: 80px;
-      height: 40px;
-      background: #123;
+      height: 100px;
       position: fixed;
       left: 50%;
       margin-left: -40px;
       bottom: 4.5rem;
     }
-    .link{
-      height: 23rem;
-      width: 100%;
-      z-index: 999;
-      background: #123;
-      position: relative;
-      bottom: 0;
-      right: 0;
-      button{
-        width: 150px;
-        margin: 0 auto;
-        border-radius: 5px;
-        background: #FFC701;
-        color: #fff;
-        padding: 12px;
-        font-size: 20px;
-        display: block;
-      }
-      .buy{
-        position: fixed;
-        bottom: 60px;
-        left: 50%;
-        margin-left: -75px;
-      }
+    .rule{
+      width: 100px;
+      height: 100px;
+      position: fixed;
+      left: 1rem;
+      bottom: 10.5rem;
     }
-    .page{
-      background: #fff;
-      overflow: hidden;
-      padding: 1rem;
+    .article{
+      width: 100px;
+      height: 100px;
+      position: fixed;
+      right: 1rem;
+      bottom: 10.5rem;
     }
+
 </style>

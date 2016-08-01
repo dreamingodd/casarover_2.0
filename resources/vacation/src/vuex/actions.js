@@ -10,3 +10,4 @@ export const addOtherPay = ({ dispatch, state }, result) => { dispatch('ADDOTHER
 export const clearOtherPay = ({ dispatch, state }) => { dispatch('CLEAROTHERPAY') }
 export const resetOtherPay = ({ dispatch, state }) => { dispatch('RESETOTHERPAY') }
 export const deleteOtherPay = ({ dispatch, state }, cards) => { dispatch('DELETEOTHERPAY', cards) }
+export const addDealer = ({ dispatch, state }, dealer) => { dispatch('ADDDEALER', dealer) }
