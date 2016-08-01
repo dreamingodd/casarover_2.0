@@ -87,7 +87,7 @@ function drawIndividualChart() {
 </script>
 @endsection
 @section('body')
-    <input type="hidden" id="page" value="system"/>
+    <input type="hidden" id="page" value="activity"/>
 
     <input type="hidden" id="dateData" value="{{$dateData or ''}}"/>
     <input type="hidden" id="voteData" value="{{$voteData or ''}}"/>

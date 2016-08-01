@@ -14,7 +14,7 @@ $(function(){
 </script>
 @endsection
 @section('body')
-    <input type="hidden" id="page" value="system"/>
+    <input type="hidden" id="page" value="activity"/>
 
     <input type="hidden" id="data" value="{{$data or ''}}"/>
     <button onclick="history.go(-1);">返回</button>

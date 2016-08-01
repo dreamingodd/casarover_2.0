@@ -9,7 +9,7 @@ $(function(){
 </script>
 @endsection
 @section('body')
-    <input type="hidden" id="page" value="system"/>
+    <input type="hidden" id="page" value="activity"/>
 
     <input type="hidden" id="data" value="{{$data or ''}}"/>
     <br />
