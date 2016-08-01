@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Common;
-
 /**
  * order status
  */
@@ -12,7 +10,6 @@ trait OrderStatus
         $allstatus = $this->allstatus();
         return $allstatus[$type][$code];
     }
-
     /**
      * @return array $allstatus
      */
@@ -34,7 +31,6 @@ trait OrderStatus
         ];
         return $allstatus;
     }
-
     /**
      * 这个应该写成一个全局的帮助函数
      * @param int $code

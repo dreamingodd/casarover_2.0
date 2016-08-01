@@ -198,7 +198,8 @@ class VacationCardController extends BaseController
             $order = $this->createOrder($userId, $total);
             if($request->coupons){
                 foreach($request->coupons as $coupon){
-                    app('DealerVacationRelationService')->add($coupon["id"], $order->id);
+                    $k = app('DealerVacationRelationService')->add($coupon["id"], $order->id);
+                    dd($k);
                 }
             }
             //2：在order_item 存入信息  在opportunity中存入机会次数
