@@ -49,17 +49,12 @@ class VacationCardController extends Controller
                         ->orwhere('realname','like','%'.$search.'%')
                         ->orwhere('cellphone','like','%'.$search.'%');
                 }
-            })->paginate(10);
+            })->orderBy('id','desc')->paginate(10);
 
         // all vacation card order belong the wxcasa so it is also a card list
         // $cards = Order::with('VacationCard','user')->where('type',Order::TYPE_VACATION_CARD)->whereIn('id',$orderIds)->paginate(10);
         // 合并数据
         foreach ($cards as $card) {
-
-
-            // 问题在这里哟
-
-
             $card->goods = Order::find($card->order_id)->orderItems()->whereIn('id',$itemIds)->get();
             foreach ($card->goods as $key ) {
                 $key->left = $key->opportunity->left_quantity;
