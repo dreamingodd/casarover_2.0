@@ -14,6 +14,9 @@ $(function(){
         methods : {
             copyToBoard : function(str) {
                 $('#showString').html(str);
+            },
+            edit : function(id) {
+                location.href = "/back/dealer/edit/" + id;
             }
         }
     });
@@ -61,17 +64,22 @@ $(function(){
             <tr>
                 <th>序号</th>
                 <th>名称</th>
+                <th>链接模式</th>
+                <th>抵价券模式</th>
                 <th>Code</th>
                 <th>操作</th>
             </tr>
             <tr v-for="dealer in list">
                 <td>@{{ $index+1 }}</td>
                 <td>@{{ dealer.name }}</td>
+                <td>@{{ dealer.deal_mode }}</td>
+                <td>@{{ dealer.coupon_mode }}</td>
                 <td>@{{ dealer.code }}</td>
                 <td>
                     <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" @click="copyToBoard('http://www.casarover.com/dealer/coupon/get?dealer=' + dealer.code)">显示URL</button>
                     <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" @click="copyToBoard(dealer.key)">显示密钥</button>
                     <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#myModal" @click="copyToBoard(dealer.dev_key)">测试密钥</button>
+                    <button class="btn btn-xs btn-primary" @click="edit(dealer.id)">编辑</button>
                 </td>
             </tr>
         </table>
