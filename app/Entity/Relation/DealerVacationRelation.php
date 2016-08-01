@@ -13,7 +13,7 @@ class DealerVacationRelation extends Model
     protected $table = "dealer_vacation_relation";
     public function vacationCard()
     {
-        return $this->hasOne('App\Entity\VacationCard');
+        return $this->hasOne('App\Entity\VacationCard', 'order_id', 'vacation_card_order_id');
     }
     public function dealer()
     {

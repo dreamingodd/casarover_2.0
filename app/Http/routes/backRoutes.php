@@ -84,7 +84,7 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     // 经销商管理
     Route::get('dealer/list', 'Merchant\DealerController@showList');
     Route::get('dealer/edit/{id?}', 'Merchant\DealerController@edit');
-    Route::any('dealer/update/{id?}', 'Merchant\DealerController@update');
+    Route::any('dealer/update', 'Merchant\DealerController@update');
     Route::any('dealer/stat/deal', 'Merchant\DealerController@statDeal');
     Route::any('dealer/stat/coupon', 'Merchant\DealerController@statCoupon');
 
