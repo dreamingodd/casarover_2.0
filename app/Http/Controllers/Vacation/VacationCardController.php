@@ -194,7 +194,7 @@ class VacationCardController extends BaseController
             $total = sprintf("%.2f", $total);
             if($total < 0 && abs($total) > config('config.coupon_largest_diff')){
                 throw new Exception("订单金额过少", 1);
-            }else{
+            }elseif($total < 0){
                 $total = 0;
             }
             //1: 在order 中存入信息
@@ -207,7 +207,6 @@ class VacationCardController extends BaseController
                     app('DealerVacationRelationService')->add($dealerId, $order->id);
                 }
             }
-
             if($request->coupons){
                 foreach($request->coupons as $coupon){
                     $coupon = Coupon::find($coupon["id"]);
@@ -226,6 +225,9 @@ class VacationCardController extends BaseController
             $cardNo = sprintf(self::CARDNO_PREFIX . "%05d", $order->id) . mt_rand(0,9);
             $this->saveVacationCard($order->id, $cardNo);
             DB::commit();
+            if($order->total == 0){
+                app('CouponService')->consumeCouponIfUsed($order->id);
+            }
             return response()->json(['orderId' => $order->id, 'total' => $order->total]);
         }
         catch(Exception $e)
@@ -285,7 +287,6 @@ class VacationCardController extends BaseController
         $order->order_id = config('casarover.wx_shopid') . '-' . $order->id;
         if($total == 0){
             $order->status = Order::STATUS_PAYED;
-            app('CouponService')->consumeCouponIfUsed($order->id);
         }
         $order->save();
         return $order;
@@ -411,11 +412,11 @@ class VacationCardController extends BaseController
             $result->password = $result->key;
             $result->left = $result->left;
             $result->isuse = true;
-            if($result->vacation_card_order_id){
-                return response()->json(['code'=>2,'result'=>'','msg'=>'已被其他订单使用，若是未付款请联系工作人员']);
-            }
             if($result->status == 1){
                 return response()->json(['code'=>2,'result'=>'','msg'=>'已被使用']);
+            }
+            if($result->vacation_card_order_id){
+                return response()->json(['code'=>2,'result'=>'','msg'=>'已被其他订单使用，若是未付款请联系工作人员']);
             }
             if($result->status == 2){
                 return response()->json(['code'=>2,'result'=>$result,'msg'=>'测试卡，不能使用']);

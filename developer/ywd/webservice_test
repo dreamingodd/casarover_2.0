@@ -14,5 +14,6 @@ http://www.casarover.com/rest/get-coupon?coupon_no=YWD000001GB
 http://www.casarover.com/rest/get-coupon?code=ICBC&order_id=3934
 
 http://www.casarover.com/rest/get-new-coupon?code=YWD&key=RVDW&price=2000&order_id=1010
+http://www.casarover.com/rest/get-new-coupon?code=YWD&key=JRZVX0PAB0H1TUP9CK&price=2000&order_id=a
 http://www.casarover.com/rest/get-new-coupon?code=BOC&key=D3KB&price=3000&order_id=1
 http://www.casarover.com/rest/get-new-coupon?code=BOC&key=NRE7AHZN0JDCHOLHLB&price=3000&order_id=2

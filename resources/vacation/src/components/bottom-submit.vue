@@ -86,8 +86,11 @@ export default{
   watch: {
     'totalPrice': function (val, old) {
       this.resetOtherPay()
-      // console.log(this.list)
-      // window.localStorage.setItem('goods', this.list)
+      // window.localStorage.clear()
+      // if (this.list.length > 0) {
+      //   console.log(JSON.stringify(this.list))
+      //   // window.localStorage.setItem('goods', JSON.stringify(this.list))
+      // }
     }
   },
   computed: {
@@ -104,8 +107,11 @@ export default{
   },
   methods: {
     getGoodsFromLocal () {
-      // const k = window.localStorage.getItem('goods').split(',')
-      // this.addGoods(k)
+      // const goodsStr = window.localStorage.getItem('goods')
+      // const goods = JSON.parse(goodsStr)
+      // if (goods.length > 0) {
+      //   this.addGoods(goods)
+      // }
     },
     pay () {
       this.$http.post('/wx/api/cardCasaBuy',

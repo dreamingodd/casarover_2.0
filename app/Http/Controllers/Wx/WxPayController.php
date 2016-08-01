@@ -73,9 +73,8 @@ class WxPayController extends Controller
                         $order->status = 1;
                         $order->pay_id = $transactionId;
                         $order->save();
-                        Log::info(get_class() . ' - ' . "Order:" . $orderId . " payment is successful!");
-                        // 减去充值卡，如果有使用的话
                         app('CouponService')->consumeCouponIfUsed($order->id);
+                        Log::info(get_class() . ' - ' . "Order:" . $orderId . " payment is successful!");
                     }
                 }
                 return true; // Or error msg

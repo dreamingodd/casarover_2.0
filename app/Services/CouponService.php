@@ -60,4 +60,15 @@ class CouponService {
         $coupon->save();
         return $coupon;
     }
+
+    public function consumeCouponIfUsed($orderId) {
+        // 减去充值卡，如果有使用的话
+        $coupon = Coupon::where("vacation_card_order_id", $orderId)->get();
+        if($coupon){
+            foreach ($coupon as $value) {
+                $value->status = Coupon::STATUS_USED;
+                $value->save();
+            }
+        }
+    }
 }
