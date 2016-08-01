@@ -76,7 +76,7 @@ $(function(){
                 <td>@{{ dealer.coupon_mode }}</td>
                 <td>@{{ dealer.code }}</td>
                 <td>
-                    <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" @click="copyToBoard('http://www.casarover.com/dealer/coupon/get?dealer=' + dealer.code)">显示URL</button>
+                    <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" @click="copyToBoard('http://www.casarover.com/wx/cardCasaList?dealer=' + dealer.code)">显示URL</button>
                     <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" @click="copyToBoard(dealer.key)">显示密钥</button>
                     <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#myModal" @click="copyToBoard(dealer.dev_key)">测试密钥</button>
                     <button class="btn btn-xs btn-primary" @click="edit(dealer.id)">编辑</button>
