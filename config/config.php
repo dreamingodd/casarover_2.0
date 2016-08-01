@@ -16,6 +16,7 @@ return [
     'coupon_prices' => [
         2000, 3000
     ],
+    'coupon_largest_diff' => 300,
     // 备份邮件发送地址
     'system_mail_receivers' => [
         ['name' => 'wenda', 'address' => 'alwayslookback@sina.com'],

@@ -9,12 +9,14 @@ const state = {
   goods: [],
   user: {},
   otherpay: [],
-  dealer: 0
+  dealer: 0,
+  diff: 30
 }
 
 const mutations = {
   USERINFO (state, info) {
-    state.user = info
+    state.user = info.user
+    state.diff = info.diff
   },
   CHANGETYPE (state, type) {
     state.type = type

@@ -1,3 +1,7 @@
 exports.roundDisplay = (value) => {
-  return value.toFixed(2)
+  if (value < 0) {
+    return 0
+  } else {
+    return value.toFixed(2)
+  }
 }

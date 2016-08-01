@@ -91,7 +91,9 @@ class WxSiteController extends WxBaseController
     public function userinfo()
     {
         $user = User::find(Session::get('user_id'));
-        return response()->json(['msg'=>'ok', 'code'=> 0,'result'=>$user]);
+        // 充值卡使用最大差值
+        $diff = config('config.coupon_largest_diff');
+        return response()->json(['msg'=>'ok', 'code'=> 0,'result'=>compact('user','diff')]);
     }
 
     /** @param int $id */

@@ -37,6 +37,9 @@ export default{
   },
   vuex: {
     getters: {
+      diff (state) {
+        return state.diff
+      },
       listPrice (state) {
         let goodsPrice = 0
         for (const i in state.goods) {
@@ -90,7 +93,8 @@ export default{
   computed: {
     'totalPrice': function () {
       const result = this.listPrice - this.otherPayPrice
-      if (result < 0) {
+      console.log(result)
+      if (result < 0 && Math.abs(result) > this.diff) {
         this.clearOtherPay()
         return this.listPrice
       } else {
@@ -112,8 +116,13 @@ export default{
           dealer: this.dealer
         }).then((response) => {
           const result = response.json()
+          console.log(result)
           if (result.orderId) {
-            window.location.href = '/wx/pay/wxorder/' + result.orderId
+            if (result.total === 0) {
+              window.location.href = '/wx/order/detail/' + result.orderId
+            } else {
+              window.location.href = '/wx/pay/wxorder/' + result.orderId
+            }
           } else {
             window.alert(result.msg)
           }
