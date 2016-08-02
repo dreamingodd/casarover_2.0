@@ -62,7 +62,7 @@
             </div>
             <div class="oss_hidden_input place-photos">
                 @if(isset($message->contents[$con]))
-                    @if (empty($message->contents[$con]->attachments))
+                    @if (!empty($message->contents[$con]->attachments))
                         @foreach($message->contents[$con]->attachments as $photo)
                             <input type="hidden" class="hidden_photo " value="{{ $photo->filepath }}"/>
                         @endforeach

@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <meta name="keywords" content="民宿,杭州,周末,去哪玩">
-    <meta name="description" content="探庐者民宿让你找到好民宿">
+    <meta name="keywords" content="杭州民宿,莫干山民宿，上海民宿，临安花千谷，临安民宿，丽水民宿，苏州民宿，安吉民宿，桐庐民宿，杭州,周末,去哪玩，民宿设计">
+    <meta name="description" content="探庐者民宿，让你找到好民宿，了解民宿故事，探访远方的家">
     <title>探庐者-@yield('title')</title>
     <link rel="stylesheet" href="/assets/css/common.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/component.css" />
