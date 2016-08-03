@@ -74,6 +74,8 @@ class WxPayController extends Controller
                         $order->pay_id = $transactionId;
                         $order->save();
                         app('CouponService')->consumeCouponIfUsed($order->id);
+                        // 这个需要测试是否能成功
+                        app('ProductService')->minus($order->id);
                         Log::info(get_class() . ' - ' . "Order:" . $orderId . " payment is successful!");
                     }
                 }

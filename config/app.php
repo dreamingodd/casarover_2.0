@@ -166,6 +166,7 @@ return [
         App\Providers\VcRelationServiceProvider::class,
         /** Coupon Creation */
         App\Providers\CouponServiceProvider::class,
+        App\Providers\ProductServiceProvider::class,
         /** Wechat */
         Overtrue\LaravelWechat\ServiceProvider::class,
         /** sms */

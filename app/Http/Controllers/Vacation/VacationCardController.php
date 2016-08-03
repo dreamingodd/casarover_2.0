@@ -227,6 +227,7 @@ class VacationCardController extends BaseController
             DB::commit();
             if($order->total == 0){
                 app('CouponService')->consumeCouponIfUsed($order->id);
+                app('ProductService')->minus($order->id);
             }
             return response()->json(['orderId' => $order->id, 'total' => $order->total]);
         }
