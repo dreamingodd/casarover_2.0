@@ -1,18 +1,20 @@
 <template>
-          <!-- logo -->
-    <div  class="navbartop">
-        <a href="/"><img  src="/static/logow.png" /></a>
-    </div>
-        <router-view></router-view>
-    <footer clear>
-    <div class="about">
-        <ul>
-            <li><a href="/mobile/about#contact">用户反馈</a></li>
-            <li><a href="/mobile/about#about-us">关于我们</a></li>
-        </ul>
-    </div>
-    <p>浙ICP备15036536号</p>
-</footer>
+<div class="page">
+  <!-- logo -->
+  <div  class="navbartop">
+      <a href="/"><img  src="/static/logow.png" /></a>
+  </div>
+    <router-view></router-view>
+  <footer clear>
+  <div class="about">
+      <ul>
+          <li>用户反馈</li>
+          <li v-link="{ name: 'about' }">关于我们</li>
+      </ul>
+  </div>
+  <p>浙ICP备15036536号</p>
+  </footer>
+</div>
 </template>
 <style lang="less">
 .navbartop{

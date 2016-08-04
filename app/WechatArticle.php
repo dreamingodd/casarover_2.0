@@ -16,6 +16,7 @@ class WechatArticle extends Model
     const TYPE_STYLE = 2;
     /**主题民宿*/
     const TYPE_THEME = 3;
+    protected $hidden = ['update_at'];
 
     public function attachment()
     {

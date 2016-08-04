@@ -16,9 +16,12 @@ Route::group(['prefix' => 'mobile'],function () {
 /** Routes for mobile phone. */
 Route::group(['prefix' => 'm'],function () {
     Route::get('/home', 'M\HomeController@index');
+    Route::get('/hotlists','M\HomeController@hotlists');
+    Route::get('/themes','M\HomeController@themes');
+    Route::get('/series','M\HomeController@series');
     Route::get('/area/{id}' , 'AreaController@show');
     Route::get('/casa/{id}' , 'M\CasaController@show');
-    Route::get('/casaseries/{type}/{series?}', 'CasaSeriesController@casas');
+    Route::get('/serie/{id}','CasaSeriesController@serie');
     Route::get('/allcasa/{id?}','CasaController@allcasa');
     Route::get('/theme/{id}','ThemeController@show');
 

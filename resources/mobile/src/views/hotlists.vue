@@ -1,12 +1,12 @@
 <template>
 <!-- 民宿推荐 -->
-<section id="recom">
+<section v-for="item in casas">
     <div class="cardcon">
-        <a v-link="{ name:'casa', params:{ id:casa.id }}" >
-            <img :src="casa.pic" width="100%">
+        <a v-link="{ name:'casa', params:{ id:item.id }}" >
+            <img :src="item.pic" width="100%">
             <div class="info">
                 <div class="middle">
-                    <h3>{{ casa.name }}</h3>
+                    <h3>{{ item.name }}</h3>
                 </div>
             </div>
         </a>
@@ -14,9 +14,22 @@
 </section>
 </template>
 <script>
-    export default{
-        props:['casa'],
+export default{
+  data () {
+    return{
+      casas:[]
     }
+  },
+  created () {
+    this.$http.get('/m/hotlists').then((response) => {
+      if (response.json().code === 0){
+        this.$set('casas', response.json().result);
+      } else {
+        console.log(response);
+      }
+    })
+  }
+}
 </script>
 <style lang="less">
 .cardcon{

@@ -19,4 +19,28 @@ class CasaSeriesController extends Controller
         else
             return view('site.casaseries',compact('serie','articles'));
     }
+
+    public function serie($id)
+    {
+        $articles = WechatArticle::where('type', 1)->where('series', $id)->where('deleted', 0)->get();
+        $serie = WechatSeries::find($id);
+        $serie->img = config('config.image_folder').$serie->attachment->filepath;
+        foreach($articles as $article)
+        {
+            $article->img = config('config.photo_folder').$article->attachment->filepath;
+        }
+        return $this->jsondata(0, 'ok', compact('articles','serie'));
+    }
+
+    /**
+     * 这个应该写成一个全局的帮助函数
+     * @param int $code
+     * @param string $msg
+     * @param string $data
+     */
+    public function jsondata($code=0, $msg='成功', $data)
+    {
+        $result =  ['code'=>$code,'msg'=>$msg,'result'=>$data];
+        return response()->json($result);
+    }
 }
