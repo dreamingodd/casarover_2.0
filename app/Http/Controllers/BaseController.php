@@ -64,7 +64,6 @@ abstract class BaseController extends Controller
              if ($user->realname != $username or $user->cellphone != $cellphone) {
                  $user->realname = $username;
                  $user->cellphone = $cellphone;
-                 $user->address = $address;
                  $user->save();
              }
              return true;
