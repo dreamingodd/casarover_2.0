@@ -153,7 +153,7 @@
                                     <p>预约信息:</p>
                                     @if ($order->casaOrder->reserve_date)
                                         <p>
-                                            {{$order->casaOrder->reserve_date}}
+                                            {{$order->casaOrder->reserve_date->format('Y-m-d H:i')}}
                                         </p>
                                     @else
                                         <p>{{$order->casaOrder->reserve_comment}}</p>
