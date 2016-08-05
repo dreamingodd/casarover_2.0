@@ -151,13 +151,7 @@
                             <div class="date">
                                 @if ($order->casaOrder->reserve_status == 1)
                                     <p>预约信息:</p>
-                                    @if ($order->casaOrder->reserve_date)
-                                        <p>
-                                            {{ Carbon::parse($order->casaOrder->reserve_date)->format('Y-m-d') }}
-                                        </p>
-                                    @else
-                                        <p>{{$order->casaOrder->reserve_comment}}</p>
-                                    @endif
+                                    <p>{{$order->sleepTime}}</p>
                                 @endif
                             </div>
                             @endif

@@ -85,6 +85,13 @@ class WxSiteController extends WxBaseController
                 * 100;
             $levelStr = WxMembership::getLevelDetail($user->wxMembership->level)['name'];
         }
+        foreach ($orders as $order) {
+            if($order->casaOrder->reserve_date){
+                $order->sleepTime = Carbon::parse($order->casaOrder->reserve_date)->format('Y-m-d');
+            }else{
+                $order->sleepTime = $order->casaOrder->reserve_comment;
+            }
+        }
         return view('wx.wxUser', compact('orders', 'user','percent', 'levelStr', 'tips'));
     }
 
