@@ -23,9 +23,5 @@ Route::group(['prefix' => 'm'],function () {
     Route::get('/casa/{id}' , 'M\CasaController@show');
     Route::get('/serie/{id}','CasaSeriesController@serie');
     Route::get('/allcasa/{id?}','CasaController@allcasa');
-    Route::get('/theme/{id}','ThemeController@show');
-
-    Route::get('/about', function(){
-        return view('mobile.about');
-    });
+    Route::get('/theme/{id}','M\ThemeController@show');
 });

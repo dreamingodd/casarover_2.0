@@ -102,6 +102,6 @@ border-bottom: 1px solid #E4E4E4;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
-}
+ }
 }
 </style>

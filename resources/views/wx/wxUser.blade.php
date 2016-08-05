@@ -151,7 +151,13 @@
                             <div class="date">
                                 @if ($order->casaOrder->reserve_status == 1)
                                     <p>预约信息:</p>
-                                    <p>{{$order->casaOrder->reserve_comment}}</p>
+                                    @if ($order->casaOrder->reserve_date)
+                                        <p>
+                                            {{$order->casaOrder->reserve_date}}
+                                        </p>
+                                    @else
+                                        <p>{{$order->casaOrder->reserve_comment}}</p>
+                                    @endif
                                 @endif
                             </div>
                             @endif
