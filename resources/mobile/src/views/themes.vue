@@ -1,17 +1,14 @@
 <template>
-<!-- 精选主题 -->
 <section v-for="item in themes">
-    <!-- <h2>精选主题</h2> -->
-    <div class="theme-card" v-link="{ name:'theme', params:{ id:item.id }}">
-      <div class="head-img">
-          <img :src="item.pic" width="100%" alt="">
-      </div>
-      <div class="message">
-          <p>{{ item.brief }}</p>
-      </div>
+  <div class="theme-card" v-link="{ name:'theme', params:{ id:item.id }}">
+    <div class="head-img">
+      <img :src="item.pic" width="100%" alt="">
     </div>
+    <div class="message">
+      <p>{{ item.brief }}</p>
+    </div>
+  </div>
 </section>
-
 </template>
 <script>
 export default{
@@ -31,12 +28,11 @@ export default{
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .theme-card{
-  margin-top: 1rem;
+  margin: .8rem 0;
   height: 144px;
   box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
-  width: 100%;
   overflow: hidden;
   .head-img{
     width: 50%;

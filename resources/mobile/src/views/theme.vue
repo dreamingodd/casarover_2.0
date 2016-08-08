@@ -1,21 +1,18 @@
 <template>
 <div class="main-theme">
-    <div class="article">
+    <div class="article" v-clock>
         <h1>{{ theme.name }}</h1>
         <template v-for="article in articles">
-            <div class="case">
+            <article >
                 <img :src="article.img" alt="article.img">
-                <div class="articles">
-                    <h2>{{ article.name }}</h2>
-                    <p>{{{ article.text }}}</p>
-                </div>
-            </div>
+                <h2>{{ article.name }}</h2>
+                <p>{{{ article.text }}}</p>
+            </article>
         </template>
     </div>
     <div class="others">
         <h2>其他主题</h2>
         <template v-for="item in others">
-            <div class="line"></div>
             <a v-link="{ name:'theme', params:{ id:item.id }}">
                 <p>{{ item.name }}</p>
             </a>
@@ -52,38 +49,42 @@ export default{
     }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
   .main-theme{
+    color: #666;
     padding: 0 1rem;
     margin-bottom: 1rem;
     img{
       width: 100%;
     }
-  }
-  .slides{
-    li{
-      height: 18rem;
+    h1{
+      text-align: center;
+      margin: .5rem 0;
+      display: block;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid #aaa;
     }
   }
-  .slide-a{
-    text-align: center;
-  }
-  .right{
+  article{
     h2{
-      color: #333333;
-      text-align: left;
-      font-size: 1.5rem;
+      margin: .5rem 0;
     }
     p{
-      font-size: 1rem;
+      margin: .5rem 0;
+      padding: 0 5px;
+      line-height: 22px;
+      font-size: 14px;
+      color: #777;
     }
   }
-  .slide-mess{
-    position: absolute;
-    width: 16rem;
-    left: 50%;
-    margin-left: -8rem ;
-    font-size: 2rem;
-    text-shadow: 0 1px 3px #000;
+  .others{
+    margin: .5rem;
+    a{
+      display: block;
+      font-size: 14px;
+      line-height: 20px;
+      border-bottom: 1px solid #aaa;
+      padding: .5rem 0;
+    }
   }
 </style>

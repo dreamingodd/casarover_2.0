@@ -70,7 +70,7 @@
     </div>
 </div>
 </template>
-<style lang="less">
+<style lang="less" scoped>
 p,h1,h2,h3,h4,h5,h6,dl,dt,dd{
   margin: 0;
   padding: 0;
@@ -80,9 +80,7 @@ p,h1,h2,h3,h4,h5,h6,dl,dt,dd{
 }
 .main{
   width: 100%;
-  margin: 10px  auto;
   text-indent: 2em;
-  margin-bottom: 2rem;
   b{
     text-indent: 2em;
     text-align: center;
@@ -90,7 +88,6 @@ p,h1,h2,h3,h4,h5,h6,dl,dt,dd{
   .part{
     text-align: center;
     color: #aaa7a7;
-
     h2{
       font-size: 48px;
       font-weight: bold;
@@ -101,15 +98,12 @@ p,h1,h2,h3,h4,h5,h6,dl,dt,dd{
   }
   .case{
     position: relative;
-    margin: 50px  auto;
+    margin: 2rem  auto;
     box-shadow: 5px 5px 10px #d6d6d6;
-    width: 80%;
-    padding: 5%;
+    padding: 3rem;
     background: #fff;
     .horn{
       position: absolute;
-      right: -10px;
-      bottom: -10px;
     }
     h2{
       font-size: 18px;

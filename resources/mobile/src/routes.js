@@ -26,6 +26,10 @@ export default function (router) {
         name: 'casa',
         component: require('./views/casa.vue')
       },
+      '/area/:id': {
+        name: 'area',
+        component: require('./views/area.vue')
+      },
       '/theme/:id': {
         name: 'theme',
         component: require('./views/theme.vue')

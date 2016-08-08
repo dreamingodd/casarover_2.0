@@ -30,11 +30,7 @@ export default {
   },
   methods:{
     getinfo:function () {
-      $.getJSON('/m/home',(data) => {
-        this.casas = data.result.casas;
-        this.themes = data.result.themes;
-        this.series = data.result.series;
-      })
+
     }
   },
   components: {

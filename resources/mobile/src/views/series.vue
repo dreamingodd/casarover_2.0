@@ -1,5 +1,4 @@
 <template>
-<!-- 探庐系列 -->
 <section v-for="item in series">
     <div class="cardcon" v-link="{ name:'serie', params:{ id:item.id }}">
         <img :src="item.pic" width="100%">
@@ -27,8 +26,8 @@ export default{
   }
 }
 </script>
-<style lang="less">
-    .cardcon{
+<style lang="less" scoped>
+.cardcon{
   margin-bottom: 1rem;
   position: relative;
   img{

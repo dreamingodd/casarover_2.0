@@ -31,7 +31,7 @@ export default{
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .cardcon{
     margin: 0 auto;
     background: #FFFFFF;

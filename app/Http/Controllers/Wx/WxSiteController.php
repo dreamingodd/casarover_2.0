@@ -88,7 +88,7 @@ class WxSiteController extends WxBaseController
         foreach ($orders as $order) {
             if($order->casaOrder()){
                 if($order->casaOrder->reserve_date){
-                    $order->sleepTime = Carbon::parse($order->casaOrder->reserve_date)->format('Y-m-d');
+                    $order->sleepTime = Carbon::parse($order->casaOrder->reserve_date)->format('Y年m月d日');
                 }else{
                     $order->sleepTime = $order->casaOrder->reserve_comment;
                 }

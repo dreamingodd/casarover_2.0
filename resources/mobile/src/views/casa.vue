@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="casa-main">
         <!-- 民宿大图  -->
         <div class="banner">
             <div class="show-mess">
@@ -45,46 +45,72 @@
 
 </template>
 <script>
-    export default{
-        data(){
-            return{
-                id:null,
-                casa:''
+export default{
+    data(){
+        return{
+            id:null,
+            casa:''
+        }
+    },
+    route:{
+        data(tab){
+          this.id = tab.to.params.id;
+          this.getCasa();
+        }
+    },
+    methods:{
+        getCasa:function () {
+          this.$http.get('/m/casa/'+this.id).then((response) => {
+            if (response.json().code === 0){
+              this.$set('casa', response.json().result.casa);
+            } else {
+              console.log(response);
             }
-        },
-        route:{
-            data(tab){
-              this.id = tab.to.params.id;
-              this.getCasa();
-            }
-        },
-        methods:{
-            getCasa:function () {
-              $.getJSON('/m/casa/'+this.id,(data) => {
-                console.log(data);
-                this.casa = data.result.casa;
-              })
-            }
+          })
         }
     }
+}
 </script>
-<style lang="less">
-.main{
+<style lang="less" scoped>
+.casa-main{
   padding: 0 1rem;
   margin-bottom: 1rem;
+  color: #777;
   img{
     width: 100%;
   }
 }
+h1{
+  text-align: center;
+  margin: 1rem 0;
+}
+article{
+  h2{
+    text-align: center;
+    margin: .5rem 0;
+  }
+  p{
+    margin: .5rem 0;
+    padding: 0 5px;
+    line-height: 22px;
+    font-size: 14px;
+    color: #777;
+  }
+}
+
+
+
+
+
+
+
+
+
 .bottom{
   text-align: center;
   overflow: hidden;
 }
-.slides{
-  li{
-    height: 18rem;
-  }
-}
+
 .right{
   text-align: center;
 }
@@ -95,12 +121,6 @@
   margin-left: -8rem ;
   font-size: 2rem;
   text-shadow: 0px 1px 3px #000;
-}
-.show-mess{
-  h1{
-    color: #333333;
-    text-align: center;
-  }
 }
 .m-casa-guess{
   width: 50%;
@@ -126,7 +146,5 @@
 .slide-a{
   padding: 3px;
 }
-h2{
-  text-align: center;
-}
+
 </style>
