@@ -114,29 +114,36 @@ export default{
       // }
     },
     pay () {
-      this.$http.post('/wx/api/cardCasaBuy',
-        {
-          casas: this.list,
-          user: this.user,
-          coupons: this.otherpay,
-          dealer: this.dealer
-        }).then((response) => {
-          const result = response.json()
-          console.log(result)
-          if (result.orderId) {
-            if (result.total <= 0) {
-              window.location.href = '/wx/order/detail/' + result.orderId
+      const result = this.checkNumber()
+      if (result) {
+        this.$http.post('/wx/api/cardCasaBuy',
+          {
+            casas: this.list,
+            user: this.user,
+            coupons: this.otherpay,
+            dealer: this.dealer
+          }).then((response) => {
+            const result = response.json()
+            if (result.orderId) {
+              if (result.total <= 0) {
+                window.location.href = '/wx/order/detail/' + result.orderId
+              } else {
+                window.location.href = '/wx/pay/wxorder/' + result.orderId
+              }
             } else {
-              window.location.href = '/wx/pay/wxorder/' + result.orderId
+              window.alert(result.msg)
             }
-          } else {
-            window.alert(result.msg)
-          }
-        })
+          })
+      } else {
+        window.alert(result)
+      }
     },
     checkNumber () {
       let num = 0
       for (const i in this.list) {
+        if (this.list[i].is_whole === 1) {
+          return 1
+        }
         num += this.list[i].number
       }
       if (num < 3) {

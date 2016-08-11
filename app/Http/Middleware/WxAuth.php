@@ -33,9 +33,6 @@ class WxAuth
                 $appid = Config::get("casarover.wx_appid");
                 $appsecret = Config::get("casarover.wx_appsecret");
                 $url = $request->fullUrl();
-                // $k = $request->fullUrl();
-                // Log::info('furl'.$url);
-                // Log::info('kurl'.$k);
                 if (!isset($request->all()['code'])) {
                     return redirect(WxTools::getUserInfoScopeUrl($appid, $url));
                 } else {

@@ -41,6 +41,10 @@ export default function (router) {
       '/about': {
         name: 'about',
         component: require('./views/about.vue')
+      },
+      '/selcity': {
+        name: 'selcity',
+        component: require('./components/selectCity.vue')
       }
     })
 }

@@ -346,6 +346,9 @@ class VacationCardController extends BaseController
         $num = $casas;
         $getNum = 0;
         foreach ($num as $value) {
+            if($value['is_whole'] == 1){
+                return true;
+            }
             $getNum += $value["number"];
         }
         if($getNum < self::LEAST_CASA_COUNT)

@@ -94,13 +94,13 @@ p,h1,h2,h3,h4,h5,h6,dl,dt,dd{
     }
     p{
       font-size: 18px;
+      padding: 5px 10px;
     }
   }
   .case{
     position: relative;
     margin: 2rem  auto;
     box-shadow: 5px 5px 10px #d6d6d6;
-    padding: 3rem;
     background: #fff;
     .horn{
       position: absolute;

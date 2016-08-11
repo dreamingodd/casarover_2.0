@@ -1,6 +1,6 @@
 <template>
 <div class="back-img">
-  <img src="/static/lead2.jpg" alt="">  
+  <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/lead2.jpg" alt="">  
 </div>
   <div class="buy" v-link="{ path:'/list',exact: true}"></div>
   <div class="rule"></div>

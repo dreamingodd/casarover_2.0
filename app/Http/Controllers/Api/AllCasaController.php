@@ -67,4 +67,10 @@ class AllCasaController extends Controller
         }
         return $data;
     }
+
+    public function areas()
+    {
+        $areas = Area::all();
+        return response()->json(['code'=>0,'msg'=>'ok','result'=>$areas]);
+    }
 }

@@ -1,16 +1,8 @@
 <template>
-<div v-if="banner" class="banner" v-link="{ name:'area', params:{id:banner.id}}">
-    <div class="cover-photo">
-        <img :src="banner.pic" width="100%" alt="">
-    </div>
-    <div class="guide-mess">
-        <h1>{{ banner.title }}</h1>
-        <p>{{ banner.mess }}</p>
-    </div>
-</div>
-
-<div class="content">
-    <label id="tm">选择城市</label>
+ <select-city v-if="selcity" :city="city" :area="area"></select-city>
+ <div class="content" v-else>
+    <banner v-link="{ name:'area',params:{id:area.id}}" v-show="banner.title" :banner="banner"></banner>
+    <label @click="changecity">选择城市</label>
     <section id="casa-list">
         <template v-for="item in casas" block transition="expand">
             <div class="card" v-link="{ name:'casa', params:{ id:item.id }}">
@@ -25,42 +17,88 @@
                 </p>
             </div>
         </template>
-        <div class="no-more">
+
+        <div v-if="!nextPage" class="no-more">
             没有更多了
         </div>
     </section>
-</div>
+</div> 
 
 </template>
 <script>
 export default{
   data () {
     return{
-      city:7,
+      selcity: false,
+      city:{'id':7,'value':'杭州'},
       casas:[],
-      areas:[],
+      area:{'id':0},
       page:1,
-      banner:{}
+      banner:{},
+      scroll:true,
+      nextPage:true
     }
   },
   created () {
-      this.getCasas(this.city,this.areas)
+    window.addEventListener('scroll', this.getScrollData)
+    this.getCasas();
+  },
+  watch: {
+    'city': function(){
+      this.page = 1;
+      this.casas = [];
+    },
+    'area': function(){
+      this.page = 1;
+      this.$set('casas',[]);
+      this.nextPage = true;
+      this.getCasas()
+    }
   },
   methods: {
-    getCasas (city,area) {
-      this.$http.get('/m/casas/' + city + '/' + area + '?page=' + this.page).then((response) => {
+    getCasas () {
+      this.scroll = false;
+      this.$http.get('/m/casas/' + this.city.id + '/' + this.area.id + '?page=' + this.page).then((response) => {
         if (response.json().code === 0) {
-          this.$set('casas', response.json().result.data);
-          this.page ++
+            this.$set('casas', this.casas.concat(response.json().result.casas.data));
+            if(response.json().result.banner){
+              this.$set('banner',response.json().result.banner);              
+            }else{
+              this.$set('banner',{});
+            }
+            this.page ++;
+            this.scroll = true;
+            if (!response.json().result.casas.next_page_url) {
+              this.nextPage = false;
+            }
         } else {
           console.log(response)
         }
       })
+    },
+    getScrollData () {
+      if ((window.document.body.scrollTop) + 740 > window.document.body.scrollHeight && this.scroll && this.nextPage) {
+        this.getCasas();
+      }
+    },
+    changecity () {
+      this.selcity = true;
     }
-  }  
+  },
+  components: {
+    'selectCity': require('../components/selectCity.vue'),
+    'banner': require('../components/areaBanner.vue')
+  },
+  events: {
+    'set-area': function(city,area) {
+      this.selcity = false;
+      this.city = city;
+      this.$set('area',area);
+    }
+  }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
     .case {
       position: relative;
       height: 100%;
@@ -192,7 +230,6 @@ export default{
       margin: 0 5px 5px 0;
     }
     .no-more{
-      display: none;
       text-align: center;
     }
     .banner{
