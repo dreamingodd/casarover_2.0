@@ -135,7 +135,7 @@ export default{
             }
           })
       } else {
-        window.alert(result)
+        window.alert('请至少要选择三间或者是一个包幢哟')
       }
     },
     checkNumber () {
