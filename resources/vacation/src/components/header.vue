@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <div class="nav-left">
+        <div class="nav-home">
             <a v-if="back" onclick="history.go(-1)">
                 <img src="/static/header/back.png" height="100%" alt="" />
             </a>
@@ -12,7 +12,7 @@
             <h2 v-if="title">{{ title }}</h2>
             <img v-else src="/static/header/logow.png" height="100%"/>
         </div>
-        <div class="nav-right">
+        <div class="nav-user">
             <a href="/wx/user">
                 <img src="/static/header/user.png" height="100%" alt="" />
             </a>
@@ -27,14 +27,9 @@
 <style lang="less">
 @header-color:#95d6da;
 @header-height:5rem;
-header{
-    z-index: 1023;
-    height: @header-height;
-    width: 100%;
-    position: relative;
-}
 nav{
-    display: block;
+    display: box;
+    display: -webkit-box;    
     background-color: @header-color;
     height: @header-height;
     line-height: @header-height;
@@ -43,17 +38,16 @@ nav{
         display: block;
         text-align: center;
     }
-    .nav-left{
-        width: 20%;
-        float: left;
+    .nav-home{
+        box-flex:1;
+        -webkit-box-flex:1;
         img{
             width: @header-height/2;
             height: @header-height/2;
         }
     }
     .logo{
-        width: 60%;
-        float: left;
+        width: 250px;
         text-align: center;
         overflow: hidden;
         white-space: nowrap;
@@ -66,9 +60,9 @@ nav{
             font-size: 2rem;
         }
     }
-    .nav-right{
-        width: 20%;
-        float: left;
+    .nav-user{
+        box-flex:1;
+        -webkit-box-flex:1;
         img{
             width: @header-height/2;
             height: @header-height/2;

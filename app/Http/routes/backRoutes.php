@@ -88,6 +88,8 @@ Route::group(['prefix' => 'back','middleware' => ['web', 'auth:admin']], functio
     Route::any('dealer/stat/deal', 'Merchant\DealerController@statDeal');
     Route::any('dealer/stat/coupon', 'Merchant\DealerController@statCoupon');
 
+    Route::get('shan','BackController@dropVacationData');
+
 });
 
 
