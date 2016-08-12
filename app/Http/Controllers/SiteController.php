@@ -11,7 +11,7 @@ use App\Option;
 class SiteController extends Controller
 {
     // website index
-    public function index(Request $request)
+    public function index()
     {
         // get slide data
         $casas = Option::where('type',1)->get();
@@ -21,10 +21,7 @@ class SiteController extends Controller
         }
         // get recommend city
         $citys = Area::where('status',1)->get();
-        if(strpos($request->url(), 'mobile'))
-            return  view('mobile');
-        else
-            return view('site.home',compact('casas','citys'));
+        return view('site.home',compact('casas','citys'));
     }
 
     // about us

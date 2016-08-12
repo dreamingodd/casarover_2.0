@@ -6,6 +6,7 @@
 **/
 
 Route::group(['prefix' => 'm'],function () {
+    Route::get('/','M\HomeController@home');
     Route::get('/home', 'M\HomeController@index');
     Route::get('/hotlists','M\HomeController@hotlists');
     Route::get('/themes','M\HomeController@themes');

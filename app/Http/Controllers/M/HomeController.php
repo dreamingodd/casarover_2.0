@@ -14,6 +14,10 @@ use App\WechatArticle;
 
 class HomeController extends Controller
 {
+    public function home()
+    {
+        return view('mobile');
+    }
     public function index()
     {
         $slides = Option::where('type',1)->get();
