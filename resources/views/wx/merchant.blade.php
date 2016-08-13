@@ -16,9 +16,10 @@
                 <th>状态</th>
             </tr>
             @foreach ($orders as $order)
+                @if($order->order)
             <tr>
                 <td>
-                    {{$order->order->order_id}}<br/>
+                    {{-- {{$order->order->order_id}}<br/> --}}
                     姓名：{{$order->order->user->realname}}<br/>
                     微信名：{{$order->order->user->nickname}}<br/>
                     价格：{{$order->order->total}}
@@ -44,6 +45,7 @@
                     @endif
                 </td>
             </tr>
+        @endif
             @endforeach
         </table>
     </div>
