@@ -148,6 +148,8 @@ export default{
       }
       if (num < 3) {
         return null
+      } else {
+        return 1
       }
     }
   },

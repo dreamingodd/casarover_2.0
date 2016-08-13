@@ -26,14 +26,14 @@ class backcontroller extends Controller
              DB::table('opportunity')->delete();
              DB::table('dealer')->delete();
              DB::table('coupon')->delete();
-             $orders = Order::where('type',2)->get();
+             $orders = Order::where('type',2)->orWhere('pay_type',3)->get();
              $orderIds = [];
              foreach($orders as $order){
                  array_push($orderIds, $order->id);
              }
              DB::table('casa_order')->whereIn('order_id',$orderIds)->delete();
              DB::table('order_item')->whereIn('order_id',$orderIds)->delete();
-             DB::table('order')->where('type',2)->delete();
+             DB::table('order')->where('type',2)->orwhere('pay_type',3)->delete();
              DB::commit();
              return 'ok';
          } catch (Exception $e) {

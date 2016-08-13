@@ -3,7 +3,7 @@
   <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/lead2.jpg" alt="">  
 </div>
   <div class="buy" v-link="{ path:'/list',exact: true}"></div>
-  <div class="rule"></div>
+  <a class="rule" href="http://mp.weixin.qq.com/s?__biz=MzI3MDA4NjAxNQ==&mid=503275946&idx=1&sn=42f042f6cd8ab7f9f47f859c39d4b951&scene=18#wechat_redirect"></a>
   <div class="article"></div>
 </template>
 <script>
@@ -48,6 +48,7 @@ export default{
       bottom: 4.5rem;
     }
     .rule{
+      display: block;
       width: 100px;
       height: 100px;
       position: fixed;

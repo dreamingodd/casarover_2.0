@@ -38,6 +38,10 @@ router.map({
   '/verify': {
     name: 'verify',
     component: verify
+  },
+  '/brief': {
+    name: 'brief',
+    component: require('./brief.vue')
   }
 })
 // router.redirect({

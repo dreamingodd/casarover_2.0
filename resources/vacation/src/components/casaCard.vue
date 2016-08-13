@@ -18,8 +18,7 @@
 <style lang="less">
     @h3-size:2rem;
     .card{
-        width: 50%;
-        float: left;
+        width: 100%;
         position: relative;
         overflow: hidden;
         a{
@@ -30,7 +29,7 @@
     }
     .pic{
         width: 94%;
-        height: 10rem;
+        height: 15rem;
         padding: 2px 3%;
         overflow: hidden;
         img{
