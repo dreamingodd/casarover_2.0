@@ -1,6 +1,8 @@
 ## 部署
-
+``` shell
 cd /var/www/html/casarover_2.0/  
+php artisan deploy
+```
 
 
 ## vue spa 开发流程
