@@ -1,10 +1,5 @@
 # Casarover_2.0
 
-``` php
-// 手机端spa的接口
-App\Http\Controllers\M
-```
-
 // 度假卡活动删除脚本
 // 删除order中的数据
 delte from order where type=2
