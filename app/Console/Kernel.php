@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\CountlineCommand::class,
         Commands\DbBackupCommand::class,
         Commands\PcLoginCleanCommand::class,
+        Commands\Deploy::class,
     ];
 
     /**

@@ -1,12 +1,7 @@
 ## 部署
 
 cd /var/www/html/casarover_2.0/  
-git pull  
 
-
-php artisan config:cache  
-php artisan route:cache  
-php artisan optimize --force  
 
 ## vue spa 开发流程
 ### 安装
