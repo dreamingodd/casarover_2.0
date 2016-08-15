@@ -2,6 +2,8 @@
  * 总计两个命令
  * 开发的时候gulp
  * 部署的时候gulp build
+ * 移动vue cli 打包的文件 gulp move --name 项目的名字，
+ * index.html 会重名为文件夹的名字
  * @link http://www.jianshu.com/p/6b4151f7e2ec
  * @author draguo
  **/
@@ -18,6 +20,7 @@ var gulp = require('gulp'),
     del = require('del');
     babel = require('gulp-babel');
     changed = require('gulp-changed');
+    rename = require('gulp-rename');
     // debug = require('gulp-debug');
 
 var lessDir = ['resources/assets/less/**/*.less'];
@@ -108,5 +111,19 @@ gulp.task('replace',['less'], function() {     //说明replace 是依赖于less�
         }))                                   //- 执行文件内css名的替换
         .pipe(gulp.dest('resources/views/'));                     //- 替换后的文件输出的目录
 });
+
+
+gulp.task('move',['moveStatic'],function() {
+    let project = gulp.env.name;
+    gulp.src('resources/'+project+'/dist/index.html')
+        .pipe(rename(project+'.blade.php'))
+        .pipe(gulp.dest('resources/views/'));
+});
+
+gulp.task('moveStatic',function() {
+    let project = gulp.env.name;
+    gulp.src('resources/'+project+'/dist/static/**')
+        .pipe(gulp.dest('public/static/'))
+})
 
 gulp.task('build',['replace','less','clean']);

@@ -18,6 +18,11 @@ export default{
 <style lang="less" scoped>
 .banner{
   position: relative;
+  .cover-photo{
+    img{
+      height: 10rem;      
+    }
+  }
   .guide-mess{
    position: absolute;
    bottom: 0;

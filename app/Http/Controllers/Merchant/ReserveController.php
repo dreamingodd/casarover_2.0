@@ -12,6 +12,6 @@ class ReserveController extends Controller
      */
     public function index()
     {
-        return view('merchant.index');
+        return view('shop');
     }
 }
