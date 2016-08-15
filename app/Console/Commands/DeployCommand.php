@@ -43,7 +43,7 @@ class DeployCommand extends Command
                 'git pull',
                 'php artisan config:cache',
                 'php artisan optimize --force',
-                'php artisan route::cache'
+                'php artisan route:cache'
             ];
             foreach ($commands as $value) {
                 exec($value);
