@@ -10,10 +10,10 @@
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-require_once('routes/siteRoutes.php');
-require_once('routes/backRoutes.php');
-require_once('routes/apiRoutes.php');
-require_once('routes/wxRoutes.php');
-require_once('routes/mobileRoutes.php');
-require_once('routes/merchantRoutes.php');
-require_once('routes/webserviceRoutes.php');
+require('routes/siteRoutes.php');
+require('routes/backRoutes.php');
+require('routes/apiRoutes.php');
+require('routes/wxRoutes.php');
+require('routes/mobileRoutes.php');
+require('routes/merchantRoutes.php');
+require('routes/webserviceRoutes.php');
