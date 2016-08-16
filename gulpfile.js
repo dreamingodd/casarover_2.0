@@ -112,7 +112,7 @@ gulp.task('replace',['less'], function() {     //说明replace 是依赖于less�
         .pipe(gulp.dest('resources/views/'));                     //- 替换后的文件输出的目录
 });
 
-
+// this is for vue webpack
 gulp.task('move',['moveStatic'],function() {
     let project = gulp.env.name;
     gulp.src('resources/'+project+'/dist/index.html')

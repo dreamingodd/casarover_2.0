@@ -91,13 +91,15 @@ class VacationCardController extends Controller
         $userId = Session::get('user_id');
         $user = User::find($userId);
         $userBind = Wxbind::where('user_id',$userId)->first();
+        if($userBind){
+            $wxCasa = WxCasa::find($userBind->wx_casa_id);
+            $casaName = $wxCasa->name;
+        }else{
+            $casaName = '未绑定民宿';
+        }
         $code = 0;
         $msg = 'ok';
-        if($userBind){
-            $data = ['username'=>$user->nickname,'casaname'=>$userBind->casa_name];
-        }else{
-            $data = ['username'=>$user->nickname,'casaname'=>'未绑定民宿'];
-        }
+        $data = ['username'=>$user->nickname,'casaname'=>$casaName];
         $result = ['code'=> $code, 'result'=> $data, 'msg'=> $msg];
         return  response()->json($result);
     }
