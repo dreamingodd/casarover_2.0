@@ -16,5 +16,7 @@
     "gulp-rev-collector": "^1.0.2",
     "gulp-uglify": "^1.5.3"
   },
-  "dependencies": {}
+  "dependencies": {
+      "babel-plugin-transform-remove-strict-mode":"0.0.2"
+  }
 }

@@ -35,7 +35,6 @@ $(document).ready(function(){
                 $(".loader").css('display','block');
                 $.getJSON('/api/home/recom/'+this.city, (data) => {
                     this.casas = data;
-                    console.log(data);
                     $(".loader").css('display','none');
                     this.setActive(this.city);
                     this.getthemes();

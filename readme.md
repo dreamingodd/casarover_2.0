@@ -1,5 +1,15 @@
 # Casarover_2.0
 
+## 结构
+#### PC端
+主要是 views/site
+
+``` php
+// 约睡活动文件，活动结束无用
+views/activity
+
+```
+
 // 度假卡活动删除脚本
 // 删除order中的数据
 delte from order where type=2

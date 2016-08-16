@@ -1,3 +1,11 @@
+## 开发
+### php 扩展
+``` php
+修改 php.ini 文件
+extension=php_openssl.dll
+extension=php_pdo_mysql.dll
+extension=php_curl.dll
+
 ## 部署
 ``` shell
 cd /var/www/html/casarover_2.0/  
