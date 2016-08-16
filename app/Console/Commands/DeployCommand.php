@@ -39,14 +39,14 @@ class DeployCommand extends Command
     public function handle()
     {
         /**
-        * config:cache 会引发微信登陆错误，不知道为什么
+        * cache 会引发微信登陆错误，不知道为什么
         **/
         try {
             $commands = [
                 'git pull',
                 // 'php artisan config:cache',
-                'php artisan route:cache',
-                'php artisan optimize --force'
+                // 'php artisan route:cache',
+                // 'php artisan optimize --force'
             ];
             foreach ($commands as $value) {
                 exec($value);

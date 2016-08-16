@@ -13,7 +13,7 @@
             </div>
             <span @click="del($index)" class="delete fa fa-trash-o"></span>
           </div>
-        </div>        
+        </div>
       </template>
     </div>
 </template>
@@ -61,6 +61,7 @@ export default{
       width: 12rem;
       img{
         height: 100%;
+        width: 100%;
       }
     }
     .good-info{
