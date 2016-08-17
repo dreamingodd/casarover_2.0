@@ -48,9 +48,9 @@ class backcontroller extends Controller
     public function deploy(Request $request)
     {
         if($request->token == env('DEPLOY_TOKEN')){
-            $code = Artisan::call('deploy');
+            $code = Artisan::call('down');
             if($code == 0){
-                return 1;                
+                return 1;
             }
         }else{
             return 0;
