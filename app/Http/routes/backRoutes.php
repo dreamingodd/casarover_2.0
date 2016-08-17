@@ -128,4 +128,4 @@ Route::group(['prefix' => 'back/system', 'middleware' => ['web','auth:admin']],f
     Route::get('datesleep/analyze','Wx\DateSleepStatController@analyze');
 });
 
-Route::post('deploy','BackController@deploy');
+Route::post('/deploy','BackController@deploy');
