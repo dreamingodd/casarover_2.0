@@ -51,7 +51,6 @@ class backcontroller extends Controller
             $code = Artisan::queue('deploy');
             if($code == 0){
                 return 1;
-                
             }
         }else{
             return 0;

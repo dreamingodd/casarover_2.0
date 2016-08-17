@@ -38,11 +38,13 @@ class DeployCommand extends Command
      */
     public function handle()
     {
+        $dir = '/var/www/html/casarover_2.0/';
         /**
         * cache 会引发微信登陆错误，不知道为什么
         **/
         try {
             $commands = [
+                "cd $dir",
                 'git pull',
                 // 'php artisan config:cache',
                 // 'php artisan route:cache',

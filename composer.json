@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "illuminate/html": "^5.0",
+        "laravelcollective/html": "^5.0",
         "doctrine/dbal": "^2.5",
         "overtrue/laravel-wechat": "~3.0",
         "draguo/dayusms": "dev-master",
