@@ -11,7 +11,8 @@
         header("Pragma: no-cache");
         $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
         $uachar = "/(symbianos|android|iphone|ipod|ucweb|blackberry)/i";
-        if($ua != '' && preg_match($uachar, $ua)){
+        if($ua != '' && preg_match($uachar, $ua))
+        {
             echo 'location.href="/m/";';
         }
         ?>
