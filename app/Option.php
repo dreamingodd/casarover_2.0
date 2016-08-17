@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Option extends Model
 {
-    protected $hidden = ['created_at','updated_at','attachment','attachment_id']; 
+    protected $hidden = ['created_at','updated_at','attachment','attachment_id'];
+    
     public function attachment()
     {
         return $this->hasOne('App\Attachment','id','attachment_id');
