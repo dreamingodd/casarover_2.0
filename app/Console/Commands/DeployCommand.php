@@ -51,6 +51,7 @@ class DeployCommand extends Command
             foreach ($commands as $value) {
                 exec($value);
             }
+            return true;
         } catch (Exception $e) {
             Log::error($e);
         }
