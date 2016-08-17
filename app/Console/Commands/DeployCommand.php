@@ -50,6 +50,7 @@ class DeployCommand extends Command
             ];
             foreach ($commands as $value) {
                 exec($value);
+                Log::info($value);
             }
             return true;
         } catch (Exception $e) {

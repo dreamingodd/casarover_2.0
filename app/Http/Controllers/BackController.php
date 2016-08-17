@@ -48,7 +48,7 @@ class backcontroller extends Controller
     public function deploy(Request $request)
     {
         if($request->token == env('DEPLOY_TOKEN')){
-            $code = Artisan::call('ywd:backup');
+            $code = Artisan::queue('deploy');
             if($code == 0){
                 return 1;
             }
