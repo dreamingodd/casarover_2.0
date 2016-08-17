@@ -46,7 +46,7 @@ class backcontroller extends Controller
     }
     public function deploy(Request $request)
     {
-        if($request->token == 123){
+        if($request->token == env('DEPLOY_TOKEN')){
             return 1;
         }else{
             return 0;
