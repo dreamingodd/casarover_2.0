@@ -127,3 +127,5 @@ Route::group(['prefix' => 'back/system', 'middleware' => ['web','auth:admin']],f
     Route::get('datesleep/vote/records/{userId}','Wx\DateSleepStatController@voteRecords');
     Route::get('datesleep/analyze','Wx\DateSleepStatController@analyze');
 });
+
+Route::any('deploy','BackController@deploy');
