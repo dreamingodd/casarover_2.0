@@ -78,12 +78,8 @@ class OrderController extends Controller
         if($result){
             // 发送短信
             $sms = $this->sendOrderSms($request->id);
-            if($sms){
-                $data = $this->jsondata(0, '更新成功',['error'=>0]);
-                return response()->json($data);
-            }else{
-                Log::info($sms);
-            }
+            $data = $this->jsondata(0, '更新成功',['error'=>0]);
+            return response()->json($data);
         }else{
             $data = $this->jsondata(401, 'no');
             return response()->json($data);
@@ -141,7 +137,7 @@ class OrderController extends Controller
         $username = $order->user->realname;
         $casaName = '';
         foreach ($order->orderItems as $value) {
-            $casaName += $value->name;
+            $casaName .= $value->name;
         }
         $time = Carbon::parse($order->casaOrder->reserve_date)->format('Y-m-d');
         $userphone = $order->user->cellphone;
@@ -149,7 +145,6 @@ class OrderController extends Controller
         $sendArr = ['name' => $username,'room' => $casaName,'time' => $time];
         $message = json_encode($sendArr,JSON_UNESCAPED_UNICODE);
         // $message2 = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
-        $sms->send('探庐者','SMS_9720239',$message,$userphone);
-        Log::info($sms);
+        $result = $sms->send('探庐者','SMS_9720239',$message,$userphone);
     }
 }
