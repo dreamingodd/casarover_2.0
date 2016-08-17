@@ -150,5 +150,6 @@ class OrderController extends Controller
         $message = json_encode($sendArr,JSON_UNESCAPED_UNICODE);
         // $message2 = "{\"name\":\"$username\",\"room\":\"$casaName\",\"time\":\"$time\"}";
         $sms->send('探庐者','SMS_9720239',$message,$userphone);
+        Log::info($sms);
     }
 }
