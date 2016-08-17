@@ -134,8 +134,11 @@ class OrderController extends Controller
     {
         $order = Order::find($orderId);
         $username = $order->user->realname;
-        $casaName = $order->name;
-        $time = $order->casaOrder->reserve_comment;
+        $casaName = '';
+        foreach ($order->orderItems as $value) {
+            $casaName += $value->name;
+        }
+        $time = Carbon::parse($order->casaOrder->reserve_date)->format('Y-m-d');
         $userphone = $order->user->cellphone;
         $sms = app('sms');
         $sendArr = ['name' => $username,'room' => $casaName,'time' => $time];
