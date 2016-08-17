@@ -50,7 +50,7 @@ class backcontroller extends Controller
         if($request->token == env('DEPLOY_TOKEN')){
 
             $result = Artisan::call('deploy',[
-                'msg'=>ok
+                'msg'=>'ok'
             ]);
             return $result;
         }else{
