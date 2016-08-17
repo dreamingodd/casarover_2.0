@@ -57,6 +57,7 @@ class AllCasaController extends Controller
         }
         return $banner;
     }
+    
     //add some field which page need
     private function addField($data)
     {

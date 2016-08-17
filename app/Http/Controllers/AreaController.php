@@ -27,14 +27,11 @@ class AreaController extends Controller
      * @param  int  $id
      * @return page
      */
-    public function show(Request $request,$id)
+    public function show($id)
     {
         $area = Area::find($id);
         $casas = $area->casas()->take(3)->get();
-        if(strpos($request->url(), 'mobile'))
-            return  view('mobile.area',compact('area','casas'));
-        else
-            return view('site.area',compact('area','casas'));
+        return view('site.area',compact('area','casas'));
     }
 
     /**
