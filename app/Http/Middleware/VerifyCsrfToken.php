@@ -15,6 +15,7 @@ class VerifyCsrfToken extends BaseVerifier
         'weixin',
         'weixin/*',
         'api/*',
-        'wx/*'
+        'wx/*',
+        'deploy/*'
     ];
 }
