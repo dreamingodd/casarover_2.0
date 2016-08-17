@@ -48,7 +48,8 @@ class backcontroller extends Controller
     public function deploy(Request $request)
     {
         if($request->token == env('DEPLOY_TOKEN')){
-            $result = Artrisan::call('deploy',[
+
+            $result = Artisan::call('deploy',[
                 'msg'=>ok
             ]);
             return $result;
