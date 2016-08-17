@@ -76,9 +76,13 @@ class OrderController extends Controller
         $result = $order->casaOrder->save();
         if($result){
             // 发送短信
-            $this->sendOrderSms($request->id);
-            $data = $this->jsondata(0, '更新成功',['error'=>0]);
-            return response()->json($data);
+            $sms = $this->sendOrderSms($request->id);
+            if($sms){
+                $data = $this->jsondata(0, '更新成功',['error'=>0]);
+                return response()->json($data);
+            }else{
+                Log::info($sms);
+            }
         }else{
             $data = $this->jsondata(401, 'no');
             return response()->json($data);
