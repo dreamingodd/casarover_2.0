@@ -4,7 +4,6 @@
  * 部署的时候gulp build
  * 移动vue cli 打包的文件 gulp move --name 项目的名字，
  * index.html 会重名为文件夹的名字
- * @link http://www.jianshu.com/p/6b4151f7e2ec
  * @author draguo
  **/
 
