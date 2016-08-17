@@ -26,12 +26,9 @@ class ThemeController extends Controller
         {
             $otherTheme->pic = config('config.image_folder').$otherTheme->attachment->filepath;
         }
-        if(strpos($request->url(), 'mobile'))
-            return  view('mobile.theme',compact('theme','contents','others'));
-        else
-            return view('site.theme',compact('theme','contents','others'));
+        return view('site.theme',compact('theme','contents','others'));
     }
-    
+
     public function create()
     {
         return view('backstage.themeEdit');

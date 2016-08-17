@@ -141,10 +141,7 @@ class CasaController extends BaseController
        $casa = Casa::find($id);
        $city = Area::find($casa->area->id)->supArea;
        $casas = $this->guessCasas($city);
-       if(strpos($request->url(), 'mobile'))
-           return  view('mobile.casa',compact('casa','city','casas'));
-       else
-           return view('site.casa',compact('casa','city','casas'));
+       return view('site.casa',compact('casa','city','casas'));
    }
     private function guessCasas($city)
     {
@@ -194,12 +191,7 @@ class CasaController extends BaseController
        }
        //默认被选中的city 为杭州
        $sel = $cityId;
-       if(strpos($request->url(), 'mobile'))
-           return  view('mobile.allcasa',compact('citys','slides','sel'));
-       else
-       {
-           return view('site.allcasa',compact('citys','slides','sel'));
-       }
+       return view('site.allcasa',compact('citys','slides','sel'));
    }
 
     private function updateSimpleCasa($casa, $casaData) {
