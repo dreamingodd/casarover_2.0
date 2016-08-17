@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests;
-use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 use DB;
 use App\Entity\Order;
 
