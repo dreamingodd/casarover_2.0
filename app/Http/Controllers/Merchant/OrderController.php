@@ -14,6 +14,7 @@ use App\Entity\CasaOrder;
 use App\Common\OrderStatus;
 use Session;
 use Carbon\Carbon;
+use Log;
 
 class OrderController extends Controller
 {
