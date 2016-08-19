@@ -10,6 +10,7 @@ use App\Entity\Dealer;
 use App\Entity\Wx\WxCasa;
 use App\Entity\Wx\WxBind;
 use App\Entity\CasaOrder;
+use App\Entity\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -36,10 +37,9 @@ class WxBindController extends Controller
             // 民宿
             $wxCasa = WxCasa::find($wxCasaId);
             // Gets all payed orders.
-            $orders = CasaOrder::where('wx_casa_id', $wxCasaId)
-                            // Due to refactor, pay_status will be in order(table).
-                            //->where('pay_status', CasaOrder::STATUS_PAYED)
-                            ->orderBy('order_id', 'desc')->get();
+            $orders = CasaOrder::where('wx_casa_id', $wxCasaId)->join('order','casa_order.order_id','=','order.id')
+                            ->where('order.status', Order::STATUS_PAYED)
+                            ->orderBy('casa_order.order_id', 'desc')->get();
             $reserveStatus = ['未预约', '已预约', '预约失败', '已消费'];
             return view('wx.merchant', compact('orders', 'wxCasa', 'reserveStatus'));
         }
