@@ -5,15 +5,18 @@
                 <h3>{{ product.name }}</h3>
             </div>
             <div class="price">
-                <p>￥{{ product.price }}</p>
+                <p>￥{{ product.price }}&nbsp;<span>￥{{ product.orig }}</span></p>
             </div>
         </div>
         <div class="handle">
             <div class="tip">
-                <span>数量</span>                
+                <span>数量</span>
             </div>
-            <div class="quantity">
+            <div class="quantity" v-if="product.surplus > 0">
                 <span class="fa fa-minus" @click="minus($index)"></span><input type="text" v-model="product.number" placeholder="0" ><span class="fa fa-plus" @click="plus($index)"></span>
+            </div>
+            <div class="quantity" v-else>
+                <span>已售罄</span>
             </div>
         </div>
     </div>
@@ -75,6 +78,11 @@ export default{
             font-size: 1.8rem;
             p{
                 line-height: 2rem;
+                span{
+                  font-size: 1.5rem;
+                  text-decoration: line-through;
+                  color:#a1a1a1;
+                }
             }
         }
     }

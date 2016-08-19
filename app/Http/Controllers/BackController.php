@@ -36,6 +36,7 @@ class backcontroller extends Controller
              DB::table('casa_order')->whereIn('order_id',$orderIds)->delete();
              DB::table('order_item')->whereIn('order_id',$orderIds)->delete();
              DB::table('order')->where('type',2)->orwhere('pay_type',3)->delete();
+             DB::table('wx_bind')->update(['dealer_id' => 0]);
              DB::commit();
              return 'ok';
          } catch (Exception $e) {

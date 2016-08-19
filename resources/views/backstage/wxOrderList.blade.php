@@ -50,9 +50,9 @@
                             金额：<span style="font-weight:bold; font-size:18px; color:#FF0033">@{{ order.total }}元</span>
                         </td>
                         <td>
-                            {{--<button type="button" class="btn btn-default order-del" v-on:click="del(order.id)">--}}
-                                {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--}}
-                            {{--</button>--}}
+                            <button type="button" class="btn btn-default order-del" v-on:click="del(order.id)">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
                                 <span v-if="order.paystatus == '已付款'" style="color:#33CC66; font-weight:bold;">@{{ order.paystatus }}</span>
                                 <span v-else>@{{ order.paystatus }}</span>
                                 |

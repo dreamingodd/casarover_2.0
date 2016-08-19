@@ -26,6 +26,9 @@
         <table class="table table-hover">
             <tr>
                 <th>序号</th>
+                <th>
+                    下单时间
+                </th>
                 <th>度假卡号</th>
                 <th>用户微信名</th>
                 <th>金额</th>
@@ -34,6 +37,9 @@
             @foreach ($cardList as $card)
                 <tr>
                     <td>{{ $number++ }}</td>
+                    <td>
+                        {{ $card->created_at }}
+                    </td>
                     <td>{{ $card->card_no }}</td>
                     <td>{{ $card->nickname }}</td>
                     <td>{{ $card->total }}</td>

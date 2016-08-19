@@ -7,12 +7,12 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "laravelcollective/html": "^5.0",
         "doctrine/dbal": "^2.5",
         "overtrue/laravel-wechat": "~3.0",
         "draguo/dayusms": "dev-master",
         "predis/predis": "~1.0",
-        "guzzlehttp/guzzle": "~5.3|~6.0"
+        "guzzlehttp/guzzle": "~5.3|~6.0",
+        "laravelcollective/html": "^5.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

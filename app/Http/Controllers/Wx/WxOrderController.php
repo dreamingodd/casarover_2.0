@@ -181,11 +181,11 @@ class WxOrderController extends BaseController
         return redirect('back/wx/order/list');
     }
 
-    // public function del(Request $request)
-    // {
-    //     $order = WxOrder::find($request->id);
-    //     $order->delete();
-    // }
+    public function del(Request $request)
+    {
+        $order = Order::find($request->id);
+        $order->delete();
+    }
 
     /**
      * 商家确认订单被消费。

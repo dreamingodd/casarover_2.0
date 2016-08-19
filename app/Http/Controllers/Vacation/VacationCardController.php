@@ -143,7 +143,8 @@ class VacationCardController extends BaseController
         // $wxCasa
         $wxCasa->headImg = config('config.photo_folder').$wxCasa->attachment->filepath;
         $wxCasa->contents = $wxCasa->contents()->orderBy('id')->get();
-        $wxCasa->products = $wxCasa->products()->join('stocks','product.id','=','stocks.product_id')->select('product.*','stocks.is_whole')
+        $wxCasa->products = $wxCasa->products()->join('stocks','product.id','=','stocks.product_id')
+            ->select('product.*','stocks.is_whole','stocks.surplus','stocks.orig')
             ->where('is_whole',$request->type)->get();
         foreach($wxCasa->products as $product){
             $product->number = 0;
@@ -168,6 +169,9 @@ class VacationCardController extends BaseController
             $casas = $request->casas;
             if (!$this->checkNumber($casas)) {
                 return response()->json(['msg' => '请至少选择' . self::LEAST_CASA_COUNT . '间']);
+            }
+            if(!$this->checkStocks($casas)) {
+                return response()->json(['msg' => '有个房间卖光啦，请重新选择一下吧']);
             }
             if (empty($request->user["realname"]) || empty($request->user["cellphone"]) ) {
                 return response()->json(['msg' => '用户信息缺失！']);
@@ -359,6 +363,16 @@ class VacationCardController extends BaseController
         {
             return true;
         }
+    }
+    // 检查库存限制，感觉会出现问题
+    private function checkStocks($casas)
+    {
+        foreach ($casas as $casa) {
+            if(Stock::where('product_id',$casa["id"])->first()->surplus <= 0){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
