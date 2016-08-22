@@ -10,8 +10,8 @@
             <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160420-105355-748r5403.jpg') ; background-size:100% 100%;">
                 <a href="/wx/casa/4" class="slide-a"></a>
             </li>
-            <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/image/image_20160419-094608-425r3598.jpg') ; background-size:100% 100%;">
-                <a href="/wx/casa/5" class="slide-a"></a>
+            <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/image/vacation.jpg') ; background-size:100% 100%;">
+                <a href="/wx/cardCasaList" class="slide-a"></a>
             </li>
         </ul>
     </div>
