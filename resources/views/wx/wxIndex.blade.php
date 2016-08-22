@@ -10,17 +10,17 @@
             <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160420-105355-748r5403.jpg') ; background-size:100% 100%;">
                 <a href="/wx/casa/4" class="slide-a"></a>
             </li>
-            <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/image/vacation.jpg') ; background-size:100% 100%;">
-                <a href="/wx/cardCasaList" class="slide-a"></a>
+            <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/image/image_20160419-094608-425r3598.jpg') ; background-size:100% 100%;">
+                <a href="/wx/casa/5" class="slide-a"></a>
             </li>
         </ul>
     </div>
     <!-- 活动banner 长宽比1.8:1 -->
-    {{-- <div class="ac-banner">
+    <div class="ac-banner">
         <a href="">
-            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/image_20160419-094608-425r3598.jpg" alt="banner">
+            <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/vbanner.jpg" alt="banner">
         </a>
-    </div> --}}
+    </div>
     <!-- 城市 -->
     {{-- <div class="city-card">
         <a href="user">
