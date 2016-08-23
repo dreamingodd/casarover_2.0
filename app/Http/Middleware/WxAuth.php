@@ -29,13 +29,14 @@ class WxAuth
         if (Session::has('user_id')) {
             return $next($request);
         } else {
-            if (env('ENV') == 'PROD') {
+            if (env('APP_ENV') == 'production') {
                 $appid = Config::get("casarover.wx_appid");
                 $appsecret = Config::get("casarover.wx_appsecret");
                 $url = $request->fullUrl();
                 if (!isset($request->all()['code'])) {
                     return redirect(WxTools::getUserInfoScopeUrl($appid, $url));
                 } else {
+
                     $wxCode = $request->all()['code'];
                     $baseJson = WxTools::getOpenidAndAccessToken($appid, $appsecret, $wxCode);
                     // TODO refactor
@@ -58,7 +59,7 @@ class WxAuth
                     Session::save();
                     return $next($request);
                 }
-            } else if (env('ENV') == 'DEV') {
+            } else if (env('APP_ENV') == 'local') {
                 $user = $this->getDummyUser();
                 Session::put('user_id', $user->id);
                 Session::save();
