@@ -7,20 +7,20 @@
 @section('body')
     <div class="flexslider">
         <ul class="slides">
-            <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/casa/casa_20160420-105355-748r5403.jpg') ; background-size:100% 100%;">
-                <a href="/wx/casa/4" class="slide-a"></a>
+            <li style="background:url('http://7xp9p2.com1.z0.glb.clouddn.com/20160823bannner2.jpg?imageView2/1/w/720/h/360') ; background-size:100% 100%;">
+                <a href="/wx/casa/12" class="slide-a"></a>
             </li>
-            <li style="background:url('http://casarover.oss-cn-hangzhou.aliyuncs.com/image/image_20160419-094608-425r3598.jpg') ; background-size:100% 100%;">
+            <li style="background:url('http://7xp9p2.com1.z0.glb.clouddn.com/20160823bannner1.jpg?imageView2/1/w/720/h/360') ; background-size:100% 100%;">
                 <a href="/wx/casa/5" class="slide-a"></a>
             </li>
         </ul>
     </div>
     <!-- 活动banner 长宽比1.8:1 -->
-    <div class="ac-banner">
+    {{-- <div class="ac-banner">
         <a href="">
             <img src="http://casarover.oss-cn-hangzhou.aliyuncs.com/image/vbanner.jpg" alt="banner">
         </a>
-    </div>
+    </div> --}}
     <!-- 城市 -->
     {{-- <div class="city-card">
         <a href="user">
