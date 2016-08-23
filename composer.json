@@ -8,7 +8,7 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "doctrine/dbal": "^2.5",
-        "overtrue/laravel-wechat": "~3.0",
+        "overtrue/laravel-wechat": "^3.0",
         "draguo/dayusms": "dev-master",
         "predis/predis": "~1.0",
         "guzzlehttp/guzzle": "~5.3|~6.0",
@@ -42,22 +42,15 @@
             "php artisan key:generate"
         ],
         "post-install-cmd": [
-            "php artisan clear-compiled",
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize"
         ],
-        "pre-update-cmd": [
-            "php artisan clear-compiled",
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
         ]
     },
     "config": {
-        "preferred-install": "dist",
-        "secure-http": false
-    },
-    "repositories": {
-        "packagist": {
-            "type": "composer",
-            "url": "http://packagist.phpcomposer.com"
-        }
+        "preferred-install": "dist"
     }
 }
